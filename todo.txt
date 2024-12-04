@@ -1,0 +1,14 @@
+completed: - *<Item>
+
+Systems
+- Add level loading
+-- Make loading screen
+- Add hitboxes
+-- Connect to health
+
+Player
+- Add air movement
+- Add stair stepping
+
+UI
+- 
