@@ -1,8 +1,133 @@
-[gd_scene load_steps=2 format=3 uid="uid://co645fg3hplrm"]
+[gd_scene load_steps=8 format=3 uid="uid://co645fg3hplrm"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_m8i3g"]
+[ext_resource type="Material" uid="uid://botmm8kkk1h67" path="res://materials/dev_grid_gray.tres" id="2_vrxjh"]
+[ext_resource type="PackedScene" uid="uid://dfgg52ew16dyw" path="res://scenes/player.tscn" id="3_fn8a4"]
+[ext_resource type="Script" path="res://scripts/ui/hud.gd" id="4_0y5w7"]
+[ext_resource type="Script" path="res://scripts/ui/user_interface.gd" id="4_gs63w"]
 
-[node name="Main" type="Node"]
+[sub_resource type="Gradient" id="Gradient_6qr3q"]
+offsets = PackedFloat32Array(0.0285714, 0.0693878)
+colors = PackedColorArray(0.779291, 0.779291, 0.779291, 1, 0, 0, 0, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_uek8l"]
+gradient = SubResource("Gradient_6qr3q")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[node name="Main" type="Node" node_paths=PackedStringArray("world_3d", "user_interface")]
 script = ExtResource("1_m8i3g")
+world_3d = NodePath("World3D")
+user_interface = NodePath("UserInterface")
 
 [node name="World3D" type="Node3D" parent="."]
+
+[node name="Player" parent="World3D" instance=ExtResource("3_fn8a4")]
+
+[node name="CSGBox3D" type="CSGBox3D" parent="World3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+material_override = ExtResource("2_vrxjh")
+use_collision = true
+size = Vector3(20, 1, 20)
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="World3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.3, -7.45507)
+material_override = ExtResource("2_vrxjh")
+use_collision = true
+size = Vector3(20, 1, 3.88184)
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="World3D"]
+transform = Transform3D(1, 0, 0, 0, 0.904269, 0.426963, 0, -0.426963, 0.904269, 0, 1.87816, 11.3502)
+material_override = ExtResource("2_vrxjh")
+use_collision = true
+size = Vector3(20, 1, 12.1616)
+
+[node name="UserInterface" type="CanvasLayer" parent="."]
+process_mode = 3
+script = ExtResource("4_gs63w")
+
+[node name="Hud" type="Control" parent="UserInterface"]
+unique_name_in_owner = true
+process_mode = 1
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("4_0y5w7")
+
+[node name="FpsLabel" type="Label" parent="UserInterface/Hud"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_right = 31.0
+offset_bottom = 23.0
+text = "60"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Crosshair" type="TextureRect" parent="UserInterface/Hud"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture2D_uek8l")
+
+[node name="PauseMenu" type="Control" parent="UserInterface"]
+unique_name_in_owner = true
+process_mode = 2
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="UserInterface/PauseMenu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UserInterface/PauseMenu"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="UserInterface/PauseMenu/VBoxContainer"]
+layout_mode = 2
+text = "Paused
+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ResumeButton" type="Button" parent="UserInterface/PauseMenu/VBoxContainer"]
+layout_mode = 2
+text = "Resume"
+
+[node name="QuitButton" type="Button" parent="UserInterface/PauseMenu/VBoxContainer"]
+layout_mode = 2
+text = "Quit"
+
+[connection signal="pressed" from="UserInterface/PauseMenu/VBoxContainer/ResumeButton" to="UserInterface" method="resume_game"]
+[connection signal="pressed" from="UserInterface/PauseMenu/VBoxContainer/QuitButton" to="." method="quit_game"]
