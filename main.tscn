@@ -1,10 +1,15 @@
-[gd_scene load_steps=8 format=3 uid="uid://co645fg3hplrm"]
+[gd_scene load_steps=11 format=3 uid="uid://co645fg3hplrm"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_m8i3g"]
 [ext_resource type="Material" uid="uid://botmm8kkk1h67" path="res://materials/dev_grid_gray.tres" id="2_vrxjh"]
 [ext_resource type="PackedScene" uid="uid://dfgg52ew16dyw" path="res://scenes/player.tscn" id="3_fn8a4"]
 [ext_resource type="Script" path="res://scripts/ui/hud.gd" id="4_0y5w7"]
+[ext_resource type="PackedScene" uid="uid://d0lld0115r5yv" path="res://scenes/interact_area_3d.tscn" id="4_a0o1t"]
 [ext_resource type="Script" path="res://scripts/ui/user_interface.gd" id="4_gs63w"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_8hgcg"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_j0pjx"]
 
 [sub_resource type="Gradient" id="Gradient_6qr3q"]
 offsets = PackedFloat32Array(0.0285714, 0.0693878)
@@ -41,6 +46,16 @@ transform = Transform3D(1, 0, 0, 0, 0.904269, 0.426963, 0, -0.426963, 0.904269, 
 material_override = ExtResource("2_vrxjh")
 use_collision = true
 size = Vector3(20, 1, 12.1616)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="World3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.426779, 3.75892)
+mesh = SubResource("BoxMesh_8hgcg")
+
+[node name="InteractArea3D" parent="World3D/MeshInstance3D" instance=ExtResource("4_a0o1t")]
+prompt = "Jump"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="World3D/MeshInstance3D/InteractArea3D"]
+shape = SubResource("BoxShape3D_j0pjx")
 
 [node name="UserInterface" type="CanvasLayer" parent="."]
 process_mode = 3
@@ -80,6 +95,25 @@ offset_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = SubResource("GradientTexture2D_uek8l")
+
+[node name="InteractLabel" type="Label" parent="UserInterface/Hud"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -30.5
+offset_top = 26.0
+offset_right = 30.5
+offset_bottom = 75.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Interact
+[E]"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="PauseMenu" type="Control" parent="UserInterface"]
 unique_name_in_owner = true
@@ -129,5 +163,6 @@ text = "Resume"
 layout_mode = 2
 text = "Quit"
 
+[connection signal="interacted" from="World3D/MeshInstance3D/InteractArea3D" to="World3D/Player" method="jump"]
 [connection signal="pressed" from="UserInterface/PauseMenu/VBoxContainer/ResumeButton" to="UserInterface" method="resume_game"]
 [connection signal="pressed" from="UserInterface/PauseMenu/VBoxContainer/QuitButton" to="." method="quit_game"]

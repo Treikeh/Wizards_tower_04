@@ -9,6 +9,7 @@ extends CharacterBody3D
 @export var orientaion: Node3D
 @export var head: Node3D
 @export var camera: Camera3D
+@export var interact_ray: RayCast3D
 
 var move_input: Vector2 = Vector2.ZERO
 var move_direction: Vector3 = Vector3.ZERO
@@ -26,6 +27,9 @@ func _input(event: InputEvent) -> void:
 		
 		if event.is_action_pressed("jump"):
 			jump()
+		
+		if event.is_action_pressed("interact"):
+			interact_ray.interact_with_target()
 		
 		move_input = Input.get_vector("move_l", "move_r", "move_f", "move_b")
 		# Show mouse cursor when pressing esc

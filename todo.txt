@@ -5,6 +5,7 @@ Systems
 -- Make loading screen
 - Add hitboxes
 -- Connect to health
+- Add interaction
 
 Player
 - Add air movement
