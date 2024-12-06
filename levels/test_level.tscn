@@ -1,0 +1,48 @@
+[gd_scene load_steps=7 format=3 uid="uid://cscm07iintxhd"]
+
+[ext_resource type="PackedScene" uid="uid://dfgg52ew16dyw" path="res://scenes/player.tscn" id="1_q2vy8"]
+[ext_resource type="PackedScene" uid="uid://dikx5x41yrxf1" path="res://scenes/user_interface.tscn" id="1_tvl03"]
+[ext_resource type="Material" uid="uid://botmm8kkk1h67" path="res://materials/dev_grid_gray.tres" id="2_m12yk"]
+[ext_resource type="PackedScene" uid="uid://d0lld0115r5yv" path="res://scenes/interact_area_3d.tscn" id="3_kj7jt"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_8hgcg"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_j0pjx"]
+
+[node name="TestLevel" type="Node3D"]
+
+[node name="UserInterface" parent="." instance=ExtResource("1_tvl03")]
+
+[node name="Player" parent="." instance=ExtResource("1_q2vy8")]
+
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+material_override = ExtResource("2_m12yk")
+use_collision = true
+size = Vector3(20, 1, 20)
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.3, -7.45507)
+material_override = ExtResource("2_m12yk")
+use_collision = true
+size = Vector3(20, 1, 3.88184)
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.904269, 0.426963, 0, -0.426963, 0.904269, 0, 1.87816, 11.3502)
+material_override = ExtResource("2_m12yk")
+use_collision = true
+size = Vector3(20, 1, 12.1616)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.426779, 3.75892)
+mesh = SubResource("BoxMesh_8hgcg")
+skeleton = NodePath("../..")
+
+[node name="InteractArea3D" parent="MeshInstance3D" instance=ExtResource("3_kj7jt")]
+prompt = "Jump"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D/InteractArea3D"]
+shape = SubResource("BoxShape3D_j0pjx")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="MeshInstance3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.857309, 0)

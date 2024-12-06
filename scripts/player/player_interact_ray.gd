@@ -2,7 +2,7 @@ extends RayCast3D
 
 var interact_target: InteractArea3D
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	var target: InteractArea3D
 	var prompt: String = ""
 	# Check for interactable

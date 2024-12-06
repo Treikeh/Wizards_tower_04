@@ -2,7 +2,9 @@ extends CharacterBody3D
 
 @export var camera_sens: float = 0.1
 @export var max_speed: float = 6.0
-@export var acceleration: float = 10.0
+@export var ground_accel: float = 10.0
+@export var air_accel: float = 2.5
+@export var gravity_force: float = 9.8
 @export var jump_force: float = 5.0
 
 @export_group("Nodes")
@@ -31,8 +33,10 @@ func _input(event: InputEvent) -> void:
 		if event.is_action_pressed("interact"):
 			interact_ray.interact_with_target()
 		
+		if event.is_action_pressed("attack"):
+			head.spawn_projectile()
+		
 		move_input = Input.get_vector("move_l", "move_r", "move_f", "move_b")
-		# Show mouse cursor when pressing esc
 
 func _process(delta: float) -> void:
 	move_direction = orientaion.basis * Vector3(move_input.x, 0.0, move_input.y).normalized()
@@ -43,11 +47,26 @@ func _process(delta: float) -> void:
 
 func _physics_process(delta: float) -> void:
 	if is_on_floor():
-		velocity = lerp(velocity, move_direction * max_speed, acceleration * delta)
+		ground_movement(delta)
 	else:
-		velocity.y -= 9.8 * delta
+		air_movement(delta)
 	move_and_slide()
+
+func ground_movement(delta: float) -> void:
+	velocity = lerp(velocity, move_direction * max_speed, ground_accel * delta)
+
+func air_movement(delta: float) -> void:
+	velocity.x = lerpf(velocity.x, move_direction.x * max_speed, ground_accel * delta)
+	velocity.z = lerpf(velocity.z, move_direction.z * max_speed, ground_accel * delta)
+	velocity.y -= gravity_force * delta
 
 func jump() -> void:
 	if is_on_floor():
 		velocity.y = jump_force
+
+
+func _on_health_health_changed(current: float, max: float) -> void:
+	SignalHub.update_health_bar.emit(current / max)
+
+func _on_health_health_depleted() -> void:
+	print("YOU ARE DEAD!!!")
