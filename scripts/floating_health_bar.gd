@@ -1,6 +1,7 @@
 extends Sprite3D
 
 @export var fade_duration: float = 1.0
+
 @export_group("Nodes")
 @export var progress_bar: ProgressBar
 @export var fade_delay: Timer

@@ -12,6 +12,7 @@ extends CharacterBody3D
 @export var head: Node3D
 @export var camera: Camera3D
 @export var interact_ray: RayCast3D
+@export var spell_ray: RayCast3D
 
 var move_input: Vector2 = Vector2.ZERO
 var move_direction: Vector3 = Vector3.ZERO
@@ -34,7 +35,10 @@ func _input(event: InputEvent) -> void:
 			interact_ray.interact_with_target()
 		
 		if event.is_action_pressed("attack"):
-			head.spawn_projectile()
+			spell_ray.cast_fireball()
+		
+		if event.is_action_pressed("attack_2"):
+			spell_ray.cast_rock_wall()
 		
 		move_input = Input.get_vector("move_l", "move_r", "move_f", "move_b")
 

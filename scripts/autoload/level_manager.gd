@@ -4,7 +4,7 @@ var level_path: String = ""
 var level_root: Node
 
 var loading_screen: CanvasLayer
-var loading_screen_scene: Resource = preload("res://levels/loading_screen.tscn")
+var loading_screen_scene: PackedScene = preload("res://levels/loading_screen.tscn")
 
 func _ready() -> void:
 	# Spawn loading_screen, but keep it hidden unitl loading a level
