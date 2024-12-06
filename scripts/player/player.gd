@@ -65,8 +65,8 @@ func jump() -> void:
 		velocity.y = jump_force
 
 
-func _on_health_health_changed(current: float, max: float) -> void:
-	SignalHub.update_health_bar.emit(current / max)
+func _on_health_health_changed(current_health: float, max_health: float) -> void:
+	SignalHub.update_health_bar.emit(current_health / max_health)
 
 func _on_health_health_depleted() -> void:
 	print("YOU ARE DEAD!!!")

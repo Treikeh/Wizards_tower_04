@@ -1,0 +1,53 @@
+[gd_scene load_steps=10 format=3 uid="uid://bmdxr06ji3ymb"]
+
+[ext_resource type="PackedScene" uid="uid://cs53wyj8yt4s4" path="res://scenes/floating_health_bar.tscn" id="1_2e566"]
+[ext_resource type="Script" path="res://scripts/enemy_001.gd" id="1_06wta"]
+[ext_resource type="Script" path="res://scripts/health.gd" id="2_6r6ee"]
+[ext_resource type="PackedScene" uid="uid://ddufakdkmxhwr" path="res://scenes/hitbox.tscn" id="3_tgsqs"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_7ua38"]
+height = 1.8
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_uog2t"]
+height = 1.8
+
+[sub_resource type="BoxMesh" id="BoxMesh_427y3"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_arqjo"]
+viewport_path = NodePath("SubViewport")
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_dim8n"]
+height = 1.8
+
+[node name="Enemy_001" type="CharacterBody3D"]
+script = ExtResource("1_06wta")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
+shape = SubResource("CapsuleShape3D_7ua38")
+
+[node name="Body" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
+mesh = SubResource("CapsuleMesh_uog2t")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Body"]
+transform = Transform3D(0.4, 0, 0, 0, 0.27, 0, 0, 0, 0.6, 0.3, 0.4, 0)
+mesh = SubResource("BoxMesh_427y3")
+
+[node name="FloatingHealthBar" parent="." instance=ExtResource("1_2e566")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+texture = SubResource("ViewportTexture_arqjo")
+
+[node name="Hitbox" parent="." node_paths=PackedStringArray("health_node") instance=ExtResource("3_tgsqs")]
+collision_layer = 2048
+health_node = NodePath("../Health")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Hitbox"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
+shape = SubResource("CapsuleShape3D_dim8n")
+
+[node name="Health" type="Node" parent="."]
+script = ExtResource("2_6r6ee")
+
+[connection signal="health_changed" from="Health" to="FloatingHealthBar" method="_on_health_changed"]
+[connection signal="health_depleted" from="Health" to="." method="_on_health_health_depleted"]

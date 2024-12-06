@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://cscm07iintxhd"]
+[gd_scene load_steps=8 format=3 uid="uid://cscm07iintxhd"]
 
 [ext_resource type="PackedScene" uid="uid://dfgg52ew16dyw" path="res://scenes/player.tscn" id="1_q2vy8"]
 [ext_resource type="PackedScene" uid="uid://dikx5x41yrxf1" path="res://scenes/user_interface.tscn" id="1_tvl03"]
 [ext_resource type="Material" uid="uid://botmm8kkk1h67" path="res://materials/dev_grid_gray.tres" id="2_m12yk"]
 [ext_resource type="PackedScene" uid="uid://d0lld0115r5yv" path="res://scenes/interact_area_3d.tscn" id="3_kj7jt"]
+[ext_resource type="PackedScene" uid="uid://bmdxr06ji3ymb" path="res://scenes/enemy_001.tscn" id="5_io8yn"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_8hgcg"]
 
@@ -46,3 +47,6 @@ shape = SubResource("BoxShape3D_j0pjx")
 
 [node name="OmniLight3D" type="OmniLight3D" parent="MeshInstance3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.857309, 0)
+
+[node name="Enemy_001" parent="." instance=ExtResource("5_io8yn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.26941, 0, 3.54835)

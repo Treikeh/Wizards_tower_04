@@ -2,7 +2,7 @@ extends Node
 class_name Health
 
 signal health_depleted
-signal health_changed(current: float, max: float)
+signal health_changed(current_health: float, max_health: float)
 
 @export var max_health: float = 100.0
 
