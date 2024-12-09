@@ -5,24 +5,24 @@ extends RigidBody3D
 var move_input: Vector2 = Vector2.ZERO
 
 @export_group("Movement")
-@export var max_speed: float = 5.0
-@export var ground_accel: float = 200.0
-@export var air_accel: float = 100.0
-@export var jump_force: float = 10.0
+# FIXME: Player has too much speed in the air so they can slide up steep slopes
+@export var max_speed: float = 6.0
+@export var ground_accel: float = 500.0
+@export var air_accel: float = 200.0
+@export var jump_force: float = 7.0
 @export var max_slope_angle: float = 40.0
 var is_grounded: bool = false
 var gravity_direction: Vector3 = Vector3.DOWN
 var ground_normal: Vector3 = Vector3.UP
 var move_direction: Vector3 = Vector3.ZERO
-
-# Custom gravity. NOT IN USE
+# Values for custom gravity
 var rot_speed: float = 5.0
 var rot_basis: Basis
 
 @export_group("Spring force")
 @export var rest_height: float = 1.0
 @export var ground_buffer: float = 0.5
-@export var spring_force: float = 150.0
+@export var spring_force: float = 300.0
 @export var spring_damping: float = 25.0
 var check_for_ground: bool = true
 
@@ -59,9 +59,10 @@ func _input(event: InputEvent) -> void:
 		
 		move_input = Input.get_vector("move_l", "move_r", "move_f", "move_b")
 
+@warning_ignore("unused_parameter")
 func _process(delta: float) -> void:
 	is_grounded = is_on_walkable_slope()
-	# Camera tilt and head bobbing
+	# FIXME: issues with camera tilt. or not...  Why it's working fine now?
 	camera.apply_camera_tilt(linear_velocity, move_direction, delta)
 	if is_grounded and check_for_ground:
 		camera.head_bobbing(linear_velocity, delta)
@@ -73,6 +74,7 @@ func _process(delta: float) -> void:
 	# Align move_input to look dir
 	move_direction = orientation.global_basis * Vector3(move_input.x, 0.0, move_input.y).normalized()
 
+@warning_ignore("unused_parameter")
 func _physics_process(delta: float) -> void:
 	if is_grounded:
 		ground_normal = ground_check.get_collision_normal()
@@ -84,22 +86,26 @@ func _physics_process(delta: float) -> void:
 			snap_to_ground(delta)
 	else:
 		var target_vel: Vector3 = move_direction * max_speed
-		var needed_vel: Vector3 = target_vel - linear_velocity
-		# FIXME: Add normal gravity to needed_vel
+		var gravity_vector: Vector3 = linear_velocity.dot(gravity_direction) * gravity_direction
+		var needed_vel: Vector3 = target_vel - (linear_velocity - gravity_vector)
 		apply_central_force(needed_vel * air_accel * delta * mass)
 
+@warning_ignore("unused_parameter")
 func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
-	return # Remove this line for custom gravity support
+	return # Remove this line for custom gravity support (when i fix the rotation issue)
 	@warning_ignore("unreachable_code")
 	var grav_vec: Vector3 = state.total_gravity.normalized()
 	if gravity_direction != grav_vec:
 		gravity_direction = grav_vec
-		var forward_dir: Vector3 = global_basis.z
-		var upwards_dir: Vector3 = -gravity_direction
-		var left_dir: Vector3 = upwards_dir.cross(forward_dir)
-		rot_basis = Basis(left_dir, upwards_dir, forward_dir).orthonormalized()
+		# FIXME: sigh... it no worky... upward and forward are sometimes parallel which makes left sad :(
+		var upward_dir: Vector3 = -gravity_direction
+		var forward_dir: Vector3 = upward_dir.rotated(basis.z, deg_to_rad(90.0))
+		var left_dir: Vector3 = upward_dir.cross(forward_dir).normalized()
+		print("Up: " + str(upward_dir) + " For: " + str(forward_dir) + " Left: " + str(left_dir))
+		rot_basis = Basis(left_dir, upward_dir, forward_dir).orthonormalized()
 	state.transform.basis = basis.slerp(rot_basis, rot_speed * state.step)
 
+# I feel there should be a need for delta, but i do not know where :\
 func snap_to_ground(_delta: float) -> void:
 	var hit_distance: float = (ground_check.global_position - ground_check.get_collision_point()).length()
 	var normal_vel: float = -ground_normal.dot(linear_velocity)
@@ -110,6 +116,7 @@ func snap_to_ground(_delta: float) -> void:
 func is_on_walkable_slope() -> bool:
 	if ground_check.is_colliding():
 		ground_normal = ground_check.get_collision_normal()
+		# Compare ground normal to upwards direction to get slope angle
 		if ground_normal.angle_to(-gravity_direction) < deg_to_rad(max_slope_angle):
 			return true
 		else:

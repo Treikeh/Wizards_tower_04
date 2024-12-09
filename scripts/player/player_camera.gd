@@ -4,7 +4,7 @@ extends Camera3D
 
 @export_group("Head bobbing")
 @export var hb_frequency: float = 2.5
-@export var hb_amplitude: float = 0.05
+@export var hb_amplitude: float = 0.025
 var hb_time: float = 0.0
 
 func head_bobbing(velocity: Vector3, delta: float) -> void:
@@ -18,6 +18,8 @@ func head_bobbing(velocity: Vector3, delta: float) -> void:
 
 #region Camera tilt
 
+# It's not happening anymore... Why? And what changed?
+# TODO-FIXME: When moving from 1 dir to the oppisite dir the camera tilt twitches.
 @export_group("Camera tilt")
 @export var max_tilt: float = 5.0
 @export var tilt_speed: float = 1.0
