@@ -1,14 +1,80 @@
-[gd_scene load_steps=3 format=3 uid="uid://b2n0kf0vd4u8n"]
+[gd_scene load_steps=7 format=3 uid="uid://b2n0kf0vd4u8n"]
+
+[ext_resource type="Script" path="res://scripts/spells/rock_wall.gd" id="1_3mufw"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_0uc3d"]
-size = Vector3(1, 2, 1)
+size = Vector3(2, 2, 1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_820m5"]
-size = Vector3(1, 2, 1)
+size = Vector3(2, 2, 1)
+
+[sub_resource type="Animation" id="Animation_4wp80"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("StaticBody3D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("StaticBody3D:constant_linear_velocity")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 10, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_7onb7"]
+resource_name = "new_animation"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("StaticBody3D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, -1, 0), Vector3(0, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("StaticBody3D:constant_linear_velocity")
+tracks/1/interp = 0
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 10, 0), Vector3(0, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_hck4l"]
+_data = {
+"RESET": SubResource("Animation_4wp80"),
+"new_animation": SubResource("Animation_7onb7")
+}
 
 [node name="RockWall" type="Node3D"]
+script = ExtResource("1_3mufw")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+constant_linear_velocity = Vector3(0, 10, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
 shape = SubResource("BoxShape3D_0uc3d")
@@ -16,3 +82,16 @@ shape = SubResource("BoxShape3D_0uc3d")
 [node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D"]
 mesh = SubResource("BoxMesh_820m5")
 skeleton = NodePath("../..")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_hck4l")
+}
+autoplay = "new_animation"
+
+[node name="Lifetime" type="Timer" parent="."]
+wait_time = 10.0
+one_shot = true
+autostart = true
+
+[connection signal="timeout" from="Lifetime" to="." method="_on_lifetime_timeout"]
