@@ -14,9 +14,6 @@
 
 [node name="UserInterface" parent="." instance=ExtResource("1_tvl03")]
 
-[node name="RigidbodyController" parent="." instance=ExtResource("2_vbosa")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.3, 0)
-
 [node name="CSGBox3D" type="CSGBox3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
 material_override = ExtResource("2_m12yk")
@@ -35,6 +32,18 @@ material_override = ExtResource("2_m12yk")
 use_collision = true
 size = Vector3(20, 1, 12.1616)
 
+[node name="CSGBox3D4" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.754709, 0.656059, 0, -0.656059, 0.754709, -8.05, 1.87816, 8.75955)
+material_override = ExtResource("2_m12yk")
+use_collision = true
+size = Vector3(3.9, 1, 12.1616)
+
+[node name="CSGBox3D5" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.777146, 0.62932, 0, -0.62932, 0.777146, -4.15, 1.87816, 8.75955)
+material_override = ExtResource("2_m12yk")
+use_collision = true
+size = Vector3(3.9, 1, 12.1616)
+
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.426779, 3.75892)
 mesh = SubResource("BoxMesh_8hgcg")
@@ -51,3 +60,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.857309, 0)
 
 [node name="Enemy_001" parent="." instance=ExtResource("5_io8yn")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.26941, 0, 3.54835)
+
+[node name="RigidbodyController" parent="." instance=ExtResource("2_vbosa")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.2, 1.6, 1.8)
