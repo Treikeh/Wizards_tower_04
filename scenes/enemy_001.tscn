@@ -20,6 +20,7 @@ viewport_path = NodePath("SubViewport")
 height = 1.8
 
 [node name="Enemy_001" type="CharacterBody3D"]
+collision_mask = 3
 script = ExtResource("1_06wta")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]

@@ -16,6 +16,7 @@ var gravity_direction: Vector3 = Vector3.DOWN
 var ground_normal: Vector3 = Vector3.UP
 var move_direction: Vector3 = Vector3.ZERO
 # Values for custom gravity
+var allow_custom_gravity: bool = true
 var rot_speed: float = 5.0
 var rot_basis: Basis
 
@@ -36,6 +37,10 @@ var check_for_ground: bool = true
 
 func _ready() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	var upward_dir: Vector3 = -gravity_direction
+	var forward_dir: Vector3 = upward_dir.rotated(orientation.global_basis.x, deg_to_rad(90.0)) # WHY WONT YOU WORK >:(
+	var left_dir: Vector3 = upward_dir.cross(forward_dir).normalized()
+	print("Up: " + str(upward_dir) + " For: " + str(forward_dir) + " Left: " + str(left_dir))
 
 func _input(event: InputEvent) -> void:
 	if Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
@@ -55,11 +60,11 @@ func _input(event: InputEvent) -> void:
 			spell_ray.cast_fireball()
 		
 		if event.is_action_pressed("attack_2"):
-			spell_ray.cast_rock_wall()
+			spell_ray.cast_rock_wall(orientation.global_rotation)
 		
 		move_input = Input.get_vector("move_l", "move_r", "move_f", "move_b")
 
-@warning_ignore("unused_parameter")
+#@warning_ignore("unused_parameter")
 func _process(delta: float) -> void:
 	is_grounded = is_on_walkable_slope()
 	# FIXME: issues with camera tilt. or not...  Why it's working fine now?
@@ -74,7 +79,7 @@ func _process(delta: float) -> void:
 	# Align move_input to look dir
 	move_direction = orientation.global_basis * Vector3(move_input.x, 0.0, move_input.y).normalized()
 
-@warning_ignore("unused_parameter")
+#@warning_ignore("unused_parameter")
 func _physics_process(delta: float) -> void:
 	if is_grounded:
 		ground_normal = ground_check.get_collision_normal()
@@ -90,16 +95,15 @@ func _physics_process(delta: float) -> void:
 		var needed_vel: Vector3 = target_vel - (linear_velocity - gravity_vector)
 		apply_central_force(needed_vel * air_accel * delta * mass)
 
-@warning_ignore("unused_parameter")
+#@warning_ignore("unused_parameter")
 func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
-	return # Remove this line for custom gravity support (when i fix the rotation issue)
-	@warning_ignore("unreachable_code")
+	if !allow_custom_gravity:
+		return
 	var grav_vec: Vector3 = state.total_gravity.normalized()
 	if gravity_direction != grav_vec:
 		gravity_direction = grav_vec
-		# FIXME: sigh... it no worky... upward and forward are sometimes parallel which makes left sad :(
 		var upward_dir: Vector3 = -gravity_direction
-		var forward_dir: Vector3 = upward_dir.rotated(basis.z, deg_to_rad(90.0))
+		var forward_dir: Vector3 = upward_dir.rotated(orientation.global_basis.x, deg_to_rad(90.0))
 		var left_dir: Vector3 = upward_dir.cross(forward_dir).normalized()
 		print("Up: " + str(upward_dir) + " For: " + str(forward_dir) + " Left: " + str(left_dir))
 		rot_basis = Basis(left_dir, upward_dir, forward_dir).orthonormalized()
@@ -123,6 +127,8 @@ func is_on_walkable_slope() -> bool:
 			return false
 	return false
 
+# FIXME: Make jumping consistent when moving up and down a slope
+# Jumping is shorter when moving downw a slope since the palyer already has downwards force
 func jump() -> void:
 	if is_grounded:
 		check_for_ground = false

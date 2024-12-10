@@ -18,7 +18,7 @@ script = ExtResource("5_5j84h")
 amount = 15.0
 type = 1
 
-[node name="RigidbodyPlayer" type="RigidBody3D" node_paths=PackedStringArray("orientation", "head", "camera", "ground_check", "interact_ray", "spell_ray")]
+[node name="RigidbodyPlayer" type="RigidBody3D" node_paths=PackedStringArray("orientation", "head", "camera", "ground_check", "interact_ray", "spell_ray") groups=["player"]]
 collision_layer = 2
 collision_mask = 3
 physics_material_override = SubResource("PhysicsMaterial_ebie1")

@@ -26,12 +26,12 @@ func cast_fireball() -> void:
 @export_group("Rock wall")
 var rock_wall_scene: PackedScene = preload("res://scenes/spells/rock_wall.tscn")
 
-func cast_rock_wall() -> void:
+func cast_rock_wall(spawn_rotation: Vector3) -> void:
 	if is_colliding():
 		var rock_wall: Node3D = rock_wall_scene.instantiate()
 		add_child(rock_wall)
 		rock_wall.top_level = true
 		rock_wall.global_position = get_collision_point()
-		rock_wall.rotation = Vector3.ZERO
+		rock_wall.global_rotation = spawn_rotation
 
 #endregion
