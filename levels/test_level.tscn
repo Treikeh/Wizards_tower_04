@@ -1,13 +1,10 @@
-[gd_scene load_steps=11 format=3 uid="uid://cscm07iintxhd"]
+[gd_scene load_steps=10 format=3 uid="uid://cscm07iintxhd"]
 
 [ext_resource type="PackedScene" uid="uid://dikx5x41yrxf1" path="res://scenes/user_interface.tscn" id="1_tvl03"]
 [ext_resource type="Material" uid="uid://botmm8kkk1h67" path="res://materials/dev_grid_gray.tres" id="2_m12yk"]
 [ext_resource type="PackedScene" uid="uid://dh8dcfqs8vv8p" path="res://scenes/rigidbody_player.tscn" id="2_vbosa"]
 [ext_resource type="PackedScene" uid="uid://d0lld0115r5yv" path="res://scenes/interact_area_3d.tscn" id="3_kj7jt"]
 [ext_resource type="PackedScene" uid="uid://bmdxr06ji3ymb" path="res://scenes/enemy_001.tscn" id="5_io8yn"]
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_wunl4"]
-size = Vector3(20, 9.6, 20)
 
 [sub_resource type="BoxMesh" id="BoxMesh_8hgcg"]
 
@@ -29,27 +26,17 @@ material_override = ExtResource("2_m12yk")
 use_collision = true
 size = Vector3(20, 1, 20)
 
-[node name="GravWall" type="CSGBox3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 9, -20.1)
-material_override = ExtResource("2_m12yk")
-use_collision = true
-size = Vector3(20, 1, 20)
-
-[node name="Area3D" type="Area3D" parent="GravWall"]
-collision_mask = 3
-gravity_space_override = 3
-gravity_point_center = Vector3(0, 0, -1)
-gravity_direction = Vector3(0, 0, -1)
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="GravWall/Area3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.3, -5.72205e-06)
-shape = SubResource("BoxShape3D_wunl4")
-
 [node name="CSGBox3D2" type="CSGBox3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.3, -7.45507)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0.15, -7.45507)
 material_override = ExtResource("2_m12yk")
 use_collision = true
-size = Vector3(20, 1, 3.88184)
+size = Vector3(10, 0.3, 4)
+
+[node name="CSGBox3D6" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0.3, -7.45507)
+material_override = ExtResource("2_m12yk")
+use_collision = true
+size = Vector3(10, 0.6, 4)
 
 [node name="CSGBox3D3" type="CSGBox3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.904269, 0.426963, 0, -0.426963, 0.904269, 0, 1.87816, 11.3502)

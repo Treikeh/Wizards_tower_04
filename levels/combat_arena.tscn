@@ -1,0 +1,54 @@
+[gd_scene load_steps=9 format=3 uid="uid://4jtdswc2727r"]
+
+[ext_resource type="PackedScene" uid="uid://dikx5x41yrxf1" path="res://scenes/user_interface.tscn" id="1_w2qxi"]
+[ext_resource type="Material" uid="uid://botmm8kkk1h67" path="res://materials/dev_grid_gray.tres" id="2_m582j"]
+[ext_resource type="PackedScene" uid="uid://bmdxr06ji3ymb" path="res://scenes/enemy_001.tscn" id="4_kbe8j"]
+[ext_resource type="PackedScene" uid="uid://dh8dcfqs8vv8p" path="res://scenes/rigidbody_player.tscn" id="5_qo66a"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_shs6k"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_4tutt"]
+sky_material = SubResource("ProceduralSkyMaterial_shs6k")
+
+[sub_resource type="Environment" id="Environment_k8si0"]
+background_mode = 2
+sky = SubResource("Sky_4tutt")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="NavigationMesh" id="NavigationMesh_bxmx6"]
+vertices = PackedVector3Array(-26.0802, 0.5, -52.1973, -26.0802, 0.5, 9.55273, 26.1698, 0.5, 9.55273, 26.1698, 0.5, -52.1973)
+polygons = [PackedInt32Array(3, 2, 0), PackedInt32Array(0, 2, 1)]
+geometry_source_geometry_mode = 1
+geometry_source_group_name = &"nav_mesh"
+
+[node name="TestLevel_002" type="Node3D"]
+
+[node name="UserInterface" parent="." instance=ExtResource("1_w2qxi")]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 10, 0)
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_k8si0")
+
+[node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
+navigation_mesh = SubResource("NavigationMesh_bxmx6")
+
+[node name="Ground" type="CSGBox3D" parent="." groups=["nav_mesh"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, -21.3486)
+material_override = ExtResource("2_m582j")
+use_collision = true
+size = Vector3(53.1604, 1, 62.6973)
+
+[node name="RigidbodyController" parent="." instance=ExtResource("5_qo66a")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.05, 0)
+
+[node name="Enemy_001" parent="." instance=ExtResource("4_kbe8j")]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 4.6, 0, -16.1589)
+
+[node name="Enemy_002" parent="." instance=ExtResource("4_kbe8j")]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -4.9, 0, -16.1589)

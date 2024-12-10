@@ -6,6 +6,7 @@ var move_input: Vector2 = Vector2.ZERO
 
 @export_group("Movement")
 # FIXME: Player has too much speed in the air so they can slide up steep slopes
+# The issue can be fixed with lower air accel at the cost of air control
 @export var max_speed: float = 6.0
 @export var ground_accel: float = 500.0
 @export var air_accel: float = 200.0
@@ -15,8 +16,8 @@ var is_grounded: bool = false
 var gravity_direction: Vector3 = Vector3.DOWN
 var ground_normal: Vector3 = Vector3.UP
 var move_direction: Vector3 = Vector3.ZERO
-# Values for custom gravity
-var allow_custom_gravity: bool = true
+# Custom gravity
+@export var allow_custom_gravity: bool = false
 var rot_speed: float = 5.0
 var rot_basis: Basis
 
@@ -105,7 +106,7 @@ func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
 		var upward_dir: Vector3 = -gravity_direction
 		var forward_dir: Vector3 = upward_dir.rotated(orientation.global_basis.x, deg_to_rad(90.0))
 		var left_dir: Vector3 = upward_dir.cross(forward_dir).normalized()
-		print("Up: " + str(upward_dir) + " For: " + str(forward_dir) + " Left: " + str(left_dir))
+		#print("Up: " + str(upward_dir) + " For: " + str(forward_dir) + " Left: " + str(left_dir))
 		rot_basis = Basis(left_dir, upward_dir, forward_dir).orthonormalized()
 	state.transform.basis = basis.slerp(rot_basis, rot_speed * state.step)
 
