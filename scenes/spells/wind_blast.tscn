@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://dh3oppj1mqo0b"]
+
+[ext_resource type="Script" path="res://scripts/spells/wind_blast.gd" id="1_bi6m7"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_t7efh"]
+radius = 1.0
+height = 3.5
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_ul7jr"]
+top_radius = 1.0
+radial_segments = 16
+rings = 0
+
+[node name="WindBlast" type="Node3D" node_paths=PackedStringArray("collision_shape")]
+script = ExtResource("1_bi6m7")
+collision_shape = NodePath("ShapeCast3D")
+
+[node name="ShapeCast3D" type="ShapeCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, -0.7)
+shape = SubResource("CapsuleShape3D_t7efh")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, -1)
+mesh = SubResource("CylinderMesh_ul7jr")

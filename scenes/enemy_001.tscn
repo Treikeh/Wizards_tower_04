@@ -56,6 +56,8 @@ shape = SubResource("CapsuleShape3D_dim8n")
 script = ExtResource("2_6r6ee")
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+target_desired_distance = 2.0
+debug_enabled = true
 
 [node name="AiStateLabel" type="Label3D" parent="."]
 unique_name_in_owner = true
@@ -63,5 +65,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.29802, 0)
 billboard = 1
 text = "Patroling"
 
+[node name="UpdateTickRate" type="Timer" parent="."]
+wait_time = 0.1
+autostart = true
+
 [connection signal="health_changed" from="Health" to="FloatingHealthBar" method="_on_health_changed"]
 [connection signal="health_depleted" from="Health" to="." method="_on_health_health_depleted"]
+[connection signal="timeout" from="UpdateTickRate" to="." method="_on_update_tick_rate_timeout"]

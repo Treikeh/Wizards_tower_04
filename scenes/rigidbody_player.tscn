@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://dh8dcfqs8vv8p"]
+[gd_scene load_steps=12 format=3 uid="uid://dh8dcfqs8vv8p"]
 
 [ext_resource type="Script" path="res://scripts/player/rigidbody_player.gd" id="1_ck1rn"]
 [ext_resource type="Script" path="res://scripts/player/player_camera.gd" id="2_kvlkg"]
@@ -12,6 +12,16 @@ rough = true
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_kcqpx"]
 height = 1.5
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_63b4n"]
+height = 1.75
+radial_segments = 16
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ef5cb"]
+height = 1.0
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_pojfs"]
+height = 1.25
 
 [sub_resource type="Resource" id="Resource_jgtse"]
 script = ExtResource("5_5j84h")
@@ -31,8 +41,24 @@ ground_check = NodePath("GroundCheck")
 interact_ray = NodePath("Orientation/Head/InteractRay")
 spell_ray = NodePath("Orientation/Head/SpellRay")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+[node name="StandingCollision" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_kcqpx")
+
+[node name="StandingMesh" type="MeshInstance3D" parent="StandingCollision"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.125, 0)
+mesh = SubResource("CapsuleMesh_63b4n")
+skeleton = NodePath("../..")
+
+[node name="CrouchCollision" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, 0)
+visible = false
+shape = SubResource("CapsuleShape3D_ef5cb")
+disabled = true
+
+[node name="CrouchMesh" type="MeshInstance3D" parent="CrouchCollision"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.125, 0)
+mesh = SubResource("CapsuleMesh_pojfs")
+skeleton = NodePath("../../Orientation")
 
 [node name="GroundCheck" type="RayCast3D" parent="."]
 target_position = Vector3(0, -1.5, 0)

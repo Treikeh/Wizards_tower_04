@@ -57,12 +57,17 @@ func _input(event: InputEvent) -> void:
 		if event.is_action_pressed("interact"):
 			interact_ray.interact_with_target()
 		
-		if event.is_action_pressed("attack"):
+		# Spell inputs
+		if event.is_action_pressed("fireball"):
 			spell_ray.cast_fireball()
 		
-		if event.is_action_pressed("attack_2"):
+		if event.is_action_pressed("rock_wall"):
 			spell_ray.cast_rock_wall(orientation.global_rotation)
 		
+		if event.is_action_pressed("wind_blast"):
+			spell_ray.cast_wind_blast()
+		
+		# Get move_input
 		move_input = Input.get_vector("move_l", "move_r", "move_f", "move_b")
 
 #@warning_ignore("unused_parameter")
