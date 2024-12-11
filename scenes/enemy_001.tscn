@@ -15,60 +15,62 @@ height = 1.8
 
 [sub_resource type="BoxMesh" id="BoxMesh_427y3"]
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_arqjo"]
-viewport_path = NodePath("SubViewport")
-
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_dim8n"]
 height = 1.8
 
-[node name="Enemy_001" type="CharacterBody3D" node_paths=PackedStringArray("nav_agent")]
+[sub_resource type="ViewportTexture" id="ViewportTexture_arqjo"]
+viewport_path = NodePath("SubViewport")
+
+[node name="Enemy_001" type="CharacterBody3D" node_paths=PackedStringArray("nav_agent", "mesh")]
 collision_mask = 3
 script = ExtResource("1_06wta")
 nav_agent = NodePath("NavigationAgent3D")
+mesh = NodePath("Mesh")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
 shape = SubResource("CapsuleShape3D_7ua38")
 
-[node name="Body" type="MeshInstance3D" parent="."]
+[node name="Mesh" type="Node3D" parent="."]
+
+[node name="Body" type="MeshInstance3D" parent="Mesh"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
 material_override = ExtResource("2_1u7fy")
 mesh = SubResource("CapsuleMesh_uog2t")
+skeleton = NodePath("../..")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Body"]
+[node name="Eyes" type="MeshInstance3D" parent="Mesh/Body"]
 transform = Transform3D(0.681115, 0, 0, 0, 0.27, 0, 0, 0, 0.246996, 0, 0.4, -0.407643)
 material_override = ExtResource("3_oj627")
 mesh = SubResource("BoxMesh_427y3")
+
+[node name="Hitbox" parent="Mesh" node_paths=PackedStringArray("health_node") instance=ExtResource("3_tgsqs")]
+collision_layer = 2048
+health_node = NodePath("../../Health")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Mesh/Hitbox"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
+shape = SubResource("CapsuleShape3D_dim8n")
 
 [node name="FloatingHealthBar" parent="." instance=ExtResource("1_2e566")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
 texture = SubResource("ViewportTexture_arqjo")
 
-[node name="Hitbox" parent="." node_paths=PackedStringArray("health_node") instance=ExtResource("3_tgsqs")]
-collision_layer = 2048
-health_node = NodePath("../Health")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Hitbox"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
-shape = SubResource("CapsuleShape3D_dim8n")
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+target_desired_distance = 2.0
+path_height_offset = 0.5
+debug_enabled = true
 
 [node name="Health" type="Node" parent="."]
 script = ExtResource("2_6r6ee")
 
-[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
-target_desired_distance = 2.0
-debug_enabled = true
+[node name="Debug" type="Node3D" parent="."]
 
-[node name="AiStateLabel" type="Label3D" parent="."]
+[node name="AiStateLabel" type="Label3D" parent="Debug"]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.29802, 0)
 billboard = 1
 text = "Patroling"
 
-[node name="UpdateTickRate" type="Timer" parent="."]
-wait_time = 0.1
-autostart = true
-
 [connection signal="health_changed" from="Health" to="FloatingHealthBar" method="_on_health_changed"]
-[connection signal="health_depleted" from="Health" to="." method="_on_health_health_depleted"]
-[connection signal="timeout" from="UpdateTickRate" to="." method="_on_update_tick_rate_timeout"]
+[connection signal="health_depleted" from="Health" to="." method="_on_health_depleted"]
