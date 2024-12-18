@@ -1,0 +1,144 @@
+[gd_scene load_steps=18 format=3 uid="uid://uvws4xru1kpl"]
+
+[ext_resource type="Material" uid="uid://c4eykp21shtlp" path="res://common/materials/dev_grid_red.tres" id="1_cg4mp"]
+[ext_resource type="Script" path="res://scenes/enemies/book_gnome/book_gnome.gd" id="1_ucrke"]
+[ext_resource type="Script" path="res://common/scripts/damage.gd" id="2_7xvj8"]
+[ext_resource type="Material" uid="uid://botmm8kkk1h67" path="res://common/materials/dev_grid_gray.tres" id="2_g2dlo"]
+[ext_resource type="PackedScene" uid="uid://ddufakdkmxhwr" path="res://scenes/hitbox.tscn" id="3_ap0dj"]
+[ext_resource type="PackedScene" uid="uid://cs53wyj8yt4s4" path="res://scenes/enemies/floating_health_bar.tscn" id="4_010fi"]
+[ext_resource type="Script" path="res://common/scripts/health.gd" id="4_ejrbm"]
+
+[sub_resource type="Resource" id="Resource_ev8r8"]
+script = ExtResource("2_7xvj8")
+amount = 10.0
+type = 0
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_kgyn0"]
+radius = 0.4
+height = 1.0
+
+[sub_resource type="BoxMesh" id="BoxMesh_gc54a"]
+size = Vector3(0.695, 0.85, 0.135)
+
+[sub_resource type="BoxMesh" id="BoxMesh_if1df"]
+size = Vector3(0.41, 0.27, 0.11)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_cf1hn"]
+size = Vector3(0.723633, 0.888916, 0.181641)
+
+[sub_resource type="Animation" id="Animation_osofa"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("..:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_8f5sb"]
+resource_name = "attack"
+
+[sub_resource type="Animation" id="Animation_pk4vt"]
+resource_name = "died"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("..:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(1.5708, 0, 0)]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("..")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(1),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"queue_free"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_v1q1u"]
+_data = {
+"RESET": SubResource("Animation_osofa"),
+"attack": SubResource("Animation_8f5sb"),
+"died": SubResource("Animation_pk4vt")
+}
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_cuy2h"]
+viewport_path = NodePath("SubViewport")
+
+[node name="BookGnome" type="CharacterBody3D" node_paths=PackedStringArray("mesh", "animation_player", "nav_agent") groups=["enemy"]]
+collision_layer = 4
+collision_mask = 7
+script = ExtResource("1_ucrke")
+attack_damage = SubResource("Resource_ev8r8")
+mesh = NodePath("Mesh")
+animation_player = NodePath("Mesh/AnimationPlayer")
+nav_agent = NodePath("NavigationAgent3D")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+shape = SubResource("CapsuleShape3D_kgyn0")
+
+[node name="Mesh" type="Node3D" parent="."]
+
+[node name="Body" type="MeshInstance3D" parent="Mesh"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+material_override = ExtResource("1_cg4mp")
+mesh = SubResource("BoxMesh_gc54a")
+
+[node name="Eyes" type="MeshInstance3D" parent="Mesh/Body"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.232645, -0.0810928)
+material_override = ExtResource("2_g2dlo")
+mesh = SubResource("BoxMesh_if1df")
+
+[node name="Hitbox" parent="Mesh" node_paths=PackedStringArray("health_node") instance=ExtResource("3_ap0dj")]
+health_node = NodePath("../../Health")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Mesh/Hitbox"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+shape = SubResource("BoxShape3D_cf1hn")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Mesh"]
+libraries = {
+"": SubResource("AnimationLibrary_v1q1u")
+}
+
+[node name="FloatingHealthBar" parent="." instance=ExtResource("4_010fi")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1, 0)
+texture = SubResource("ViewportTexture_cuy2h")
+
+[node name="Health" type="Node" parent="."]
+script = ExtResource("4_ejrbm")
+max_health = 5.0
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+path_height_offset = 0.5
+debug_enabled = true
+
+[node name="Debug" type="Node3D" parent="."]
+
+[node name="AiStateLabel" type="Label3D" parent="Debug"]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3, 0)
+billboard = 1
+text = "idle"
+
+[connection signal="health_changed" from="Health" to="FloatingHealthBar" method="_on_health_changed"]
+[connection signal="health_depleted" from="Health" to="." method="_on_health_depleted"]

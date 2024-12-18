@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://cndpdurb3rxia"]
 
-[ext_resource type="Script" path="res://scripts/spells/fireball.gd" id="1_jy2c8"]
-[ext_resource type="Script" path="res://scripts/damage.gd" id="2_hmowb"]
+[ext_resource type="Script" path="res://scenes/spells/fireball.gd" id="1_jy2c8"]
+[ext_resource type="Script" path="res://common/scripts/damage.gd" id="2_hmowb"]
 
 [sub_resource type="Resource" id="Resource_s18m7"]
 script = ExtResource("2_hmowb")

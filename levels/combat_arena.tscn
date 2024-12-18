@@ -1,9 +1,11 @@
-[gd_scene load_steps=9 format=3 uid="uid://4jtdswc2727r"]
+[gd_scene load_steps=11 format=3 uid="uid://4jtdswc2727r"]
 
-[ext_resource type="PackedScene" uid="uid://dikx5x41yrxf1" path="res://scenes/user_interface.tscn" id="1_w2qxi"]
-[ext_resource type="Material" uid="uid://botmm8kkk1h67" path="res://materials/dev_grid_gray.tres" id="2_m582j"]
-[ext_resource type="PackedScene" uid="uid://bmdxr06ji3ymb" path="res://scenes/enemy_001.tscn" id="4_kbe8j"]
-[ext_resource type="PackedScene" uid="uid://dh8dcfqs8vv8p" path="res://scenes/rigidbody_player.tscn" id="5_qo66a"]
+[ext_resource type="PackedScene" uid="uid://dikx5x41yrxf1" path="res://interface/user_interface.tscn" id="1_w2qxi"]
+[ext_resource type="Material" uid="uid://botmm8kkk1h67" path="res://common/materials/dev_grid_gray.tres" id="2_m582j"]
+[ext_resource type="PackedScene" uid="uid://bmdxr06ji3ymb" path="res://scenes/enemies/living_armor/living_armor.tscn" id="4_kbe8j"]
+[ext_resource type="PackedScene" uid="uid://uvws4xru1kpl" path="res://scenes/enemies/book_gnome/book_gnome.tscn" id="5_bj0px"]
+[ext_resource type="PackedScene" uid="uid://dh8dcfqs8vv8p" path="res://scenes/player/rigidbody_player.tscn" id="5_qo66a"]
+[ext_resource type="PackedScene" uid="uid://dtoewhbmg012w" path="res://scenes/enemies/booklet_shelf/booklet_shelf.tscn" id="6_tqsji"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_shs6k"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -29,12 +31,12 @@ agent_radius = 1.0
 
 [node name="UserInterface" parent="." instance=ExtResource("1_w2qxi")]
 
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_k8si0")
+
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 10, 0)
 shadow_enabled = true
-
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_k8si0")
 
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
 navigation_mesh = SubResource("NavigationMesh_bxmx6")
@@ -54,8 +56,17 @@ size = Vector3(1.35132, 3.58691, 22.1885)
 [node name="RigidbodyController" parent="." instance=ExtResource("5_qo66a")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.05, 0)
 
-[node name="Enemy_001" parent="." instance=ExtResource("4_kbe8j")]
-transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 4.6, 0, -16.1589)
+[node name="Booklet" parent="." instance=ExtResource("5_bj0px")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.3, 0, -14)
 
-[node name="Enemy_002" parent="." instance=ExtResource("4_kbe8j")]
-transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -4.9, 0, -16.1589)
+[node name="Booklet2" parent="." instance=ExtResource("5_bj0px")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.8, 0, -11.2)
+
+[node name="LivingArmor" parent="." instance=ExtResource("4_kbe8j")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.38906, 0, -13.2629)
+
+[node name="LivingArmor2" parent="." instance=ExtResource("4_kbe8j")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.24539, 0, -12.315)
+
+[node name="BookletShelf" parent="." instance=ExtResource("6_tqsji")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.65188, 4.76837e-07, -13.49)

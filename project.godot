@@ -18,8 +18,7 @@ config/icon="res://icon.png"
 
 [autoload]
 
-SignalHub="*res://scripts/autoload/signal_hub.gd"
-LevelManager="*res://scripts/autoload/level_manager.gd"
+SignalHub="*res://common/scripts/autoload/signal_hub.gd"
 
 [editor]
 
@@ -30,6 +29,7 @@ version_control/autoload_on_startup=true
 
 player=""
 nav_mesh=""
+enemy=""
 
 [input]
 
@@ -83,6 +83,7 @@ wind_blast={
 
 3d_physics/layer_1="environment"
 3d_physics/layer_2="player"
+3d_physics/layer_3="enemy"
 3d_physics/layer_5="interaction"
 3d_physics/layer_11="player_hitbox"
 3d_physics/layer_12="enemy_hitbox"

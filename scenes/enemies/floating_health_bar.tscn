@@ -1,0 +1,47 @@
+[gd_scene load_steps=5 format=3 uid="uid://cs53wyj8yt4s4"]
+
+[ext_resource type="StyleBox" uid="uid://qtun7cbqouf7" path="res://common/stylebox/health_background_flat.tres" id="1_lfi4s"]
+[ext_resource type="Script" path="res://scenes/enemies/floating_health_bar.gd" id="1_wdss0"]
+[ext_resource type="StyleBox" uid="uid://bsqtahxlwo7o6" path="res://common/stylebox/health_fill_flat.tres" id="2_6pmgs"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_8pjmy"]
+viewport_path = NodePath("SubViewport")
+
+[node name="FloatingHealthBar" type="Sprite3D" node_paths=PackedStringArray("progress_bar", "fade_delay")]
+billboard = 1
+texture = SubResource("ViewportTexture_8pjmy")
+script = ExtResource("1_wdss0")
+progress_bar = NodePath("SubViewport/MarginContainer/ProgressBar")
+fade_delay = NodePath("FadeDelay")
+
+[node name="SubViewport" type="SubViewport" parent="."]
+disable_3d = true
+transparent_bg = true
+size = Vector2i(110, 15)
+
+[node name="MarginContainer" type="MarginContainer" parent="SubViewport"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 3
+theme_override_constants/margin_top = 3
+theme_override_constants/margin_right = 3
+theme_override_constants/margin_bottom = 3
+
+[node name="ProgressBar" type="ProgressBar" parent="SubViewport/MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 1
+theme_override_styles/background = ExtResource("1_lfi4s")
+theme_override_styles/fill = ExtResource("2_6pmgs")
+max_value = 1.0
+step = 0.0
+value = 0.5
+show_percentage = false
+
+[node name="FadeDelay" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+
+[connection signal="timeout" from="FadeDelay" to="." method="_on_fade_delay_timeout"]
