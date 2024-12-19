@@ -20,6 +20,8 @@ var move_direction: Vector3 = Vector3.ZERO
 @export var allow_custom_gravity: bool = false
 var rot_speed: float = 5.0
 var rot_basis: Basis
+var old_quat: Quaternion
+var new_quat: Quaternion
 
 @export_group("Spring force")
 @export var rest_height: float = 1.0
@@ -106,13 +108,12 @@ func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
 	var grav_vec: Vector3 = state.total_gravity.normalized()
 	if gravity_direction != grav_vec:
 		gravity_direction = grav_vec
-		# Create a basis to rotate towards
-		var upward_dir: Vector3 = -gravity_direction
-		var forward_dir: Vector3 = upward_dir.rotated(orientation.global_basis.x, deg_to_rad(90.0))
-		var left_dir: Vector3 = upward_dir.cross(forward_dir).normalized()
-		#print("Up: " + str(upward_dir) + " For: " + str(forward_dir) + " Left: " + str(left_dir))
-		rot_basis = Basis(left_dir, upward_dir, forward_dir).orthonormalized()
-	state.transform.basis = basis.slerp(rot_basis, rot_speed * state.step)
+		old_quat = global_basis.get_rotation_quaternion()
+		new_quat= Quaternion(global_basis.y, -gravity_direction)
+		print("Old: " + str(old_quat) + "\nNew: " + str(new_quat))
+	var s_quat: Quaternion = old_quat.slerp(new_quat, rot_speed * state.step).normalized()
+	state.transform.basis = Basis(s_quat)
+	#state.transform.basis = basis.slerp(rot_basis, rot_speed * state.step)
 
 
 #region Movement
