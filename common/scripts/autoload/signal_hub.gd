@@ -1,8 +1,15 @@
 extends Node
 
-#region System
+#region Level loading
+
 @warning_ignore("unused_signal")
 signal load_level(path: String)
+
+#endregion
+
+
+#region System
+
 @warning_ignore("unused_signal")
 signal quit_game
 @warning_ignore("unused_signal")

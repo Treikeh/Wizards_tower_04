@@ -1,11 +1,16 @@
-[gd_scene load_steps=7 format=3 uid="uid://b2n0kf0vd4u8n"]
+[gd_scene load_steps=10 format=3 uid="uid://b2n0kf0vd4u8n"]
 
 [ext_resource type="Script" path="res://scenes/spells/rock_wall.gd" id="1_3mufw"]
+[ext_resource type="PackedScene" uid="uid://ddufakdkmxhwr" path="res://scenes/hitbox.tscn" id="2_imdi2"]
+[ext_resource type="Script" path="res://common/scripts/health.gd" id="3_5nyv3"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_0uc3d"]
 size = Vector3(2, 2, 1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_820m5"]
+size = Vector3(2, 2, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_2okjq"]
 size = Vector3(2, 2, 1)
 
 [sub_resource type="Animation" id="Animation_4wp80"]
@@ -36,7 +41,7 @@ tracks/1/keys = {
 }
 
 [sub_resource type="Animation" id="Animation_7onb7"]
-resource_name = "new_animation"
+resource_name = "spawn"
 length = 0.5
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -66,7 +71,7 @@ tracks/1/keys = {
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_hck4l"]
 _data = {
 "RESET": SubResource("Animation_4wp80"),
-"new_animation": SubResource("Animation_7onb7")
+"spawn": SubResource("Animation_7onb7")
 }
 
 [node name="RockWall" type="Node3D"]
@@ -83,8 +88,21 @@ shape = SubResource("BoxShape3D_0uc3d")
 mesh = SubResource("BoxMesh_820m5")
 skeleton = NodePath("../..")
 
+[node name="Hitbox" parent="StaticBody3D" node_paths=PackedStringArray("health_node") instance=ExtResource("2_imdi2")]
+collision_layer = 3072
+health_node = NodePath("../../Health")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D/Hitbox"]
+shape = SubResource("BoxShape3D_2okjq")
+
+[node name="Health" type="Node" parent="."]
+script = ExtResource("3_5nyv3")
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_hck4l")
 }
-autoplay = "new_animation"
+autoplay = "spawn"
+
+[connection signal="damage_recived" from="StaticBody3D/Hitbox" to="." method="_on_hitbox_damage_recived"]
+[connection signal="health_depleted" from="Health" to="." method="wall_destroyed"]

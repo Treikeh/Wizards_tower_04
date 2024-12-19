@@ -1,9 +1,7 @@
 extends Node
 
 func _ready() -> void:
-	# Level loading
 	SignalHub.load_level.connect(request_level_loading)
-	
 	SignalHub.quit_game.connect(on_quit_game)
 
 @warning_ignore("unused_parameter")
@@ -25,14 +23,11 @@ var level_loading_delay: float = 1.0
 func request_level_loading(path: String) -> void:
 	# Check if level file exists
 	if !FileAccess.file_exists(path):
-		print("ERROR: Level not found. Invalid path")
+		print("ERROR!: Level not found. Invalid path")
 		return
 	
 	# Unpause game. Might not be necessary
 	get_tree().paused = false
-	
-	# Store path to desired level
-	level_to_load = path
 	
 	# Start loading screen transition
 	loading_screen.start_enter_transition()
@@ -43,11 +38,10 @@ func request_level_loading(path: String) -> void:
 	for child in world_3d.get_children():
 		world_3d.remove_child(child)
 		child.queue_free()
-	# Give the unload function a frame to finish before trying to load more stuff
-	await get_tree().process_frame
 	
 	# Request ResourceLoader to start loading new level
-	ResourceLoader.load_threaded_request(level_to_load, "", true)
+	level_to_load = path
+	ResourceLoader.load_threaded_request.call_deferred(level_to_load, "", true)
 
 func load_level() -> void:
 	var progress: Array = []
@@ -59,7 +53,7 @@ func load_level() -> void:
 		1: # THREAD_LOAD_IN_PROGRESS
 			# Update loading progress bar
 			# Could possibly be done inside the loading_screen scene
-			loading_screen.progress_bar.value = (progress[0])
+			loading_screen.update_progress(progress[0])
 			return
 		2: # THREAD_LOAD_FAILED
 			print("ERROR!: failed to load!")

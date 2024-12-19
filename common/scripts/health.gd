@@ -1,11 +1,15 @@
 extends Node
 class_name Health
 
-signal health_depleted
+## Emitted when health is changed. Usefull for updating other nodes like the UI or enemy behaviour
 signal health_changed(current_health: float, max_health: float)
+## Emitted when health <= 0.0 (Owner is dead).
+signal health_depleted
 
 @export var max_health: float = 100.0
+## How many % to reduce or increase (if negative) incoming physical damage by. Will be healed if over 100.0
 @export var physical_resistance: float = 0.0
+## How many % to reduce or increase (if negative) incoming fire damage by. Will be healed if over 100.0
 @export var fire_resisance: float = 0.0
 var is_dead: bool = false
 var current_health: float

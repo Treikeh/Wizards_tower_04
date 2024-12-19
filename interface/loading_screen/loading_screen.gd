@@ -15,6 +15,10 @@ func enter_transition_finished() -> void:
 	pass
 
 
+func update_progress(value: float) -> void:
+	progress_bar.value = value
+
+
 func start_exit_transition() -> void:
 	animation_player.play("exit")
 

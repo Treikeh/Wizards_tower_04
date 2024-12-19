@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://di7vp8irr7xdl"]
+
+[ext_resource type="Script" path="res://scenes/hurtbox.gd" id="1_mvwig"]
+
+[node name="Hurtbox" type="Area3D"]
+collision_layer = 0
+collision_mask = 1024
+monitorable = false
+script = ExtResource("1_mvwig")
