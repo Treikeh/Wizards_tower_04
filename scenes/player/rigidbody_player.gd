@@ -114,8 +114,12 @@ func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
 			rot_vec = orientation.global_basis.z
 		
 		# Create new quaternion
-		#FIXME: Rotation becomes skewed when gravity changes before rotation finishes
-		# Only happens when slerping the rotation, works fine when setting rotation directly
+		#FIXME: Rotation becomes skewed when gravity changes before rotation slerping finishes
+		# The issue is releted to the fact that i am using the current global_basis as the old_quat.
+		# If gravity changes while slepring rotation, the new_quat will not be correct since -
+		# - the global_basis is not matcing the old gravity_directon.
+		# I need to store the old_basis and use that in some way. That way when slerping stars it -
+		# - will always have correct values to work with.
 		var old_quat: Quaternion = global_basis.get_rotation_quaternion()
 		var new_quat: Quaternion = Quaternion(rot_vec, rot_angle).normalized()
 		grav_quat = new_quat * old_quat
