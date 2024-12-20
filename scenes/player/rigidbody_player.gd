@@ -19,9 +19,7 @@ var move_direction: Vector3 = Vector3.ZERO
 # Custom gravity
 @export var allow_custom_gravity: bool = false
 var rot_speed: float = 5.0
-var rot_basis: Basis
-var old_quat: Quaternion
-var new_quat: Quaternion
+var grav_quat: Quaternion
 
 @export_group("Spring force")
 @export var rest_height: float = 1.0
@@ -107,13 +105,27 @@ func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
 	# Custom gravity rotation
 	var grav_vec: Vector3 = state.total_gravity.normalized()
 	if gravity_direction != grav_vec:
+		# Get rotatoin angle and vector
+		var rot_angle: float = gravity_direction.angle_to(grav_vec)
+		var rot_vec: Vector3 = gravity_direction.cross(grav_vec).normalized()
+		# If gravity_direction and grav_vec are parrallel to each other, then rot_vec would be empty
+		# This makes sure that there is always a axis to rotate around
+		if !rot_vec:
+			rot_vec = orientation.global_basis.z
+		
+		# Create new quaternion
+		#FIXME: Rotation becomes skewed when gravity changes before rotation finishes
+		# Only happens when slerping the rotation, works fine when setting rotation directly
+		var old_quat: Quaternion = global_basis.get_rotation_quaternion()
+		var new_quat: Quaternion = Quaternion(rot_vec, rot_angle).normalized()
+		grav_quat = new_quat * old_quat
+		
+		# Set gravity direction
 		gravity_direction = grav_vec
-		old_quat = global_basis.get_rotation_quaternion()
-		new_quat= Quaternion(global_basis.y, -gravity_direction)
-		print("Old: " + str(old_quat) + "\nNew: " + str(new_quat))
-	var s_quat: Quaternion = old_quat.slerp(new_quat, rot_speed * state.step).normalized()
-	state.transform.basis = Basis(s_quat)
-	#state.transform.basis = basis.slerp(rot_basis, rot_speed * state.step)
+	# Apply new rotation
+	var current_quat: Quaternion = global_basis.get_rotation_quaternion()
+	var slerp_quat: Quaternion = current_quat.slerp(grav_quat, rot_speed * state.step).normalized()
+	state.transform.basis = Basis(grav_quat)
 
 
 #region Movement
