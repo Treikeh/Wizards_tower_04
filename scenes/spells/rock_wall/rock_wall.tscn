@@ -1,6 +1,6 @@
 [gd_scene load_steps=10 format=3 uid="uid://b2n0kf0vd4u8n"]
 
-[ext_resource type="Script" path="res://scenes/spells/rock_wall.gd" id="1_3mufw"]
+[ext_resource type="Script" path="res://scenes/spells/rock_wall/rock_wall.gd" id="1_3mufw"]
 [ext_resource type="PackedScene" uid="uid://ddufakdkmxhwr" path="res://scenes/hitbox.tscn" id="2_imdi2"]
 [ext_resource type="Script" path="res://common/scripts/health.gd" id="3_5nyv3"]
 

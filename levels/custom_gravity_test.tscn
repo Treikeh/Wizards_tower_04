@@ -1,0 +1,148 @@
+[gd_scene load_steps=12 format=3 uid="uid://dsqg7alxyulvd"]
+
+[ext_resource type="PackedScene" uid="uid://dikx5x41yrxf1" path="res://interface/user_interface.tscn" id="1_nnksl"]
+[ext_resource type="Material" uid="uid://botmm8kkk1h67" path="res://common/materials/dev_grid_gray.tres" id="2_hx46s"]
+[ext_resource type="Material" uid="uid://c4eykp21shtlp" path="res://common/materials/dev_grid_red.tres" id="4_au55y"]
+[ext_resource type="Material" uid="uid://uwtl3uvytx4g" path="res://common/materials/dev_grid_green.tres" id="5_cjm42"]
+[ext_resource type="PackedScene" uid="uid://dh8dcfqs8vv8p" path="res://scenes/player/rigidbody_player.tscn" id="5_pm3s6"]
+[ext_resource type="Material" uid="uid://um4r3v0kps58" path="res://common/materials/dev_grid_blue.tres" id="6_1daep"]
+[ext_resource type="Material" uid="uid://pqlkm5aadfhn" path="res://common/materials/dev_grid_orange.tres" id="7_elijy"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_tvcdk"]
+size = Vector3(20, 4, 20)
+
+[sub_resource type="SphereMesh" id="SphereMesh_4p4ot"]
+radius = 10.0
+height = 20.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_s5wad"]
+radius = 10.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_yghk8"]
+radius = 15.0
+
+[node name="TestLevel" type="Node3D"]
+
+[node name="UserInterface" parent="." instance=ExtResource("1_nnksl")]
+
+[node name="RigidbodyController" parent="." instance=ExtResource("5_pm3s6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8, 0)
+allow_custom_gravity = true
+
+[node name="BaseFloor" type="CSGBox3D" parent="."]
+material_override = ExtResource("2_hx46s")
+use_collision = true
+size = Vector3(30, 1, 30)
+
+[node name="X_UpFloor" type="CSGBox3D" parent="."]
+transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, -14.5, 10.5, 0)
+material_override = ExtResource("2_hx46s")
+use_collision = true
+size = Vector3(20, 1, 20)
+
+[node name="GravArea" type="Area3D" parent="X_UpFloor"]
+collision_layer = 0
+collision_mask = 2
+monitorable = false
+gravity_space_override = 3
+gravity_point_center = Vector3(-1, 0, 0)
+gravity_direction = Vector3(-1, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="X_UpFloor/GravArea"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.72205e-06, 2.5, 0)
+shape = SubResource("BoxShape3D_tvcdk")
+
+[node name="-X_UpFloor" type="CSGBox3D" parent="."]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 14.5, 10.5, 0)
+material_override = ExtResource("4_au55y")
+use_collision = true
+size = Vector3(20, 1, 20)
+
+[node name="GravArea" type="Area3D" parent="-X_UpFloor"]
+collision_layer = 0
+collision_mask = 2
+monitorable = false
+gravity_space_override = 3
+gravity_point_center = Vector3(1, 0, 0)
+gravity_direction = Vector3(1, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="-X_UpFloor/GravArea"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.72205e-06, 2.5, 0)
+shape = SubResource("BoxShape3D_tvcdk")
+
+[node name="-Y_UpFloor2" type="CSGBox3D" parent="."]
+transform = Transform3D(-1, -8.74228e-08, 0, 8.74228e-08, -1, 0, 0, 0, 1, -7.45058e-09, 25, 0)
+material_override = ExtResource("5_cjm42")
+use_collision = true
+size = Vector3(20, 1, 20)
+
+[node name="GravArea" type="Area3D" parent="-Y_UpFloor2"]
+collision_layer = 0
+collision_mask = 2
+monitorable = false
+gravity_space_override = 3
+gravity_point_center = Vector3(0, 1, 0)
+gravity_direction = Vector3(0, 1, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="-Y_UpFloor2/GravArea"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.72205e-06, 2.5, 0)
+shape = SubResource("BoxShape3D_tvcdk")
+
+[node name="-Z_UpFloor2" type="CSGBox3D" parent="."]
+transform = Transform3D(1.91069e-15, -4.37114e-08, 1, -1, -4.37114e-08, 0, 4.37114e-08, -1, -4.37114e-08, 5.24537e-07, 10.5, 14.5)
+material_override = ExtResource("6_1daep")
+use_collision = true
+size = Vector3(20, 1, 20)
+
+[node name="GravArea" type="Area3D" parent="-Z_UpFloor2"]
+collision_layer = 0
+collision_mask = 2
+monitorable = false
+gravity_space_override = 3
+gravity_point_center = Vector3(0, 0, 1)
+gravity_direction = Vector3(0, 0, 1)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="-Z_UpFloor2/GravArea"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.72205e-06, 2.5, 0)
+shape = SubResource("BoxShape3D_tvcdk")
+
+[node name="Z_UpFloor" type="CSGBox3D" parent="."]
+transform = Transform3D(1.91069e-15, 4.37114e-08, 1, 1, -4.37114e-08, 0, 4.37114e-08, 1, -4.37114e-08, -5.24537e-07, 10.5, -14.5)
+material_override = ExtResource("2_hx46s")
+use_collision = true
+size = Vector3(20, 1, 20)
+
+[node name="GravArea" type="Area3D" parent="Z_UpFloor"]
+collision_layer = 0
+collision_mask = 2
+monitorable = false
+gravity_space_override = 3
+gravity_point_center = Vector3(0, 0, -1)
+gravity_direction = Vector3(0, 0, -1)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Z_UpFloor/GravArea"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.72205e-06, 2.5, 0)
+shape = SubResource("BoxShape3D_tvcdk")
+
+[node name="Planet" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10.5, -30)
+material_override = ExtResource("7_elijy")
+mesh = SubResource("SphereMesh_4p4ot")
+skeleton = NodePath("")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Planet"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Planet/StaticBody3D"]
+shape = SubResource("SphereShape3D_s5wad")
+
+[node name="GravArea" type="Area3D" parent="Planet"]
+collision_layer = 0
+collision_mask = 2
+monitorable = false
+gravity_space_override = 3
+gravity_point = true
+gravity_point_center = Vector3(0, 0, 0)
+gravity_direction = Vector3(0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Planet/GravArea"]
+shape = SubResource("SphereShape3D_yghk8")

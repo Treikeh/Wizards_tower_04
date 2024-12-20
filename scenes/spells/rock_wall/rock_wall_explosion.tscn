@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=3 uid="uid://prvfum5ppm0v"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_01vqb"]
+radius = 2.0
+height = 4.0
+radial_segments = 32
+rings = 16
+
+[node name="RockWallExplosion" type="Node3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("SphereMesh_01vqb")

@@ -26,18 +26,18 @@ func request_level_loading(path: String) -> void:
 		print("ERROR!: Level not found. Invalid path")
 		return
 	
-	# Unpause game. Might not be necessary
-	get_tree().paused = false
-	
 	# Start loading screen transition
 	loading_screen.start_enter_transition()
 	# Wait until the loading screen has fninshed its transition before unloading level
-	await get_tree().create_timer(level_loading_delay).timeout
+	await get_tree().create_timer(level_loading_delay, true).timeout
 	
 	# Unload level
 	for child in world_3d.get_children():
 		world_3d.remove_child(child)
 		child.queue_free()
+	
+	# Unpause game. Might not be necessary
+	get_tree().paused = false
 	
 	# Request ResourceLoader to start loading new level
 	level_to_load = path
