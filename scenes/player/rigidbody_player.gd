@@ -35,10 +35,25 @@ var check_for_ground: bool = true
 @export var ground_check: RayCast3D
 @export var interact_ray: RayCast3D
 @export var spell_ray: RayCast3D
+# Custom grav nodes
+@export var grav_position: RemoteTransform3D
+@export var grav_rot: Node3D
 
 func _ready() -> void:
 	# Capture mouse when game begins
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	if allow_custom_gravity:
+		# Set grav position
+		grav_position.remote_path = grav_rot.get_path()
+		# Reset grav_rot rotation
+		var reset_basis: Basis
+		grav_rot.global_basis = reset_basis
+		grav_rot.top_level = true
+		# Set rotation of "orientation" to match starting rotation. Without this the player would -
+		# - always face the same direction when starting the game, even if it was rotated in the editor
+		# Issue is due too custom gravity code
+		var start_basis: Basis = global_basis
+		orientation.global_basis = start_basis
 
 func _input(event: InputEvent) -> void:
 	if Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
@@ -127,8 +142,14 @@ func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
 		# Set gravity direction
 		gravity_direction = grav_vec
 	# Apply new rotation
-	var current_quat: Quaternion = global_basis.get_rotation_quaternion()
+	# I can also disconnect the rigidbody and camera. If i set the rotation of the body but -
+	# - slerp the rotation of the camera it could work
+	# IT WORKED. FINALY I HAVE IT.
+	var current_quat: Quaternion = grav_rot.global_basis.get_rotation_quaternion()
 	var slerp_quat: Quaternion = current_quat.slerp(grav_quat, rot_speed * state.step).normalized()
+	# Rotate camera
+	grav_rot.transform.basis = Basis(slerp_quat)
+	# Rotate body
 	state.transform.basis = Basis(grav_quat)
 
 
