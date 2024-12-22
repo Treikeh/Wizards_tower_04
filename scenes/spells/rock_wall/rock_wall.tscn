@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://b2n0kf0vd4u8n"]
+[gd_scene load_steps=11 format=3 uid="uid://b2n0kf0vd4u8n"]
 
 [ext_resource type="Script" path="res://scenes/spells/rock_wall/rock_wall.gd" id="1_3mufw"]
 [ext_resource type="PackedScene" uid="uid://ddufakdkmxhwr" path="res://scenes/hitbox.tscn" id="2_imdi2"]
@@ -12,6 +12,9 @@ size = Vector3(2, 2, 1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_2okjq"]
 size = Vector3(2, 2, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_6nrr2"]
+size = Vector3(1.8, 0.5, 0.8)
 
 [sub_resource type="Animation" id="Animation_4wp80"]
 length = 0.001
@@ -27,18 +30,6 @@ tracks/0/keys = {
 "update": 0,
 "values": [Vector3(0, 1, 0)]
 }
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("StaticBody3D:constant_linear_velocity")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0, 0, 0)]
-}
 
 [sub_resource type="Animation" id="Animation_7onb7"]
 resource_name = "spawn"
@@ -50,22 +41,24 @@ tracks/0/path = NodePath("StaticBody3D:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.233333),
+"times": PackedFloat32Array(0, 0.2),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Vector3(0, -1, 0), Vector3(0, 1, 0)]
 }
-tracks/1/type = "value"
+tracks/1/type = "method"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("StaticBody3D:constant_linear_velocity")
-tracks/1/interp = 0
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.4),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector3(0, 10, 0), Vector3(0, 0, 0)]
+"times": PackedFloat32Array(0.4),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"disable_launching"
+}]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_hck4l"]
@@ -74,8 +67,9 @@ _data = {
 "spawn": SubResource("Animation_7onb7")
 }
 
-[node name="RockWall" type="Node3D"]
+[node name="RockWall" type="Node3D" node_paths=PackedStringArray("wall_body")]
 script = ExtResource("1_3mufw")
+wall_body = NodePath("StaticBody3D")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
@@ -95,6 +89,16 @@ health_node = NodePath("../../Health")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D/Hitbox"]
 shape = SubResource("BoxShape3D_2okjq")
 
+[node name="LaunchArea" type="Area3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+collision_layer = 0
+collision_mask = 3
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D/LaunchArea"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0)
+shape = SubResource("BoxShape3D_6nrr2")
+
 [node name="Health" type="Node" parent="."]
 script = ExtResource("3_5nyv3")
 
@@ -105,4 +109,5 @@ libraries = {
 autoplay = "spawn"
 
 [connection signal="damage_recived" from="StaticBody3D/Hitbox" to="." method="_on_hitbox_damage_recived"]
+[connection signal="body_entered" from="StaticBody3D/LaunchArea" to="." method="_on_launch_area_body_entered"]
 [connection signal="health_depleted" from="Health" to="." method="wall_destroyed"]

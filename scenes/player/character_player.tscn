@@ -20,7 +20,7 @@ type = 1
 height = 1.8
 
 [node name="CharacterPlayer" type="CharacterBody3D" node_paths=PackedStringArray("orientaion", "head", "camera", "interact_ray", "spell_ray")]
-collision_layer = 2
+collision_layer = 2147483650
 collision_mask = 3
 script = ExtResource("1_fwhe8")
 orientaion = NodePath("Orientation")

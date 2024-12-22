@@ -1,14 +1,47 @@
 extends Node3D
 
 var lifetime: float = 10.0
+var launch_force: float = 10.0
+
+# Explosion
+## Minnimum amount of damage needed to trigger explosion
+var damage_threshold: float = 10.0
 var is_timed_explosion: bool = false
+var explosion_scene: PackedScene = preload("res://scenes/spells/rock_wall/rock_wall_explosion.tscn")
+
+@export_group("Nodes")
+@export var wall_body: StaticBody3D
 
 func _ready() -> void:
-	get_tree().create_timer(lifetime).timeout.connect(despawn_spell)
+	# Despawwn wall after duration runs out
+	get_tree().create_timer(lifetime).timeout.connect(spell_duration_over)
+
+# When spell duration ends
+func spell_duration_over() -> void:
+	queue_free()
+
+
+#region Launching
+
+@warning_ignore("unused_parameter")
+func _on_launch_area_body_entered(body: Node3D) -> void:
+	wall_body.constant_linear_velocity = global_basis.y * launch_force
+
+func disable_launching() -> void:
+	launch_force = 0.0
+	# Make wall walkable
+	wall_body.set_collision_layer_value(1, true)
+
+#endregion
+
+
+#region Health
 
 func _on_hitbox_damage_recived(damage: Damage) -> void:
 	match damage.type:
 		Damage.Type.FIRE:
+			if damage.amount < damage_threshold:
+				return
 			if !is_timed_explosion:
 				print("Explosion timer started")
 				is_timed_explosion = true
@@ -16,10 +49,11 @@ func _on_hitbox_damage_recived(damage: Damage) -> void:
 				print("BOOM")
 				wall_destroyed()
 
-# When spell duration ends
-func despawn_spell() -> void:
-	queue_free()
-
 # When wall health is depleted
 func wall_destroyed() -> void:
+	var explosion_effect: Node3D = explosion_scene.instantiate()
+	get_tree().current_scene.world_3d.add_child(explosion_effect)
+	explosion_effect.global_transform = wall_body.global_transform
 	queue_free()
+
+#endregion

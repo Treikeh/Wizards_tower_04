@@ -18,7 +18,7 @@ var ground_normal: Vector3 = Vector3.UP
 var move_direction: Vector3 = Vector3.ZERO
 # Custom gravity
 @export var allow_custom_gravity: bool = false
-var rot_speed: float = 5.0
+var rot_speed: float = 10.0
 var grav_quat: Quaternion
 
 @export_group("Spring force")
@@ -113,6 +113,8 @@ func _physics_process(delta: float) -> void:
 		var needed_vel: Vector3 = target_vel - (linear_velocity - gravity_vector)
 		apply_central_force(needed_vel * air_accel * delta * mass)
 
+# Everything in this function is not needed since custom gravity won't be a part of the game
+# But i think it's fun so i made it
 #@warning_ignore("unused_parameter")
 func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
 	if !allow_custom_gravity:

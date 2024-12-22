@@ -30,6 +30,7 @@ func cast_fireball() -> void:
 
 @export_group("Rock wall")
 @export var rock_wall_cooldown: float = 0.2
+@export var rock_wall_duration: float = 10.0
 var can_rock_wall: bool = true
 var rock_wall_scene: PackedScene = preload("res://scenes/spells/rock_wall/rock_wall.tscn")
 
@@ -40,6 +41,7 @@ func cast_rock_wall(spawn_rotation: Vector3) -> void:
 		rock_wall.top_level = true
 		rock_wall.global_position = get_collision_point()
 		rock_wall.global_rotation = spawn_rotation
+		rock_wall.lifetime = rock_wall_duration
 		can_rock_wall = false
 		await get_tree().create_timer(rock_wall_cooldown).timeout
 		can_rock_wall = true
