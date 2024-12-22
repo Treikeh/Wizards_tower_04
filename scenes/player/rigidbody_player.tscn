@@ -28,21 +28,19 @@ script = ExtResource("5_5j84h")
 amount = 15.0
 type = 1
 
-[node name="RigidbodyPlayer" type="RigidBody3D" node_paths=PackedStringArray("orientation", "head", "camera", "ground_check", "interact_ray", "spell_ray", "grav_position", "grav_rot") groups=["player"]]
+[node name="RigidbodyPlayer" type="RigidBody3D" node_paths=PackedStringArray("orientation", "head", "camera", "ground_check", "interact_ray", "spell_ray") groups=["player"]]
 collision_layer = 2
 collision_mask = 7
 physics_material_override = SubResource("PhysicsMaterial_ebie1")
 lock_rotation = true
 script = ExtResource("1_ck1rn")
 max_speed = 7.0
-orientation = NodePath("GravRot/Orientation")
-head = NodePath("GravRot/Orientation/Head")
-camera = NodePath("GravRot/Orientation/Head/Camera3D")
+orientation = NodePath("Orientation")
+head = NodePath("Orientation/Head")
+camera = NodePath("Orientation/Head/Camera3D")
 ground_check = NodePath("GroundCheck")
-interact_ray = NodePath("GravRot/Orientation/Head/InteractRay")
-spell_ray = NodePath("GravRot/Orientation/Head/SpellRay")
-grav_position = NodePath("GravRotPosition")
-grav_rot = NodePath("GravRot")
+interact_ray = NodePath("Orientation/Head/InteractRay")
+spell_ray = NodePath("Orientation/Head/SpellRay")
 
 [node name="StandingCollision" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_kcqpx")
@@ -61,24 +59,15 @@ health_node = NodePath("../../Health")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StandingCollision/Hitbox"]
 shape = SubResource("CapsuleShape3D_w1r5e")
 
-[node name="GroundCheck" type="RayCast3D" parent="."]
-target_position = Vector3(0, -1.5, 0)
+[node name="Orientation" type="Node3D" parent="."]
 
-[node name="GravRotPosition" type="RemoteTransform3D" parent="."]
-update_rotation = false
-update_scale = false
-
-[node name="GravRot" type="Node3D" parent="."]
-
-[node name="Orientation" type="Node3D" parent="GravRot"]
-
-[node name="Head" type="Node3D" parent="GravRot/Orientation"]
+[node name="Head" type="Node3D" parent="Orientation"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 
-[node name="Camera3D" type="Camera3D" parent="GravRot/Orientation/Head"]
+[node name="Camera3D" type="Camera3D" parent="Orientation/Head"]
 script = ExtResource("2_kvlkg")
 
-[node name="InteractRay" type="RayCast3D" parent="GravRot/Orientation/Head"]
+[node name="InteractRay" type="RayCast3D" parent="Orientation/Head"]
 target_position = Vector3(0, 0, -1.7)
 collision_mask = 17
 collide_with_areas = true
@@ -86,12 +75,15 @@ debug_shape_custom_color = Color(1, 0, 0, 1)
 debug_shape_thickness = 1
 script = ExtResource("3_6mksv")
 
-[node name="SpellRay" type="RayCast3D" parent="GravRot/Orientation/Head"]
+[node name="SpellRay" type="RayCast3D" parent="Orientation/Head"]
 target_position = Vector3(0, 0, -50)
 collision_mask = 2049
 collide_with_areas = true
 script = ExtResource("4_c4eqp")
 fireball_damage = SubResource("Resource_jgtse")
+
+[node name="GroundCheck" type="RayCast3D" parent="."]
+target_position = Vector3(0, -1.5, 0)
 
 [node name="Health" type="Node" parent="."]
 script = ExtResource("7_s4lvk")

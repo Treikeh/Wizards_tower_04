@@ -1,7 +1,6 @@
 extends Node3D
 
 var lifetime: float = 10.0
-var launch_force: float = 10.0
 
 # Explosion
 ## Minnimum amount of damage needed to trigger explosion
@@ -10,7 +9,7 @@ var is_timed_explosion: bool = false
 var explosion_scene: PackedScene = preload("res://scenes/spells/rock_wall/rock_wall_explosion.tscn")
 
 @export_group("Nodes")
-@export var wall_body: StaticBody3D
+@export var wall_mesh: Node3D
 
 func _ready() -> void:
 	# Despawwn wall after duration runs out
@@ -19,20 +18,6 @@ func _ready() -> void:
 # When spell duration ends
 func spell_duration_over() -> void:
 	queue_free()
-
-
-#region Launching
-
-@warning_ignore("unused_parameter")
-func _on_launch_area_body_entered(body: Node3D) -> void:
-	wall_body.constant_linear_velocity = global_basis.y * launch_force
-
-func disable_launching() -> void:
-	launch_force = 0.0
-	# Make wall walkable
-	wall_body.set_collision_layer_value(1, true)
-
-#endregion
 
 
 #region Health
@@ -53,7 +38,7 @@ func _on_hitbox_damage_recived(damage: Damage) -> void:
 func wall_destroyed() -> void:
 	var explosion_effect: Node3D = explosion_scene.instantiate()
 	get_tree().current_scene.world_3d.add_child(explosion_effect)
-	explosion_effect.global_transform = wall_body.global_transform
+	explosion_effect.global_transform = wall_mesh.global_transform
 	queue_free()
 
 #endregion
