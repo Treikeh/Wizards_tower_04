@@ -17,8 +17,6 @@ func _process(delta: float) -> void:
 @export var loading_screen: LoadingScreen
 @export var world_3d: Node3D
 var level_to_load: String = ""
-# Delay should be >= to the loading_screen "enter" animation length
-var level_loading_delay: float = 1.0
 
 func request_level_loading(path: String) -> void:
 	# Check if level file exists
@@ -28,6 +26,7 @@ func request_level_loading(path: String) -> void:
 	
 	# Start loading screen transition
 	loading_screen.start_enter_transition()
+	var level_loading_delay: float = loading_screen.animation_player.current_animation_length
 	# Wait until the loading screen has fninshed its transition before unloading level
 	await get_tree().create_timer(level_loading_delay, true).timeout
 	
@@ -54,6 +53,7 @@ func load_level() -> void:
 			# Update loading progress bar
 			# Could possibly be done inside the loading_screen scene
 			loading_screen.update_progress(progress[0])
+			print("Loading...")
 			return
 		2: # THREAD_LOAD_FAILED
 			print("ERROR!: failed to load!")

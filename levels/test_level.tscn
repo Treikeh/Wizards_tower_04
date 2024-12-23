@@ -57,12 +57,11 @@ use_collision = true
 size = Vector3(3.9, 1, 12.1616)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.426779, 3.75892)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 4)
 mesh = SubResource("BoxMesh_8hgcg")
 skeleton = NodePath("../..")
 
 [node name="InteractArea3D" parent="MeshInstance3D" instance=ExtResource("3_kj7jt")]
-prompt = "Jump"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D/InteractArea3D"]
 shape = SubResource("BoxShape3D_j0pjx")
@@ -70,11 +69,11 @@ shape = SubResource("BoxShape3D_j0pjx")
 [node name="OmniLight3D" type="OmniLight3D" parent="MeshInstance3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.857309, 0)
 
+[node name="RigidbodyPlayer" parent="." instance=ExtResource("2_vbosa")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.390936, 1, 0.665959)
+
 [node name="Enemy_001" parent="." instance=ExtResource("5_io8yn")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.26941, 0, 3.54835)
-
-[node name="RigidbodyController" parent="." instance=ExtResource("2_vbosa")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.2, 1.6, 1.8)
 
 [node name="BigBox" type="RigidBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.09288, 2.68097, -0.899674)

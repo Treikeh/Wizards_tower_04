@@ -1,7 +1,7 @@
 extends RigidBody3D
 
 @export_group("Input")
-@export var camera_sensitivity: float = 0.1
+var camera_sensitivity: float = 0.1
 var move_input: Vector2 = Vector2.ZERO
 
 @export_group("Movement")
@@ -31,9 +31,17 @@ var check_for_ground: bool = true
 @export var interact_ray: RayCast3D
 @export var spell_ray: RayCast3D
 
+func _init() -> void:
+	load_input_settings()
+
+func load_input_settings() -> void:
+	var input_settings: Dictionary = ConfigHandler.load_input_settings()
+	camera_sensitivity = input_settings.camera_sensitivity
+
 func _ready() -> void:
 	# Capture mouse when game begins
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	ConfigHandler.input_settings_changed.connect(load_input_settings)
 
 func _input(event: InputEvent) -> void:
 	if Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:

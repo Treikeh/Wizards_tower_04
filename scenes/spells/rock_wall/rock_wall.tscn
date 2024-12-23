@@ -100,6 +100,7 @@ _data = {
 
 [node name="RockWall" type="Node3D" node_paths=PackedStringArray("wall_mesh")]
 script = ExtResource("1_3mufw")
+explosion_scene = "res://scenes/spells/rock_wall/rock_wall_explosion.tscn"
 wall_mesh = NodePath("StaticBody3D")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="."]

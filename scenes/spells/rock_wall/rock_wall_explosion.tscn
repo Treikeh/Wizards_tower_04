@@ -1,10 +1,16 @@
-[gd_scene load_steps=5 format=3 uid="uid://prvfum5ppm0v"]
+[gd_scene load_steps=8 format=3 uid="uid://prvfum5ppm0v"]
+
+[ext_resource type="Script" path="res://scenes/spells/rock_wall/rock_wall_explosion.gd" id="1_w6flv"]
+[ext_resource type="Resource" uid="uid://ddwge00ixpgh1" path="res://scenes/spells/rock_wall/rock_wall_explosion_damage.tres" id="2_mkx3t"]
 
 [sub_resource type="SphereMesh" id="SphereMesh_01vqb"]
 radius = 2.0
 height = 4.0
 radial_segments = 32
 rings = 16
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_qdnpf"]
+radius = 2.0
 
 [sub_resource type="Animation" id="Animation_iow8j"]
 length = 0.001
@@ -22,47 +28,61 @@ tracks/0/keys = {
 }
 
 [sub_resource type="Animation" id="Animation_ywiv1"]
-resource_name = "spawn"
-tracks/0/type = "value"
+resource_name = "explode"
+tracks/0/type = "method"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("MeshInstance3D:scale")
+tracks/0/path = NodePath(".")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.7),
+"times": PackedFloat32Array(0.0333333, 1),
 "transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector3(0.1, 0.1, 0.1), Vector3(1, 1, 1)]
-}
-tracks/1/type = "method"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(1),
-"transitions": PackedFloat32Array(1),
 "values": [{
+"args": [],
+"method": &"explode"
+}, {
 "args": [],
 "method": &"queue_free"
 }]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("MeshInstance3D:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0.1, 0.1, 0.1), Vector3(1, 1, 1)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_2qx2c"]
 _data = {
 "RESET": SubResource("Animation_iow8j"),
-"spawn": SubResource("Animation_ywiv1")
+"explode": SubResource("Animation_ywiv1")
 }
 
-[node name="RockWallExplosion" type="Node3D"]
+[node name="RockWallExplosion" type="Node3D" node_paths=PackedStringArray("explosion_area")]
+script = ExtResource("1_w6flv")
+explosion_damage = ExtResource("2_mkx3t")
+explosion_area = NodePath("ExplosionArea")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = SubResource("SphereMesh_01vqb")
+
+[node name="ExplosionArea" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 3072
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ExplosionArea"]
+shape = SubResource("SphereShape3D_qdnpf")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_2qx2c")
 }
-autoplay = "spawn"
+autoplay = "explode"

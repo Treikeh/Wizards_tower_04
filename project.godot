@@ -19,6 +19,7 @@ config/icon="res://icon.png"
 [autoload]
 
 SignalHub="*res://common/scripts/autoload/signal_hub.gd"
+ConfigHandler="*res://common/scripts/autoload/config_handler.gd"
 
 [editor]
 
