@@ -63,7 +63,11 @@ func _input(event: InputEvent) -> void:
 			spell_ray.cast_fireball()
 		
 		if event.is_action_pressed("rock_wall"):
-			spell_ray.cast_rock_wall(orientation.global_rotation)
+			# Spawn rock wall preview
+			spell_ray.spawn_rock_wall_preview()
+		elif event.is_action_released("rock_wall"):
+			# Spawn rock wall
+			spell_ray.spawn_rock_wall()
 		
 		if event.is_action_pressed("wind_blast"):
 			spell_ray.cast_wind_blast()

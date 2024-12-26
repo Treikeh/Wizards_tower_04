@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://dikx5x41yrxf1"]
+[gd_scene load_steps=8 format=3 uid="uid://dikx5x41yrxf1"]
 
 [ext_resource type="Script" path="res://interface/user_interface.gd" id="1_baigj"]
 [ext_resource type="Script" path="res://interface/hud.gd" id="2_4ra3c"]
 [ext_resource type="StyleBox" uid="uid://qtun7cbqouf7" path="res://common/stylebox/health_background_flat.tres" id="3_inf5i"]
 [ext_resource type="StyleBox" uid="uid://bsqtahxlwo7o6" path="res://common/stylebox/health_fill_flat.tres" id="4_0m7hx"]
+[ext_resource type="Script" path="res://interface/settings_menu.gd" id="5_qr03t"]
 
 [sub_resource type="Gradient" id="Gradient_6qr3q"]
 offsets = PackedFloat32Array(0.0285714, 0.0693878)
@@ -144,6 +145,10 @@ text = "Resume"
 layout_mode = 2
 text = "Restart"
 
+[node name="SettingsButton" type="Button" parent="PauseMenu/VBoxContainer"]
+layout_mode = 2
+text = "Settings"
+
 [node name="MainMenuButton" type="Button" parent="PauseMenu/VBoxContainer"]
 layout_mode = 2
 text = "Main menu"
@@ -151,6 +156,66 @@ text = "Main menu"
 [node name="QuitButton" type="Button" parent="PauseMenu/VBoxContainer"]
 layout_mode = 2
 text = "Quit"
+
+[node name="SettingsMenu" type="Control" parent="." node_paths=PackedStringArray("sensitivity_label", "sensitivity_slider")]
+unique_name_in_owner = true
+process_mode = 2
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("5_qr03t")
+sensitivity_label = NodePath("VBoxContainer/SensitivityLabel")
+sensitivity_slider = NodePath("VBoxContainer/SensitivitySlider")
+
+[node name="Panel" type="Panel" parent="SettingsMenu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="SettingsMenu"]
+layout_mode = 2
+offset_left = 433.0
+offset_top = 285.0
+offset_right = 719.0
+offset_bottom = 367.0
+
+[node name="SettingsLabel" type="Label" parent="SettingsMenu/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+text = "Settings"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="SensitivityLabel" type="Label" parent="SettingsMenu/VBoxContainer"]
+layout_mode = 2
+text = "Sensitivity: 0.1"
+vertical_alignment = 1
+
+[node name="SensitivitySlider" type="HSlider" parent="SettingsMenu/VBoxContainer"]
+layout_mode = 2
+min_value = 0.01
+max_value = 1.0
+step = 0.01
+value = 0.5
+
+[node name="MarginContainer" type="MarginContainer" parent="SettingsMenu/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_right = 50
+
+[node name="BackButton" type="Button" parent="SettingsMenu/VBoxContainer/MarginContainer"]
+layout_mode = 2
+text = "Back"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="SettingsMenu/VBoxContainer"]
+layout_mode = 2
 
 [node name="GameOverMenu" type="Control" parent="."]
 unique_name_in_owner = true
@@ -210,8 +275,11 @@ text = "Quit"
 
 [connection signal="pressed" from="PauseMenu/VBoxContainer/ResumeButton" to="." method="resume_game"]
 [connection signal="pressed" from="PauseMenu/VBoxContainer/RestartButton" to="." method="_on_restart_button_pressed"]
+[connection signal="pressed" from="PauseMenu/VBoxContainer/SettingsButton" to="." method="_on_settings_button_pressed"]
 [connection signal="pressed" from="PauseMenu/VBoxContainer/MainMenuButton" to="." method="_on_main_menu_button_pressed"]
 [connection signal="pressed" from="PauseMenu/VBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]
+[connection signal="drag_ended" from="SettingsMenu/VBoxContainer/SensitivitySlider" to="SettingsMenu" method="_on_sensitivity_slider_drag_ended"]
+[connection signal="pressed" from="SettingsMenu/VBoxContainer/MarginContainer/BackButton" to="." method="_on_settings_back_button_pressed"]
 [connection signal="pressed" from="GameOverMenu/VBoxContainer/RestartButton" to="." method="_on_restart_button_pressed"]
 [connection signal="pressed" from="GameOverMenu/VBoxContainer/MainMenuButton" to="." method="_on_main_menu_button_pressed"]
 [connection signal="pressed" from="GameOverMenu/VBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]

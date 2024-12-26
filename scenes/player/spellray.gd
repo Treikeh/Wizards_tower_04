@@ -1,5 +1,22 @@
 extends RayCast3D
 
+@export_group("Nodes")
+#TODO: Find a better way to save spawn rotation than to reference a Node3D
+## Players orientation node. Used to orient Rock wall spell
+@export var orientation: Node3D
+
+@warning_ignore("unused_parameter")
+func _physics_process(delta: float) -> void:
+	if rock_wall_preview != null:
+		# Set rock wall preview transform
+		rock_wall_preview.global_rotation = orientation.global_rotation
+		if is_colliding():
+			var hit_distance: float = global_position.distance_to(get_collision_point())
+			if hit_distance < rock_wall_range:
+				rock_wall_preview.global_position = get_collision_point()
+			else:
+				rock_wall_preview.global_position = global_position
+
 #region Fireball
 
 @export_group("Fireball")
@@ -28,23 +45,51 @@ func cast_fireball() -> void:
 
 #region Rockwall
 
+#FIXME: I need to find a way to check if there's enough space for the wall to spawn.
+# The issuse isn't with spawning the wall, but with the fact that the wall will be able to move.
+# If the wall is clipping into a wall or stairs when spawning it will be forced out when it -
+# - starts to move, which could make the game "feel" more buggy.
+# I also need to find a good way to handle the walls movement. I could use a character body, a -
+# - floating rigidbody or maybe i could manually move a node3d.
+
 @export_group("Rock wall")
 @export var rock_wall_cooldown: float = 0.2
+## How long the rock wall stays before despawning
 @export var rock_wall_duration: float = 10.0
+## How far away from the player the rock wall can be spawned
+@export var rock_wall_range: float = 5.0
+## If the palyer can cast the rock wall
 var can_rock_wall: bool = true
 var rock_wall_scene: PackedScene = preload("res://scenes/spells/rock_wall/rock_wall.tscn")
+# Preview
+var rock_wall_preview: Node3D
+var rock_wall_preview_scene: PackedScene = preload("res://scenes/spells/rock_wall/rock_wall_preview.tscn")
 
-func cast_rock_wall(spawn_rotation: Vector3) -> void:
-	if is_colliding() and can_rock_wall:
-		var rock_wall: Node3D = rock_wall_scene.instantiate()
-		add_child(rock_wall)
-		rock_wall.top_level = true
-		rock_wall.global_position = get_collision_point()
-		rock_wall.global_rotation = spawn_rotation
-		rock_wall.lifetime = rock_wall_duration
-		can_rock_wall = false
-		await get_tree().create_timer(rock_wall_cooldown).timeout
-		can_rock_wall = true
+func spawn_rock_wall_preview() -> void:
+	if can_rock_wall:
+		rock_wall_preview = rock_wall_preview_scene.instantiate()
+		add_child(rock_wall_preview)
+		rock_wall_preview.top_level = true
+
+func rock_wall_space_check() -> bool:
+	return true
+
+func spawn_rock_wall() -> void:
+	# Make sure there's enough space for the wall to spawn
+	if !rock_wall_preview.enough_space:
+		return
+	# Spawn real rock wall
+	var rock_wall: Node3D = rock_wall_scene.instantiate()
+	add_child(rock_wall)
+	rock_wall.top_level = true
+	rock_wall.global_transform = rock_wall_preview.global_transform
+	rock_wall.lifetime = rock_wall_duration
+	can_rock_wall = false
+	# Despawn rock wall preview
+	rock_wall_preview.queue_free()
+	# Wait for duration before spell can be cast again
+	await get_tree().create_timer(rock_wall_cooldown).timeout
+	can_rock_wall = true
 
 #endregion
 
@@ -52,7 +97,7 @@ func cast_rock_wall(spawn_rotation: Vector3) -> void:
 #region Wind blast
 
 @export_group("Wind blast")
-@export var wind_force: float = 75.0
+@export var wind_force: float = 50.0
 @export var wind_blast_cooldown: float = 0.1
 var can_wind_blast: bool = true
 var wind_blast_scene: PackedScene = preload("res://scenes/spells/wind_blast/wind_blast.tscn")

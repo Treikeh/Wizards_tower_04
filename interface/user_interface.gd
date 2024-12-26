@@ -24,6 +24,7 @@ func resume_game() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	%Hud.show()
 	%PauseMenu.hide()
+	%SettingsMenu.hide()
 
 func game_over() -> void:
 	get_tree().paused = true
@@ -40,3 +41,11 @@ func _on_main_menu_button_pressed() -> void:
 
 func _on_quit_button_pressed() -> void:
 	SignalHub.quit_game.emit()
+
+func _on_settings_button_pressed() -> void:
+	%PauseMenu.hide()
+	%SettingsMenu.show()
+
+func _on_settings_back_button_pressed() -> void:
+	%SettingsMenu.hide()
+	%PauseMenu.show()

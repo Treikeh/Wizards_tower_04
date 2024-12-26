@@ -12,7 +12,9 @@ func _ready() -> void:
 	for collision in collision_shape.get_collision_count():
 		var collider: Object = collision_shape.get_collider(collision)
 		if collider is RigidBody3D:
-			collider.apply_central_impulse(-global_basis.z * force)
+			collider.apply_central_impulse(-global_basis.z * force * collider.mass)
+		elif collider.has_method("wind_blast"):
+			collider.wind_blast(-global_basis.z)
 
 func despawn_spell() -> void:
 	queue_free()
