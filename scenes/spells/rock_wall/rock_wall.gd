@@ -29,7 +29,7 @@ func spell_duration_over() -> void:
 	wall_destroyed()
 
 #TEMP: Find a better way to do this
-func wind_blast(direction: Vector3) -> void:
+func recive_knockback(direction: Vector3) -> void:
 	velocity = Vector3(direction.x, 0.0, direction.z) * wind_blast_force
 
 #region Health

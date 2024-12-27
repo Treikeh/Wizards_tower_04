@@ -25,6 +25,9 @@ func _process(delta: float) -> void:
 
 @warning_ignore("unused_parameter")
 func _physics_process(delta: float) -> void:
+	if receiving_knockback:
+		move_and_slide()
+		return
 	match current_state:
 		"idle":
 			idle(delta)

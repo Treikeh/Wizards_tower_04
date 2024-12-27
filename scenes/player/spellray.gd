@@ -110,8 +110,8 @@ func cast_wind_blast() -> void:
 			print(body)
 			if body is RigidBody3D:
 				body.apply_central_impulse(-global_basis.z * wind_blast_force * body.mass)
-			elif body.has_method("wind_blast"):
-				body.wind_blast(-global_basis.z)
+			elif body.has_method("recive_knockback"):
+				body.recive_knockback(-global_basis.z)
 		# Spawn wind blast effect
 		var wind_blast_effect: Node3D = wind_blast_effect_scene.instantiate()
 		add_child(wind_blast_effect)
