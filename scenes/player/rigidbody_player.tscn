@@ -1,12 +1,11 @@
-[gd_scene load_steps=14 format=3 uid="uid://dh8dcfqs8vv8p"]
+[gd_scene load_steps=12 format=3 uid="uid://dh8dcfqs8vv8p"]
 
 [ext_resource type="Script" path="res://scenes/player/rigidbody_player.gd" id="1_ck1rn"]
 [ext_resource type="Material" uid="uid://uwtl3uvytx4g" path="res://common/materials/dev_grid_green.tres" id="2_7yv5a"]
 [ext_resource type="PackedScene" uid="uid://ddufakdkmxhwr" path="res://scenes/hitbox.tscn" id="2_8fr2j"]
 [ext_resource type="Script" path="res://scenes/player/player_camera.gd" id="2_kvlkg"]
 [ext_resource type="Script" path="res://scenes/player/player_interact_ray.gd" id="3_6mksv"]
-[ext_resource type="Script" path="res://scenes/player/spellray.gd" id="4_c4eqp"]
-[ext_resource type="Script" path="res://common/scripts/damage.gd" id="5_5j84h"]
+[ext_resource type="PackedScene" uid="uid://cavgwqcbmxw3w" path="res://scenes/player/spell_ray.tscn" id="6_urw7v"]
 [ext_resource type="Script" path="res://common/scripts/health.gd" id="7_s4lvk"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_ebie1"]
@@ -22,11 +21,6 @@ radial_segments = 16
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_w1r5e"]
 height = 1.75
-
-[sub_resource type="Resource" id="Resource_jgtse"]
-script = ExtResource("5_5j84h")
-amount = 15.0
-type = 1
 
 [node name="RigidbodyPlayer" type="RigidBody3D" node_paths=PackedStringArray("orientation", "head", "camera", "ground_check", "interact_ray", "spell_ray") groups=["player"]]
 collision_layer = 2
@@ -75,13 +69,8 @@ debug_shape_custom_color = Color(1, 0, 0, 1)
 debug_shape_thickness = 1
 script = ExtResource("3_6mksv")
 
-[node name="SpellRay" type="RayCast3D" parent="Orientation/Head" node_paths=PackedStringArray("orientation")]
-target_position = Vector3(0, 0, -50)
-collision_mask = 2049
-collide_with_areas = true
-script = ExtResource("4_c4eqp")
+[node name="SpellRay" parent="Orientation/Head" node_paths=PackedStringArray("orientation") instance=ExtResource("6_urw7v")]
 orientation = NodePath("../..")
-fireball_damage = SubResource("Resource_jgtse")
 
 [node name="GroundCheck" type="RayCast3D" parent="."]
 target_position = Vector3(0, -1.5, 0)

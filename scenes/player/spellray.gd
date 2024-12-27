@@ -97,16 +97,25 @@ func spawn_rock_wall() -> void:
 #region Wind blast
 
 @export_group("Wind blast")
-@export var wind_force: float = 50.0
+@export var wind_blast_force: float = 50.0
 @export var wind_blast_cooldown: float = 0.1
+@export var wind_blast_area: Area3D
 var can_wind_blast: bool = true
-var wind_blast_scene: PackedScene = preload("res://scenes/spells/wind_blast/wind_blast.tscn")
+var wind_blast_effect_scene: PackedScene = preload("res://scenes/spells/wind_blast/wind_blast_effect.tscn")
 
 func cast_wind_blast() -> void:
 	if can_wind_blast:
-		var wind_blast: Node3D = wind_blast_scene.instantiate()
-		wind_blast.force = wind_force
-		add_child(wind_blast)
+		# 
+		for body in wind_blast_area.get_overlapping_bodies():
+			print(body)
+			if body is RigidBody3D:
+				body.apply_central_impulse(-global_basis.z * wind_blast_force * body.mass)
+			elif body.has_method("wind_blast"):
+				body.wind_blast(-global_basis.z)
+		# Spawn wind blast effect
+		var wind_blast_effect: Node3D = wind_blast_effect_scene.instantiate()
+		add_child(wind_blast_effect)
+		# Cooldown
 		can_wind_blast = false
 		await get_tree().create_timer(wind_blast_cooldown).timeout
 		can_wind_blast = true
