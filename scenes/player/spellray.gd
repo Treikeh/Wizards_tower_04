@@ -77,6 +77,8 @@ func rock_wall_space_check() -> bool:
 func spawn_rock_wall() -> void:
 	# Make sure there's enough space for the wall to spawn
 	if !rock_wall_preview.enough_space:
+		# Despawn rock wall preview
+		rock_wall_preview.queue_free()
 		return
 	# Spawn real rock wall
 	var rock_wall: Node3D = rock_wall_scene.instantiate()

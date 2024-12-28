@@ -6,16 +6,17 @@
 [ext_resource type="Script" path="res://scenes/spells/rock_wall/rock_wall_explosion.gd" id="3_cmy1j"]
 [ext_resource type="Resource" uid="uid://ddwge00ixpgh1" path="res://scenes/spells/rock_wall/rock_wall_explosion_damage.tres" id="4_1d6k7"]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_gfl88"]
-size = Vector3(2, 2, 1)
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_uv1ks"]
+radius = 0.1
+height = 1.5
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_0uc3d"]
+[sub_resource type="BoxMesh" id="BoxMesh_820m5"]
 size = Vector3(2, 2, 1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_2okjq"]
 size = Vector3(2, 2, 1)
 
-[sub_resource type="BoxMesh" id="BoxMesh_820m5"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_0uc3d"]
 size = Vector3(2, 2, 1)
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_08y1q"]
@@ -40,7 +41,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("LaunchBody:position")
+tracks/1/path = NodePath("LaunchBodyTransform:position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -52,31 +53,31 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("LaunchBody/LaunchBodyCollision:disabled")
+tracks/2/path = NodePath("LaunchBody:constant_linear_velocity")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
+"update": 0,
+"values": [Vector3(0, 0, 0)]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("LaunchBody/Hitbox/HitboxCollision:disabled")
+tracks/3/path = NodePath("LaunchBody:collision_layer")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [false]
+"values": [2]
 }
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("ExplosionArea:visible")
+tracks/4/path = NodePath("LaunchBody/LaunchBodyCollision:disabled")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
@@ -88,10 +89,34 @@ tracks/4/keys = {
 tracks/5/type = "value"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("ExplosionArea/ExplosionCollision:disabled")
+tracks/5/path = NodePath("LaunchBodyTransform/Hitbox/HitboxCollision:disabled")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("ExplosionArea:visible")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("ExplosionArea/ExplosionCollision:disabled")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
@@ -141,7 +166,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("LaunchBody/Hitbox/HitboxCollision:disabled")
+tracks/3/path = NodePath("LaunchBodyTransform/Hitbox/HitboxCollision:disabled")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -206,7 +231,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("LaunchBody/Hitbox/HitboxCollision:disabled")
+tracks/3/path = NodePath("LaunchBodyTransform/Hitbox/HitboxCollision:disabled")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -276,7 +301,7 @@ tracks/0/path = NodePath("WallCollision:disabled")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.4),
+"times": PackedFloat32Array(0, 0.2),
 "transitions": PackedFloat32Array(1, 1),
 "update": 1,
 "values": [true, false]
@@ -284,7 +309,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("LaunchBody:position")
+tracks/1/path = NodePath("LaunchBodyTransform:position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -303,19 +328,19 @@ tracks/2/keys = {
 "times": PackedFloat32Array(0, 0.4),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector3(0, 10, 0), Vector3(0, 0, 0)]
+"values": [Vector3(0, 5, 0), Vector3(0, 0, 0)]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("LaunchBody/LaunchBodyCollision:disabled")
+tracks/3/path = NodePath("LaunchBody:collision_layer")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"times": PackedFloat32Array(0, 0.4),
-"transitions": PackedFloat32Array(1, 1),
+"times": PackedFloat32Array(0, 0.0333333, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
 "update": 1,
-"values": [false, true]
+"values": [0, 4, 2]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_hck4l"]
@@ -327,43 +352,47 @@ _data = {
 }
 
 [node name="RockWall" type="CharacterBody3D" node_paths=PackedStringArray("animation_player")]
+collision_layer = 32
+collision_mask = 9
 floor_max_angle = 0.261799
 floor_snap_length = 0.5
 script = ExtResource("1_3mufw")
 animation_player = NodePath("AnimationPlayer")
 
 [node name="WallCollision" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
+shape = SubResource("CapsuleShape3D_uv1ks")
+
+[node name="LaunchBodyTransform" type="RemoteTransform3D" parent="."]
+remote_path = NodePath("../LaunchBody")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="LaunchBodyTransform"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-shape = SubResource("BoxShape3D_gfl88")
+mesh = SubResource("BoxMesh_820m5")
+skeleton = NodePath("../..")
 
-[node name="LaunchBody" type="StaticBody3D" parent="."]
-collision_layer = 2
-collision_mask = 0
-constant_linear_velocity = Vector3(0, 10, 0)
-
-[node name="LaunchBodyCollision" type="CollisionShape3D" parent="LaunchBody"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-shape = SubResource("BoxShape3D_0uc3d")
-disabled = true
-
-[node name="Hitbox" parent="LaunchBody" node_paths=PackedStringArray("health_node") instance=ExtResource("2_imdi2")]
+[node name="Hitbox" parent="LaunchBodyTransform" node_paths=PackedStringArray("health_node") instance=ExtResource("2_imdi2")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 collision_layer = 3072
 health_node = NodePath("../../Health")
 
-[node name="HitboxCollision" type="CollisionShape3D" parent="LaunchBody/Hitbox"]
+[node name="HitboxCollision" type="CollisionShape3D" parent="LaunchBodyTransform/Hitbox"]
 shape = SubResource("BoxShape3D_2okjq")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="LaunchBody"]
+[node name="LaunchBody" type="AnimatableBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2, 0)
+collision_layer = 2
+collision_mask = 2
+
+[node name="LaunchBodyCollision" type="CollisionShape3D" parent="LaunchBody"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-mesh = SubResource("BoxMesh_820m5")
-skeleton = NodePath("../..")
+shape = SubResource("BoxShape3D_0uc3d")
 
 [node name="ExplosionArea" type="Area3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 visible = false
 collision_layer = 0
-collision_mask = 3072
+collision_mask = 192
 monitorable = false
 script = ExtResource("3_cmy1j")
 explosion_damage = ExtResource("4_1d6k7")
@@ -382,10 +411,11 @@ mesh = SubResource("SphereMesh_wdq0b")
 script = ExtResource("3_5nyv3")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+callback_mode_process = 0
 libraries = {
 "": SubResource("AnimationLibrary_hck4l")
 }
 autoplay = "spawn"
 
-[connection signal="damage_recived" from="LaunchBody/Hitbox" to="." method="_on_hitbox_damage_recived"]
+[connection signal="damage_recived" from="LaunchBodyTransform/Hitbox" to="." method="_on_hitbox_damage_recived"]
 [connection signal="health_depleted" from="Health" to="." method="wall_destroyed"]

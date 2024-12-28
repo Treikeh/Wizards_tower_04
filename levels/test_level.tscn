@@ -77,8 +77,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.26941, 0, 3.54835)
 
 [node name="BigBox" type="RigidBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.09288, 2.68097, -0.899674)
-collision_layer = 3
-collision_mask = 3
+collision_layer = 2
+collision_mask = 7
 mass = 5.0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="BigBox"]

@@ -82,13 +82,14 @@ wind_blast={
 
 [layer_names]
 
-3d_physics/layer_1="environment"
-3d_physics/layer_2="player"
-3d_physics/layer_3="enemy"
+3d_physics/layer_1="static_env"
+3d_physics/layer_2="dynamic_env"
+3d_physics/layer_3="player"
+3d_physics/layer_4="enemy"
 3d_physics/layer_5="interaction"
-3d_physics/layer_11="player_hitbox"
-3d_physics/layer_12="enemy_hitbox"
-3d_physics/layer_32="gravity"
+3d_physics/layer_6="projectile"
+3d_physics/layer_7="player_hitbox"
+3d_physics/layer_8="enemy_hitbox"
 
 [physics]
 

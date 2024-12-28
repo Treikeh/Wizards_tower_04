@@ -20,7 +20,7 @@ func _ready() -> void:
 
 @warning_ignore("unused_parameter")
 func _physics_process(delta: float) -> void:
-	if is_on_wall():
+	if is_on_wall() or !is_on_floor():
 		velocity = Vector3.ZERO
 	move_and_slide()
 
