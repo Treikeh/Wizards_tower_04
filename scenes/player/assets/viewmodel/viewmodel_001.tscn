@@ -1,0 +1,16 @@
+[gd_scene load_steps=2 format=3 uid="uid://b50lfkm7775j3"]
+
+[ext_resource type="PackedScene" uid="uid://bu0aavg38bpv6" path="res://scenes/player/assets/viewmodel/viewmodel_001.glb" id="1_7lj4g"]
+
+[node name="viewmodel_001" instance=ExtResource("1_7lj4g")]
+
+[node name="Skeleton3D" parent="." index="0"]
+bones/4/rotation = Quaternion(0.363432, -0.32629, -0.470368, 0.734987)
+bones/5/rotation = Quaternion(0.511026, -0.00864555, -0.130648, 0.849534)
+bones/6/rotation = Quaternion(-0.0949871, 0.429017, -0.0222689, 0.898012)
+bones/8/rotation = Quaternion(0.363432, 0.32629, 0.470368, 0.734987)
+bones/9/rotation = Quaternion(0.511027, 0.00864555, 0.130648, 0.849534)
+bones/10/rotation = Quaternion(-0.0949871, -0.429017, 0.0222689, 0.898012)
+
+[node name="AnimationPlayer" parent="." index="1"]
+autoplay = "idle_001"
