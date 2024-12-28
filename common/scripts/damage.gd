@@ -1,5 +1,6 @@
-extends Resource
 class_name Damage
+extends Resource
+
 
 enum Type {
 	PHYSICAL,

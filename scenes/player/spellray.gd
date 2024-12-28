@@ -1,9 +1,11 @@
 extends RayCast3D
 
+
 @export_group("Nodes")
 #TODO: Find a better way to save spawn rotation than to reference a Node3D
 ## Players orientation node. Used to orient Rock wall spell
 @export var orientation: Node3D
+
 
 @warning_ignore("unused_parameter")
 func _physics_process(delta: float) -> void:
@@ -17,6 +19,7 @@ func _physics_process(delta: float) -> void:
 			else:
 				rock_wall_preview.global_position = global_position
 
+
 #region Fireball
 
 @export_group("Fireball")
@@ -26,6 +29,7 @@ func _physics_process(delta: float) -> void:
 @export var fireball_cooldown: float = 0.1
 var can_fireball: bool = true
 var fireball_scene: PackedScene = preload("res://scenes/spells/fireball/fireball.tscn")
+
 
 func cast_fireball() -> void:
 	if can_fireball:
@@ -65,14 +69,13 @@ var rock_wall_scene: PackedScene = preload("res://scenes/spells/rock_wall/rock_w
 var rock_wall_preview: Node3D
 var rock_wall_preview_scene: PackedScene = preload("res://scenes/spells/rock_wall/rock_wall_preview.tscn")
 
+
 func spawn_rock_wall_preview() -> void:
 	if can_rock_wall:
 		rock_wall_preview = rock_wall_preview_scene.instantiate()
 		add_child(rock_wall_preview)
 		rock_wall_preview.top_level = true
 
-func rock_wall_space_check() -> bool:
-	return true
 
 func spawn_rock_wall() -> void:
 	# Make sure there's enough space for the wall to spawn
@@ -104,6 +107,7 @@ func spawn_rock_wall() -> void:
 @export var wind_blast_area: Area3D
 var can_wind_blast: bool = true
 var wind_blast_effect_scene: PackedScene = preload("res://scenes/spells/wind_blast/wind_blast_effect.tscn")
+
 
 func cast_wind_blast() -> void:
 	if can_wind_blast:

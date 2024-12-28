@@ -14,9 +14,11 @@ var wind_blast_force: float = 15.0
 @export_group("Nodes")
 @export var animation_player: AnimationPlayer
 
+
 func _ready() -> void:
 	# Despawwn wall after duration runs out
 	get_tree().create_timer(lifetime).timeout.connect(spell_duration_over)
+
 
 @warning_ignore("unused_parameter")
 func _physics_process(delta: float) -> void:
@@ -24,13 +26,16 @@ func _physics_process(delta: float) -> void:
 		velocity = Vector3.ZERO
 	move_and_slide()
 
+
 # When spell duration ends
 func spell_duration_over() -> void:
-	wall_destroyed()
+	_wall_destroyed()
+
 
 #TEMP: Find a better way to do this
 func recive_knockback(direction: Vector3) -> void:
 	velocity = Vector3(direction.x, 0.0, direction.z) * wind_blast_force
+
 
 #region Health
 
@@ -41,18 +46,20 @@ func _on_hitbox_damage_recived(damage: Damage) -> void:
 				return
 			if !is_timed_explosion:
 				is_timed_explosion = true
-				get_tree().create_timer(timed_explosion_duration).timeout.connect(explode)
+				get_tree().create_timer(timed_explosion_duration).timeout.connect(_explode)
 			else:
-				explode()
+				_explode()
+
 
 # When wall health is depleted
-func wall_destroyed() -> void:
+func _wall_destroyed() -> void:
 	if is_destroyed:
 		return
 	is_destroyed = true
 	animation_player.play("destroyed")
 
-func explode() -> void:
+
+func _explode() -> void:
 	if is_destroyed:
 		return
 	is_destroyed = true

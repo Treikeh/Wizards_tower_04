@@ -1,16 +1,21 @@
 extends Node3D
 
+
+@export var _can_spawn_mat: BaseMaterial3D
+@export var _cannot_spawn_mat: BaseMaterial3D
+
 @export_group("Nodes")
-@export var ray_cast_3d: RayCast3D
-@export var mesh: MeshInstance3D
+@export var _ray_cast_3d: RayCast3D
+@export var _mesh: MeshInstance3D
 ## If there's enough sapce for the wall to spawn
 var enough_space: bool = true
 
+
 @warning_ignore("unused_parameter")
 func _physics_process(delta: float) -> void:
-	if ray_cast_3d.is_colliding():
+	if _ray_cast_3d.is_colliding():
 		enough_space = false
-		mesh.scale = Vector3(0.1, 0.1, 0.1)
+		_mesh.material_override = _cannot_spawn_mat
 	else:
 		enough_space = true
-		mesh.scale = Vector3(1.0, 1.0, 1.0)
+		_mesh.material_override = _can_spawn_mat

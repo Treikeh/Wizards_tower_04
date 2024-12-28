@@ -1,5 +1,6 @@
 extends Enemy
 
+
 @export_group("AI")
 @export var chase_range: float = 10.0
 @export var attack_range: float = 2.0
@@ -17,11 +18,13 @@ var player: Node3D
 @export var attack_ray: RayCast3D
 @export var animation_player: AnimationPlayer
 
+
 @warning_ignore("unused_parameter")
 func _process(delta: float) -> void:
 	%AiStateLabel.text = current_state
 	if velocity != Vector3.ZERO and current_state != "dead":
 		mesh.look_at(mesh.global_position + Vector3(velocity.x, 0.0, velocity.z))
+
 
 @warning_ignore("unused_parameter")
 func _physics_process(delta: float) -> void:
@@ -57,6 +60,7 @@ func idle(_delta: float) -> void:
 		if distance < chase_range:
 			current_state = "chase"
 
+
 func chase(_delta: float) -> void:
 	velocity = (nav_agent.get_next_path_position() - position).normalized() * max_speed
 	nav_agent.target_position = player.position
@@ -66,6 +70,7 @@ func chase(_delta: float) -> void:
 		current_state = "attack"
 	elif distance > chase_range:
 		current_state = "idle"
+
 
 func attack(_delta: float) -> void:
 	if !can_attack:

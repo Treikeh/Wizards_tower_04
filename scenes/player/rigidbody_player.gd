@@ -1,5 +1,6 @@
 extends RigidBody3D
 
+
 @export_group("Input")
 var camera_sensitivity: float = 0.1
 var move_input: Vector2 = Vector2.ZERO
@@ -31,17 +32,21 @@ var check_for_ground: bool = true
 @export var interact_ray: RayCast3D
 @export var spell_ray: RayCast3D
 
-func _init() -> void:
-	load_input_settings()
 
-func load_input_settings() -> void:
+func _init() -> void:
+	_load_input_settings()
+
+
+func _load_input_settings() -> void:
 	var input_settings: Dictionary = ConfigHandler.load_input_settings()
 	camera_sensitivity = input_settings.camera_sensitivity
+
 
 func _ready() -> void:
 	# Capture mouse when game begins
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-	ConfigHandler.input_settings_changed.connect(load_input_settings)
+	ConfigHandler.input_settings_changed.connect(_load_input_settings)
+
 
 func _input(event: InputEvent) -> void:
 	if Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
@@ -53,7 +58,7 @@ func _input(event: InputEvent) -> void:
 		
 		# jump input
 		if event.is_action_pressed("jump"):
-			jump()
+			_jump()
 		
 		if event.is_action_pressed("interact"):
 			interact_ray.interact_with_target()
@@ -75,9 +80,10 @@ func _input(event: InputEvent) -> void:
 		# Get move_input
 		move_input = Input.get_vector("move_l", "move_r", "move_f", "move_b")
 
+
 #@warning_ignore("unused_parameter")
 func _process(delta: float) -> void:
-	is_grounded = is_on_walkable_slope()
+	is_grounded = _is_on_walkable_slope()
 	camera.apply_camera_tilt(linear_velocity, move_direction, delta) # FIXME: issues with camera tilt. or not...  Why it's working fine now?
 	if is_grounded and check_for_ground:
 		camera.head_bobbing(linear_velocity, delta)
@@ -89,6 +95,7 @@ func _process(delta: float) -> void:
 	# Align move_input to orientation
 	move_direction = orientation.global_basis * Vector3(move_input.x, 0.0, move_input.y).normalized()
 
+
 #@warning_ignore("unused_parameter")
 func _physics_process(delta: float) -> void:
 	if is_grounded:
@@ -98,7 +105,7 @@ func _physics_process(delta: float) -> void:
 		var needed_vel: Vector3 = target_vel - linear_velocity
 		apply_central_force(needed_vel * ground_accel * delta * mass)
 		if check_for_ground:
-			snap_to_ground(delta)
+			_snap_to_ground(delta)
 	else:
 		var target_vel: Vector3 = move_direction * max_speed
 		var gravity_vector: Vector3 = linear_velocity.dot(Vector3.DOWN) * Vector3.DOWN
@@ -110,14 +117,15 @@ func _physics_process(delta: float) -> void:
 
 # I feel there should be a need for delta, but i do not know where :\
 # Apply a spring force to that moves the palyer towards rest_height
-func snap_to_ground(_delta: float) -> void:
+func _snap_to_ground(_delta: float) -> void:
 	var hit_distance: float = (ground_check.global_position - ground_check.get_collision_point()).length()
 	var normal_vel: float = -ground_normal.dot(linear_velocity)
 	var dispalcement: float = hit_distance - rest_height
 	var force: float = (spring_force * dispalcement) - (normal_vel * spring_damping)
 	apply_central_force(Vector3.DOWN * force * mass)
 
-func is_on_walkable_slope() -> bool:
+
+func _is_on_walkable_slope() -> bool:
 	if ground_check.is_colliding():
 		ground_normal = ground_check.get_collision_normal()
 		# Compare ground normal to upwards direction to get slope angle
@@ -126,9 +134,10 @@ func is_on_walkable_slope() -> bool:
 		return false
 	return false
 
+
 # FIXME: Make jumping consistent when moving up and down a slope
 # Jumping is shorter when moving downw a slope since the palyer already has downwards force
-func jump() -> void:
+func _jump() -> void:
 	if is_grounded:
 		check_for_ground = false
 		apply_central_impulse(Vector3.UP * jump_force)
@@ -139,9 +148,12 @@ func jump() -> void:
 
 
 #region Health
+
 func _on_health_changed(current_health: float, max_health: float) -> void:
 	SignalHub.update_health_bar.emit(current_health / max_health)
 
+
 func _on_health_depleted() -> void:
 	SignalHub.player_died.emit()
+
 #endregion

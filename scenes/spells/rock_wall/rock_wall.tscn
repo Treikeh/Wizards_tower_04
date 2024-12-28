@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://ddufakdkmxhwr" path="res://scenes/hitbox.tscn" id="2_imdi2"]
 [ext_resource type="Script" path="res://common/scripts/health.gd" id="3_5nyv3"]
 [ext_resource type="Script" path="res://scenes/spells/rock_wall/rock_wall_explosion.gd" id="3_cmy1j"]
-[ext_resource type="Resource" uid="uid://ddwge00ixpgh1" path="res://scenes/spells/rock_wall/rock_wall_explosion_damage.tres" id="4_1d6k7"]
+[ext_resource type="Resource" uid="uid://ddwge00ixpgh1" path="res://scenes/spells/rock_wall/assets/rock_wall_explosion_damage.tres" id="4_1d6k7"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_uv1ks"]
 radius = 0.1
@@ -328,7 +328,7 @@ tracks/2/keys = {
 "times": PackedFloat32Array(0, 0.4),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector3(0, 5, 0), Vector3(0, 0, 0)]
+"values": [Vector3(0, 4, 0), Vector3(0, 0, 0)]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
@@ -380,7 +380,6 @@ health_node = NodePath("../../Health")
 shape = SubResource("BoxShape3D_2okjq")
 
 [node name="LaunchBody" type="AnimatableBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2, 0)
 collision_layer = 2
 collision_mask = 2
 
@@ -418,4 +417,4 @@ libraries = {
 autoplay = "spawn"
 
 [connection signal="damage_recived" from="LaunchBodyTransform/Hitbox" to="." method="_on_hitbox_damage_recived"]
-[connection signal="health_depleted" from="Health" to="." method="wall_destroyed"]
+[connection signal="health_depleted" from="Health" to="." method="_wall_destroyed"]

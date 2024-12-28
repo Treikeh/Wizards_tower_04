@@ -1,7 +1,9 @@
 extends Area3D
 
+
 #FIXME: For some odd reason i cant load into "test_level" when this variable is active
 @export var explosion_damage: Damage
+
 
 func explode() -> void:
 	var damaged_health_nodes: Array[Health] = []

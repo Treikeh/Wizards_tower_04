@@ -1,14 +1,16 @@
 extends Node
 
+
 func _ready() -> void:
-	SignalHub.load_level.connect(request_level_loading)
-	SignalHub.quit_game.connect(on_quit_game)
+	SignalHub.load_level.connect(_request_level_loading)
+	SignalHub.quit_game.connect(_on_quit_game)
+
 
 @warning_ignore("unused_parameter")
 func _process(delta: float) -> void:
 	# Progress level loading
 	if level_to_load != "":
-		load_level()
+		_load_level()
 
 
 #region Level loading
@@ -18,7 +20,8 @@ func _process(delta: float) -> void:
 @export var world_3d: Node3D
 var level_to_load: String = ""
 
-func request_level_loading(path: String) -> void:
+
+func _request_level_loading(path: String) -> void:
 	# Check if level file exists
 	if !FileAccess.file_exists(path):
 		print("ERROR!: Level not found. Invalid path")
@@ -42,7 +45,8 @@ func request_level_loading(path: String) -> void:
 	level_to_load = path
 	ResourceLoader.load_threaded_request.call_deferred(level_to_load, "", true)
 
-func load_level() -> void:
+
+func _load_level() -> void:
 	var progress: Array = []
 	var status: int = ResourceLoader.load_threaded_get_status(level_to_load, progress)
 	match status:
@@ -59,10 +63,11 @@ func load_level() -> void:
 			print("ERROR!: failed to load!")
 			return
 		3: # THREAD_LOAD_LOADED
-			finalize_level_loading()
+			_finalize_level_loading()
 			return
 
-func finalize_level_loading() -> void:
+
+func _finalize_level_loading() -> void:
 	# Add new level to game
 	var new_level = ResourceLoader.load_threaded_get(level_to_load).instantiate()
 	world_3d.add_child.call_deferred(new_level)
@@ -76,7 +81,7 @@ func finalize_level_loading() -> void:
 
 #region System
 
-func on_quit_game() -> void:
+func _on_quit_game() -> void:
 	get_tree().quit()
 
 #endregion
