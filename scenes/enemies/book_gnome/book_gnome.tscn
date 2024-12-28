@@ -4,7 +4,7 @@
 [ext_resource type="Script" path="res://scenes/enemies/book_gnome/book_gnome.gd" id="1_ucrke"]
 [ext_resource type="Script" path="res://common/scripts/damage.gd" id="2_7xvj8"]
 [ext_resource type="Material" uid="uid://botmm8kkk1h67" path="res://common/materials/dev_grid_gray.tres" id="2_g2dlo"]
-[ext_resource type="PackedScene" uid="uid://ddufakdkmxhwr" path="res://scenes/hitbox.tscn" id="3_ap0dj"]
+[ext_resource type="PackedScene" uid="uid://ddufakdkmxhwr" path="res://scenes/health_area_3d.tscn" id="3_ap0dj"]
 [ext_resource type="PackedScene" uid="uid://cs53wyj8yt4s4" path="res://scenes/enemies/floating_health_bar.tscn" id="4_010fi"]
 [ext_resource type="Script" path="res://common/scripts/health.gd" id="4_ejrbm"]
 
@@ -84,8 +84,8 @@ _data = {
 viewport_path = NodePath("SubViewport")
 
 [node name="BookGnome" type="CharacterBody3D" node_paths=PackedStringArray("mesh", "animation_player", "nav_agent") groups=["enemy"]]
-collision_layer = 4
-collision_mask = 7
+collision_layer = 8
+collision_mask = 15
 script = ExtResource("1_ucrke")
 attack_damage = SubResource("Resource_ev8r8")
 mesh = NodePath("Mesh")
@@ -108,10 +108,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.232645, -0.0810928)
 material_override = ExtResource("2_g2dlo")
 mesh = SubResource("BoxMesh_if1df")
 
-[node name="Hitbox" parent="Mesh" node_paths=PackedStringArray("health_node") instance=ExtResource("3_ap0dj")]
+[node name="HealthArea3D" parent="Mesh" node_paths=PackedStringArray("health_node") instance=ExtResource("3_ap0dj")]
 health_node = NodePath("../../Health")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Mesh/Hitbox"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Mesh/HealthArea3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 shape = SubResource("BoxShape3D_cf1hn")
 

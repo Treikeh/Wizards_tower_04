@@ -41,7 +41,7 @@ func recive_knockback(direction: Vector3) -> void:
 
 func _on_hitbox_damage_recived(damage: Damage) -> void:
 	match damage.type:
-		Damage.Type.FIRE:
+		Damage.DamageType.FIRE:
 			if damage.amount < damage_threshold:
 				return
 			if !is_timed_explosion:

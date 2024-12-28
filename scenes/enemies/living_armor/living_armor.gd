@@ -80,7 +80,7 @@ func attack(_delta: float) -> void:
 	# Simple test attack
 	if attack_ray.is_colliding():
 		var collider: Object = attack_ray.get_collider()
-		if collider is Hitbox:
+		if collider is HealthArea3D:
 			collider.recive_damage(attack_damage)
 			print("Attack")
 	if current_state != "dead":

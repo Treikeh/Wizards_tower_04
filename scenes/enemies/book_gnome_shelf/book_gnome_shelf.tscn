@@ -1,10 +1,10 @@
 [gd_scene load_steps=13 format=3 uid="uid://dtoewhbmg012w"]
 
-[ext_resource type="Material" uid="uid://c4eykp21shtlp" path="res://common/materials/dev_grid_red.tres" id="1_gg2pw"]
-[ext_resource type="Script" path="res://scenes/enemies/booklet_shelf/booklet_shelf.gd" id="1_op2xl"]
-[ext_resource type="PackedScene" uid="uid://ddufakdkmxhwr" path="res://scenes/hitbox.tscn" id="2_4cw56"]
-[ext_resource type="Script" path="res://common/scripts/health.gd" id="3_41axx"]
-[ext_resource type="PackedScene" uid="uid://cs53wyj8yt4s4" path="res://scenes/enemies/floating_health_bar.tscn" id="3_ukhkt"]
+[ext_resource type="Script" path="res://scenes/enemies/book_gnome_shelf/book_gnome_shelf.gd" id="1_xkhhr"]
+[ext_resource type="Material" uid="uid://c4eykp21shtlp" path="res://common/materials/dev_grid_red.tres" id="2_m0doj"]
+[ext_resource type="PackedScene" uid="uid://ddufakdkmxhwr" path="res://scenes/health_area_3d.tscn" id="3_eivbp"]
+[ext_resource type="PackedScene" uid="uid://cs53wyj8yt4s4" path="res://scenes/enemies/floating_health_bar.tscn" id="4_knj5g"]
+[ext_resource type="Script" path="res://common/scripts/health.gd" id="5_0ck78"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_wqowl"]
 radius = 0.6
@@ -29,10 +29,10 @@ _data = {
 [sub_resource type="ViewportTexture" id="ViewportTexture_f0xr0"]
 viewport_path = NodePath("SubViewport")
 
-[node name="BookletShelf" type="CharacterBody3D" node_paths=PackedStringArray("nav_agent") groups=["enemy"]]
-collision_layer = 4
-collision_mask = 7
-script = ExtResource("1_op2xl")
+[node name="BookGnomeShelf" type="CharacterBody3D" node_paths=PackedStringArray("nav_agent") groups=["enemy"]]
+collision_layer = 8
+collision_mask = 15
+script = ExtResource("1_xkhhr")
 nav_agent = NodePath("NavigationAgent3D")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
@@ -43,17 +43,17 @@ shape = SubResource("CapsuleShape3D_wqowl")
 
 [node name="Body" type="MeshInstance3D" parent="Mesh"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-material_override = ExtResource("1_gg2pw")
+material_override = ExtResource("2_m0doj")
 mesh = SubResource("BoxMesh_6r7sj")
 
 [node name="Eyes" type="MeshInstance3D" parent="Mesh/Body"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, -0.3)
 mesh = SubResource("BoxMesh_numao")
 
-[node name="Hitbox" parent="Mesh" node_paths=PackedStringArray("health_node") instance=ExtResource("2_4cw56")]
+[node name="HealthArea3D" parent="Mesh" node_paths=PackedStringArray("health_node") instance=ExtResource("3_eivbp")]
 health_node = NodePath("../../Health")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Mesh/Hitbox"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Mesh/HealthArea3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("BoxShape3D_pkqmf")
 
@@ -62,12 +62,12 @@ libraries = {
 "": SubResource("AnimationLibrary_cpk5r")
 }
 
-[node name="FloatingHealthBar" parent="." instance=ExtResource("3_ukhkt")]
+[node name="FloatingHealthBar" parent="." instance=ExtResource("4_knj5g")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.2, 0)
 texture = SubResource("ViewportTexture_f0xr0")
 
 [node name="Health" type="Node" parent="."]
-script = ExtResource("3_41axx")
+script = ExtResource("5_0ck78")
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
 path_height_offset = 0.5

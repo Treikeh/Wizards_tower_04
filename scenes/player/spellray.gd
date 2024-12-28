@@ -34,7 +34,7 @@ var fireball_scene: PackedScene = preload("res://scenes/spells/fireball/fireball
 func cast_fireball() -> void:
 	if can_fireball:
 		var fireball: RigidBody3D = fireball_scene.instantiate()
-		fireball.hurtbox.damage = fireball_damage
+		fireball.damage_area.damage = fireball_damage
 		fireball.initial_velocity = fireball_speed
 		fireball.gravity_scale = fireball_gravity_scale
 		add_child(fireball)

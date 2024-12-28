@@ -88,6 +88,7 @@ wind_blast={
 3d_physics/layer_4="enemy"
 3d_physics/layer_5="interaction"
 3d_physics/layer_6="projectile"
+3d_navigation/layer_6="projectile"
 3d_physics/layer_7="player_hitbox"
 3d_physics/layer_8="enemy_hitbox"
 

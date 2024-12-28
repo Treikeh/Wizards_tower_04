@@ -9,7 +9,7 @@ func explode() -> void:
 	var damaged_health_nodes: Array[Health] = []
 	var overlapping_areas: Array[Area3D] = get_overlapping_areas()
 	for area in overlapping_areas:
-		if area is Hitbox:
+		if area is HealthArea3D:
 			# Check if the health_node of the hurtbox has allready been hit
 			if damaged_health_nodes.has(area.health_node):
 				return

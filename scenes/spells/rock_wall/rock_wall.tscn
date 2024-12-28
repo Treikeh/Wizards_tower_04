@@ -1,7 +1,7 @@
 [gd_scene load_steps=17 format=3 uid="uid://b2n0kf0vd4u8n"]
 
 [ext_resource type="Script" path="res://scenes/spells/rock_wall/rock_wall.gd" id="1_3mufw"]
-[ext_resource type="PackedScene" uid="uid://ddufakdkmxhwr" path="res://scenes/hitbox.tscn" id="2_imdi2"]
+[ext_resource type="PackedScene" uid="uid://ddufakdkmxhwr" path="res://scenes/health_area_3d.tscn" id="2_imdi2"]
 [ext_resource type="Script" path="res://common/scripts/health.gd" id="3_5nyv3"]
 [ext_resource type="Script" path="res://scenes/spells/rock_wall/rock_wall_explosion.gd" id="3_cmy1j"]
 [ext_resource type="Resource" uid="uid://ddwge00ixpgh1" path="res://scenes/spells/rock_wall/assets/rock_wall_explosion_damage.tres" id="4_1d6k7"]
@@ -89,7 +89,7 @@ tracks/4/keys = {
 tracks/5/type = "value"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("LaunchBodyTransform/Hitbox/HitboxCollision:disabled")
+tracks/5/path = NodePath("LaunchBodyTransform/HealthArea3D/HealthArea3DCollision:disabled")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
@@ -166,7 +166,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("LaunchBodyTransform/Hitbox/HitboxCollision:disabled")
+tracks/3/path = NodePath("LaunchBodyTransform/HealthArea3D/HealthArea3DCollision:disabled")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -231,7 +231,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("LaunchBodyTransform/Hitbox/HitboxCollision:disabled")
+tracks/3/path = NodePath("LaunchBodyTransform/HealthArea3D/HealthArea3DCollision:disabled")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -371,12 +371,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 mesh = SubResource("BoxMesh_820m5")
 skeleton = NodePath("../..")
 
-[node name="Hitbox" parent="LaunchBodyTransform" node_paths=PackedStringArray("health_node") instance=ExtResource("2_imdi2")]
+[node name="HealthArea3D" parent="LaunchBodyTransform" node_paths=PackedStringArray("health_node") instance=ExtResource("2_imdi2")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-collision_layer = 3072
+collision_layer = 192
 health_node = NodePath("../../Health")
 
-[node name="HitboxCollision" type="CollisionShape3D" parent="LaunchBodyTransform/Hitbox"]
+[node name="HealthArea3DCollision" type="CollisionShape3D" parent="LaunchBodyTransform/HealthArea3D"]
 shape = SubResource("BoxShape3D_2okjq")
 
 [node name="LaunchBody" type="AnimatableBody3D" parent="."]
@@ -416,5 +416,5 @@ libraries = {
 }
 autoplay = "spawn"
 
-[connection signal="damage_recived" from="LaunchBodyTransform/Hitbox" to="." method="_on_hitbox_damage_recived"]
+[connection signal="damage_recived" from="LaunchBodyTransform/HealthArea3D" to="." method="_on_hitbox_damage_recived"]
 [connection signal="health_depleted" from="Health" to="." method="_wall_destroyed"]

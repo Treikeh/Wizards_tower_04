@@ -6,7 +6,7 @@
 [ext_resource type="Script" path="res://common/scripts/damage.gd" id="2_4c4xr"]
 [ext_resource type="Script" path="res://common/scripts/health.gd" id="2_6r6ee"]
 [ext_resource type="Material" uid="uid://botmm8kkk1h67" path="res://common/materials/dev_grid_gray.tres" id="3_oj627"]
-[ext_resource type="PackedScene" uid="uid://ddufakdkmxhwr" path="res://scenes/hitbox.tscn" id="3_tgsqs"]
+[ext_resource type="PackedScene" uid="uid://ddufakdkmxhwr" path="res://scenes/health_area_3d.tscn" id="3_tgsqs"]
 
 [sub_resource type="Resource" id="Resource_76r0o"]
 script = ExtResource("2_4c4xr")
@@ -78,8 +78,8 @@ _data = {
 }
 
 [node name="LivingArmor" type="CharacterBody3D" node_paths=PackedStringArray("mesh", "attack_ray", "animation_player", "nav_agent") groups=["enemy"]]
-collision_layer = 4
-collision_mask = 7
+collision_layer = 8
+collision_mask = 15
 script = ExtResource("1_06wta")
 attack_damage = SubResource("Resource_76r0o")
 mesh = NodePath("Mesh")
@@ -110,11 +110,11 @@ collision_mask = 1024
 collide_with_areas = true
 collide_with_bodies = false
 
-[node name="Hitbox" parent="Mesh" node_paths=PackedStringArray("health_node") instance=ExtResource("3_tgsqs")]
+[node name="HealthArea3D" parent="Mesh" node_paths=PackedStringArray("health_node") instance=ExtResource("3_tgsqs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, 0)
 health_node = NodePath("../../Health")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Mesh/Hitbox"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Mesh/HealthArea3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
 shape = SubResource("CapsuleShape3D_dim8n")
 

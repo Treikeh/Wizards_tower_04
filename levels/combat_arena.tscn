@@ -4,8 +4,8 @@
 [ext_resource type="Material" uid="uid://botmm8kkk1h67" path="res://common/materials/dev_grid_gray.tres" id="2_m582j"]
 [ext_resource type="PackedScene" uid="uid://bmdxr06ji3ymb" path="res://scenes/enemies/living_armor/living_armor.tscn" id="4_kbe8j"]
 [ext_resource type="PackedScene" uid="uid://uvws4xru1kpl" path="res://scenes/enemies/book_gnome/book_gnome.tscn" id="5_bj0px"]
-[ext_resource type="PackedScene" uid="uid://dh8dcfqs8vv8p" path="res://scenes/player/rigidbody_player.tscn" id="5_qo66a"]
-[ext_resource type="PackedScene" uid="uid://dtoewhbmg012w" path="res://scenes/enemies/booklet_shelf/booklet_shelf.tscn" id="6_tqsji"]
+[ext_resource type="PackedScene" uid="uid://dh8dcfqs8vv8p" path="res://scenes/player/player_controller.tscn" id="5_qo66a"]
+[ext_resource type="PackedScene" uid="uid://dtoewhbmg012w" path="res://scenes/enemies/book_gnome_shelf/book_gnome_shelf.tscn" id="6_tqsji"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_shs6k"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)

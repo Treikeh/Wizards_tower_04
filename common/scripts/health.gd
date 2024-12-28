@@ -21,10 +21,10 @@ func _ready() -> void:
 	current_health = max_health
 
 
-func take_damage(damage: Damage) -> void:
+func take_damage(amount: float, type: Damage.DamageType) -> void:
 	if is_dead:
 		return
-	var damage_taken: float = _apply_damage_resistance(damage)
+	var damage_taken: float = _apply_damage_resistance(amount, type)
 	current_health -= damage_taken
 	health_changed.emit(current_health, max_health)
 	if current_health <= 0.0:
@@ -32,13 +32,13 @@ func take_damage(damage: Damage) -> void:
 		is_dead = true
 
 
-func _apply_damage_resistance(damage: Damage) -> float:
-	match damage.type:
-		Damage.Type.PHYSICAL:
-			return damage.amount * _resistance_to_mult(physical_resistance)
-		Damage.Type.FIRE:
-			return damage.amount * _resistance_to_mult(fire_resisance)
-	return damage.amount
+func _apply_damage_resistance(amount: float, type: Damage.DamageType) -> float:
+	match type:
+		Damage.DamageType.PHYSICAL:
+			return amount * _resistance_to_mult(physical_resistance)
+		Damage.DamageType.FIRE:
+			return amount * _resistance_to_mult(fire_resisance)
+	return amount
 
 
 func _resistance_to_mult(resistance: float) -> float:
