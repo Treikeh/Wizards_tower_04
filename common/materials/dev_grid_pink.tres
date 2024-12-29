@@ -1,9 +1,0 @@
-[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://b4576fxo40ync"]
-
-[ext_resource type="Texture2D" uid="uid://pkxfmcnghoc8" path="res://common/textures/t_dev_grid_64_simple.png" id="1_ihs8d"]
-
-[resource]
-albedo_color = Color(1, 0.190418, 0.947706, 1)
-albedo_texture = ExtResource("1_ihs8d")
-uv1_triplanar = true
-texture_filter = 0

@@ -1,0 +1,154 @@
+[gd_scene load_steps=20 format=3 uid="uid://cscm07iintxhd"]
+
+[ext_resource type="Material" uid="uid://botmm8kkk1h67" path="res://resources/materials/dev_grid_gray.tres" id="2_m12yk"]
+[ext_resource type="PackedScene" uid="uid://dh8dcfqs8vv8p" path="res://scenes/player/player_controller.tscn" id="2_vbosa"]
+[ext_resource type="PackedScene" uid="uid://d0lld0115r5yv" path="res://scenes/interact_area_3d.tscn" id="3_kj7jt"]
+[ext_resource type="PackedScene" uid="uid://bmdxr06ji3ymb" path="res://scenes/enemies/living_armor/living_armor.tscn" id="5_io8yn"]
+[ext_resource type="Script" path="res://scripts/health.gd" id="6_ep4ar"]
+[ext_resource type="PackedScene" uid="uid://ddufakdkmxhwr" path="res://scenes/health_area_3d.tscn" id="6_i66f4"]
+[ext_resource type="Material" uid="uid://butaeuol8riqi" path="res://scenes/spells/rock_wall/assets/rock_wall_preview_can_spawn_mat.tres" id="8_kjgf6"]
+[ext_resource type="Material" uid="uid://dusegx7j0olth" path="res://scenes/spells/rock_wall/assets/rock_wall_preview_cannot_spawn_mat.tres" id="9_vd5uf"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_8ksd3"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_w046n"]
+sky_material = SubResource("ProceduralSkyMaterial_8ksd3")
+
+[sub_resource type="Environment" id="Environment_4v6j6"]
+background_mode = 2
+sky = SubResource("Sky_w046n")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="BoxMesh" id="BoxMesh_8hgcg"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_j0pjx"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_l84jc"]
+size = Vector3(2, 2, 2)
+
+[sub_resource type="BoxMesh" id="BoxMesh_wk0s3"]
+size = Vector3(2, 2, 2)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_e24gp"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_qfpsn"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_npl2d"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_02try"]
+
+[node name="TestLevel" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_4v6j6")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 10, 0)
+shadow_enabled = true
+
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+material_override = ExtResource("2_m12yk")
+use_collision = true
+size = Vector3(20, 1, 20)
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0.15, -7.45507)
+material_override = ExtResource("2_m12yk")
+use_collision = true
+size = Vector3(10, 0.3, 4)
+
+[node name="CSGBox3D6" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0.3, -7.45507)
+material_override = ExtResource("2_m12yk")
+use_collision = true
+size = Vector3(10, 0.6, 4)
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.904269, 0.426963, 0, -0.426963, 0.904269, 0, 1.87816, 11.3502)
+material_override = ExtResource("2_m12yk")
+use_collision = true
+size = Vector3(20, 1, 12.1616)
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.754709, 0.656059, 0, -0.656059, 0.754709, -8.05, 1.87816, 8.75955)
+material_override = ExtResource("2_m12yk")
+use_collision = true
+size = Vector3(3.9, 1, 12.1616)
+
+[node name="CSGBox3D5" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.777146, 0.62932, 0, -0.62932, 0.777146, -4.15, 1.87816, 8.75955)
+material_override = ExtResource("2_m12yk")
+use_collision = true
+size = Vector3(3.9, 1, 12.1616)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 4)
+mesh = SubResource("BoxMesh_8hgcg")
+skeleton = NodePath("../..")
+
+[node name="InteractArea3D" parent="MeshInstance3D" instance=ExtResource("3_kj7jt")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D/InteractArea3D"]
+shape = SubResource("BoxShape3D_j0pjx")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="MeshInstance3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.857309, 0)
+
+[node name="RigidbodyPlayer" parent="." instance=ExtResource("2_vbosa")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.390936, 1, 0.665959)
+
+[node name="Enemy_001" parent="." instance=ExtResource("5_io8yn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.26941, 0, 3.54835)
+
+[node name="BigBox" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.09288, 2.68097, -0.899674)
+collision_layer = 2
+collision_mask = 7
+mass = 5.0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="BigBox"]
+shape = SubResource("BoxShape3D_l84jc")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="BigBox"]
+mesh = SubResource("BoxMesh_wk0s3")
+
+[node name="Health" type="Node" parent="."]
+script = ExtResource("6_ep4ar")
+
+[node name="HealthArea3D" parent="." node_paths=PackedStringArray("health_node") instance=ExtResource("6_i66f4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.02987, 1.61649, -6.83896)
+health_node = NodePath("../Health")
+damage_multiplier = 2.0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HealthArea3D"]
+shape = SubResource("BoxShape3D_e24gp")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="HealthArea3D"]
+material_override = ExtResource("8_kjgf6")
+mesh = SubResource("BoxMesh_qfpsn")
+
+[node name="HealthArea3D3" parent="." node_paths=PackedStringArray("health_node") instance=ExtResource("6_i66f4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.42987, 1.61649, -6.83896)
+health_node = NodePath("../Health")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HealthArea3D3"]
+shape = SubResource("BoxShape3D_e24gp")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="HealthArea3D3"]
+mesh = SubResource("BoxMesh_qfpsn")
+
+[node name="HealthArea3D2" parent="." node_paths=PackedStringArray("health_node") instance=ExtResource("6_i66f4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.88606, 1.64045, -6.728)
+health_node = NodePath("../Health")
+damage_multiplier = 0.5
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HealthArea3D2"]
+shape = SubResource("BoxShape3D_npl2d")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="HealthArea3D2"]
+material_override = ExtResource("9_vd5uf")
+mesh = SubResource("BoxMesh_02try")

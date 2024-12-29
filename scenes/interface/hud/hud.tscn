@@ -1,0 +1,95 @@
+[gd_scene load_steps=6 format=3 uid="uid://bsrvl85f7jxdv"]
+
+[ext_resource type="Script" path="res://scenes/interface/hud/hud.gd" id="1_t53q1"]
+[ext_resource type="StyleBox" uid="uid://qtun7cbqouf7" path="res://resources/stylebox/health_background_flat.tres" id="2_ww7ko"]
+[ext_resource type="StyleBox" uid="uid://bsqtahxlwo7o6" path="res://resources/stylebox/health_fill_flat.tres" id="3_ghl2y"]
+
+[sub_resource type="Gradient" id="Gradient_8rdpu"]
+offsets = PackedFloat32Array(0, 0.082397)
+colors = PackedColorArray(0.187176, 0.187176, 0.187176, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_nfjs5"]
+gradient = SubResource("Gradient_8rdpu")
+width = 32
+height = 32
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[node name="Hud" type="Control" node_paths=PackedStringArray("fps_label", "interact_label", "health_bar")]
+process_mode = 1
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_t53q1")
+fps_label = NodePath("FpsLabel")
+interact_label = NodePath("InteractLabel")
+health_bar = NodePath("HealthBar")
+
+[node name="FpsLabel" type="Label" parent="."]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(50, 25)
+layout_mode = 1
+anchors_preset = -1
+offset_left = 5.0
+offset_top = 5.0
+text = "FPS: 60"
+
+[node name="InteractLabel" type="Label" parent="."]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(50, 25)
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -30.5
+offset_top = 25.5
+offset_right = 30.5
+offset_bottom = 74.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Interact
+[E]"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Crosshair" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(20, 20)
+texture = SubResource("GradientTexture2D_nfjs5")
+
+[node name="HealthBar" type="ProgressBar" parent="."]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(200, 15)
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 300.0
+offset_right = -300.0
+offset_bottom = -25.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_styles/background = ExtResource("2_ww7ko")
+theme_override_styles/fill = ExtResource("3_ghl2y")
+max_value = 1.0
+step = 0.0
+value = 0.5
+show_percentage = false

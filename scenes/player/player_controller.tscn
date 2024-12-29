@@ -1,13 +1,13 @@
 [gd_scene load_steps=13 format=3 uid="uid://dh8dcfqs8vv8p"]
 
 [ext_resource type="Script" path="res://scenes/player/player_controller.gd" id="1_ck1rn"]
-[ext_resource type="Material" uid="uid://uwtl3uvytx4g" path="res://common/materials/dev_grid_green.tres" id="2_7yv5a"]
+[ext_resource type="Material" uid="uid://uwtl3uvytx4g" path="res://resources/materials/dev_grid_green.tres" id="2_7yv5a"]
 [ext_resource type="PackedScene" uid="uid://ddufakdkmxhwr" path="res://scenes/health_area_3d.tscn" id="2_8fr2j"]
 [ext_resource type="Script" path="res://scenes/player/player_camera.gd" id="2_kvlkg"]
 [ext_resource type="Script" path="res://scenes/player/player_interact_ray.gd" id="3_6mksv"]
 [ext_resource type="PackedScene" uid="uid://b50lfkm7775j3" path="res://scenes/player/assets/viewmodel/viewmodel_001.tscn" id="4_6hxf4"]
 [ext_resource type="PackedScene" uid="uid://cavgwqcbmxw3w" path="res://scenes/player/spellray.tscn" id="6_urw7v"]
-[ext_resource type="Script" path="res://common/scripts/health.gd" id="7_s4lvk"]
+[ext_resource type="Script" path="res://scripts/health.gd" id="7_s4lvk"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_ebie1"]
 friction = 0.0

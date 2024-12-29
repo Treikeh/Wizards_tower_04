@@ -1,0 +1,69 @@
+[gd_scene load_steps=10 format=3 uid="uid://4jtdswc2727r"]
+
+[ext_resource type="Material" uid="uid://botmm8kkk1h67" path="res://resources/materials/dev_grid_gray.tres" id="2_m582j"]
+[ext_resource type="PackedScene" uid="uid://bmdxr06ji3ymb" path="res://scenes/enemies/living_armor/living_armor.tscn" id="4_kbe8j"]
+[ext_resource type="PackedScene" uid="uid://uvws4xru1kpl" path="res://scenes/enemies/book_gnome/book_gnome.tscn" id="5_bj0px"]
+[ext_resource type="PackedScene" uid="uid://dh8dcfqs8vv8p" path="res://scenes/player/player_controller.tscn" id="5_qo66a"]
+[ext_resource type="PackedScene" uid="uid://dtoewhbmg012w" path="res://scenes/enemies/book_gnome_shelf/book_gnome_shelf.tscn" id="6_tqsji"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_shs6k"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_4tutt"]
+sky_material = SubResource("ProceduralSkyMaterial_shs6k")
+
+[sub_resource type="Environment" id="Environment_k8si0"]
+background_mode = 2
+sky = SubResource("Sky_4tutt")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="NavigationMesh" id="NavigationMesh_bxmx6"]
+vertices = PackedVector3Array(-1.0802, 0.5, -33.4473, 0.1698, 0.5, -33.4473, 0.1698, 0.5, -51.6973, -1.8302, 0.5, -32.6973, -25.5802, 0.5, -51.6973, -25.5802, 0.5, -31.4473, -1.8302, 0.5, -31.1973, 1.1698, 0.5, -33.4473, 1.9198, 0.5, -32.6973, 25.6698, 0.5, -31.4473, 25.6698, 0.5, -51.6973, 1.9198, 0.5, -31.1973, -25.5802, 0.5, -11.1973, -1.8302, 0.5, -11.4473, 1.9198, 0.5, -11.4473, 25.6698, 0.5, -11.1973, 0.1698, 0.5, 9.05275, 0.1698, 0.5, -9.19725, -1.0802, 0.5, -9.19725, -1.8302, 0.5, -9.94725, -25.5802, 0.5, 9.05275, 1.1698, 0.5, -9.19725, 1.9198, 0.5, -9.94725, 25.6698, 0.5, 9.05275)
+polygons = [PackedInt32Array(2, 1, 0), PackedInt32Array(0, 3, 2), PackedInt32Array(2, 3, 4), PackedInt32Array(4, 3, 5), PackedInt32Array(3, 6, 5), PackedInt32Array(7, 1, 2), PackedInt32Array(7, 2, 8), PackedInt32Array(8, 2, 10), PackedInt32Array(8, 10, 9), PackedInt32Array(9, 11, 8), PackedInt32Array(13, 12, 6), PackedInt32Array(6, 12, 5), PackedInt32Array(11, 9, 14), PackedInt32Array(14, 9, 15), PackedInt32Array(18, 17, 16), PackedInt32Array(18, 16, 19), PackedInt32Array(19, 16, 20), PackedInt32Array(19, 20, 12), PackedInt32Array(12, 13, 19), PackedInt32Array(16, 17, 21), PackedInt32Array(21, 22, 16), PackedInt32Array(16, 22, 23), PackedInt32Array(23, 22, 15), PackedInt32Array(22, 14, 15)]
+geometry_source_geometry_mode = 1
+geometry_source_group_name = &"nav_mesh"
+agent_radius = 1.0
+
+[node name="TestLevel_002" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_k8si0")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 10, 0)
+shadow_enabled = true
+
+[node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
+navigation_mesh = SubResource("NavigationMesh_bxmx6")
+
+[node name="Ground" type="CSGBox3D" parent="." groups=["nav_mesh"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, -21.3486)
+material_override = ExtResource("2_m582j")
+use_collision = true
+size = Vector3(53.1604, 1, 62.6973)
+
+[node name="Wall" type="CSGBox3D" parent="." groups=["nav_mesh"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.14158, -21.3486)
+material_override = ExtResource("2_m582j")
+use_collision = true
+size = Vector3(1.35132, 3.58691, 22.1885)
+
+[node name="RigidbodyController" parent="." instance=ExtResource("5_qo66a")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.05, 0)
+
+[node name="Booklet" parent="." instance=ExtResource("5_bj0px")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.3, 0, -14)
+
+[node name="Booklet2" parent="." instance=ExtResource("5_bj0px")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.8, 0, -11.2)
+
+[node name="LivingArmor" parent="." instance=ExtResource("4_kbe8j")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.38906, 0, -13.2629)
+
+[node name="LivingArmor2" parent="." instance=ExtResource("4_kbe8j")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.24539, 0, -12.315)
+
+[node name="BookletShelf" parent="." instance=ExtResource("6_tqsji")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.65188, 4.76837e-07, -13.49)

@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scenes/spells/rock_wall/rock_wall.gd" id="1_3mufw"]
 [ext_resource type="PackedScene" uid="uid://ddufakdkmxhwr" path="res://scenes/health_area_3d.tscn" id="2_imdi2"]
-[ext_resource type="Script" path="res://common/scripts/health.gd" id="3_5nyv3"]
+[ext_resource type="Script" path="res://scripts/health.gd" id="3_5nyv3"]
 [ext_resource type="Script" path="res://scenes/spells/rock_wall/rock_wall_explosion.gd" id="3_cmy1j"]
 [ext_resource type="Resource" uid="uid://ddwge00ixpgh1" path="res://scenes/spells/rock_wall/assets/rock_wall_explosion_damage.tres" id="4_1d6k7"]
 

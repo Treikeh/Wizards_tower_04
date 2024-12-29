@@ -1,12 +1,12 @@
 [gd_scene load_steps=18 format=3 uid="uid://uvws4xru1kpl"]
 
-[ext_resource type="Material" uid="uid://c4eykp21shtlp" path="res://common/materials/dev_grid_red.tres" id="1_cg4mp"]
+[ext_resource type="Material" uid="uid://c4eykp21shtlp" path="res://resources/materials/dev_grid_red.tres" id="1_cg4mp"]
 [ext_resource type="Script" path="res://scenes/enemies/book_gnome/book_gnome.gd" id="1_ucrke"]
-[ext_resource type="Script" path="res://common/scripts/damage.gd" id="2_7xvj8"]
-[ext_resource type="Material" uid="uid://botmm8kkk1h67" path="res://common/materials/dev_grid_gray.tres" id="2_g2dlo"]
+[ext_resource type="Script" path="res://scripts/damage.gd" id="2_7xvj8"]
+[ext_resource type="Material" uid="uid://botmm8kkk1h67" path="res://resources/materials/dev_grid_gray.tres" id="2_g2dlo"]
 [ext_resource type="PackedScene" uid="uid://ddufakdkmxhwr" path="res://scenes/health_area_3d.tscn" id="3_ap0dj"]
 [ext_resource type="PackedScene" uid="uid://cs53wyj8yt4s4" path="res://scenes/enemies/floating_health_bar.tscn" id="4_010fi"]
-[ext_resource type="Script" path="res://common/scripts/health.gd" id="4_ejrbm"]
+[ext_resource type="Script" path="res://scripts/health.gd" id="4_ejrbm"]
 
 [sub_resource type="Resource" id="Resource_ev8r8"]
 script = ExtResource("2_7xvj8")

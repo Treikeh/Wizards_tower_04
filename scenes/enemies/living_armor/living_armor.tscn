@@ -2,10 +2,10 @@
 
 [ext_resource type="PackedScene" uid="uid://cs53wyj8yt4s4" path="res://scenes/enemies/floating_health_bar.tscn" id="1_2e566"]
 [ext_resource type="Script" path="res://scenes/enemies/living_armor/living_armor.gd" id="1_06wta"]
-[ext_resource type="Material" uid="uid://c4eykp21shtlp" path="res://common/materials/dev_grid_red.tres" id="2_1u7fy"]
-[ext_resource type="Script" path="res://common/scripts/damage.gd" id="2_4c4xr"]
-[ext_resource type="Script" path="res://common/scripts/health.gd" id="2_6r6ee"]
-[ext_resource type="Material" uid="uid://botmm8kkk1h67" path="res://common/materials/dev_grid_gray.tres" id="3_oj627"]
+[ext_resource type="Material" uid="uid://c4eykp21shtlp" path="res://resources/materials/dev_grid_red.tres" id="2_1u7fy"]
+[ext_resource type="Script" path="res://scripts/damage.gd" id="2_4c4xr"]
+[ext_resource type="Script" path="res://scripts/health.gd" id="2_6r6ee"]
+[ext_resource type="Material" uid="uid://botmm8kkk1h67" path="res://resources/materials/dev_grid_gray.tres" id="3_oj627"]
 [ext_resource type="PackedScene" uid="uid://ddufakdkmxhwr" path="res://scenes/health_area_3d.tscn" id="3_tgsqs"]
 
 [sub_resource type="Resource" id="Resource_76r0o"]

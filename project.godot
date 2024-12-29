@@ -12,14 +12,14 @@ config_version=5
 
 config/name="Wizards_tower"
 config/description="Enter an interesting project description here!"
-run/main_scene="res://main.tscn"
+run/main_scene="res://main_scene.tscn"
 config/features=PackedStringArray("4.3")
 config/icon="res://icon.png"
 
 [autoload]
 
-SignalHub="*res://common/scripts/autoload/signal_hub.gd"
-ConfigHandler="*res://common/scripts/autoload/config_handler.gd"
+Globals="*res://scripts/autoload/globals.gd"
+ConfigHandler="*res://scripts/autoload/config_handler.gd"
 
 [editor]
 

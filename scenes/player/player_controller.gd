@@ -150,10 +150,10 @@ func _jump() -> void:
 #region Health
 
 func _on_health_changed(current_health: float, max_health: float) -> void:
-	SignalHub.update_health_bar.emit(current_health / max_health)
+	Globals.health_bar_updated.emit(current_health / max_health)
 
 
 func _on_health_depleted() -> void:
-	SignalHub.player_died.emit()
+	Globals.player_died.emit()
 
 #endregion

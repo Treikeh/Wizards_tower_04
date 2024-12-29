@@ -1,0 +1,35 @@
+[gd_scene load_steps=5 format=3 uid="uid://co645fg3hplrm"]
+
+[ext_resource type="Script" path="res://main_scene.gd" id="1_gfkd4"]
+[ext_resource type="PackedScene" uid="uid://df823edaivqws" path="res://scenes/levels/main_menu_level/main_menu_level.tscn" id="2_2pw4b"]
+[ext_resource type="PackedScene" uid="uid://bu4mvrao4smuy" path="res://scenes/interface/main_menu_ui/main_menu_ui.tscn" id="3_qda1h"]
+[ext_resource type="PackedScene" uid="uid://ds1vrl4d2nbqm" path="res://scenes/interface/loading_screen/loading_screen.tscn" id="4_s2nc2"]
+
+[node name="MainScene" type="Node" node_paths=PackedStringArray("world_3d", "world_2d", "user_interface", "loading_screen")]
+script = ExtResource("1_gfkd4")
+world_3d = NodePath("World3D")
+world_2d = NodePath("World2D")
+user_interface = NodePath("UserInterface")
+loading_screen = NodePath("LoadingScreen")
+
+[node name="World3D" type="Node3D" parent="."]
+
+[node name="MainMenuLevel" parent="World3D" instance=ExtResource("2_2pw4b")]
+
+[node name="World2D" type="Node2D" parent="."]
+
+[node name="UserInterface" type="Control" parent="."]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="MainMenuUi" parent="UserInterface" instance=ExtResource("3_qda1h")]
+layout_mode = 1
+
+[node name="LoadingScreen" parent="." instance=ExtResource("4_s2nc2")]
+visible = false

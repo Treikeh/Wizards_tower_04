@@ -12,7 +12,7 @@ func _process(_delta: float) -> void:
 			target = collider
 			prompt = collider.prompt + "\n[E]"
 	interact_target = target
-	SignalHub.update_interact_prompt.emit(prompt)
+	Globals.interact_prompt_updated.emit(prompt)
 
 func interact_with_target() -> void:
 	if interact_target:

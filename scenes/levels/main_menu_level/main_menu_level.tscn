@@ -1,0 +1,56 @@
+[gd_scene load_steps=6 format=3 uid="uid://df823edaivqws"]
+
+[ext_resource type="Material" uid="uid://botmm8kkk1h67" path="res://resources/materials/dev_grid_gray.tres" id="2_pnq4k"]
+[ext_resource type="Material" uid="uid://pqlkm5aadfhn" path="res://resources/materials/dev_grid_orange.tres" id="3_c1jyp"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_2u3w3"]
+sky_top_color = Color(0.252901, 0.467097, 0.652159, 1)
+sky_horizon_color = Color(0.716676, 0.637519, 0.590762, 1)
+sky_curve = 0.0955921
+ground_bottom_color = Color(0.200726, 0.17047, 0.115692, 1)
+ground_horizon_color = Color(0.743129, 0.6382, 0.478172, 1)
+ground_curve = 0.0303143
+
+[sub_resource type="Sky" id="Sky_34abv"]
+sky_material = SubResource("ProceduralSkyMaterial_2u3w3")
+
+[sub_resource type="Environment" id="Environment_gmegy"]
+background_mode = 2
+sky = SubResource("Sky_34abv")
+tonemap_mode = 2
+glow_enabled = true
+
+[node name="MainMenuLevel" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_gmegy")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.279272, 0.499848, -0.819853, -0.0189904, 0.850783, 0.525174, 0.960024, 0.162236, -0.228107, 0, 10, 0)
+light_color = Color(0.91651, 0.773399, 0.543871, 1)
+shadow_enabled = true
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(0.979743, -0.00828473, -0.200086, -0.02326, 0.987673, -0.154791, 0.198902, 0.156309, 0.967474, -0.386951, 0.450734, 1.84441)
+fov = 45.0
+
+[node name="Table" type="CSGBox3D" parent="."]
+transform = Transform3D(0.998205, 0, 0.0598813, 0, 1, 0, -0.0598813, 0, 0.998205, 0, 0, 0)
+material_override = ExtResource("2_pnq4k")
+size = Vector3(2, 0.1, 1)
+
+[node name="Book" type="CSGBox3D" parent="."]
+transform = Transform3D(0.944755, -0.132708, -0.299712, 0, 0.914374, -0.40487, 0.327779, 0.382503, 0.863859, 0.493227, 0.176181, 0.0200968)
+material_override = ExtResource("3_c1jyp")
+size = Vector3(0.570313, 0.0651367, 0.463867)
+
+[node name="Candle" type="CSGCylinder3D" parent="."]
+transform = Transform3D(0.916741, -0.0305256, -0.398313, 0.0502601, 0.997967, 0.0391953, 0.396307, -0.0559513, 0.916412, 0.14706, 0.19349, -0.323257)
+radius = 0.0601405
+height = 0.332106
+
+[node name="Tower" type="CSGCylinder3D" parent="."]
+transform = Transform3D(0.781052, 0.0364936, -0.623398, -0.0468452, 0.998902, -0.000216628, 0.622706, 0.0293724, 0.781904, 17.252, 1.20205, -27.1139)
+material_override = ExtResource("2_pnq4k")
+radius = 4.29373
+height = 18.3627

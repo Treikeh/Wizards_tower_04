@@ -1,0 +1,151 @@
+[gd_scene load_steps=5 format=3 uid="uid://c3h1xadci48by"]
+
+[ext_resource type="Script" path="res://scenes/interface/settings_menu/settings_menu.gd" id="1_smsaw"]
+[ext_resource type="Script" path="res://scenes/interface/settings_menu/settings_input.gd" id="2_cs3ik"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_bh1f7"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_knh2t"]
+
+[node name="SettingsMenu" type="MarginContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 25
+theme_override_constants/margin_top = 25
+theme_override_constants/margin_right = 25
+theme_override_constants/margin_bottom = 25
+script = ExtResource("1_smsaw")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="TabContainer" type="TabContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+current_tab = 0
+
+[node name="Input" type="Control" parent="VBoxContainer/TabContainer" node_paths=PackedStringArray("sensitivity_slider", "sensitivity_value")]
+layout_mode = 2
+script = ExtResource("2_cs3ik")
+sensitivity_slider = NodePath("MarginContainer/VBoxContainer/Sensitivity/SensitivitySlider")
+sensitivity_value = NodePath("MarginContainer/VBoxContainer/Sensitivity/SensitivityValue")
+metadata/_tab_index = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/TabContainer/Input"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/TabContainer/Input/MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/TabContainer/Input/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Input Settings"
+
+[node name="HSeparator" type="HSeparator" parent="VBoxContainer/TabContainer/Input/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 5
+theme_override_styles/separator = SubResource("StyleBoxEmpty_bh1f7")
+
+[node name="Sensitivity" type="HBoxContainer" parent="VBoxContainer/TabContainer/Input/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/TabContainer/Input/MarginContainer/VBoxContainer/Sensitivity"]
+layout_mode = 2
+text = "Sensitivity: "
+
+[node name="VSeparator" type="VSeparator" parent="VBoxContainer/TabContainer/Input/MarginContainer/VBoxContainer/Sensitivity"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/separator = SubResource("StyleBoxEmpty_knh2t")
+
+[node name="SensitivitySlider" type="HSlider" parent="VBoxContainer/TabContainer/Input/MarginContainer/VBoxContainer/Sensitivity"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+min_value = 0.01
+max_value = 1.0
+step = 0.01
+value = 0.5
+
+[node name="SensitivityValue" type="LineEdit" parent="VBoxContainer/TabContainer/Input/MarginContainer/VBoxContainer/Sensitivity"]
+unique_name_in_owner = true
+layout_mode = 2
+placeholder_text = "0.5"
+alignment = 2
+max_length = 5
+
+[node name="Video" type="Control" parent="VBoxContainer/TabContainer"]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/TabContainer/Video"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="Label" type="Label" parent="VBoxContainer/TabContainer/Video/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 35
+text = "WIP"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Keybindings" type="Control" parent="VBoxContainer/TabContainer"]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/TabContainer/Keybindings"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="Label" type="Label" parent="VBoxContainer/TabContainer/Keybindings/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 35
+text = "WIP"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="BackButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 20
+text = "Back"
+
+[connection signal="drag_ended" from="VBoxContainer/TabContainer/Input/MarginContainer/VBoxContainer/Sensitivity/SensitivitySlider" to="VBoxContainer/TabContainer/Input" method="_on_sensitivity_slider_drag_ended"]
+[connection signal="text_submitted" from="VBoxContainer/TabContainer/Input/MarginContainer/VBoxContainer/Sensitivity/SensitivityValue" to="VBoxContainer/TabContainer/Input" method="_on_sensitivity_value_text_submitted"]
+[connection signal="pressed" from="VBoxContainer/BackButton" to="." method="_on_back_button_pressed"]
