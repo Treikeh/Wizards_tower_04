@@ -8,11 +8,13 @@ extends Control
 
 
 func _ready() -> void:
-	#TODO: Get the current health of the player
-	health_bar.value = health_bar.max_value
 	# Connect signals
 	Globals.interact_prompt_updated.connect(_on_interact_prompt_updated)
 	Globals.health_bar_updated.connect(_on_health_bar_updated)
+	# Set starting health
+	#FIXME: Health bar values reset when spawning pause menu. I also need a system that saves -
+	# - player data across levels, so i could probaly combine it with that.
+	health_bar.value = health_bar.max_value
 
 
 func _input(event: InputEvent) -> void:

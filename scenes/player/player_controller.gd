@@ -33,19 +33,12 @@ var check_for_ground: bool = true
 @export var spell_ray: RayCast3D
 
 
-func _init() -> void:
-	_load_input_settings()
-
-
-func _load_input_settings() -> void:
-	var input_settings: Dictionary = ConfigHandler.load_input_settings()
-	camera_sensitivity = input_settings.camera_sensitivity
-
-
 func _ready() -> void:
 	# Capture mouse when game begins
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	# Load config settings
 	ConfigHandler.input_settings_changed.connect(_load_input_settings)
+	_load_input_settings()
 
 
 func _input(event: InputEvent) -> void:
@@ -113,6 +106,11 @@ func _physics_process(delta: float) -> void:
 		apply_central_force(needed_vel * air_accel * delta * mass)
 
 
+func _load_input_settings() -> void:
+	var input_settings: Dictionary = ConfigHandler.load_input_settings()
+	camera_sensitivity = input_settings.camera_sensitivity
+
+
 #region Movement
 
 # I feel there should be a need for delta, but i do not know where :\
@@ -155,5 +153,8 @@ func _on_health_changed(current_health: float, max_health: float) -> void:
 
 func _on_health_depleted() -> void:
 	Globals.player_died.emit()
+	# Show game over screen
+	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+	Globals.main_scene.change_ui_scene("res://scenes/interface/game_over/game_over.tscn")
 
 #endregion

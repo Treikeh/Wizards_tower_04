@@ -5,8 +5,8 @@
 [ext_resource type="StyleBox" uid="uid://bsqtahxlwo7o6" path="res://resources/stylebox/health_fill_flat.tres" id="3_ghl2y"]
 
 [sub_resource type="Gradient" id="Gradient_8rdpu"]
-offsets = PackedFloat32Array(0, 0.082397)
-colors = PackedColorArray(0.187176, 0.187176, 0.187176, 1, 1, 1, 1, 0)
+offsets = PackedFloat32Array(0.0381679, 0.0992366)
+colors = PackedColorArray(0, 0, 0, 1, 1, 1, 1, 0)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_nfjs5"]
 gradient = SubResource("Gradient_8rdpu")

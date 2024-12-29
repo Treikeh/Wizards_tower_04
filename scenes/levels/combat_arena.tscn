@@ -26,7 +26,7 @@ geometry_source_geometry_mode = 1
 geometry_source_group_name = &"nav_mesh"
 agent_radius = 1.0
 
-[node name="TestLevel_002" type="Node3D"]
+[node name="CombatArena" type="Node3D"]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_k8si0")

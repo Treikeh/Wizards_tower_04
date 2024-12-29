@@ -1,10 +1,11 @@
 extends Node
 
-## Player signals
+## Player
 @warning_ignore("unused_signal")
 signal player_died
 
-## UI Signals
+
+## UI
 @warning_ignore("unused_signal")
 signal interact_prompt_updated(prompt: String)
 @warning_ignore("unused_signal")

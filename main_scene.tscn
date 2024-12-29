@@ -1,8 +1,8 @@
 [gd_scene load_steps=5 format=3 uid="uid://co645fg3hplrm"]
 
 [ext_resource type="Script" path="res://main_scene.gd" id="1_gfkd4"]
-[ext_resource type="PackedScene" uid="uid://df823edaivqws" path="res://scenes/levels/main_menu_level/main_menu_level.tscn" id="2_2pw4b"]
-[ext_resource type="PackedScene" uid="uid://bu4mvrao4smuy" path="res://scenes/interface/main_menu_ui/main_menu_ui.tscn" id="3_qda1h"]
+[ext_resource type="PackedScene" uid="uid://4jtdswc2727r" path="res://scenes/levels/combat_arena.tscn" id="2_cvg3d"]
+[ext_resource type="PackedScene" uid="uid://bsrvl85f7jxdv" path="res://scenes/interface/hud/hud.tscn" id="3_quvpp"]
 [ext_resource type="PackedScene" uid="uid://ds1vrl4d2nbqm" path="res://scenes/interface/loading_screen/loading_screen.tscn" id="4_s2nc2"]
 
 [node name="MainScene" type="Node" node_paths=PackedStringArray("world_3d", "world_2d", "user_interface", "loading_screen")]
@@ -14,7 +14,7 @@ loading_screen = NodePath("LoadingScreen")
 
 [node name="World3D" type="Node3D" parent="."]
 
-[node name="MainMenuLevel" parent="World3D" instance=ExtResource("2_2pw4b")]
+[node name="CombatArena" parent="World3D" instance=ExtResource("2_cvg3d")]
 
 [node name="World2D" type="Node2D" parent="."]
 
@@ -28,8 +28,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="MainMenuUi" parent="UserInterface" instance=ExtResource("3_qda1h")]
+[node name="Hud" parent="UserInterface" instance=ExtResource("3_quvpp")]
 layout_mode = 1
 
 [node name="LoadingScreen" parent="." instance=ExtResource("4_s2nc2")]
-visible = false

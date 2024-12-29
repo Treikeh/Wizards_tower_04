@@ -17,7 +17,7 @@ var current_ui_scene: Control
 
 func _ready() -> void:
 	Globals.main_scene = self
-	current_ui_scene = $UserInterface/MainMenuUi
+	current_ui_scene = user_interface.get_child(0)
 
 
 func _process(_delta: float) -> void:
