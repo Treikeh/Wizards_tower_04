@@ -13,6 +13,7 @@ signal health_depleted
 @export var physical_resistance: float = 0.0
 ## How many % to reduce or increase (if negative) incoming fire damage by. Will be healed if over 100.0
 @export var fire_resisance: float = 0.0
+
 var is_dead: bool = false
 var current_health: float
 

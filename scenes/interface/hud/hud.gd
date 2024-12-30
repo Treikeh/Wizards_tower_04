@@ -12,9 +12,8 @@ func _ready() -> void:
 	Globals.interact_prompt_updated.connect(_on_interact_prompt_updated)
 	Globals.health_bar_updated.connect(_on_health_bar_updated)
 	# Set starting health
-	#FIXME: Health bar values reset when spawning pause menu. I also need a system that saves -
-	# - player data across levels, so i could probaly combine it with that.
-	health_bar.value = health_bar.max_value
+	#TODO: I need a system that saves player data across levels.
+	health_bar.value = Globals.player_health
 
 
 func _input(event: InputEvent) -> void:
@@ -35,3 +34,4 @@ func _on_interact_prompt_updated(prompt: String) -> void:
 
 func _on_health_bar_updated(value: float) -> void:
 	health_bar.value = value
+	Globals.player_health = value

@@ -55,14 +55,14 @@ func quit_game() -> void:
 
 func change_ui_scene(scene_path: String) -> void:
 	# Check if scene exists
-	if !FileAccess.file_exists(scene_path):
+	if not FileAccess.file_exists(scene_path):
 		print("ERROR!: Level not found. Invalid path")
 		return
 	
 	# Remove old scene
-	if current_ui_scene != null:
-		#TODO: Add support for animations
-		current_ui_scene.queue_free()
+	for child in user_interface.get_children():
+		user_interface.remove_child(child)
+		child.queue_free()
 	
 	# Add new scene
 	var new_scene: Control = load(scene_path).instantiate()
@@ -72,7 +72,7 @@ func change_ui_scene(scene_path: String) -> void:
 
 func change_3d_level(level_path: String) -> void:
 	# Check if level exists
-	if !FileAccess.file_exists(level_path):
+	if not FileAccess.file_exists(level_path):
 		print("ERROR!: Level not found. Invalid path")
 		return
 	
@@ -81,15 +81,12 @@ func change_3d_level(level_path: String) -> void:
 	await loading_screen.animation_player.animation_finished
 	
 	#Unload previous level
-	unload_level()
+	for child in world_3d.get_children():
+		world_3d.remove_child(child)
+		child.queue_free()
+	# Give unload a frame to finish before doing anything else
 	await get_tree().physics_frame
 	
 	# Start level loading
 	level_to_load = level_path
 	ResourceLoader.load_threaded_request(level_path)
-
-
-func unload_level() -> void:
-	for child in world_3d.get_children():
-		world_3d.remove_child(child)
-		child.queue_free()

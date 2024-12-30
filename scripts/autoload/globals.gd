@@ -1,8 +1,11 @@
 extends Node
 
+
 ## Player
 @warning_ignore("unused_signal")
 signal player_died
+
+var player_health: float = 1.0
 
 
 ## UI

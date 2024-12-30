@@ -57,7 +57,7 @@ func cast_fireball() -> void:
 # - floating rigidbody or maybe i could manually move a node3d.
 
 @export_group("Rock wall")
-@export var rock_wall_cooldown: float = 0.2
+@export var rock_wall_cooldown: float = 0.5
 ## How long the rock wall stays before despawning
 @export var rock_wall_duration: float = 10.0
 ## How far away from the player the rock wall can be spawned
@@ -78,11 +78,15 @@ func spawn_rock_wall_preview() -> void:
 
 
 func spawn_rock_wall() -> void:
+	# Check if there is a preview active
+	if not rock_wall_preview:
+		return
 	# Make sure there's enough space for the wall to spawn
-	if !rock_wall_preview.enough_space:
+	elif not rock_wall_preview.enough_space:
 		# Despawn rock wall preview
 		rock_wall_preview.queue_free()
 		return
+	
 	# Spawn real rock wall
 	var rock_wall: Node3D = rock_wall_scene.instantiate()
 	add_child(rock_wall)

@@ -1,6 +1,9 @@
 extends Control
 
 
+@export_file("*.tscn") var settings_menu_scene: String
+@export_file("*.tscn") var credits_scene: String
+
 @export_group("Nodes")
 
 
@@ -10,11 +13,27 @@ func _on_play_button_pressed() -> void:
 
 
 func _on_settings_button_pressed() -> void:
-	Globals.main_scene.change_ui_scene("res://scenes/interface/settings_menu/settings_menu.tscn")
+	hide()
+	var settings_menu: Control = load(settings_menu_scene).instantiate()
+	settings_menu.menu_closed.connect(_on_settings_menu_closed)
+	Globals.main_scene.user_interface.add_child(settings_menu)
+
+
+func _on_settings_menu_closed(menu: Control) -> void:
+	show()
+	menu.queue_free()
 
 
 func _on_credits_button_pressed() -> void:
-	pass # Replace with function body.
+	hide()
+	var credits: UiMenu = load(credits_scene).instantiate()
+	credits.menu_closed.connect(_on_credits_menu_closed)
+	Globals.main_scene.user_interface.add_child(credits)
+
+
+func _on_credits_menu_closed(menu: Control) -> void:
+	show()
+	menu.queue_free()
 
 
 func _on_quit_button_pressed() -> void:

@@ -16,6 +16,7 @@ offset_bottom = -0.184021
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_87ra5")
+settings_menu_scene = "res://scenes/interface/settings_menu/settings_menu.tscn"
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 2

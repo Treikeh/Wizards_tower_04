@@ -1,6 +1,8 @@
 extends Control
 
 
+@export_file("*.tscn") var settings_menu_scene: String
+
 @export_group("Nodes")
 
 
@@ -21,13 +23,21 @@ func _on_resume_button_pressed() -> void:
 
 
 func _on_settings_button_pressed() -> void:
-	Globals.main_scene.change_ui_scene("res://scenes/interface/settings_menu/settings_menu.tscn")
+	hide()
+	var settings_menu: Control = load(settings_menu_scene).instantiate()
+	settings_menu.menu_closed.connect(_on_settings_menu_closed)
+	Globals.main_scene.user_interface.add_child(settings_menu)
+	#Globals.main_scene.change_ui_scene("res://scenes/interface/settings_menu/settings_menu.tscn")
+
+
+func _on_settings_menu_closed(menu: Control)-> void:
+	menu.queue_free()
+	show()
 
 
 func _on_main_menu_button_pressed() -> void:
 	get_tree().paused = false
 	Globals.main_scene.change_3d_level("res://scenes/levels/main_menu_level/main_menu_level.tscn")
-	Globals.main_scene.change_ui_scene("res://scenes/interface/main_menu_ui/main_menu_ui.tscn")
 
 
 func _on_quit_button_pressed() -> void:
