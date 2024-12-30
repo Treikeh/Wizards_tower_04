@@ -4,6 +4,7 @@ signal input_settings_changed
 signal keybindings_changed
 signal video_settings_changed
 
+#TODO: Change to proper path when shipping
 const CONFIG_PATH: String = "res://configs/.settings.ini"
 var config_file: ConfigFile = ConfigFile.new()
 
@@ -23,6 +24,7 @@ func _ready() -> void:
 		
 		config_file.set_value("VIDEO", "display_mode", "WINDOWED")
 		config_file.set_value("VIDEO", "resolution", Vector2(1920.0, 1080.0))
+		config_file.set_value("VIDEO", "field_of_view", 90.0)
 		
 		config_file.set_value("AUDIO", "master_volume", 100.0)
 		

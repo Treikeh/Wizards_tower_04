@@ -1,11 +1,23 @@
 extends Camera3D
 
+
+func _ready() -> void:
+	_load_video_settings()
+	ConfigHandler.video_settings_changed.connect(_load_video_settings)
+
+
+func _load_video_settings() -> void:
+	var input_settings: Dictionary = ConfigHandler.load_video_settings()
+	fov = input_settings.field_of_view
+
+
 #region Head bobbing
 
 @export_group("Head bobbing")
 @export var hb_frequency: float = 2.5
 @export var hb_amplitude: float = 0.025
 var hb_time: float = 0.0
+
 
 func head_bobbing(velocity: Vector3, delta: float) -> void:
 	hb_time += delta * velocity.length()
@@ -23,6 +35,7 @@ func head_bobbing(velocity: Vector3, delta: float) -> void:
 @export_group("Camera tilt")
 @export var max_tilt: float = 5.0
 @export var tilt_speed: float = 1.0
+
 
 func apply_camera_tilt(velocity: Vector3, input: Vector3, delta: float) -> void:
 	var dir_dot: float = 0
