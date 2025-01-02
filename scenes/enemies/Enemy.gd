@@ -6,6 +6,7 @@ var receiving_knockback: bool = false
 var knockback_duration: float = 0.5
 
 @export var nav_agent: NavigationAgent3D
+@export var black_board: Dictionary = {}
 
 
 func recive_knockback(direction: Vector3) -> void:

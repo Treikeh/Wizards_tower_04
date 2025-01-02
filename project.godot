@@ -23,6 +23,14 @@ config/icon="res://icon.png"
 Globals="*res://scripts/autoload/globals.gd"
 ConfigHandler="*res://scripts/autoload/config_handler.gd"
 
+[display]
+
+window/size/viewport_width=960
+window/size/viewport_height=540
+window/size/mode=3
+window/size/borderless=true
+window/stretch/mode="viewport"
+
 [editor]
 
 version_control/plugin_name="GitPlugin"
@@ -42,6 +50,10 @@ folder_colors={
 player=""
 nav_mesh=""
 enemy=""
+
+[gui]
+
+theme/default_font_multichannel_signed_distance_field=true
 
 [input]
 

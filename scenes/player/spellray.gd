@@ -41,6 +41,7 @@ func cast_fireball() -> void:
 		fireball.basis = global_basis
 		fireball.top_level = true
 		can_fireball = false
+		Globals.player_casted_spell.emit(0, fireball_cooldown)
 		await get_tree().create_timer(fireball_cooldown).timeout
 		can_fireball = true
 
@@ -94,6 +95,7 @@ func spawn_rock_wall() -> void:
 	rock_wall.global_transform = rock_wall_preview.global_transform
 	rock_wall.lifetime = rock_wall_duration
 	can_rock_wall = false
+	Globals.player_casted_spell.emit(1, rock_wall_cooldown)
 	# Despawn rock wall preview
 	rock_wall_preview.queue_free()
 	# Wait for duration before spell can be cast again
@@ -127,6 +129,7 @@ func cast_wind_blast() -> void:
 		add_child(wind_blast_effect)
 		# Cooldown
 		can_wind_blast = false
+		Globals.player_casted_spell.emit(2, wind_blast_cooldown)
 		await get_tree().create_timer(wind_blast_cooldown).timeout
 		can_wind_blast = true
 

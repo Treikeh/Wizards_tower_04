@@ -121,15 +121,18 @@ _data = {
 
 [node name="LoadingScreen" type="CanvasLayer" node_paths=PackedStringArray("progress_bar", "animation_player")]
 process_mode = 3
-visible = false
 script = ExtResource("1_gy2ie")
 progress_bar = NodePath("ProgressBar")
 animation_player = NodePath("AnimationPlayer")
 
 [node name="BackgroundPanel" type="Panel" parent="."]
-anchors_preset = 15
+anchors_preset = -1
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = -10.0
+offset_top = -10.0
+offset_right = 10.0
+offset_bottom = 10.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_17ry5")

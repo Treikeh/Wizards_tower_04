@@ -1,9 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://df823edaivqws"]
+[gd_scene load_steps=7 format=3 uid="uid://df823edaivqws"]
 
 [ext_resource type="Script" path="res://scenes/levels/main_menu_level/main_menu_level.gd" id="1_xi5eq"]
 [ext_resource type="Material" uid="uid://botmm8kkk1h67" path="res://resources/materials/dev_grid_gray.tres" id="2_pnq4k"]
 [ext_resource type="Material" uid="uid://pqlkm5aadfhn" path="res://resources/materials/dev_grid_orange.tres" id="3_c1jyp"]
-[ext_resource type="PackedScene" uid="uid://bu4mvrao4smuy" path="res://scenes/interface/main_menu_ui/main_menu_ui.tscn" id="4_70bm2"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_2u3w3"]
 sky_top_color = Color(0.252901, 0.467097, 0.652159, 1)
@@ -33,13 +32,12 @@ transform = Transform3D(-0.279272, 0.499848, -0.819853, -0.0189904, 0.850783, 0.
 light_color = Color(0.91651, 0.773399, 0.543871, 1)
 shadow_enabled = true
 
-[node name="CameraTransform" type="RemoteTransform3D" parent="."]
+[node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(0.979743, -0.00828473, -0.200086, -0.02326, 0.987673, -0.154791, 0.198902, 0.156309, 0.967474, -0.386951, 0.450734, 1.84441)
-remote_path = NodePath("../SubViewportContainer/SubViewport/Camera3D")
-
-[node name="Camera3D" type="Camera3D" parent="CameraTransform"]
-visible = false
 fov = 45.0
+
+[node name="CameraTransform" type="RemoteTransform3D" parent="Camera3D"]
+transform = Transform3D(1, -5.58794e-09, 7.45058e-08, -1.86265e-09, 0.999999, -3.42727e-07, 0, 1.49012e-08, 1, 0, 0, 0)
 
 [node name="Table" type="CSGBox3D" parent="."]
 transform = Transform3D(0.998205, 0, 0.0598813, 0, 1, 0, -0.0598813, 0, 0.998205, 0, 0, 0)
@@ -61,22 +59,3 @@ transform = Transform3D(0.781052, 0.0364936, -0.623398, -0.0468452, 0.998902, -0
 material_override = ExtResource("2_pnq4k")
 radius = 4.29373
 height = 18.3627
-
-[node name="SubViewportContainer" type="SubViewportContainer" parent="."]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-stretch = true
-
-[node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
-handle_input_locally = false
-size = Vector2i(1152, 648)
-render_target_update_mode = 4
-
-[node name="Camera3D" type="Camera3D" parent="SubViewportContainer/SubViewport"]
-transform = Transform3D(0.979743, -0.00828473, -0.200086, -0.02326, 0.987673, -0.154791, 0.198902, 0.156309, 0.967474, -0.386951, 0.450734, 1.84441)
-fov = 45.0
-
-[node name="MainMenuUi" parent="." instance=ExtResource("4_70bm2")]

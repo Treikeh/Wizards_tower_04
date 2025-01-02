@@ -18,6 +18,9 @@ var current_ui_scene: Control
 func _ready() -> void:
 	Globals.main_scene = self
 	current_ui_scene = user_interface.get_child(0)
+	# Set video settings
+	#var video_settings: Dictionary = ConfigHandler.load_video_settings()
+	
 
 
 func _process(_delta: float) -> void:

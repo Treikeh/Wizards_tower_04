@@ -17,6 +17,7 @@ loading_screen = NodePath("LoadingScreen")
 [node name="CombatArena" parent="World3D" instance=ExtResource("2_cvg3d")]
 
 [node name="World2D" type="Node2D" parent="."]
+visible = false
 
 [node name="UserInterface" type="Control" parent="."]
 process_mode = 3
@@ -32,3 +33,4 @@ mouse_filter = 2
 layout_mode = 1
 
 [node name="LoadingScreen" parent="." instance=ExtResource("4_s2nc2")]
+visible = false

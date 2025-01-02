@@ -1,5 +1,6 @@
 extends Enemy
 
+
 @export_group("AI")
 @export var chase_range: float = 10.0
 @export var attack_range: float = 2.0
@@ -15,12 +16,15 @@ var player: Node3D
 @export_group("Nodes")
 @export var mesh: Node3D
 @export var animation_player: AnimationPlayer
+@export var state_macine: StateMachine
+
 
 @warning_ignore("unused_parameter")
 func _process(delta: float) -> void:
-	%AiStateLabel.text = current_state
+	%AiStateLabel.text = state_macine.current_state.name
 	if velocity != Vector3.ZERO and current_state != "dead":
 		mesh.look_at(mesh.global_position + Vector3(velocity.x, 0.0, velocity.z))
+
 
 @warning_ignore("unused_parameter")
 func _physics_process(delta: float) -> void:
@@ -52,6 +56,8 @@ func idle(_delta: float) -> void:
 		var distance: float = (player.position - position).length()
 		if distance < chase_range:
 			current_state = "chase"
+			state_macine._on_state_changed(state_macine.current_state, "chase")
+
 
 func chase(_delta: float) -> void:
 	velocity = (nav_agent.get_next_path_position() - position).normalized() * max_speed
@@ -62,6 +68,8 @@ func chase(_delta: float) -> void:
 		current_state = "attack"
 	elif distance > chase_range:
 		current_state = "idle"
+		state_macine._on_state_changed(state_macine.current_state, "idle")
+
 
 func attack(_delta: float) -> void:
 	if !can_attack:
@@ -71,4 +79,5 @@ func attack(_delta: float) -> void:
 	# Simple test attack
 	if current_state != "dead":
 		current_state = "idle"
+		state_macine._on_state_changed(state_macine.current_state, "attack")
 		can_attack = true

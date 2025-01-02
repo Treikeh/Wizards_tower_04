@@ -46,7 +46,17 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "Hi"
+bbcode_enabled = true
+text = "Hi :)
+
+This game was made with the Godot game engine.
+Website:  [url]https://godotengine.org/[/url]
+
+It uses the \"Godot Jolt\" physics engine addon
+Github link: [url]https://github.com/godot-jolt/godot-jolt[/url]
+
+
+Thank you for playing :)"
 
 [node name="HSeparator" type="HSeparator" parent="PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -56,4 +66,5 @@ layout_mode = 2
 size_flags_horizontal = 0
 text = "Back"
 
+[connection signal="meta_clicked" from="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/Control/RichTextLabel" to="." method="_on_rich_text_label_meta_clicked"]
 [connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/BackButton" to="." method="_on_back_button_pressed"]

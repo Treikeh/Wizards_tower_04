@@ -1,12 +1,12 @@
-[gd_scene load_steps=6 format=3 uid="uid://bsrvl85f7jxdv"]
+[gd_scene load_steps=18 format=3 uid="uid://bsrvl85f7jxdv"]
 
 [ext_resource type="Script" path="res://scenes/interface/hud/hud.gd" id="1_t53q1"]
 [ext_resource type="StyleBox" uid="uid://qtun7cbqouf7" path="res://resources/stylebox/health_background_flat.tres" id="2_ww7ko"]
 [ext_resource type="StyleBox" uid="uid://bsqtahxlwo7o6" path="res://resources/stylebox/health_fill_flat.tres" id="3_ghl2y"]
 
 [sub_resource type="Gradient" id="Gradient_8rdpu"]
-offsets = PackedFloat32Array(0.0381679, 0.0992366)
-colors = PackedColorArray(0, 0, 0, 1, 1, 1, 1, 0)
+offsets = PackedFloat32Array(0.0572519, 0.0954198)
+colors = PackedColorArray(0.51, 0.51, 0.51, 1, 1, 1, 1, 0)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_nfjs5"]
 gradient = SubResource("Gradient_8rdpu")
@@ -14,6 +14,60 @@ width = 32
 height = 32
 fill = 1
 fill_from = Vector2(0.5, 0.5)
+
+[sub_resource type="Gradient" id="Gradient_2wv3n"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_hckoy"]
+gradient = SubResource("Gradient_2wv3n")
+width = 40
+height = 40
+
+[sub_resource type="Gradient" id="Gradient_1tnd5"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(0.902833, 0.432556, 1.92523e-07, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_nrf1f"]
+gradient = SubResource("Gradient_1tnd5")
+width = 40
+height = 40
+
+[sub_resource type="Gradient" id="Gradient_jywmb"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_aglvt"]
+gradient = SubResource("Gradient_jywmb")
+width = 40
+height = 40
+
+[sub_resource type="Gradient" id="Gradient_wmmt2"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(0.224618, 0.442718, 9.62615e-08, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_f5aab"]
+gradient = SubResource("Gradient_wmmt2")
+width = 40
+height = 40
+
+[sub_resource type="Gradient" id="Gradient_rhnfb"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_57ay6"]
+gradient = SubResource("Gradient_rhnfb")
+width = 40
+height = 40
+
+[sub_resource type="Gradient" id="Gradient_i42fa"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(9.62615e-07, 0.458528, 0.595095, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_2xb85"]
+gradient = SubResource("Gradient_i42fa")
+width = 40
+height = 40
 
 [node name="Hud" type="Control" node_paths=PackedStringArray("fps_label", "interact_label", "health_bar")]
 process_mode = 1
@@ -30,16 +84,16 @@ interact_label = NodePath("InteractLabel")
 health_bar = NodePath("HealthBar")
 
 [node name="FpsLabel" type="Label" parent="."]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(50, 25)
 layout_mode = 1
 anchors_preset = -1
-offset_left = 5.0
-offset_top = 5.0
-text = "FPS: 60"
+offset_left = 3.0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = -1
+theme_override_constants/shadow_offset_y = 1
+theme_override_font_sizes/font_size = 12
+text = "60"
 
 [node name="InteractLabel" type="Label" parent="."]
-unique_name_in_owner = true
 custom_minimum_size = Vector2(50, 25)
 layout_mode = 1
 anchors_preset = -1
@@ -53,6 +107,9 @@ offset_right = 30.5
 offset_bottom = 74.5
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = -1
+theme_override_constants/shadow_offset_y = 1
 text = "Interact
 [E]"
 horizontal_alignment = 1
@@ -75,17 +132,14 @@ pivot_offset = Vector2(20, 20)
 texture = SubResource("GradientTexture2D_nfjs5")
 
 [node name="HealthBar" type="ProgressBar" parent="."]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(200, 15)
+custom_minimum_size = Vector2(100, 15)
 layout_mode = 1
 anchors_preset = -1
 anchor_top = 1.0
-anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 300.0
-offset_right = -300.0
-offset_bottom = -25.0
-grow_horizontal = 2
+offset_left = 15.0
+offset_right = 415.0
+offset_bottom = -15.0
 grow_vertical = 0
 theme_override_styles/background = ExtResource("2_ww7ko")
 theme_override_styles/fill = ExtResource("3_ghl2y")
@@ -93,3 +147,50 @@ max_value = 1.0
 step = 0.0
 value = 0.5
 show_percentage = false
+
+[node name="SpellIcons" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -15.0
+offset_bottom = -15.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_constants/separation = 25
+alignment = 2
+
+[node name="FireBallIcon" type="TextureProgressBar" parent="SpellIcons"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+max_value = 1.0
+step = 0.01
+value = 0.5
+fill_mode = 3
+texture_under = SubResource("GradientTexture2D_hckoy")
+texture_progress = SubResource("GradientTexture2D_nrf1f")
+
+[node name="RockWallIcon" type="TextureProgressBar" parent="SpellIcons"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+max_value = 1.0
+step = 0.01
+value = 0.5
+fill_mode = 3
+texture_under = SubResource("GradientTexture2D_aglvt")
+texture_progress = SubResource("GradientTexture2D_f5aab")
+
+[node name="WindBlastIcon" type="TextureProgressBar" parent="SpellIcons"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+max_value = 1.0
+step = 0.01
+value = 0.5
+fill_mode = 3
+texture_under = SubResource("GradientTexture2D_57ay6")
+texture_progress = SubResource("GradientTexture2D_2xb85")
