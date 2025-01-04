@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://co645fg3hplrm"]
 
 [ext_resource type="Script" path="res://main_scene.gd" id="1_gfkd4"]
-[ext_resource type="PackedScene" uid="uid://4jtdswc2727r" path="res://scenes/levels/combat_arena.tscn" id="2_cvg3d"]
+[ext_resource type="PackedScene" uid="uid://4jtdswc2727r" path="res://scenes/levels/ai_testing_facility.tscn" id="2_cvg3d"]
 [ext_resource type="PackedScene" uid="uid://bsrvl85f7jxdv" path="res://scenes/interface/hud/hud.tscn" id="3_quvpp"]
 [ext_resource type="PackedScene" uid="uid://ds1vrl4d2nbqm" path="res://scenes/interface/loading_screen/loading_screen.tscn" id="4_s2nc2"]
 
@@ -14,7 +14,7 @@ loading_screen = NodePath("LoadingScreen")
 
 [node name="World3D" type="Node3D" parent="."]
 
-[node name="CombatArena" parent="World3D" instance=ExtResource("2_cvg3d")]
+[node name="AiTestingFacility" parent="World3D" instance=ExtResource("2_cvg3d")]
 
 [node name="World2D" type="Node2D" parent="."]
 visible = false

@@ -27,7 +27,6 @@ ConfigHandler="*res://scripts/autoload/config_handler.gd"
 
 window/size/viewport_width=960
 window/size/viewport_height=540
-window/size/mode=3
 window/size/borderless=true
 window/stretch/mode="viewport"
 
@@ -114,6 +113,11 @@ wind_blast={
 3d_navigation/layer_6="projectile"
 3d_physics/layer_7="player_hitbox"
 3d_physics/layer_8="enemy_hitbox"
+
+[limbo_ai]
+
+behavior_tree/behavior_tree_default_dir="res://resources/behavior_trees"
+behavior_tree/user_task_dir_1="res://scripts/ai_tasks"
 
 [physics]
 

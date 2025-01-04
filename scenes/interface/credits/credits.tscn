@@ -52,9 +52,14 @@ text = "Hi :)
 This game was made with the Godot game engine.
 Website:  [url]https://godotengine.org/[/url]
 
-It uses the \"Godot Jolt\" physics engine addon
+Godot git plugin
+[url]https://github.com/godotengine/godot-git-plugin[/url]
+
+Godot Jolt physics engine addon
 Github link: [url]https://github.com/godot-jolt/godot-jolt[/url]
 
+LimboAi addon
+Github link: [url]https://github.com/limbonaut/limboai[/url]
 
 Thank you for playing :)"
 

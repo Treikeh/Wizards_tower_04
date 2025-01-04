@@ -5,79 +5,41 @@ extends Enemy
 @export var chase_range: float = 10.0
 @export var attack_range: float = 2.0
 @export var attack_damage: Damage
-var current_state: String = "idle"
-var can_attack: bool = true
-var player: Node3D
+@export var behavior_tree: BTPlayer
 
 @export_group("Movement")
 @export var max_speed: float = 3.0
 @export var acceleration: float = 10.0
+var gravity_force: float = ProjectSettings.get_setting("physics/3d/default_gravity")
 
 @export_group("Nodes")
 @export var mesh: Node3D
 @export var animation_player: AnimationPlayer
-@export var state_macine: StateMachine
 
 
 @warning_ignore("unused_parameter")
 func _process(delta: float) -> void:
-	%AiStateLabel.text = state_macine.current_state.name
-	if velocity != Vector3.ZERO and current_state != "dead":
-		mesh.look_at(mesh.global_position + Vector3(velocity.x, 0.0, velocity.z))
+	var player_node: Node3D = get_tree().get_first_node_in_group("player")
+	if !animation_player.is_playing():
+		mesh.look_at(player_node.global_position)
 
 
-@warning_ignore("unused_parameter")
 func _physics_process(delta: float) -> void:
-	match current_state:
-		"idle":
-			idle(delta)
-		"chase":
-			chase(delta)
-		"attack":
-			attack(delta)
-		"dead":
-			pass
+	move_dir = (navigation.get_next_path_position() - global_position).normalized()
+	velocity = move_dir * max_speed
+	
+	# Apply gravity
+	if not is_on_floor():
+		velocity.y -= gravity_force * delta
+	
+	if not navigation.is_target_reached():
+		move_and_slide()
 
 
 #region Health
 
 func _on_health_depleted() -> void:
-	current_state = "dead"
+	behavior_tree.active = false
 	animation_player.play("died")
 
 #endregion
-
-
-#region AI states
-
-func idle(_delta: float) -> void:
-	player = get_tree().get_first_node_in_group("player")
-	if player:
-		var distance: float = (player.position - position).length()
-		if distance < chase_range:
-			current_state = "chase"
-			state_macine._on_state_changed(state_macine.current_state, "chase")
-
-
-func chase(_delta: float) -> void:
-	velocity = (nav_agent.get_next_path_position() - position).normalized() * max_speed
-	nav_agent.target_position = player.position
-	move_and_slide()
-	var distance = (player.position - position).length()
-	if distance < attack_range:
-		current_state = "attack"
-	elif distance > chase_range:
-		current_state = "idle"
-		state_macine._on_state_changed(state_macine.current_state, "idle")
-
-
-func attack(_delta: float) -> void:
-	if !can_attack:
-		return
-	can_attack = false
-	await get_tree().create_timer(0.75).timeout
-	# Simple test attack
-	if current_state != "dead":
-		current_state = "idle"
-		state_macine._on_state_changed(state_macine.current_state, "attack")
-		can_attack = true

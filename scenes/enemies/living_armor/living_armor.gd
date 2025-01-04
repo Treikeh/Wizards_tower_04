@@ -62,8 +62,8 @@ func idle(_delta: float) -> void:
 
 
 func chase(_delta: float) -> void:
-	velocity = (nav_agent.get_next_path_position() - position).normalized() * max_speed
-	nav_agent.target_position = player.position
+	velocity = (navigation.get_next_path_position() - position).normalized() * max_speed
+	navigation.target_position = player.position
 	move_and_slide()
 	var distance = (player.position - position).length()
 	if distance < attack_range:
