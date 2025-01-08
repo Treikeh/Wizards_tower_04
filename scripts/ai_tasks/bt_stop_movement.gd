@@ -1,4 +1,9 @@
+@tool
 extends BTAction
+
+
+func _generate_name() -> String:
+	return "Stop movement"
 
 
 @warning_ignore("unused_parameter")

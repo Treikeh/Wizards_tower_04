@@ -10,8 +10,8 @@ signal damage_recived(damage: Damage)
 
 
 func recive_damage(damage: Damage) -> void:
-	var amount: float = damage.amount
-	var type: Damage.DamageType = damage.type
-	amount *= damage_multiplier
+	#NOTE: damage paramater should be duplicated before reaching this function. This is to avoid -
+	# - permanently changing the damage.amount value
+	damage.amount *= damage_multiplier
 	damage_recived.emit(damage)
-	health_node.take_damage(amount, type)
+	health_node.take_damage(damage)

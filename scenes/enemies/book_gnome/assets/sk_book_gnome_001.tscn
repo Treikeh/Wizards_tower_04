@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://bugwwiabmbvo7"]
+
+[ext_resource type="PackedScene" uid="uid://cokq66v5wyj7p" path="res://scenes/enemies/book_gnome/assets/sk_book_gnome_001.glb" id="1_ntvys"]
+
+[node name="sk_book_gnome_001" instance=ExtResource("1_ntvys")]
+
+[node name="Cube" parent="Skeleton3D" index="1"]
+transform = Transform3D(1.07582, -2.29332e-08, 0.598749, 0.092146, 1.21655, -0.165567, -0.591616, 0.189481, 1.06301, -0.169993, 0.531667, 0.0323909)
+
+[node name="Cone" parent="Skeleton3D" index="2"]
+transform = Transform3D(1.23122, 0, 0, 0, 1.20016, -0.274785, 0, 0.274785, 1.20016, 0, 1.02623, 0.203001)
+
+[node name="Plane" parent="Skeleton3D" index="3"]
+transform = Transform3D(0, 1.17563, 0.365782, -1.23122, 0, 5.50397e-08, 1.83466e-08, -0.365782, 1.17563, -0.169993, 0.260527, -0.00984004)

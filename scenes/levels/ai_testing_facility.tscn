@@ -1,7 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://4jtdswc2727r"]
+[gd_scene load_steps=11 format=3 uid="uid://4jtdswc2727r"]
 
 [ext_resource type="Material" uid="uid://botmm8kkk1h67" path="res://resources/materials/dev_grid_gray.tres" id="2_m582j"]
-[ext_resource type="PackedScene" uid="uid://uvws4xru1kpl" path="res://scenes/enemies/book_gnome/book_gnome.tscn" id="5_bj0px"]
+[ext_resource type="PackedScene" uid="uid://d0lld0115r5yv" path="res://scenes/interact_area_3d.tscn" id="4_ie0ab"]
+[ext_resource type="PackedScene" uid="uid://chw0vev703cjt" path="res://scenes/enemies/enemy_spawner/enemy_spawner.tscn" id="4_k7mrc"]
 [ext_resource type="PackedScene" uid="uid://dh8dcfqs8vv8p" path="res://scenes/player/player_controller.tscn" id="5_qo66a"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_shs6k"]
@@ -23,6 +24,10 @@ polygons = [PackedInt32Array(2, 1, 0), PackedInt32Array(0, 3, 2), PackedInt32Arr
 geometry_source_geometry_mode = 1
 geometry_source_group_name = &"nav_mesh"
 agent_radius = 1.0
+
+[sub_resource type="BoxMesh" id="BoxMesh_hf23r"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_gfcvn"]
 
 [node name="AiTestingFacility" type="Node3D"]
 
@@ -48,8 +53,21 @@ material_override = ExtResource("2_m582j")
 use_collision = true
 size = Vector3(1.35132, 3.58691, 22.1885)
 
-[node name="BookGnome" parent="." instance=ExtResource("5_bj0px")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.60143, 0, -10.9169)
-
 [node name="RigidbodyPlayer" parent="." instance=ExtResource("5_qo66a")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+
+[node name="InteractArea3D" parent="." instance=ExtResource("4_ie0ab")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.53611, -2.38419e-07, 0.642206)
+prompt = "Spawn enemy"
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="InteractArea3D"]
+mesh = SubResource("BoxMesh_hf23r")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="InteractArea3D"]
+shape = SubResource("BoxShape3D_gfcvn")
+
+[node name="EnemySpawner" parent="." instance=ExtResource("4_k7mrc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.53611, -2.38419e-07, -12.918)
+enemy_scene = "res://scenes/enemies/book_gnome/book_gnome.tscn"
+
+[connection signal="interacted" from="InteractArea3D" to="EnemySpawner" method="spawn_enemy"]

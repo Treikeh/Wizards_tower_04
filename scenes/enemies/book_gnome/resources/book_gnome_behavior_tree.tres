@@ -1,65 +1,69 @@
 [gd_resource type="BehaviorTree" load_steps=29 format=3 uid="uid://d1cqnrn1j3kfx"]
 
-[ext_resource type="BlackboardPlan" uid="uid://bbgj56mom0ppl" path="res://scenes/enemies/book_gnome/book_gnome_blackboard.tres" id="1_rt43g"]
-[ext_resource type="Script" path="res://scripts/ai_tasks/bt_target_in_range.gd" id="2_iae0w"]
-[ext_resource type="Script" path="res://scripts/ai_tasks/bt_get_target.gd" id="2_nr465"]
-[ext_resource type="Script" path="res://scripts/ai_tasks/bt_set_navigation_target.gd" id="4_o5ko0"]
-[ext_resource type="Script" path="res://scripts/ai_tasks/bt_stop_movement.gd" id="4_rp81t"]
-[ext_resource type="Script" path="res://scripts/ai_tasks/bt_move_to_center.gd" id="5_jja0u"]
+[ext_resource type="BlackboardPlan" uid="uid://bbgj56mom0ppl" path="res://scenes/enemies/book_gnome/resources/book_gnome_blackboard.tres" id="1_8v76v"]
+[ext_resource type="Script" path="res://scripts/ai_tasks/bt_get_first_node_in_group.gd" id="2_kx6uv"]
+[ext_resource type="Script" path="res://scripts/ai_tasks/bt_node_in_range.gd" id="3_jlbo6"]
+[ext_resource type="Script" path="res://scripts/ai_tasks/bt_stop_movement.gd" id="4_hxo3p"]
+[ext_resource type="Script" path="res://scripts/ai_tasks/bt_navigate_to_node.gd" id="5_ivcn6"]
+[ext_resource type="Script" path="res://scripts/ai_tasks/bt_navigate_to_position.gd" id="6_212r7"]
 
 [sub_resource type="BTComment" id="BTComment_q7mbg"]
 custom_name = "Check if player controller is in the scene tree"
 
 [sub_resource type="BTAction" id="BTAction_rgc83"]
-script = ExtResource("2_nr465")
+script = ExtResource("2_kx6uv")
 group = &"player"
-target_value = &"target"
+target_var = &"player"
 
 [sub_resource type="BTComment" id="BTComment_52uqb"]
 custom_name = "Attack if player is within attack range"
 
 [sub_resource type="BTAction" id="BTAction_f70p0"]
-script = ExtResource("2_iae0w")
-target_value = &"target"
+script = ExtResource("3_jlbo6")
 max_range = 2.0
+target_var = &"player"
 
 [sub_resource type="BTAction" id="BTAction_4l8py"]
-script = ExtResource("4_rp81t")
+script = ExtResource("4_hxo3p")
 
-[sub_resource type="BTConsolePrint" id="BTConsolePrint_46k3d"]
-text = "Attack"
+[sub_resource type="BBNode" id="BBNode_kjsjv"]
+saved_value = NodePath("Mesh/AnimationPlayer")
+resource_name = "Mesh/AnimationPlayer"
 
-[sub_resource type="BTWait" id="BTWait_0weeh"]
-duration = 3.0
+[sub_resource type="BTPlayAnimation" id="BTPlayAnimation_k2bgs"]
+await_completion = 1.5
+animation_player = SubResource("BBNode_kjsjv")
+animation_name = &"attack"
 
 [sub_resource type="BTSequence" id="BTSequence_mwulp"]
 custom_name = "Attack"
-children = [SubResource("BTComment_52uqb"), SubResource("BTAction_f70p0"), SubResource("BTAction_4l8py"), SubResource("BTConsolePrint_46k3d"), SubResource("BTWait_0weeh")]
+children = [SubResource("BTComment_52uqb"), SubResource("BTAction_f70p0"), SubResource("BTAction_4l8py"), SubResource("BTPlayAnimation_k2bgs")]
 
 [sub_resource type="BTComment" id="BTComment_aoco4"]
 custom_name = "Move towards player when in chase range"
 
 [sub_resource type="BTAction" id="BTAction_rs4e5"]
-script = ExtResource("2_iae0w")
-target_value = &"target"
+script = ExtResource("3_jlbo6")
 max_range = 10.0
+target_var = &"player"
 
 [sub_resource type="BTAction" id="BTAction_d35t7"]
-script = ExtResource("4_o5ko0")
-target_value = &"target"
+script = ExtResource("5_ivcn6")
+target_var = &"player"
 
 [sub_resource type="BTSequence" id="BTSequence_7ab1v"]
 custom_name = "MoveToPlayer"
 children = [SubResource("BTComment_aoco4"), SubResource("BTAction_rs4e5"), SubResource("BTAction_d35t7")]
 
 [sub_resource type="BTComment" id="BTComment_it2ds"]
-custom_name = "Return to world center when plater is not in chase range"
+custom_name = "Return to world center when player is not in chase range"
 
 [sub_resource type="BTConsolePrint" id="BTConsolePrint_4hlvw"]
 text = "Player not in range"
 
 [sub_resource type="BTAction" id="BTAction_evg1e"]
-script = ExtResource("5_jja0u")
+script = ExtResource("6_212r7")
+position_var = &"spawn_position"
 
 [sub_resource type="BTSequence" id="BTSequence_0y4ub"]
 children = [SubResource("BTConsolePrint_4hlvw"), SubResource("BTAction_evg1e")]
@@ -87,5 +91,5 @@ custom_name = "Root"
 children = [SubResource("BTSequence_rtwyg"), SubResource("BTConsolePrint_shrog")]
 
 [resource]
-blackboard_plan = ExtResource("1_rt43g")
+blackboard_plan = ExtResource("1_8v76v")
 root_task = SubResource("BTSelector_28fpd")

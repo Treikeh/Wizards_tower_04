@@ -1,9 +1,8 @@
-[gd_scene load_steps=20 format=3 uid="uid://cscm07iintxhd"]
+[gd_scene load_steps=19 format=3 uid="uid://cscm07iintxhd"]
 
 [ext_resource type="Material" uid="uid://botmm8kkk1h67" path="res://resources/materials/dev_grid_gray.tres" id="2_m12yk"]
 [ext_resource type="PackedScene" uid="uid://dh8dcfqs8vv8p" path="res://scenes/player/player_controller.tscn" id="2_vbosa"]
 [ext_resource type="PackedScene" uid="uid://d0lld0115r5yv" path="res://scenes/interact_area_3d.tscn" id="3_kj7jt"]
-[ext_resource type="PackedScene" uid="uid://bmdxr06ji3ymb" path="res://scenes/enemies/living_armor/living_armor.tscn" id="5_io8yn"]
 [ext_resource type="Script" path="res://scripts/health.gd" id="6_ep4ar"]
 [ext_resource type="PackedScene" uid="uid://ddufakdkmxhwr" path="res://scenes/health_area_3d.tscn" id="6_i66f4"]
 [ext_resource type="Material" uid="uid://butaeuol8riqi" path="res://scenes/spells/rock_wall/assets/rock_wall_preview_can_spawn_mat.tres" id="8_kjgf6"]
@@ -100,9 +99,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.857309, 0)
 
 [node name="RigidbodyPlayer" parent="." instance=ExtResource("2_vbosa")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.390936, 1, 0.665959)
-
-[node name="Enemy_001" parent="." instance=ExtResource("5_io8yn")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.26941, 0, 3.54835)
 
 [node name="BigBox" type="RigidBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.09288, 2.68097, -0.899674)
