@@ -1,17 +1,17 @@
 [gd_resource type="BehaviorTree" load_steps=29 format=3 uid="uid://d1cqnrn1j3kfx"]
 
-[ext_resource type="BlackboardPlan" uid="uid://bbgj56mom0ppl" path="res://scenes/enemies/book_gnome/resources/book_gnome_blackboard.tres" id="1_8v76v"]
-[ext_resource type="Script" path="res://scripts/ai_tasks/bt_get_first_node_in_group.gd" id="2_kx6uv"]
-[ext_resource type="Script" path="res://scripts/ai_tasks/bt_node_in_range.gd" id="3_jlbo6"]
-[ext_resource type="Script" path="res://scripts/ai_tasks/bt_stop_movement.gd" id="4_hxo3p"]
-[ext_resource type="Script" path="res://scripts/ai_tasks/bt_navigate_to_node.gd" id="5_ivcn6"]
-[ext_resource type="Script" path="res://scripts/ai_tasks/bt_navigate_to_position.gd" id="6_212r7"]
+[ext_resource type="BlackboardPlan" uid="uid://bbgj56mom0ppl" path="res://scenes/enemies/book_gnome/assets/book_gnome_blackboard.tres" id="1_c5gw3"]
+[ext_resource type="Script" path="res://scripts/ai_tasks/bt_get_first_node_in_group.gd" id="2_v5rs3"]
+[ext_resource type="Script" path="res://scripts/ai_tasks/bt_node_in_range.gd" id="3_onvap"]
+[ext_resource type="Script" path="res://scripts/ai_tasks/bt_stop_movement.gd" id="4_scabv"]
+[ext_resource type="Script" path="res://scripts/ai_tasks/bt_navigate_to_node.gd" id="5_vd1kp"]
+[ext_resource type="Script" path="res://scripts/ai_tasks/bt_navigate_to_position.gd" id="6_u4ng0"]
 
 [sub_resource type="BTComment" id="BTComment_q7mbg"]
 custom_name = "Check if player controller is in the scene tree"
 
 [sub_resource type="BTAction" id="BTAction_rgc83"]
-script = ExtResource("2_kx6uv")
+script = ExtResource("2_v5rs3")
 group = &"player"
 target_var = &"player"
 
@@ -19,12 +19,12 @@ target_var = &"player"
 custom_name = "Attack if player is within attack range"
 
 [sub_resource type="BTAction" id="BTAction_f70p0"]
-script = ExtResource("3_jlbo6")
+script = ExtResource("3_onvap")
 max_range = 2.0
 target_var = &"player"
 
 [sub_resource type="BTAction" id="BTAction_4l8py"]
-script = ExtResource("4_hxo3p")
+script = ExtResource("4_scabv")
 
 [sub_resource type="BBNode" id="BBNode_kjsjv"]
 saved_value = NodePath("Mesh/AnimationPlayer")
@@ -43,12 +43,12 @@ children = [SubResource("BTComment_52uqb"), SubResource("BTAction_f70p0"), SubRe
 custom_name = "Move towards player when in chase range"
 
 [sub_resource type="BTAction" id="BTAction_rs4e5"]
-script = ExtResource("3_jlbo6")
+script = ExtResource("3_onvap")
 max_range = 10.0
 target_var = &"player"
 
 [sub_resource type="BTAction" id="BTAction_d35t7"]
-script = ExtResource("5_ivcn6")
+script = ExtResource("5_vd1kp")
 target_var = &"player"
 
 [sub_resource type="BTSequence" id="BTSequence_7ab1v"]
@@ -62,7 +62,7 @@ custom_name = "Return to world center when player is not in chase range"
 text = "Player not in range"
 
 [sub_resource type="BTAction" id="BTAction_evg1e"]
-script = ExtResource("6_212r7")
+script = ExtResource("6_u4ng0")
 position_var = &"spawn_position"
 
 [sub_resource type="BTSequence" id="BTSequence_0y4ub"]
@@ -91,5 +91,5 @@ custom_name = "Root"
 children = [SubResource("BTSequence_rtwyg"), SubResource("BTConsolePrint_shrog")]
 
 [resource]
-blackboard_plan = ExtResource("1_8v76v")
+blackboard_plan = ExtResource("1_c5gw3")
 root_task = SubResource("BTSelector_28fpd")

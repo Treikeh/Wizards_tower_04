@@ -2,10 +2,11 @@ class_name Damage
 extends Resource
 
 
-enum DamageType {
+enum Type {
 	PHYSICAL,
 	FIRE,
+	HEALING,
 }
 
 @export var amount: float = 10
-@export var type: DamageType = DamageType.PHYSICAL
+@export var type: Type = Type.PHYSICAL

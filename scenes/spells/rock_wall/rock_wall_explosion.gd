@@ -2,6 +2,8 @@ extends Area3D
 
 
 #FIXME: For some odd reason i cant load into "test_level" when this variable is active
+# I made the explosion a part of the rock_wall scene and now i can load into test_level
+# The issue had something to do with the "preload" function
 @export var explosion_damage: Damage
 
 
@@ -13,7 +15,8 @@ func explode() -> void:
 			# Check if the health_node of the hurtbox has allready been hit
 			if damaged_health_nodes.has(area.health_node):
 				return
-			#TODO: Check if there is line of sight to hitbox
+			#TODO: Line of sight check
 			#TODO: Scale damage based on distance form center
-			area.recive_damage(explosion_damage)
+			var duped_damage: Damage = explosion_damage.duplicate()
+			area.recive_damage(duped_damage)
 			damaged_health_nodes.append(area.health_node)

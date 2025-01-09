@@ -7,10 +7,9 @@ extends Node3D
 
 func _ready() -> void:
 	if spawn_on_ready:
-		spawn_enemy.call_deferred()
+		spawn_enemy()
 
 
 func spawn_enemy() -> void:
 	var enemy: Enemy = load(enemy_scene).instantiate()
-	enemy.global_transform = global_transform
-	Globals.main_scene.world_3d.add_child(enemy)
+	add_child(enemy)

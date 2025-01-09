@@ -1,11 +1,10 @@
 extends RigidBody3D
 
 
-var initial_velocity: float = 10.0
-var lifetime: float = 10.0
+@export var initial_velocity: float = 20.0
+## How long the fireball will be in the scene before despawning
+@export var lifetime: float = 10.0
 
-@export_group("Nodes")
-@export var damage_area: DamageArea3D
 
 
 func _ready() -> void:

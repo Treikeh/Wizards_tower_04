@@ -4,11 +4,17 @@
 
 [node name="sk_book_gnome_001" instance=ExtResource("1_ntvys")]
 
-[node name="Cube" parent="Skeleton3D" index="1"]
-transform = Transform3D(1.07582, -2.29332e-08, 0.598749, 0.092146, 1.21655, -0.165567, -0.591616, 0.189481, 1.06301, -0.169993, 0.531667, 0.0323909)
-
-[node name="Cone" parent="Skeleton3D" index="2"]
-transform = Transform3D(1.23122, 0, 0, 0, 1.20016, -0.274785, 0, 0.274785, 1.20016, 0, 1.02623, 0.203001)
-
-[node name="Plane" parent="Skeleton3D" index="3"]
-transform = Transform3D(0, 1.17563, 0.365782, -1.23122, 0, 5.50397e-08, 1.83466e-08, -0.365782, 1.17563, -0.169993, 0.260527, -0.00984004)
+[node name="Skeleton3D" parent="." index="0"]
+bones/2/rotation = Quaternion(5.82685e-09, 0.997017, 0.0771791, 7.52727e-08)
+bones/2/scale = Vector3(1, 1, 1)
+bones/3/rotation = Quaternion(0.367487, -0.349485, -0.604114, 0.614704)
+bones/4/rotation = Quaternion(-0.380128, -0.335346, -0.632811, 0.585317)
+bones/4/scale = Vector3(1, 1, 1)
+bones/5/rotation = Quaternion(-0.0375578, 3.52792e-08, -2.35027e-07, 0.999294)
+bones/6/rotation = Quaternion(0.508429, -9.20481e-08, -1.95349e-07, 0.861104)
+bones/7/rotation = Quaternion(0.190234, -5.60127e-06, -1.97151e-06, 0.981739)
+bones/8/rotation = Quaternion(-0.0352755, 3.07332e-08, 5.09015e-09, 0.999378)
+bones/10/scale = Vector3(1, 1, 1)
+bones/11/scale = Vector3(1, 1, 1)
+bones/12/rotation = Quaternion(0.508429, 9.20481e-08, 1.95349e-07, 0.861104)
+bones/13/rotation = Quaternion(0.190234, 5.60127e-06, 1.97151e-06, 0.981739)

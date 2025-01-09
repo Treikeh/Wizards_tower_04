@@ -134,7 +134,7 @@ func _is_on_walkable_slope() -> bool:
 
 
 # FIXME: Make jumping consistent when moving up and down a slope
-# Jumping is shorter when moving downw a slope since the palyer already has downwards force
+# Jumping is shorter when moving down a slope since the palyer already has downwards force
 func _jump() -> void:
 	if is_grounded:
 		check_for_ground = false
@@ -152,6 +152,8 @@ func _on_health_changed(current_health: float, max_health: float) -> void:
 
 
 func _on_health_depleted() -> void:
+	# Disable stuff
+	move_input = Vector2.ZERO
 	Globals.player_died.emit()
 	# Show game over screen
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)

@@ -23,9 +23,6 @@ func _physics_process(delta: float) -> void:
 #region Fireball
 
 @export_group("Fireball")
-@export var fireball_damage: Damage
-@export var fireball_speed: float = 20.0
-@export var fireball_gravity_scale: float = 0.0
 @export var fireball_cooldown: float = 0.1
 var can_fireball: bool = true
 var fireball_scene: PackedScene = preload("res://scenes/spells/fireball/fireball.tscn")
@@ -34,12 +31,11 @@ var fireball_scene: PackedScene = preload("res://scenes/spells/fireball/fireball
 func cast_fireball() -> void:
 	if can_fireball:
 		var fireball: RigidBody3D = fireball_scene.instantiate()
-		fireball.damage_area.damage = fireball_damage
-		fireball.initial_velocity = fireball_speed
-		fireball.gravity_scale = fireball_gravity_scale
 		add_child(fireball)
 		fireball.basis = global_basis
 		fireball.top_level = true
+		
+		# Cooldown
 		can_fireball = false
 		Globals.player_casted_spell.emit(0, fireball_cooldown)
 		await get_tree().create_timer(fireball_cooldown).timeout
@@ -59,8 +55,6 @@ func cast_fireball() -> void:
 
 @export_group("Rock wall")
 @export var rock_wall_cooldown: float = 0.5
-## How long the rock wall stays before despawning
-@export var rock_wall_duration: float = 10.0
 ## How far away from the player the rock wall can be spawned
 @export var rock_wall_range: float = 5.0
 ## If the palyer can cast the rock wall
@@ -93,7 +87,8 @@ func spawn_rock_wall() -> void:
 	add_child(rock_wall)
 	rock_wall.top_level = true
 	rock_wall.global_transform = rock_wall_preview.global_transform
-	rock_wall.lifetime = rock_wall_duration
+	
+	# Cooldown
 	can_rock_wall = false
 	Globals.player_casted_spell.emit(1, rock_wall_cooldown)
 	# Despawn rock wall preview
@@ -117,16 +112,18 @@ var wind_blast_effect_scene: PackedScene = preload("res://scenes/spells/wind_bla
 
 func cast_wind_blast() -> void:
 	if can_wind_blast:
-		# 
+		# Check for bodies in wind_blast area
 		for body in wind_blast_area.get_overlapping_bodies():
 			print(body)
 			if body is RigidBody3D:
 				body.apply_central_impulse(-global_basis.z * wind_blast_force * body.mass)
 			elif body.has_method("recive_knockback"):
 				body.recive_knockback(-global_basis.z)
+		
 		# Spawn wind blast effect
 		var wind_blast_effect: Node3D = wind_blast_effect_scene.instantiate()
 		add_child(wind_blast_effect)
+		
 		# Cooldown
 		can_wind_blast = false
 		Globals.player_casted_spell.emit(2, wind_blast_cooldown)

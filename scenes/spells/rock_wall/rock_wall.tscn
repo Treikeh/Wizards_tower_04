@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://b2n0kf0vd4u8n"]
+[gd_scene load_steps=18 format=3 uid="uid://b2n0kf0vd4u8n"]
 
 [ext_resource type="Script" path="res://scenes/spells/rock_wall/rock_wall.gd" id="1_3mufw"]
 [ext_resource type="PackedScene" uid="uid://ddufakdkmxhwr" path="res://scenes/health_area_3d.tscn" id="2_imdi2"]
@@ -20,9 +20,17 @@ size = Vector3(2, 2, 1)
 size = Vector3(2, 2, 1)
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_08y1q"]
-radius = 2.0
+radius = 3.75
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pwvo7"]
+transparency = 1
+shading_mode = 0
+albedo_color = Color(0.88, 0.36784, 0.0264, 0.529412)
 
 [sub_resource type="SphereMesh" id="SphereMesh_wdq0b"]
+material = SubResource("StandardMaterial3D_pwvo7")
+radial_segments = 32
+rings = 16
 
 [sub_resource type="Animation" id="Animation_4wp80"]
 length = 0.001
@@ -276,7 +284,7 @@ tracks/6/keys = {
 "times": PackedFloat32Array(0, 0.4),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector3(0.1, 0.1, 0.1), Vector3(4, 4, 4)]
+"values": [Vector3(0.1, 0.1, 0.1), Vector3(7.5, 7.5, 7.5)]
 }
 tracks/7/type = "value"
 tracks/7/imported = false

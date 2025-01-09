@@ -1,23 +1,16 @@
-[gd_scene load_steps=5 format=3 uid="uid://cavgwqcbmxw3w"]
+[gd_scene load_steps=3 format=3 uid="uid://cavgwqcbmxw3w"]
 
 [ext_resource type="Script" path="res://scenes/player/spellray.gd" id="1_1c27g"]
-[ext_resource type="Script" path="res://scripts/damage.gd" id="2_kvmph"]
-
-[sub_resource type="Resource" id="Resource_jgtse"]
-script = ExtResource("2_kvmph")
-amount = 15.0
-type = 1
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_00kph"]
 radius = 0.75
-height = 3.0
+height = 4.0
 
 [node name="SpellRay" type="RayCast3D" node_paths=PackedStringArray("wind_blast_area")]
 target_position = Vector3(0, 0, -50)
 collision_mask = 129
 collide_with_areas = true
 script = ExtResource("1_1c27g")
-fireball_damage = SubResource("Resource_jgtse")
 wind_blast_force = 25.0
 wind_blast_area = NodePath("WindBlastArea")
 
@@ -27,5 +20,5 @@ collision_mask = 42
 monitorable = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="WindBlastArea"]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, -1.5)
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, -2)
 shape = SubResource("CapsuleShape3D_00kph")
