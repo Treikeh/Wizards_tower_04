@@ -388,6 +388,7 @@ health_node = NodePath("../../Health")
 shape = SubResource("BoxShape3D_2okjq")
 
 [node name="LaunchBody" type="AnimatableBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.66667, 0)
 collision_layer = 2
 collision_mask = 2
 

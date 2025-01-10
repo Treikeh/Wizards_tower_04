@@ -1,6 +1,0 @@
-[gd_resource type="ORMMaterial3D" load_steps=2 format=3 uid="uid://c2skpcvyoig72"]
-
-[ext_resource type="Texture2D" uid="uid://bq5t018jlcw4w" path="res://scenes/enemies/book_gnome/assets/t_book_gnome_bc.001.png" id="1_ettrt"]
-
-[resource]
-albedo_texture = ExtResource("1_ettrt")

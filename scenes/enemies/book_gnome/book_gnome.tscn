@@ -1,12 +1,13 @@
-[gd_scene load_steps=18 format=3 uid="uid://uvws4xru1kpl"]
+[gd_scene load_steps=25 format=3 uid="uid://uvws4xru1kpl"]
 
 [ext_resource type="Script" path="res://scenes/enemies/book_gnome/book_gnome.gd" id="1_ucrke"]
 [ext_resource type="PackedScene" uid="uid://ddufakdkmxhwr" path="res://scenes/health_area_3d.tscn" id="3_ap0dj"]
-[ext_resource type="PackedScene" uid="uid://bugwwiabmbvo7" path="res://scenes/enemies/book_gnome/assets/sk_book_gnome_001.tscn" id="3_i4bgf"]
+[ext_resource type="PackedScene" uid="uid://bugwwiabmbvo7" path="res://scenes/enemies/book_gnome/assets/mesh/sk_book_gnome_001.tscn" id="3_i4bgf"]
 [ext_resource type="PackedScene" uid="uid://cs53wyj8yt4s4" path="res://scenes/enemies/floating_health_bar.tscn" id="4_010fi"]
 [ext_resource type="Script" path="res://scripts/health.gd" id="4_ejrbm"]
 [ext_resource type="PackedScene" uid="uid://di7vp8irr7xdl" path="res://scenes/damage_area_3d.tscn" id="4_pe1ou"]
 [ext_resource type="Resource" uid="uid://dc7hcuasftdvh" path="res://scenes/enemies/book_gnome/assets/book_gnome_attack_damage.tres" id="5_rq5px"]
+[ext_resource type="AnimationLibrary" uid="uid://b0fyhlabc1auf" path="res://scenes/enemies/book_gnome/assets/mesh/anim_book_gnome_001.glb" id="6_k7rn5"]
 [ext_resource type="BehaviorTree" uid="uid://d1cqnrn1j3kfx" path="res://scenes/enemies/book_gnome/assets/book_gnome_behavior_tree.tres" id="8_fspoc"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_kgyn0"]
@@ -19,155 +20,61 @@ size = Vector3(0.705078, 0.906494, 0.575684)
 [sub_resource type="BoxShape3D" id="BoxShape3D_xk6ae"]
 size = Vector3(0.5, 0.7, 0.5)
 
-[sub_resource type="Animation" id="Animation_osofa"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("..:rotation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0, 0, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("sk_book_gnome_001:scale")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(1, 1, 1)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("DamageArea3D/DamageCollision:disabled")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_pjc8y"]
+animation = &"attack_001"
 
-[sub_resource type="Animation" id="Animation_8f5sb"]
-resource_name = "attack"
-tracks/0/type = "method"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("..")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0.1),
-"transitions": PackedFloat32Array(1),
-"values": [{
-"args": [],
-"method": &"_attack"
-}]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("sk_book_gnome_001:scale")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector3(3, 3, 3), Vector3(1, 1, 1)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("DamageArea3D/DamageCollision:disabled")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0.133333, 0.5),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [false, true]
-}
-tracks/3/type = "animation"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("sk_book_gnome_001/AnimationPlayer")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"clips": PackedStringArray("attack_001"),
-"times": PackedFloat32Array(0)
-}
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_met7o"]
+animation = &"idle_001"
 
-[sub_resource type="Animation" id="Animation_pk4vt"]
-resource_name = "died"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("..:rotation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.5),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector3(0, 0, 0), Vector3(1.5708, 0, 0)]
-}
-tracks/1/type = "method"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("..")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(1),
-"transitions": PackedFloat32Array(1),
-"values": [{
-"args": [],
-"method": &"queue_free"
-}]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("DamageArea3D/DamageCollision:disabled")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_vth14"]
+animation = &"walk_f_001"
 
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_v1q1u"]
-_data = {
-"RESET": SubResource("Animation_osofa"),
-"attack": SubResource("Animation_8f5sb"),
-"died": SubResource("Animation_pk4vt")
-}
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_kn7pr"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_rawmr"]
+advance_mode = 2
+advance_expression = "walking"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_7nsh1"]
+advance_mode = 2
+advance_expression = "!walking"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_m40u8"]
+advance_mode = 2
+advance_expression = "attacking"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_xbhfu"]
+advance_mode = 2
+advance_expression = "attacking"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_cyo37"]
+switch_mode = 2
+advance_mode = 2
+advance_expression = "!attacking"
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_qabu0"]
+states/attack_001/node = SubResource("AnimationNodeAnimation_pjc8y")
+states/attack_001/position = Vector2(643, 122)
+states/idle_001/node = SubResource("AnimationNodeAnimation_met7o")
+states/idle_001/position = Vector2(419, 100)
+states/walk_f_001/node = SubResource("AnimationNodeAnimation_vth14")
+states/walk_f_001/position = Vector2(419, 216)
+transitions = ["Start", "idle_001", SubResource("AnimationNodeStateMachineTransition_kn7pr"), "idle_001", "walk_f_001", SubResource("AnimationNodeStateMachineTransition_rawmr"), "walk_f_001", "idle_001", SubResource("AnimationNodeStateMachineTransition_7nsh1"), "walk_f_001", "attack_001", SubResource("AnimationNodeStateMachineTransition_m40u8"), "idle_001", "attack_001", SubResource("AnimationNodeStateMachineTransition_xbhfu"), "attack_001", "idle_001", SubResource("AnimationNodeStateMachineTransition_cyo37")]
+graph_offset = Vector2(-96, -10)
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_cuy2h"]
 viewport_path = NodePath("SubViewport")
 
 [sub_resource type="BlackboardPlan" id="BlackboardPlan_qfltu"]
 
-[node name="BookGnome" type="CharacterBody3D" node_paths=PackedStringArray("mesh", "animation_player", "navigation", "behavior_tree") groups=["enemy"]]
+[node name="BookGnome" type="CharacterBody3D" node_paths=PackedStringArray("mesh", "animation_player", "animation_tree", "navigation", "behavior_tree") groups=["enemy"]]
 collision_layer = 8
 collision_mask = 15
 script = ExtResource("1_ucrke")
-mesh = NodePath("Mesh")
-animation_player = NodePath("Mesh/AnimationPlayer")
+mesh = NodePath("sk_book_gnome_001")
+animation_player = NodePath("sk_book_gnome_001/AnimationPlayer")
+animation_tree = NodePath("sk_book_gnome_001/AnimationTree")
 navigation = NodePath("NavigationAgent3D")
 behavior_tree = NodePath("BTPlayer")
 
@@ -175,51 +82,37 @@ behavior_tree = NodePath("BTPlayer")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.55, 0)
 shape = SubResource("CapsuleShape3D_kgyn0")
 
-[node name="Mesh" type="Node3D" parent="."]
+[node name="sk_book_gnome_001" parent="." instance=ExtResource("3_i4bgf")]
 
-[node name="sk_book_gnome_001" parent="Mesh" instance=ExtResource("3_i4bgf")]
-
-[node name="Skeleton3D" parent="Mesh/sk_book_gnome_001" index="0"]
-bones/2/rotation = Quaternion(5.82685e-09, 0.997017, 0.0771791, 7.52727e-08)
-bones/2/scale = Vector3(1, 1, 1)
-bones/3/rotation = Quaternion(0.367487, -0.349485, -0.604114, 0.614704)
-bones/4/rotation = Quaternion(-0.380128, -0.335346, -0.632811, 0.585317)
-bones/4/scale = Vector3(1, 1, 1)
-bones/5/rotation = Quaternion(-0.0375578, 3.52792e-08, -2.35027e-07, 0.999294)
-bones/6/rotation = Quaternion(0.508429, -9.20481e-08, -1.95349e-07, 0.861104)
-bones/7/rotation = Quaternion(0.190234, -5.60127e-06, -1.97151e-06, 0.981739)
-bones/8/position = Vector3(3.21829e-08, 0.587239, 0.20697)
-bones/8/rotation = Quaternion(-0.0352755, 3.07332e-08, 5.09015e-09, 0.999378)
-bones/9/rotation = Quaternion(0.352735, 0.364283, 0.612844, 0.606051)
-bones/10/rotation = Quaternion(-0.395356, 0.321059, 0.62341, 0.593274)
-bones/10/scale = Vector3(1, 1, 1)
-bones/11/scale = Vector3(1, 1, 1)
-bones/12/rotation = Quaternion(0.508429, 9.20481e-08, 1.95349e-07, 0.861104)
-bones/13/rotation = Quaternion(0.190234, 5.60127e-06, 1.97151e-06, 0.981739)
-
-[node name="HealthArea3D" parent="Mesh" node_paths=PackedStringArray("health_node") instance=ExtResource("3_ap0dj")]
+[node name="HealthArea3D" parent="sk_book_gnome_001" node_paths=PackedStringArray("health_node") instance=ExtResource("3_ap0dj")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.030045)
 health_node = NodePath("../../Health")
 damage_multiplier = 0.5
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Mesh/HealthArea3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="sk_book_gnome_001/HealthArea3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.508789, 0.0285645)
 shape = SubResource("BoxShape3D_cf1hn")
 
-[node name="DamageArea3D" parent="Mesh" instance=ExtResource("4_pe1ou")]
+[node name="DamageArea3D" parent="sk_book_gnome_001" instance=ExtResource("4_pe1ou")]
 damage = ExtResource("5_rq5px")
 
-[node name="DamageCollision" type="CollisionShape3D" parent="Mesh/DamageArea3D"]
+[node name="DamageCollision" type="CollisionShape3D" parent="sk_book_gnome_001/DamageArea3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.55, -0.5)
 shape = SubResource("BoxShape3D_xk6ae")
 disabled = true
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Mesh"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="sk_book_gnome_001"]
 libraries = {
-"": SubResource("AnimationLibrary_v1q1u")
+"": ExtResource("6_k7rn5")
 }
 
+[node name="AnimationTree" type="AnimationTree" parent="sk_book_gnome_001"]
+tree_root = SubResource("AnimationNodeStateMachine_qabu0")
+advance_expression_base_node = NodePath("../..")
+anim_player = NodePath("../AnimationPlayer")
+
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+path_height_offset = 1.0
 debug_enabled = true
 
 [node name="Health" type="Node" parent="."]
@@ -236,5 +129,3 @@ blackboard_plan = SubResource("BlackboardPlan_qfltu")
 
 [connection signal="health_changed" from="Health" to="FloatingHealthBar" method="_on_health_changed"]
 [connection signal="health_depleted" from="Health" to="." method="_on_health_depleted"]
-
-[editable path="Mesh/sk_book_gnome_001"]

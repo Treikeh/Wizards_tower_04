@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://cokq66v5wyj7p"
-path="res://.godot/imported/sk_book_gnome_001.glb-611b11fb2fdf5bf82f33bb25fcf3c179.scn"
+path="res://.godot/imported/sk_book_gnome_001.glb-24da707aab79d0aa513669cbd5007f09.scn"
 
 [deps]
 
-source_file="res://scenes/enemies/book_gnome/assets/sk_book_gnome_001.glb"
-dest_files=["res://.godot/imported/sk_book_gnome_001.glb-611b11fb2fdf5bf82f33bb25fcf3c179.scn"]
+source_file="res://scenes/enemies/book_gnome/assets/mesh/sk_book_gnome_001.glb"
+dest_files=["res://.godot/imported/sk_book_gnome_001.glb-24da707aab79d0aa513669cbd5007f09.scn"]
 
 [params]
 
@@ -35,7 +35,7 @@ _subresources={
 "materials": {
 "book_gnome_material.001": {
 "use_external/enabled": true,
-"use_external/path": "res://scenes/enemies/book_gnome/assets/book_gnome_001_material.tres"
+"use_external/path": "res://scenes/enemies/book_gnome/assets/mesh/m_book_gnome_001.tres"
 }
 }
 }

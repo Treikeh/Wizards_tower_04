@@ -27,13 +27,13 @@ target_var = &"player"
 script = ExtResource("4_scabv")
 
 [sub_resource type="BBNode" id="BBNode_kjsjv"]
-saved_value = NodePath("Mesh/AnimationPlayer")
-resource_name = "Mesh/AnimationPlayer"
+saved_value = NodePath("sk_book_gnome_001/AnimationPlayer")
+resource_name = "sk_book_gnome_001/AnimationPlayer"
 
 [sub_resource type="BTPlayAnimation" id="BTPlayAnimation_k2bgs"]
 await_completion = 1.5
 animation_player = SubResource("BBNode_kjsjv")
-animation_name = &"attack"
+animation_name = &"attack_001"
 
 [sub_resource type="BTSequence" id="BTSequence_mwulp"]
 custom_name = "Attack"
