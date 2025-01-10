@@ -26,7 +26,7 @@ func _ready() -> void:
 		config_file.set_value("KEYBINDINGS", "interact", "E")
 		
 		config_file.set_value("VIDEO", "display_mode", "WINDOWED")
-		config_file.set_value("VIDEO", "resolution", Vector2(1920.0, 1080.0))
+		config_file.set_value("VIDEO", "resolution", Vector2i(960, 540))
 		config_file.set_value("VIDEO", "field_of_view", 90.0)
 		
 		config_file.set_value("AUDIO", "master_volume", 100.0)

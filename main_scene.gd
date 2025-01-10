@@ -17,10 +17,8 @@ var current_ui_scene: Control
 
 func _ready() -> void:
 	Globals.main_scene = self
+	_load_video_settings()
 	current_ui_scene = user_interface.get_child(0)
-	# Set video settings
-	#var video_settings: Dictionary = ConfigHandler.load_video_settings()
-	
 
 
 func _process(_delta: float) -> void:
@@ -49,6 +47,38 @@ func _process(_delta: float) -> void:
 				# Hide loading screen
 				loading_screen.animation_player.play("hide")
 				return
+
+
+# Load video settings from config when game starts
+func _load_video_settings() -> void:
+	var video_settings: Dictionary = ConfigHandler.load_video_settings()
+	if video_settings.is_empty():
+		return
+	
+	# Set display mode
+	match video_settings.display_mode:
+		"FULLSCREEN":
+			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
+			DisplayServer.window_set_flag(DisplayServer.WINDOW_FLAG_BORDERLESS, false)
+		"BORDERLESS_FULLSCREEN":
+			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
+			DisplayServer.window_set_flag(DisplayServer.WINDOW_FLAG_BORDERLESS, true)
+		"WINDOWED":
+			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
+			DisplayServer.window_set_flag(DisplayServer.WINDOW_FLAG_BORDERLESS, false)
+		"BORDERLESS_WINDOWED":
+			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
+			DisplayServer.window_set_flag(DisplayServer.WINDOW_FLAG_BORDERLESS, true)
+	
+	# Set resolution when game starts
+	var resolution: String = str(video_settings.resolution)
+	match resolution:
+		"(720, 480)":
+			DisplayServer.window_set_size(Vector2i(720, 480))
+		"(960, 540)":
+			DisplayServer.window_set_size(Vector2i(960, 540))
+		"(1920, 1080)":
+			DisplayServer.window_set_size(Vector2i(1920, 1080))
 
 
 func quit_game() -> void:

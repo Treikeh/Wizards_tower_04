@@ -104,6 +104,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.8, 0, -6.8)
 
 [node name="DamageOverTimeTest" parent="." instance=ExtResource("6_pnkpg")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.59783, 0.5, 0.218464)
+collision_mask = 192
 damage = SubResource("Resource_apr0l")
 apply_over_time = true
 

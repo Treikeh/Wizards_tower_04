@@ -69,13 +69,16 @@ theme_override_styles/separator = ExtResource("3_iieoi")
 
 [node name="OptionButton" type="OptionButton" parent="VBoxContainer/TabContainer/Video/MarginContainer/VBoxContainer/DisplayMode"]
 layout_mode = 2
+alignment = 1
 selected = 0
-item_count = 3
+item_count = 4
 popup/item_0/text = "Fullscreen"
-popup/item_1/text = "Windowed"
+popup/item_1/text = "Borderless fullscreen"
 popup/item_1/id = 1
-popup/item_2/text = "Borderless"
+popup/item_2/text = "Windowed"
 popup/item_2/id = 2
+popup/item_3/text = "Borderless windowed"
+popup/item_3/id = 3
 
 [node name="Resolution" type="HBoxContainer" parent="VBoxContainer/TabContainer/Video/MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -92,8 +95,12 @@ theme_override_styles/separator = ExtResource("3_iieoi")
 [node name="OptionButton" type="OptionButton" parent="VBoxContainer/TabContainer/Video/MarginContainer/VBoxContainer/Resolution"]
 layout_mode = 2
 selected = 0
-item_count = 1
-popup/item_0/text = "1920x1080"
+item_count = 3
+popup/item_0/text = "720x480"
+popup/item_1/text = "960x540"
+popup/item_1/id = 2
+popup/item_2/text = "1920x1080"
+popup/item_2/id = 1
 
 [node name="FieldOfView" type="HBoxContainer" parent="VBoxContainer/TabContainer/Video/MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -237,6 +244,7 @@ theme_override_font_sizes/font_size = 20
 text = "Back"
 
 [connection signal="item_selected" from="VBoxContainer/TabContainer/Video/MarginContainer/VBoxContainer/DisplayMode/OptionButton" to="VBoxContainer/TabContainer/Video" method="_on_display_mode_item_selected"]
+[connection signal="item_selected" from="VBoxContainer/TabContainer/Video/MarginContainer/VBoxContainer/Resolution/OptionButton" to="VBoxContainer/TabContainer/Video" method="_on_resolution_item_selected"]
 [connection signal="drag_ended" from="VBoxContainer/TabContainer/Video/MarginContainer/VBoxContainer/FieldOfView/FovSlider" to="VBoxContainer/TabContainer/Video" method="_on_fov_slider_drag_ended"]
 [connection signal="value_changed" from="VBoxContainer/TabContainer/Video/MarginContainer/VBoxContainer/FieldOfView/FovValue" to="VBoxContainer/TabContainer/Video" method="_on_fov_value_value_changed"]
 [connection signal="drag_ended" from="VBoxContainer/TabContainer/Input/MarginContainer/VBoxContainer/Sensitivity/SensitivitySlider" to="VBoxContainer/TabContainer/Input" method="_on_sensitivity_slider_drag_ended"]
