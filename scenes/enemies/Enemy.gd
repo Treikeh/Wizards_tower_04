@@ -5,11 +5,19 @@ extends CharacterBody3D
 @export var navigation: NavigationAgent3D
 @export var behavior_tree: BTPlayer
 
-var receiving_knockback: bool = false
-var knockback_duration: float = 0.5
 var move_dir: Vector3
 
+var receiving_knockback: bool = false
+var knockback_duration: float = 0.5
+var gravity_force: float = ProjectSettings.get_setting("physics/3d/default_gravity")
 
+
+func _ready() -> void:
+	# Set enemy spawn position
+	behavior_tree.blackboard.set_var("spawn_position", global_position)
+
+
+#TODO: Make knockback NOT time based
 func recive_knockback(direction: Vector3) -> void:
 	receiving_knockback = true
 	velocity = direction * 10.0

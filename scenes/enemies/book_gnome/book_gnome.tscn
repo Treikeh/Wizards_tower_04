@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://uvws4xru1kpl"]
+[gd_scene load_steps=30 format=3 uid="uid://uvws4xru1kpl"]
 
 [ext_resource type="Script" path="res://scenes/enemies/book_gnome/book_gnome.gd" id="1_ucrke"]
 [ext_resource type="PackedScene" uid="uid://ddufakdkmxhwr" path="res://scenes/health_area_3d.tscn" id="3_ap0dj"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://di7vp8irr7xdl" path="res://scenes/damage_area_3d.tscn" id="4_pe1ou"]
 [ext_resource type="Resource" uid="uid://dc7hcuasftdvh" path="res://scenes/enemies/book_gnome/assets/book_gnome_attack_damage.tres" id="5_rq5px"]
 [ext_resource type="AnimationLibrary" uid="uid://b0fyhlabc1auf" path="res://scenes/enemies/book_gnome/assets/mesh/anim_book_gnome_001.glb" id="6_k7rn5"]
+[ext_resource type="Script" path="res://scenes/enemies/book_gnome/book_gnome_animation_tree.gd" id="7_px8w2"]
 [ext_resource type="BehaviorTree" uid="uid://d1cqnrn1j3kfx" path="res://scenes/enemies/book_gnome/assets/book_gnome_behavior_tree.tres" id="8_fspoc"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_kgyn0"]
@@ -23,6 +24,9 @@ size = Vector3(0.5, 0.7, 0.5)
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_pjc8y"]
 animation = &"attack_001"
 
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_a0njo"]
+animation = &"died_001"
+
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_met7o"]
 animation = &"idle_001"
 
@@ -34,46 +38,59 @@ advance_mode = 2
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_rawmr"]
 advance_mode = 2
-advance_expression = "walking"
+advance_condition = &"walking"
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_7nsh1"]
 advance_mode = 2
-advance_expression = "!walking"
+advance_condition = &"idle"
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_m40u8"]
 advance_mode = 2
-advance_expression = "attacking"
+advance_condition = &"attacking"
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_xbhfu"]
 advance_mode = 2
-advance_expression = "attacking"
+advance_condition = &"attacking"
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_cyo37"]
 switch_mode = 2
 advance_mode = 2
-advance_expression = "!attacking"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_qk3n0"]
+advance_mode = 2
+advance_condition = &"dead"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_sugqr"]
+advance_mode = 2
+advance_condition = &"dead"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_gjnmb"]
+advance_mode = 2
+advance_condition = &"dead"
 
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_qabu0"]
+states/Start/position = Vector2(140, 57)
 states/attack_001/node = SubResource("AnimationNodeAnimation_pjc8y")
-states/attack_001/position = Vector2(643, 122)
+states/attack_001/position = Vector2(708, 57)
+states/died_001/node = SubResource("AnimationNodeAnimation_a0njo")
+states/died_001/position = Vector2(508, 141)
 states/idle_001/node = SubResource("AnimationNodeAnimation_met7o")
-states/idle_001/position = Vector2(419, 100)
+states/idle_001/position = Vector2(336, 57)
 states/walk_f_001/node = SubResource("AnimationNodeAnimation_vth14")
-states/walk_f_001/position = Vector2(419, 216)
-transitions = ["Start", "idle_001", SubResource("AnimationNodeStateMachineTransition_kn7pr"), "idle_001", "walk_f_001", SubResource("AnimationNodeStateMachineTransition_rawmr"), "walk_f_001", "idle_001", SubResource("AnimationNodeStateMachineTransition_7nsh1"), "walk_f_001", "attack_001", SubResource("AnimationNodeStateMachineTransition_m40u8"), "idle_001", "attack_001", SubResource("AnimationNodeStateMachineTransition_xbhfu"), "attack_001", "idle_001", SubResource("AnimationNodeStateMachineTransition_cyo37")]
-graph_offset = Vector2(-96, -10)
+states/walk_f_001/position = Vector2(508, 283)
+transitions = ["Start", "idle_001", SubResource("AnimationNodeStateMachineTransition_kn7pr"), "idle_001", "walk_f_001", SubResource("AnimationNodeStateMachineTransition_rawmr"), "walk_f_001", "idle_001", SubResource("AnimationNodeStateMachineTransition_7nsh1"), "walk_f_001", "attack_001", SubResource("AnimationNodeStateMachineTransition_m40u8"), "idle_001", "attack_001", SubResource("AnimationNodeStateMachineTransition_xbhfu"), "attack_001", "idle_001", SubResource("AnimationNodeStateMachineTransition_cyo37"), "idle_001", "died_001", SubResource("AnimationNodeStateMachineTransition_qk3n0"), "attack_001", "died_001", SubResource("AnimationNodeStateMachineTransition_sugqr"), "walk_f_001", "died_001", SubResource("AnimationNodeStateMachineTransition_gjnmb")]
+graph_offset = Vector2(-83, -8)
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_cuy2h"]
 viewport_path = NodePath("SubViewport")
 
 [sub_resource type="BlackboardPlan" id="BlackboardPlan_qfltu"]
 
-[node name="BookGnome" type="CharacterBody3D" node_paths=PackedStringArray("mesh", "animation_player", "animation_tree", "navigation", "behavior_tree") groups=["enemy"]]
+[node name="BookGnome" type="CharacterBody3D" node_paths=PackedStringArray("mesh", "animation_tree", "navigation", "behavior_tree") groups=["enemy"]]
 collision_layer = 8
 collision_mask = 15
 script = ExtResource("1_ucrke")
 mesh = NodePath("sk_book_gnome_001")
-animation_player = NodePath("sk_book_gnome_001/AnimationPlayer")
 animation_tree = NodePath("sk_book_gnome_001/AnimationTree")
 navigation = NodePath("NavigationAgent3D")
 behavior_tree = NodePath("BTPlayer")
@@ -106,10 +123,15 @@ libraries = {
 "": ExtResource("6_k7rn5")
 }
 
-[node name="AnimationTree" type="AnimationTree" parent="sk_book_gnome_001"]
+[node name="AnimationTree" type="AnimationTree" parent="sk_book_gnome_001" node_paths=PackedStringArray("character")]
 tree_root = SubResource("AnimationNodeStateMachine_qabu0")
-advance_expression_base_node = NodePath("../..")
 anim_player = NodePath("../AnimationPlayer")
+parameters/conditions/attacking = false
+parameters/conditions/dead = false
+parameters/conditions/idle = false
+parameters/conditions/walking = false
+script = ExtResource("7_px8w2")
+character = NodePath("../..")
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
 path_height_offset = 1.0

@@ -4,7 +4,6 @@ extends Enemy
 @export_group("Movement")
 @export var max_speed: float = 4.0
 @export var acceleration: float = 10.0
-var gravity_force: float = ProjectSettings.get_setting("physics/3d/default_gravity")
 
 @export_group("Nodes")
 @export var mesh: Node3D

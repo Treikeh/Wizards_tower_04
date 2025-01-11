@@ -17,8 +17,20 @@ var current_ui_scene: Control
 
 func _ready() -> void:
 	Globals.main_scene = self
+	
+	# Set current levels and ui
+	if world_3d.get_child_count() > 0:
+		curret_3d_level = world_3d.get_child(0)
+	
+	if world_2d.get_child_count() > 0:
+		curret_3d_level = world_2d.get_child(0)
+	
+	if user_interface.get_child_count() > 0:
+		current_ui_scene = user_interface.get_child(0)
+	
+	# Load video settings when game starts and when they are changed
+	ConfigHandler.video_settings_changed.connect(_load_video_settings)
 	_load_video_settings()
-	current_ui_scene = user_interface.get_child(0)
 
 
 func _process(_delta: float) -> void:
@@ -49,8 +61,8 @@ func _process(_delta: float) -> void:
 				return
 
 
-# Load video settings from config when game starts
 func _load_video_settings() -> void:
+	# Load video settings from config when game starts
 	var video_settings: Dictionary = ConfigHandler.load_video_settings()
 	if video_settings.is_empty():
 		return
@@ -86,23 +98,6 @@ func quit_game() -> void:
 	get_tree().quit()
 
 
-func change_ui_scene(scene_path: String) -> void:
-	# Check if scene exists
-	if not FileAccess.file_exists(scene_path):
-		print("ERROR!: Level not found. Invalid path")
-		return
-	
-	# Remove old scene
-	for child in user_interface.get_children():
-		user_interface.remove_child(child)
-		child.queue_free()
-	
-	# Add new scene
-	var new_scene: Control = load(scene_path).instantiate()
-	user_interface.add_child(new_scene)
-	current_ui_scene = new_scene
-
-
 func change_3d_level(level_path: String) -> void:
 	# Check if level exists
 	if not FileAccess.file_exists(level_path):
@@ -123,3 +118,20 @@ func change_3d_level(level_path: String) -> void:
 	# Start level loading
 	level_to_load = level_path
 	ResourceLoader.load_threaded_request(level_path)
+
+
+func change_ui_scene(scene_path: String) -> void:
+	# Check if scene exists
+	if not FileAccess.file_exists(scene_path):
+		print("ERROR!: Level not found. Invalid path")
+		return
+	
+	# Remove old scene
+	for child in user_interface.get_children():
+		user_interface.remove_child(child)
+		child.queue_free()
+	
+	# Add new scene
+	var new_scene: Control = load(scene_path).instantiate()
+	user_interface.add_child(new_scene)
+	current_ui_scene = new_scene

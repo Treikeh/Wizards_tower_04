@@ -1,8 +1,6 @@
 extends Control
 
 
-var resolution: Vector2i = Vector2i.ZERO
-
 @export_group("Nodes")
 @export var display_mode_options: OptionButton
 @export var resolution_opions: OptionButton
@@ -10,7 +8,6 @@ var resolution: Vector2i = Vector2i.ZERO
 @export var fov_value: SpinBox
 
 
-#TODO: Apply settings changes when game starts
 func _ready() -> void:
 	var video_settings: Dictionary = ConfigHandler.load_video_settings()
 	# Display mode options
@@ -25,7 +22,7 @@ func _ready() -> void:
 			display_mode_options.select(3)
 	
 	# Resolution opions
-	resolution = video_settings.resolution
+	var resolution: Vector2i = video_settings.resolution
 	match str(resolution):
 		"(720, 480)":
 			resolution_opions.select(0)
@@ -42,42 +39,23 @@ func _ready() -> void:
 func _on_display_mode_item_selected(index: int) -> void:
 	match index:
 		0: # Fullscreen
-			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
-			DisplayServer.window_set_flag(DisplayServer.WINDOW_FLAG_BORDERLESS, false)
 			ConfigHandler.save_video_settings("display_mode", "FULLSCREEN")
 		1: # Borderless fullscreen
-			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
-			DisplayServer.window_set_flag(DisplayServer.WINDOW_FLAG_BORDERLESS, true)
 			ConfigHandler.save_video_settings("display_mode", "BORDERLESS_FULLSCREEN")
 		2: # Windowed
-			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
-			DisplayServer.window_set_flag(DisplayServer.WINDOW_FLAG_BORDERLESS, false)
 			ConfigHandler.save_video_settings("display_mode", "WINDOWED")
 		3: # Borderless windowed
-			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
-			DisplayServer.window_set_flag(DisplayServer.WINDOW_FLAG_BORDERLESS, true)
 			ConfigHandler.save_video_settings("display_mode", "BORDERLESS_WINDOWED")
-	# Set game resolution
-	DisplayServer.window_set_size(resolution)
-	_center_window()
 
 
 func _on_resolution_item_selected(index: int) -> void:
 	match index:
-		0:
-			resolution = Vector2i(720, 480)
-			DisplayServer.window_set_size(resolution)
-			ConfigHandler.save_video_settings("resolution", resolution)
-		1:
-			resolution = Vector2i(960, 540)
-			DisplayServer.window_set_size(resolution)
-			ConfigHandler.save_video_settings("resolution", resolution)
-		2:
-			resolution = Vector2i(1920, 1080)
-			DisplayServer.window_set_size(resolution)
-			ConfigHandler.save_video_settings("resolution", resolution)
-	# Center window
-	_center_window()
+		0: # 720 x 480
+			ConfigHandler.save_video_settings("resolution", Vector2i(720, 480))
+		1: # 960 x 540
+			ConfigHandler.save_video_settings("resolution", Vector2i(960, 540))
+		2: # 1920 x 1080
+			ConfigHandler.save_video_settings("resolution", Vector2i(1920, 1080))
 
 
 func _on_fov_slider_drag_ended(_value_changed: bool) -> void:
@@ -88,7 +66,3 @@ func _on_fov_slider_drag_ended(_value_changed: bool) -> void:
 func _on_fov_value_value_changed(_value: float) -> void:
 	fov_slider.value = fov_value.value
 	ConfigHandler.save_video_settings("field_of_view", fov_value.value)
-
-
-func _center_window() -> void:
-	pass

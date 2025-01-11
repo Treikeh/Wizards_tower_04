@@ -16,4 +16,5 @@ signal health_bar_updated(health: float)
 @warning_ignore("unused_signal")
 signal player_casted_spell(id: int, spell_cooldown: float)
 
+
 var main_scene: MainScene
