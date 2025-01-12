@@ -8,7 +8,9 @@ extends RigidBody3D
 
 
 func _ready() -> void:
+	# Despawn fireball after a duration
 	get_tree().create_timer(lifetime).timeout.connect(despawn_spell)
+	# Apply initial_velocity
 	apply_central_impulse(-global_basis.z * initial_velocity)
 
 
@@ -16,7 +18,7 @@ func _on_body_entered(_body: Node) -> void:
 	queue_free()
 
 
-func _on_damage_area_3d_collided_with_health_area(_health_area: HealthArea3D) -> void:
+func _on_damage_area_collided_with_health_area(_health_area: HealthArea3D) -> void:
 	despawn_spell()
 
 

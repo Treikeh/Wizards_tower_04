@@ -6,15 +6,14 @@
 radius = 0.75
 height = 4.0
 
-[node name="SpellRay" type="RayCast3D" node_paths=PackedStringArray("wind_blast_area")]
+[node name="SpellRay" type="RayCast3D"]
 target_position = Vector3(0, 0, -50)
 collision_mask = 129
 collide_with_areas = true
 script = ExtResource("1_1c27g")
-wind_blast_force = 25.0
-wind_blast_area = NodePath("WindBlastArea")
 
 [node name="WindBlastArea" type="Area3D" parent="."]
+unique_name_in_owner = true
 collision_layer = 0
 collision_mask = 42
 monitorable = false

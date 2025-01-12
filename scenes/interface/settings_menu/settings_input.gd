@@ -1,22 +1,18 @@
 extends Control
 
 
-@export_group("Nodes")
-@export var sensitivity_slider: HSlider
-@export var sensitivity_value: SpinBox
-
-
 func _ready() -> void:
+	# Load input settings
 	var input_settings: Dictionary = ConfigHandler.load_input_settings()
-	sensitivity_slider.value = input_settings.camera_sensitivity
-	sensitivity_value.value = input_settings.camera_sensitivity
+	%SensitivitySlider.value = input_settings.camera_sensitivity
+	%SensitivityValue.value = input_settings.camera_sensitivity
 
 
 func _on_sensitivity_slider_drag_ended(_value_changed: bool) -> void:
-	sensitivity_value.value = sensitivity_slider.value
-	ConfigHandler.save_input_setting("camera_sensitivity", sensitivity_slider.value)
+	%SensitivityValue.value = %SensitivitySlider.value
+	ConfigHandler.save_input_setting("camera_sensitivity", %SensitivitySlider.value)
 
 
-func _on_spin_box_value_changed(_value: float) -> void:
-	sensitivity_slider.value = sensitivity_value.value
-	ConfigHandler.save_input_setting("camera_sensitivity", sensitivity_value.value)
+func _on_sensitivity_value_value_changed(_value: float) -> void:
+	%SensitivitySlider.value = %SensitivityValue.value
+	ConfigHandler.save_input_setting("camera_sensitivity", %SensitivityValue.value)

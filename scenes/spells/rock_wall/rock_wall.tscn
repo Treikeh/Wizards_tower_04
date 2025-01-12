@@ -1,9 +1,8 @@
-[gd_scene load_steps=18 format=3 uid="uid://b2n0kf0vd4u8n"]
+[gd_scene load_steps=17 format=3 uid="uid://b2n0kf0vd4u8n"]
 
 [ext_resource type="Script" path="res://scenes/spells/rock_wall/rock_wall.gd" id="1_3mufw"]
 [ext_resource type="PackedScene" uid="uid://ddufakdkmxhwr" path="res://scenes/health_area_3d.tscn" id="2_imdi2"]
 [ext_resource type="Script" path="res://scripts/health.gd" id="3_5nyv3"]
-[ext_resource type="Script" path="res://scenes/spells/rock_wall/rock_wall_explosion.gd" id="3_cmy1j"]
 [ext_resource type="Resource" uid="uid://ddwge00ixpgh1" path="res://scenes/spells/rock_wall/assets/rock_wall_explosion_damage.tres" id="4_1d6k7"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_uv1ks"]
@@ -97,7 +96,7 @@ tracks/4/keys = {
 tracks/5/type = "value"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("LaunchBodyTransform/HealthArea3D/HealthArea3DCollision:disabled")
+tracks/5/path = NodePath("LaunchBodyTransform/HealthArea/HealthAreaCollision:disabled")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
@@ -174,7 +173,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("LaunchBodyTransform/HealthArea3D/HealthArea3DCollision:disabled")
+tracks/3/path = NodePath("LaunchBodyTransform/HealthArea/HealthAreaCollision:disabled")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -205,9 +204,12 @@ tracks/0/path = NodePath(".")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(1),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(0.0333333, 1),
+"transitions": PackedFloat32Array(1, 1),
 "values": [{
+"args": [],
+"method": &"deal_explosion_damage"
+}, {
 "args": [],
 "method": &"queue_free"
 }]
@@ -239,7 +241,7 @@ tracks/2/keys = {
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("LaunchBodyTransform/HealthArea3D/HealthArea3DCollision:disabled")
+tracks/3/path = NodePath("LaunchBodyTransform/HealthArea/HealthAreaCollision:disabled")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
@@ -248,51 +250,37 @@ tracks/3/keys = {
 "update": 1,
 "values": [true]
 }
-tracks/4/type = "method"
+tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("ExplosionArea")
+tracks/4/path = NodePath("ExplosionArea:visible")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
-"times": PackedFloat32Array(0.0333333),
-"transitions": PackedFloat32Array(1),
-"values": [{
-"args": [],
-"method": &"explode"
-}]
-}
-tracks/5/type = "value"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("ExplosionArea:visible")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [true]
 }
-tracks/6/type = "value"
-tracks/6/imported = false
-tracks/6/enabled = true
-tracks/6/path = NodePath("ExplosionArea/ExplosionEffect:scale")
-tracks/6/interp = 1
-tracks/6/loop_wrap = true
-tracks/6/keys = {
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("ExplosionArea/ExplosionEffect:scale")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
 "times": PackedFloat32Array(0, 0.4),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Vector3(0.1, 0.1, 0.1), Vector3(7.5, 7.5, 7.5)]
 }
-tracks/7/type = "value"
-tracks/7/imported = false
-tracks/7/enabled = true
-tracks/7/path = NodePath("ExplosionArea/ExplosionCollision:disabled")
-tracks/7/interp = 1
-tracks/7/loop_wrap = true
-tracks/7/keys = {
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("ExplosionArea/ExplosionCollision:disabled")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
@@ -359,13 +347,13 @@ _data = {
 "spawn": SubResource("Animation_7onb7")
 }
 
-[node name="RockWall" type="CharacterBody3D" node_paths=PackedStringArray("animation_player")]
+[node name="RockWall" type="CharacterBody3D"]
 collision_layer = 32
 collision_mask = 9
 floor_max_angle = 0.261799
 floor_snap_length = 0.5
 script = ExtResource("1_3mufw")
-animation_player = NodePath("AnimationPlayer")
+explosion_damage = ExtResource("4_1d6k7")
 
 [node name="WallCollision" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
@@ -379,16 +367,15 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 mesh = SubResource("BoxMesh_820m5")
 skeleton = NodePath("../..")
 
-[node name="HealthArea3D" parent="LaunchBodyTransform" node_paths=PackedStringArray("health_node") instance=ExtResource("2_imdi2")]
+[node name="HealthArea" parent="LaunchBodyTransform" node_paths=PackedStringArray("health_node") instance=ExtResource("2_imdi2")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 collision_layer = 192
 health_node = NodePath("../../Health")
 
-[node name="HealthArea3DCollision" type="CollisionShape3D" parent="LaunchBodyTransform/HealthArea3D"]
+[node name="HealthAreaCollision" type="CollisionShape3D" parent="LaunchBodyTransform/HealthArea"]
 shape = SubResource("BoxShape3D_2okjq")
 
 [node name="LaunchBody" type="AnimatableBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.66667, 0)
 collision_layer = 2
 collision_mask = 2
 
@@ -397,13 +384,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("BoxShape3D_0uc3d")
 
 [node name="ExplosionArea" type="Area3D" parent="."]
+unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 visible = false
 collision_layer = 0
 collision_mask = 192
 monitorable = false
-script = ExtResource("3_cmy1j")
-explosion_damage = ExtResource("4_1d6k7")
 
 [node name="ExplosionCollision" type="CollisionShape3D" parent="ExplosionArea"]
 shape = SubResource("SphereShape3D_08y1q")
@@ -419,11 +405,12 @@ mesh = SubResource("SphereMesh_wdq0b")
 script = ExtResource("3_5nyv3")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+unique_name_in_owner = true
 callback_mode_process = 0
 libraries = {
 "": SubResource("AnimationLibrary_hck4l")
 }
 autoplay = "spawn"
 
-[connection signal="damage_recived" from="LaunchBodyTransform/HealthArea3D" to="." method="_on_hitbox_damage_recived"]
-[connection signal="health_depleted" from="Health" to="." method="_wall_destroyed"]
+[connection signal="damage_recived" from="LaunchBodyTransform/HealthArea" to="." method="_on_health_area_damage_recived"]
+[connection signal="health_depleted" from="Health" to="." method="_on_health_depleted"]

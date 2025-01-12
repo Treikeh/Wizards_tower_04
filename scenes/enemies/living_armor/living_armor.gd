@@ -5,11 +5,6 @@ extends Enemy
 @export var max_speed: float = 4.0
 @export var acceleration: float = 10.0
 
-@export_group("Nodes")
-@export var mesh: Node3D
-@export var attack_ray: RayCast3D
-@export var animation_player: AnimationPlayer
-
 
 func _ready() -> void:
 	# Set enemy spawn position
@@ -19,8 +14,8 @@ func _ready() -> void:
 @warning_ignore("unused_parameter")
 func _process(delta: float) -> void:
 	var player_node: Node3D = get_tree().get_first_node_in_group("player")
-	if !animation_player.is_playing() and is_instance_valid(player_node):
-		mesh.look_at(player_node.global_position)
+	if not %AnimationPlayer.is_playing() and is_instance_valid(player_node):
+		%Mesh.look_at(player_node.global_position)
 
 
 @warning_ignore("unused_parameter")
@@ -45,6 +40,6 @@ func _on_health_depleted() -> void:
 	behavior_tree.active = false
 	# Stop navigation agent
 	navigation.target_position = global_position
-	animation_player.play("died")
+	%AnimationPlayer.play("died")
 
 #endregion

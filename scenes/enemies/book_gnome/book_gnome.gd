@@ -5,18 +5,19 @@ extends Enemy
 @export var max_speed: float = 3.0
 @export var acceleration: float = 10.0
 
-@export_group("Nodes")
-@export var mesh: Node3D
-@export var animation_tree: AnimationTree
+
+func _ready() -> void:
+	# Set enemy spawn position
+	behavior_tree.blackboard.set_var("spawn_position", global_position)
 
 
 @warning_ignore("unused_parameter")
 func _process(delta: float) -> void:
 	# Orient mesh towards target
 	var target_node: Node3D = behavior_tree.blackboard.get_var(&"player")
-	if is_instance_valid(target_node) and not animation_tree.get("parameters/conditions/attacking"):
+	if is_instance_valid(target_node) and not %AnimationTree.get("parameters/conditions/attacking"):
 		#TODO: Find a better way of rotating the mesh towards the target
-		mesh.look_at(target_node.global_position)
+		%Mesh.look_at(target_node.global_position)
 
 
 func _physics_process(delta: float) -> void:
@@ -34,7 +35,7 @@ func _physics_process(delta: float) -> void:
 
 
 func _attack() -> void:
-	recive_knockback(-mesh.global_basis.z)
+	recive_knockback(-%Mesh.global_basis.z)
 
 
 #region Health
@@ -45,6 +46,6 @@ func _on_health_depleted() -> void:
 	# Stop navigation agent
 	navigation.target_position = global_position
 	# Play death animation
-	animation_tree.set("parameters/conditions/dead", true)
+	%AnimationTree.set("parameters/conditions/dead", true)
 
 #endregion

@@ -3,16 +3,13 @@ extends CharacterBody3D
 @export var wind_blast_force: float = 7.5
 ## How long the rock wall will be in the scene before despawning
 @export var lifetime: float = 10.0
+@export var explosion_damage: Damage
 
-var is_destroyed: bool = false
 # Explosion
 var is_timed_explosion: bool = false
 var timed_explosion_duration: float = 5.0
 ## Minnimum amount of damage needed to trigger explosion
 var damage_threshold: float = 10.0
-
-@export_group("Nodes")
-@export var animation_player: AnimationPlayer
 
 
 func _ready() -> void:
@@ -29,7 +26,7 @@ func _physics_process(delta: float) -> void:
 
 # When spell duration ends
 func spell_duration_over() -> void:
-	_wall_destroyed()
+	_on_health_depleted()
 
 
 #TODO: Find a better way to do this
@@ -38,9 +35,35 @@ func recive_knockback(direction: Vector3) -> void:
 	# Add damage to movement
 
 
+func _explode() -> void:
+	%AnimationPlayer.play("explode")
+
+
+#TODO: Find a better name for function
+func deal_explosion_damage() -> void:
+	# Explosion damage
+	var damaged_health_nodes: Array[Health] = []
+	var overlapping_areas: Array[Area3D] = %ExplosionArea.get_overlapping_areas()
+	for area in overlapping_areas:
+		if area is HealthArea3D:
+			# Check if the health_node of the hurtbox has allready been hit
+			if damaged_health_nodes.has(area.health_node):
+				return
+			#TODO: Line of sight check
+			#TODO: Scale damage based on distance form center
+			var duped_damage: Damage = explosion_damage.duplicate()
+			area.recive_damage(duped_damage)
+			damaged_health_nodes.append(area.health_node)
+
+
 #region Health
 
-func _on_hitbox_damage_recived(damage: Damage) -> void:
+# When wall health is depleted
+func _on_health_depleted() -> void:
+	%AnimationPlayer.play("destroyed")
+
+
+func _on_health_area_damage_recived(damage: Damage) -> void:
 	match damage.type:
 		Damage.Type.FIRE:
 			if damage.amount < damage_threshold:
@@ -50,20 +73,5 @@ func _on_hitbox_damage_recived(damage: Damage) -> void:
 				get_tree().create_timer(timed_explosion_duration).timeout.connect(_explode)
 			else:
 				_explode()
-
-
-# When wall health is depleted
-func _wall_destroyed() -> void:
-	if is_destroyed:
-		return
-	is_destroyed = true
-	animation_player.play("destroyed")
-
-
-func _explode() -> void:
-	if is_destroyed:
-		return
-	is_destroyed = true
-	animation_player.play("explode")
 
 #endregion

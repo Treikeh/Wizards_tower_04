@@ -3,8 +3,6 @@ extends Control
 
 @export_file("*.tscn") var settings_menu_scene: String
 
-@export_group("Nodes")
-
 
 func _input(event: InputEvent) -> void:
 	# Spawn hud when pressing ESC
@@ -26,8 +24,7 @@ func _on_settings_button_pressed() -> void:
 	hide()
 	var settings_menu: Control = load(settings_menu_scene).instantiate()
 	settings_menu.menu_closed.connect(_on_settings_menu_closed)
-	Globals.main_scene.user_interface.add_child(settings_menu)
-	#Globals.main_scene.change_ui_scene("res://scenes/interface/settings_menu/settings_menu.tscn")
+	Globals.main_scene.add_ui_scene(settings_menu)
 
 
 func _on_settings_menu_closed(menu: Control)-> void:

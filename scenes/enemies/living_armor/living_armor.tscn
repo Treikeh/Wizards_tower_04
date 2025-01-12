@@ -1,17 +1,11 @@
-[gd_scene load_steps=17 format=3 uid="uid://bmdxr06ji3ymb"]
+[gd_scene load_steps=15 format=3 uid="uid://bmdxr06ji3ymb"]
 
 [ext_resource type="PackedScene" uid="uid://cs53wyj8yt4s4" path="res://scenes/enemies/floating_health_bar.tscn" id="1_2e566"]
 [ext_resource type="Script" path="res://scenes/enemies/living_armor/living_armor.gd" id="1_06wta"]
 [ext_resource type="Material" uid="uid://c4eykp21shtlp" path="res://resources/materials/dev_grid_red.tres" id="2_1u7fy"]
-[ext_resource type="Script" path="res://scripts/damage.gd" id="2_4c4xr"]
 [ext_resource type="Script" path="res://scripts/health.gd" id="2_6r6ee"]
 [ext_resource type="Material" uid="uid://botmm8kkk1h67" path="res://resources/materials/dev_grid_gray.tres" id="3_oj627"]
 [ext_resource type="PackedScene" uid="uid://ddufakdkmxhwr" path="res://scenes/health_area_3d.tscn" id="3_tgsqs"]
-
-[sub_resource type="Resource" id="Resource_76r0o"]
-script = ExtResource("2_4c4xr")
-amount = 10.0
-type = 0
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_7ua38"]
 height = 1.6
@@ -77,21 +71,17 @@ _data = {
 "died": SubResource("Animation_va3kr")
 }
 
-[node name="LivingArmor" type="CharacterBody3D" node_paths=PackedStringArray("mesh", "attack_ray", "animation_player", "nav_agent") groups=["enemy"]]
+[node name="LivingArmor" type="CharacterBody3D" groups=["enemy"]]
 collision_layer = 8
 collision_mask = 15
 script = ExtResource("1_06wta")
-attack_damage = SubResource("Resource_76r0o")
-mesh = NodePath("Mesh")
-attack_ray = NodePath("Mesh/Body/Eyes/AttackRay")
-animation_player = NodePath("AnimationPlayer")
-nav_agent = NodePath("NavigationAgent3D")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, 0)
 shape = SubResource("CapsuleShape3D_7ua38")
 
 [node name="Mesh" type="Node3D" parent="."]
+unique_name_in_owner = true
 
 [node name="Body" type="MeshInstance3D" parent="Mesh"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
@@ -105,6 +95,7 @@ material_override = ExtResource("3_oj627")
 mesh = SubResource("BoxMesh_427y3")
 
 [node name="AttackRay" type="RayCast3D" parent="Mesh/Body/Eyes"]
+unique_name_in_owner = true
 target_position = Vector3(0, 0, -5)
 collision_mask = 1024
 collide_with_areas = true
@@ -132,18 +123,11 @@ path_height_offset = 0.5
 debug_enabled = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+unique_name_in_owner = true
 root_node = NodePath("../NavigationAgent3D")
 libraries = {
 "": SubResource("AnimationLibrary_847wy")
 }
-
-[node name="Debug" type="Node3D" parent="."]
-
-[node name="AiStateLabel" type="Label3D" parent="Debug"]
-unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.09802, 0)
-billboard = 1
-text = "idle"
 
 [connection signal="health_changed" from="Health" to="FloatingHealthBar" method="_on_health_changed"]
 [connection signal="health_depleted" from="Health" to="." method="_on_health_depleted"]

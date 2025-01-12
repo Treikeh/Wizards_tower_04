@@ -24,51 +24,47 @@ var move_direction: Vector3 = Vector3.ZERO
 @export var spring_damping: float = 25.0
 var check_for_ground: bool = true
 
-@export_group("Nodes")
-@export var orientation: Node3D
-@export var head: Node3D
-@export var camera: Node3D
-@export var ground_check: RayCast3D
-@export var interact_ray: RayCast3D
-@export var spell_ray: RayCast3D
-
 
 func _ready() -> void:
-	# Capture mouse when game begins
-	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	# Set child nodes references
+	%SpellRay.orientation = %Orientation
+	
 	# Load config settings
 	ConfigHandler.input_settings_changed.connect(_load_input_settings)
 	_load_input_settings()
+	
+	# Capture mouse when game begins
+	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
 
 func _input(event: InputEvent) -> void:
 	if Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
 		# Rotate camera
 		if event is InputEventMouseMotion:
-			orientation.rotate_object_local(Vector3.UP, -deg_to_rad(event.relative.x * camera_sensitivity))
-			head.rotate_object_local(Vector3.RIGHT, -deg_to_rad(event.relative.y * camera_sensitivity))
-			head.rotation.x = clampf(head.rotation.x, -deg_to_rad(89), deg_to_rad(89))
+			%Orientation.rotate_object_local(Vector3.UP, -deg_to_rad(event.relative.x * camera_sensitivity))
+			%Head.rotate_object_local(Vector3.RIGHT, -deg_to_rad(event.relative.y * camera_sensitivity))
+			%Head.rotation.x = clampf(%Head.rotation.x, -deg_to_rad(89), deg_to_rad(89))
 		
 		# jump input
 		if event.is_action_pressed("jump"):
 			_jump()
 		
 		if event.is_action_pressed("interact"):
-			interact_ray.interact_with_target()
+			%InteractRay.interact_with_target()
 		
 		# Spell inputs
 		if event.is_action_pressed("fireball"):
-			spell_ray.cast_fireball()
+			%SpellRay.cast_fireball()
 		
 		if event.is_action_pressed("rock_wall"):
 			# Spawn rock wall preview
-			spell_ray.spawn_rock_wall_preview()
+			%SpellRay.spawn_rock_wall_preview()
 		elif event.is_action_released("rock_wall"):
 			# Spawn rock wall
-			spell_ray.spawn_rock_wall()
+			%SpellRay.spawn_rock_wall()
 		
 		if event.is_action_pressed("wind_blast"):
-			spell_ray.cast_wind_blast()
+			%SpellRay.cast_wind_blast()
 		
 		# Get move_input
 		move_input = Input.get_vector("move_l", "move_r", "move_f", "move_b")
@@ -77,22 +73,22 @@ func _input(event: InputEvent) -> void:
 #@warning_ignore("unused_parameter")
 func _process(delta: float) -> void:
 	is_grounded = _is_on_walkable_slope()
-	camera.apply_camera_tilt(linear_velocity, move_direction, delta) # FIXME: issues with camera tilt. or not...  Why it's working fine now?
+	%Camera.apply_camera_tilt(linear_velocity, move_direction, delta)
 	if is_grounded and check_for_ground:
-		camera.head_bobbing(linear_velocity, delta)
+		%Camera.head_bobbing(linear_velocity, delta)
 		gravity_scale = 0.1
-		ground_check.target_position = to_local(global_position + (Vector3.DOWN * (rest_height + ground_buffer)))
+		%GroundCheck.target_position = to_local(global_position + (Vector3.DOWN * (rest_height + ground_buffer)))
 	else:
 		gravity_scale = 1.0
-		ground_check.target_position = to_local(global_position + (Vector3.DOWN * rest_height))
+		%GroundCheck.target_position = to_local(global_position + (Vector3.DOWN * rest_height))
 	# Align move_input to orientation
-	move_direction = orientation.global_basis * Vector3(move_input.x, 0.0, move_input.y).normalized()
+	move_direction = %Orientation.global_basis * Vector3(move_input.x, 0.0, move_input.y).normalized()
 
 
 #@warning_ignore("unused_parameter")
 func _physics_process(delta: float) -> void:
 	if is_grounded:
-		ground_normal = ground_check.get_collision_normal()
+		ground_normal = %GroundCheck.get_collision_normal()
 		var slope_dir: Vector3 = move_direction.slide(ground_normal)
 		var target_vel: Vector3 = slope_dir * max_speed
 		var needed_vel: Vector3 = target_vel - linear_velocity
@@ -116,7 +112,7 @@ func _load_input_settings() -> void:
 # I feel there should be a need for delta, but i do not know where :\
 # Apply a spring force to that moves the palyer towards rest_height
 func _snap_to_ground(_delta: float) -> void:
-	var hit_distance: float = (ground_check.global_position - ground_check.get_collision_point()).length()
+	var hit_distance: float = (%GroundCheck.global_position - %GroundCheck.get_collision_point()).length()
 	var normal_vel: float = -ground_normal.dot(linear_velocity)
 	var dispalcement: float = hit_distance - rest_height
 	var force: float = (spring_force * dispalcement) - (normal_vel * spring_damping)
@@ -124,8 +120,8 @@ func _snap_to_ground(_delta: float) -> void:
 
 
 func _is_on_walkable_slope() -> bool:
-	if ground_check.is_colliding():
-		ground_normal = ground_check.get_collision_normal()
+	if %GroundCheck.is_colliding():
+		ground_normal = %GroundCheck.get_collision_normal()
 		# Compare ground normal to upwards direction to get slope angle
 		if ground_normal.angle_to(Vector3.UP) < deg_to_rad(max_slope_angle):
 			return true

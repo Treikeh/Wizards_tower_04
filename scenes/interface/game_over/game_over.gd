@@ -2,7 +2,7 @@ extends Control
 
 
 func _on_restart_button_pressed() -> void:
-	$VBoxContainer/RestartButton.text = "WIP"
+	%RestartButton.text = "WIP"
 
 
 func _on_main_menu_button_pressed() -> void:

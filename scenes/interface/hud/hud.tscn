@@ -69,7 +69,7 @@ gradient = SubResource("Gradient_i42fa")
 width = 40
 height = 40
 
-[node name="Hud" type="Control" node_paths=PackedStringArray("fps_label", "interact_label", "health_bar")]
+[node name="Hud" type="Control"]
 process_mode = 1
 layout_mode = 3
 anchors_preset = 15
@@ -79,11 +79,9 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("1_t53q1")
-fps_label = NodePath("FpsLabel")
-interact_label = NodePath("InteractLabel")
-health_bar = NodePath("HealthBar")
 
 [node name="FpsLabel" type="Label" parent="."]
+unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = -1
 offset_left = 3.0
@@ -94,6 +92,7 @@ theme_override_font_sizes/font_size = 12
 text = "60"
 
 [node name="InteractLabel" type="Label" parent="."]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(50, 25)
 layout_mode = 1
 anchors_preset = -1
@@ -132,6 +131,7 @@ pivot_offset = Vector2(20, 20)
 texture = SubResource("GradientTexture2D_nfjs5")
 
 [node name="HealthBar" type="ProgressBar" parent="."]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(100, 15)
 layout_mode = 1
 anchors_preset = -1

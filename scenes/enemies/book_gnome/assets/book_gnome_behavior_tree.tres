@@ -27,8 +27,8 @@ target_var = &"player"
 script = ExtResource("4_scabv")
 
 [sub_resource type="BBNode" id="BBNode_kjsjv"]
-saved_value = NodePath("sk_book_gnome_001/AnimationPlayer")
-resource_name = "sk_book_gnome_001/AnimationPlayer"
+saved_value = NodePath("Mesh/AnimationPlayer")
+resource_name = "Mesh/AnimationPlayer"
 
 [sub_resource type="BTPlayAnimation" id="BTPlayAnimation_k2bgs"]
 await_completion = 1.5

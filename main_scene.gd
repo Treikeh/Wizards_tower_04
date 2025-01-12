@@ -2,12 +2,6 @@ class_name MainScene
 extends Node
 
 
-@export_group("Nodes")
-@export var world_3d: Node3D
-@export var world_2d: Node2D
-@export var user_interface: Control
-@export var loading_screen: LoadingScreen
-
 var level_to_load: String = ""
 
 var curret_3d_level: Node3D
@@ -19,14 +13,14 @@ func _ready() -> void:
 	Globals.main_scene = self
 	
 	# Set current levels and ui
-	if world_3d.get_child_count() > 0:
-		curret_3d_level = world_3d.get_child(0)
+	if %World3D.get_child_count() > 0:
+		curret_3d_level = %World3D.get_child(0)
 	
-	if world_2d.get_child_count() > 0:
-		curret_3d_level = world_2d.get_child(0)
+	if %World2D.get_child_count() > 0:
+		curret_3d_level = %World3D.get_child(0)
 	
-	if user_interface.get_child_count() > 0:
-		current_ui_scene = user_interface.get_child(0)
+	if %UserInterface.get_child_count() > 0:
+		current_ui_scene = %UserInterface.get_child(0)
 	
 	# Load video settings when game starts and when they are changed
 	ConfigHandler.video_settings_changed.connect(_load_video_settings)
@@ -44,7 +38,7 @@ func _process(_delta: float) -> void:
 			1: ## THREAD_LOAD_IN_PROGRESS
 				# Update loading progress bar
 				# Could possibly be done inside the loading_screen scene
-				loading_screen.update_progress(progress[0])
+				%LoadingScreen.update_progress(progress[0])
 				return
 			2: ## THREAD_LOAD_FAILED
 				print("ERROR!: failed to load!")
@@ -52,12 +46,12 @@ func _process(_delta: float) -> void:
 			3: ## THREAD_LOAD_LOADED
 				# Add new level
 				var new_level = ResourceLoader.load_threaded_get(level_to_load).instantiate()
-				world_3d.add_child.call_deferred(new_level)
+				%World3D.add_child.call_deferred(new_level)
 				# Finish level loading
 				level_to_load = ""
 				curret_3d_level = new_level
 				# Hide loading screen
-				loading_screen.animation_player.play("hide")
+				%LoadingScreen.transition_out()
 				return
 
 
@@ -105,12 +99,12 @@ func change_3d_level(level_path: String) -> void:
 		return
 	
 	# Show loading screen
-	loading_screen.animation_player.play("show")
-	await loading_screen.animation_player.animation_finished
+	%LoadingScreen.transition_inn()
+	await %LoadingScreen.transition_finished
 	
 	#Unload previous level
-	for child in world_3d.get_children():
-		world_3d.remove_child(child)
+	for child in %World3D.get_children():
+		%World3D.remove_child(child)
 		child.queue_free()
 	# Give unload a frame to finish before doing anything else
 	await get_tree().physics_frame
@@ -120,6 +114,10 @@ func change_3d_level(level_path: String) -> void:
 	ResourceLoader.load_threaded_request(level_path)
 
 
+func add_3d_scene(scene: Node3D) -> void:
+	%World3D.add_child(scene)
+
+
 func change_ui_scene(scene_path: String) -> void:
 	# Check if scene exists
 	if not FileAccess.file_exists(scene_path):
@@ -127,11 +125,15 @@ func change_ui_scene(scene_path: String) -> void:
 		return
 	
 	# Remove old scene
-	for child in user_interface.get_children():
-		user_interface.remove_child(child)
+	for child in %UserInterface.get_children():
+		%UserInterface.remove_child(child)
 		child.queue_free()
 	
 	# Add new scene
 	var new_scene: Control = load(scene_path).instantiate()
-	user_interface.add_child(new_scene)
+	%UserInterface.add_child(new_scene)
 	current_ui_scene = new_scene
+
+
+func add_ui_scene(scene: Control) -> void:
+	%UserInterface.add_child(scene)

@@ -4,8 +4,6 @@ extends Control
 @export_file("*.tscn") var settings_menu_scene: String
 @export_file("*.tscn") var credits_scene: String
 
-@export_group("Nodes")
-
 
 func _on_play_button_pressed() -> void:
 	Globals.main_scene.change_3d_level("res://scenes/levels/test_level.tscn")
@@ -16,7 +14,7 @@ func _on_settings_button_pressed() -> void:
 	hide()
 	var settings_menu: Control = load(settings_menu_scene).instantiate()
 	settings_menu.menu_closed.connect(_on_settings_menu_closed)
-	Globals.main_scene.user_interface.add_child(settings_menu)
+	Globals.main_scene.add_ui_scene(settings_menu)
 
 
 func _on_settings_menu_closed(menu: Control) -> void:
@@ -28,7 +26,7 @@ func _on_credits_button_pressed() -> void:
 	hide()
 	var credits: UiMenu = load(credits_scene).instantiate()
 	credits.menu_closed.connect(_on_credits_menu_closed)
-	Globals.main_scene.user_interface.add_child(credits)
+	Globals.main_scene.add_ui_scene(credits)
 
 
 func _on_credits_menu_closed(menu: Control) -> void:

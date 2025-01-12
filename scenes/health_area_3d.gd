@@ -4,6 +4,7 @@ extends Area3D
 
 signal damage_recived(damage: Damage)
 
+
 @export var health_node: Health
 ## Multiplies damage
 @export var damage_multiplier: float = 1.0

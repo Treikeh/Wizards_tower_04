@@ -1,10 +1,9 @@
 extends RayCast3D
 
 
-@export_group("Nodes")
-#TODO: Find a better way to save spawn rotation than to reference a Node3D
 ## Players orientation node. Used to orient Rock wall spell
-@export var orientation: Node3D
+## Assigned by player_controller script
+var orientation: Node3D
 
 
 @warning_ignore("unused_parameter")
@@ -103,9 +102,8 @@ func spawn_rock_wall() -> void:
 #region Wind blast
 
 @export_group("Wind blast")
-@export var wind_blast_force: float = 50.0
+@export var wind_blast_force: float = 25.0
 @export var wind_blast_cooldown: float = 0.1
-@export var wind_blast_area: Area3D
 var can_wind_blast: bool = true
 var wind_blast_effect_scene: PackedScene = preload("res://scenes/spells/wind_blast/wind_blast_effect.tscn")
 
@@ -113,7 +111,7 @@ var wind_blast_effect_scene: PackedScene = preload("res://scenes/spells/wind_bla
 func cast_wind_blast() -> void:
 	if can_wind_blast:
 		# Check for bodies in wind_blast area
-		for body in wind_blast_area.get_overlapping_bodies():
+		for body in %WindBlastArea.get_overlapping_bodies():
 			print(body)
 			if body is RigidBody3D:
 				body.apply_central_impulse(-global_basis.z * wind_blast_force * body.mass)

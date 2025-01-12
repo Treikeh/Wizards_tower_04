@@ -1,20 +1,15 @@
 extends Control
 
 
-@export_group("Nodes")
-@export var fps_label: Label
-@export var interact_label: Label
-@export var health_bar: ProgressBar
-
-
 func _ready() -> void:
 	# Connect signals
 	Globals.interact_prompt_updated.connect(_on_interact_prompt_updated)
 	Globals.health_bar_updated.connect(_on_health_bar_updated)
 	Globals.player_casted_spell.connect(_on_player_casted_spell)
+	
 	# Set starting health
 	#TODO: I need a system that saves player data across levels.
-	health_bar.value = Globals.player_health
+	%HealthBar.value = Globals.player_health
 	%FireBallIcon.value = 1.0
 	%RockWallIcon.value = 1.0
 	%WindBlastIcon.value = 1.0
@@ -29,15 +24,15 @@ func _input(event: InputEvent) -> void:
 
 
 func _process(_delta: float) -> void:
-	fps_label.text = str(Engine.get_frames_per_second())
+	%FpsLabel.text = str(Engine.get_frames_per_second())
 
 
 func _on_interact_prompt_updated(prompt: String) -> void:
-	interact_label.text = prompt
+	%InteractLabel.text = prompt
 
 
 func _on_health_bar_updated(value: float) -> void:
-	health_bar.value = value
+	%HealthBar.value = value
 	Globals.player_health = value
 
 

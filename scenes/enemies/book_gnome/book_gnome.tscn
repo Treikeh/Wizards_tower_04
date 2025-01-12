@@ -86,12 +86,10 @@ viewport_path = NodePath("SubViewport")
 
 [sub_resource type="BlackboardPlan" id="BlackboardPlan_qfltu"]
 
-[node name="BookGnome" type="CharacterBody3D" node_paths=PackedStringArray("mesh", "animation_tree", "navigation", "behavior_tree") groups=["enemy"]]
+[node name="BookGnome" type="CharacterBody3D" node_paths=PackedStringArray("navigation", "behavior_tree") groups=["enemy"]]
 collision_layer = 8
 collision_mask = 15
 script = ExtResource("1_ucrke")
-mesh = NodePath("sk_book_gnome_001")
-animation_tree = NodePath("sk_book_gnome_001/AnimationTree")
 navigation = NodePath("NavigationAgent3D")
 behavior_tree = NodePath("BTPlayer")
 
@@ -99,31 +97,34 @@ behavior_tree = NodePath("BTPlayer")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.55, 0)
 shape = SubResource("CapsuleShape3D_kgyn0")
 
-[node name="sk_book_gnome_001" parent="." instance=ExtResource("3_i4bgf")]
+[node name="Mesh" parent="." instance=ExtResource("3_i4bgf")]
+unique_name_in_owner = true
 
-[node name="HealthArea3D" parent="sk_book_gnome_001" node_paths=PackedStringArray("health_node") instance=ExtResource("3_ap0dj")]
+[node name="HealthArea3D" parent="Mesh" node_paths=PackedStringArray("health_node") instance=ExtResource("3_ap0dj")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.030045)
 health_node = NodePath("../../Health")
 damage_multiplier = 0.5
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="sk_book_gnome_001/HealthArea3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Mesh/HealthArea3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.508789, 0.0285645)
 shape = SubResource("BoxShape3D_cf1hn")
 
-[node name="DamageArea3D" parent="sk_book_gnome_001" instance=ExtResource("4_pe1ou")]
+[node name="DamageArea3D" parent="Mesh" instance=ExtResource("4_pe1ou")]
 damage = ExtResource("5_rq5px")
 
-[node name="DamageCollision" type="CollisionShape3D" parent="sk_book_gnome_001/DamageArea3D"]
+[node name="DamageCollision" type="CollisionShape3D" parent="Mesh/DamageArea3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.55, -0.5)
 shape = SubResource("BoxShape3D_xk6ae")
 disabled = true
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="sk_book_gnome_001"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Mesh"]
 libraries = {
 "": ExtResource("6_k7rn5")
 }
 
-[node name="AnimationTree" type="AnimationTree" parent="sk_book_gnome_001" node_paths=PackedStringArray("character")]
+[node name="AnimationTree" type="AnimationTree" parent="Mesh" node_paths=PackedStringArray("character")]
+unique_name_in_owner = true
+root_node = NodePath("%AnimationTree/..")
 tree_root = SubResource("AnimationNodeStateMachine_qabu0")
 anim_player = NodePath("../AnimationPlayer")
 parameters/conditions/attacking = false

@@ -27,13 +27,9 @@ layout_mode = 2
 size_flags_vertical = 3
 current_tab = 0
 
-[node name="Video" type="Control" parent="VBoxContainer/TabContainer" node_paths=PackedStringArray("display_mode_options", "resolution_opions", "fov_slider", "fov_value")]
+[node name="Video" type="Control" parent="VBoxContainer/TabContainer"]
 layout_mode = 2
 script = ExtResource("2_p7w4h")
-display_mode_options = NodePath("MarginContainer/VBoxContainer/DisplayMode/OptionButton")
-resolution_opions = NodePath("MarginContainer/VBoxContainer/Resolution/OptionButton")
-fov_slider = NodePath("MarginContainer/VBoxContainer/FieldOfView/FovSlider")
-fov_value = NodePath("MarginContainer/VBoxContainer/FieldOfView/FovValue")
 metadata/_tab_index = 0
 
 [node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/TabContainer/Video"]
@@ -67,7 +63,8 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme_override_styles/separator = ExtResource("3_iieoi")
 
-[node name="OptionButton" type="OptionButton" parent="VBoxContainer/TabContainer/Video/MarginContainer/VBoxContainer/DisplayMode"]
+[node name="DisplayOptions" type="OptionButton" parent="VBoxContainer/TabContainer/Video/MarginContainer/VBoxContainer/DisplayMode"]
+unique_name_in_owner = true
 layout_mode = 2
 alignment = 1
 selected = 0
@@ -92,7 +89,8 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme_override_styles/separator = ExtResource("3_iieoi")
 
-[node name="OptionButton" type="OptionButton" parent="VBoxContainer/TabContainer/Video/MarginContainer/VBoxContainer/Resolution"]
+[node name="ResolutionOptions" type="OptionButton" parent="VBoxContainer/TabContainer/Video/MarginContainer/VBoxContainer/Resolution"]
+unique_name_in_owner = true
 layout_mode = 2
 selected = 0
 item_count = 3
@@ -115,6 +113,7 @@ size_flags_horizontal = 3
 theme_override_styles/separator = ExtResource("3_iieoi")
 
 [node name="FovSlider" type="HSlider" parent="VBoxContainer/TabContainer/Video/MarginContainer/VBoxContainer/FieldOfView"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 1
@@ -123,6 +122,7 @@ max_value = 105.0
 value = 90.0
 
 [node name="FovValue" type="SpinBox" parent="VBoxContainer/TabContainer/Video/MarginContainer/VBoxContainer/FieldOfView"]
+unique_name_in_owner = true
 layout_mode = 2
 min_value = 70.0
 max_value = 105.0
@@ -154,12 +154,10 @@ text = "WIP"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Input" type="Control" parent="VBoxContainer/TabContainer" node_paths=PackedStringArray("sensitivity_slider", "sensitivity_value")]
+[node name="Input" type="Control" parent="VBoxContainer/TabContainer"]
 visible = false
 layout_mode = 2
 script = ExtResource("2_cs3ik")
-sensitivity_slider = NodePath("MarginContainer/VBoxContainer/Sensitivity/SensitivitySlider")
-sensitivity_value = NodePath("MarginContainer/VBoxContainer/Sensitivity/SensitivityValue")
 metadata/_tab_index = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/TabContainer/Input"]
@@ -194,6 +192,7 @@ size_flags_horizontal = 3
 theme_override_styles/separator = SubResource("StyleBoxEmpty_knh2t")
 
 [node name="SensitivitySlider" type="HSlider" parent="VBoxContainer/TabContainer/Input/MarginContainer/VBoxContainer/Sensitivity"]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -204,6 +203,7 @@ step = 0.01
 value = 0.5
 
 [node name="SensitivityValue" type="SpinBox" parent="VBoxContainer/TabContainer/Input/MarginContainer/VBoxContainer/Sensitivity"]
+unique_name_in_owner = true
 layout_mode = 2
 min_value = 0.01
 max_value = 1.0
@@ -243,10 +243,10 @@ size_flags_vertical = 4
 theme_override_font_sizes/font_size = 20
 text = "Back"
 
-[connection signal="item_selected" from="VBoxContainer/TabContainer/Video/MarginContainer/VBoxContainer/DisplayMode/OptionButton" to="VBoxContainer/TabContainer/Video" method="_on_display_mode_item_selected"]
-[connection signal="item_selected" from="VBoxContainer/TabContainer/Video/MarginContainer/VBoxContainer/Resolution/OptionButton" to="VBoxContainer/TabContainer/Video" method="_on_resolution_item_selected"]
+[connection signal="item_selected" from="VBoxContainer/TabContainer/Video/MarginContainer/VBoxContainer/DisplayMode/DisplayOptions" to="VBoxContainer/TabContainer/Video" method="_on_display_options_item_selected"]
+[connection signal="item_selected" from="VBoxContainer/TabContainer/Video/MarginContainer/VBoxContainer/Resolution/ResolutionOptions" to="VBoxContainer/TabContainer/Video" method="_on_resolution_options_item_selected"]
 [connection signal="drag_ended" from="VBoxContainer/TabContainer/Video/MarginContainer/VBoxContainer/FieldOfView/FovSlider" to="VBoxContainer/TabContainer/Video" method="_on_fov_slider_drag_ended"]
 [connection signal="value_changed" from="VBoxContainer/TabContainer/Video/MarginContainer/VBoxContainer/FieldOfView/FovValue" to="VBoxContainer/TabContainer/Video" method="_on_fov_value_value_changed"]
 [connection signal="drag_ended" from="VBoxContainer/TabContainer/Input/MarginContainer/VBoxContainer/Sensitivity/SensitivitySlider" to="VBoxContainer/TabContainer/Input" method="_on_sensitivity_slider_drag_ended"]
-[connection signal="value_changed" from="VBoxContainer/TabContainer/Input/MarginContainer/VBoxContainer/Sensitivity/SensitivityValue" to="VBoxContainer/TabContainer/Input" method="_on_spin_box_value_changed"]
+[connection signal="value_changed" from="VBoxContainer/TabContainer/Input/MarginContainer/VBoxContainer/Sensitivity/SensitivityValue" to="VBoxContainer/TabContainer/Input" method="_on_sensitivity_value_value_changed"]
 [connection signal="pressed" from="VBoxContainer/BackButton" to="." method="_on_back_button_pressed"]

@@ -6,17 +6,14 @@ extends Area3D
 ## Emitted when this Hurtbox collides with a Hitbox.
 signal collided_with_health_area(health_area: HealthArea3D)
 
+
 @export var damage: Damage
 ## Damage over time
 @export var apply_over_time: bool = false
 
 
-func _ready() -> void:
-	area_entered.connect(_on_area_entered)
-
-
-#NOTE: This works, but it probably isn't performant
 func _process(delta: float) -> void:
+	#NOTE: This works, but it probably isn't performant
 	if apply_over_time:
 		var overlapping_areas: Array[Area3D] = get_overlapping_areas()
 		for area in overlapping_areas:
