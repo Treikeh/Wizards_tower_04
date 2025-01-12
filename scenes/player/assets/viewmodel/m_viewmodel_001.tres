@@ -1,0 +1,6 @@
+[gd_resource type="ORMMaterial3D" load_steps=2 format=3 uid="uid://c81n6i47oeca4"]
+
+[ext_resource type="Texture2D" uid="uid://bydvs5vwsmyib" path="res://scenes/player/assets/viewmodel/t_viewmodel_bc.001.png" id="1_jasdi"]
+
+[resource]
+albedo_texture = ExtResource("1_jasdi")
