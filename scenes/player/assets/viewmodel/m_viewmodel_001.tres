@@ -1,6 +1,8 @@
-[gd_resource type="ORMMaterial3D" load_steps=2 format=3 uid="uid://c81n6i47oeca4"]
+[gd_resource type="ORMMaterial3D" load_steps=3 format=3 uid="uid://c81n6i47oeca4"]
 
-[ext_resource type="Texture2D" uid="uid://bydvs5vwsmyib" path="res://scenes/player/assets/viewmodel/t_viewmodel_bc.001.png" id="1_jasdi"]
+[ext_resource type="Texture2D" uid="uid://cpf3uxj00ui7y" path="res://scenes/player/assets/viewmodel/t_viewmodel_001_bc.png" id="1_7405i"]
+[ext_resource type="Texture2D" uid="uid://dahny415vtce4" path="res://scenes/player/assets/viewmodel/t_viewmodel_001_orm.png" id="2_134sx"]
 
 [resource]
-albedo_texture = ExtResource("1_jasdi")
+albedo_texture = ExtResource("1_7405i")
+orm_texture = ExtResource("2_134sx")

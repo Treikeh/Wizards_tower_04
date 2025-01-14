@@ -76,7 +76,8 @@ func spawn_rock_wall() -> void:
 	if not rock_wall_preview:
 		return
 	# Make sure there's enough space for the wall to spawn
-	elif not rock_wall_preview.enough_space:
+	#TODO: Add distance check to is_colliding part
+	elif not rock_wall_preview.enough_space or not is_colliding():
 		# Despawn rock wall preview
 		rock_wall_preview.queue_free()
 		return

@@ -85,6 +85,8 @@ func _load_video_settings() -> void:
 			DisplayServer.window_set_size(Vector2i(960, 540))
 		"(1920, 1080)":
 			DisplayServer.window_set_size(Vector2i(1920, 1080))
+	
+	#TODO: Center window after loading video settings
 
 
 func quit_game() -> void:

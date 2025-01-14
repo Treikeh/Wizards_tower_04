@@ -1,15 +1,10 @@
-[gd_resource type="ORMMaterial3D" load_steps=4 format=3 uid="uid://c2skpcvyoig72"]
+[gd_resource type="ORMMaterial3D" load_steps=3 format=3 uid="uid://c2skpcvyoig72"]
 
-[ext_resource type="Texture2D" uid="uid://bq5t018jlcw4w" path="res://scenes/enemies/book_gnome/assets/mesh/t_book_gnome_bc.001.png" id="1_ettrt"]
-
-[sub_resource type="Gradient" id="Gradient_3g142"]
-offsets = PackedFloat32Array(0.418251)
-colors = PackedColorArray(0.509804, 1, 0, 1)
-
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_sukw6"]
-gradient = SubResource("Gradient_3g142")
+[ext_resource type="Texture2D" uid="uid://bk5o77ldyirnw" path="res://scenes/enemies/book_gnome/assets/mesh/t_book_gnome_001_bc.png" id="1_fvdus"]
+[ext_resource type="Texture2D" uid="uid://bvixu55in33bx" path="res://scenes/enemies/book_gnome/assets/mesh/t_book_gnome_001_orm.png" id="2_15tdr"]
 
 [resource]
 cull_mode = 2
-albedo_texture = ExtResource("1_ettrt")
-orm_texture = SubResource("GradientTexture1D_sukw6")
+albedo_texture = ExtResource("1_fvdus")
+orm_texture = ExtResource("2_15tdr")
+texture_filter = 0
