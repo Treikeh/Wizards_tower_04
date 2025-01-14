@@ -15,13 +15,16 @@ friction = 0.0
 rough = true
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_kcqpx"]
+radius = 0.4
 height = 1.5
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_63b4n"]
+radius = 0.4
 height = 1.75
 radial_segments = 16
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_w1r5e"]
+radius = 0.4
 height = 1.75
 
 [node name="RigidbodyPlayer" type="RigidBody3D" groups=["player"]]

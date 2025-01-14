@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://xxhxvfmbcxdw"]
+
+[ext_resource type="PackedScene" uid="uid://0y7q5oo53c1m" path="res://scenes/props/wooden_props/assets/table/sm_wooden_table_001.tscn" id="1_1qm5c"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_2e5ou"]
+size = Vector3(2.24585, 0.946716, 1.25781)
+
+[node name="WoodenTable" type="StaticBody3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.473358, 0)
+shape = SubResource("BoxShape3D_2e5ou")
+
+[node name="Mesh" parent="." instance=ExtResource("1_1qm5c")]

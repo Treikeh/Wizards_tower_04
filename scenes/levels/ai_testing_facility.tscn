@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://4jtdswc2727r"]
+[gd_scene load_steps=22 format=3 uid="uid://4jtdswc2727r"]
 
 [ext_resource type="Material" uid="uid://botmm8kkk1h67" path="res://resources/materials/dev_grid_gray.tres" id="2_m582j"]
 [ext_resource type="PackedScene" uid="uid://d0lld0115r5yv" path="res://scenes/interact_area_3d.tscn" id="4_ie0ab"]
@@ -9,6 +9,7 @@
 [ext_resource type="Script" path="res://scripts/damage.gd" id="7_y0t8f"]
 [ext_resource type="PackedScene" uid="uid://cbhabq5j0vtnr" path="res://scenes/props/wooden_props/wooden_barrel.tscn" id="8_ad4v0"]
 [ext_resource type="PackedScene" uid="uid://862q5145e3uy" path="res://scenes/props/wooden_props/wooden_chair.tscn" id="9_8s75g"]
+[ext_resource type="PackedScene" uid="uid://xxhxvfmbcxdw" path="res://scenes/props/wooden_props/wooden_table.tscn" id="10_37ere"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_shs6k"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -98,7 +99,7 @@ mesh = SubResource("BoxMesh_hf23r")
 shape = SubResource("BoxShape3D_gfcvn")
 
 [node name="EnemySpawner" parent="." instance=ExtResource("4_k7mrc")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.53611, -2.38419e-07, -12.918)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.53611, 4.3, -12.918)
 enemy_scene = "res://scenes/enemies/book_gnome/book_gnome.tscn"
 
 [node name="HealthPotion" parent="." instance=ExtResource("5_u8rwk")]
@@ -121,5 +122,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.80069, 4.76837e-07, -2.5984
 
 [node name="WoodenChair" parent="." instance=ExtResource("9_8s75g")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.1731, 0, -0.830389)
+
+[node name="WoodenTable" parent="." instance=ExtResource("10_37ere")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.56577, -2.38419e-07, 0.542992)
 
 [connection signal="interacted" from="InteractArea3D" to="EnemySpawner" method="spawn_enemy"]

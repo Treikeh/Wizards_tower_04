@@ -1,0 +1,81 @@
+[gd_scene load_steps=8 format=3 uid="uid://0ojdxwerkcvd"]
+
+[ext_resource type="Material" uid="uid://botmm8kkk1h67" path="res://resources/materials/dev_grid_gray.tres" id="1_u5m3k"]
+[ext_resource type="PackedScene" uid="uid://dh8dcfqs8vv8p" path="res://scenes/player/player_controller.tscn" id="2_8qj3e"]
+[ext_resource type="Material" uid="uid://pqlkm5aadfhn" path="res://resources/materials/dev_grid_orange.tres" id="2_fdpc6"]
+[ext_resource type="PackedScene" uid="uid://bdan64bohs08a" path="res://scenes/interactable/text_sign/text_sign.tscn" id="3_5mm4b"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_q6ljs"]
+sky_top_color = Color(0.225015, 0.274197, 0.342598, 1)
+sky_horizon_color = Color(0.333282, 0.326209, 0.296948, 1)
+ground_horizon_color = Color(0.300041, 0.307688, 0.31976, 1)
+
+[sub_resource type="Sky" id="Sky_rymkg"]
+sky_material = SubResource("ProceduralSkyMaterial_q6ljs")
+
+[sub_resource type="Environment" id="Environment_e88ck"]
+background_mode = 2
+sky = SubResource("Sky_rymkg")
+tonemap_mode = 2
+glow_enabled = true
+
+[node name="Tutorial" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_e88ck")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.638214, -0.666718, 0.384928, -1.49013e-08, 0.499998, 0.866027, -0.769859, 0.55271, -0.319106, 0, 10, 0)
+light_color = Color(0.302577, 0.270616, 0.463975, 1)
+shadow_enabled = true
+
+[node name="Environment" type="Node3D" parent="."]
+
+[node name="Ground" type="CSGBox3D" parent="Environment"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, -2.5)
+material_override = ExtResource("1_u5m3k")
+use_collision = true
+size = Vector3(10, 1, 15)
+
+[node name="Ground3" type="CSGBox3D" parent="Environment"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.07611, 2.16528, -2.5)
+material_override = ExtResource("1_u5m3k")
+use_collision = true
+size = Vector3(1.84778, 6.33057, 15)
+
+[node name="Ground2" type="CSGBox3D" parent="Environment"]
+transform = Transform3D(0.735506, 0, -0.677518, 0, 1, 0, 0.677518, 0, 0.735506, 2.9849, -0.5, -11.3181)
+material_override = ExtResource("1_u5m3k")
+use_collision = true
+size = Vector3(10, 1, 12.8281)
+
+[node name="Ground4" type="CSGBox3D" parent="Environment"]
+transform = Transform3D(0.170519, 0, -0.985354, 0, 1, 0, 0.985354, 0, 0.170519, 29.4323, -0.499999, -18.9444)
+material_override = ExtResource("1_u5m3k")
+use_collision = true
+size = Vector3(10, 1, 12.8281)
+
+[node name="Ground5" type="CSGBox3D" parent="Environment"]
+transform = Transform3D(0.170519, 0, -0.985354, 0, 1, 0, 0.985354, 0, 0.170519, 10.9292, -0.499999, -15.7423)
+material_override = ExtResource("1_u5m3k")
+use_collision = true
+size = Vector3(10, 1, 12.8281)
+
+[node name="Tower" type="CSGCylinder3D" parent="Environment"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 140.299, 22.8, -89.2276)
+material_override = ExtResource("2_fdpc6")
+radius = 12.1175
+height = 51.9622
+sides = 16
+
+[node name="SpotLight3D" type="SpotLight3D" parent="Environment/Tower"]
+transform = Transform3D(0.824768, 2.47175e-08, -0.565471, 0.565471, -3.60518e-08, 0.824768, 0, -1, -4.37114e-08, -13.5502, 28.8549, 0)
+light_color = Color(4.62055e-06, 0.794197, 0.966621, 1)
+light_energy = 96.92
+spot_range = 10.7138
+
+[node name="TextSign" parent="Environment" instance=ExtResource("3_5mm4b")]
+transform = Transform3D(-0.965926, 0, 0.258819, 0, 1, 0, -0.258819, 0, -0.965926, 1.98987, -4.76837e-07, -8.32105)
+
+[node name="RigidbodyPlayer" parent="." instance=ExtResource("2_8qj3e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)

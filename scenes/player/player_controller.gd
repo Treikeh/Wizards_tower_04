@@ -68,6 +68,9 @@ func _input(event: InputEvent) -> void:
 		
 		# Get move_input
 		move_input = Input.get_vector("move_l", "move_r", "move_f", "move_b")
+	
+	else:
+		move_input = Vector2.ZERO
 
 
 #@warning_ignore("unused_parameter")
