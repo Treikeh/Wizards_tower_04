@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://4jtdswc2727r"]
+[gd_scene load_steps=21 format=3 uid="uid://4jtdswc2727r"]
 
 [ext_resource type="Material" uid="uid://botmm8kkk1h67" path="res://resources/materials/dev_grid_gray.tres" id="2_m582j"]
 [ext_resource type="PackedScene" uid="uid://d0lld0115r5yv" path="res://scenes/interact_area_3d.tscn" id="4_ie0ab"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://di7vp8irr7xdl" path="res://scenes/damage_area_3d.tscn" id="6_pnkpg"]
 [ext_resource type="Script" path="res://scripts/damage.gd" id="7_y0t8f"]
 [ext_resource type="PackedScene" uid="uid://cbhabq5j0vtnr" path="res://scenes/props/wooden_props/wooden_barrel.tscn" id="8_ad4v0"]
+[ext_resource type="PackedScene" uid="uid://862q5145e3uy" path="res://scenes/props/wooden_props/wooden_chair.tscn" id="9_8s75g"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_shs6k"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -117,5 +118,8 @@ mesh = SubResource("BoxMesh_cpo07")
 
 [node name="WoodenBarrel" parent="." instance=ExtResource("8_ad4v0")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.80069, 4.76837e-07, -2.59841)
+
+[node name="WoodenChair" parent="." instance=ExtResource("9_8s75g")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.1731, 0, -0.830389)
 
 [connection signal="interacted" from="InteractArea3D" to="EnemySpawner" method="spawn_enemy"]

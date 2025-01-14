@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://yjjkgbf5t7s6"
-path="res://.godot/imported/sm_wooden_barrel_001.glb-a33fb82b36dc975dcc45c6561fba699e.scn"
+uid="uid://ga3fem51x7yq"
+path="res://.godot/imported/sm_wooden_chair_001.glb-c104dfebda516e7c7fd403e8366fd90a.scn"
 
 [deps]
 
-source_file="res://scenes/props/wooden_props/assets/wooden_barrel/sm_wooden_barrel_001.glb"
-dest_files=["res://.godot/imported/sm_wooden_barrel_001.glb-a33fb82b36dc975dcc45c6561fba699e.scn"]
+source_file="res://scenes/props/wooden_props/assets/chair/sm_wooden_chair_001.glb"
+dest_files=["res://.godot/imported/sm_wooden_chair_001.glb-c104dfebda516e7c7fd403e8366fd90a.scn"]
 
 [params]
 
@@ -33,9 +33,9 @@ animation/import_rest_as_RESET=false
 import_script/path=""
 _subresources={
 "materials": {
-"wooden_barrel_material.001": {
+"wooden_chair_material.001": {
 "use_external/enabled": true,
-"use_external/path": "res://scenes/props/wooden_props/assets/wooden_barrel/m_wooden_barrel_001.tres"
+"use_external/path": "res://scenes/props/wooden_props/assets/chair/m_wooden_chair_001.tres"
 }
 }
 }

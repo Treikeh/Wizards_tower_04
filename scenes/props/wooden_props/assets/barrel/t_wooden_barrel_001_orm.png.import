@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ccquhh35hi4o4"
-path.s3tc="res://.godot/imported/t_wooden_barrel_001_bc.png-b98350d0d951465e7dd4de90a9d3a992.s3tc.ctex"
+uid="uid://dgo47bjbjqpgr"
+path.s3tc="res://.godot/imported/t_wooden_barrel_001_orm.png-8b6fef9795d27c350fbb3724438cd003.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://scenes/props/wooden_props/assets/wooden_barrel/t_wooden_barrel_001_bc.png"
-dest_files=["res://.godot/imported/t_wooden_barrel_001_bc.png-b98350d0d951465e7dd4de90a9d3a992.s3tc.ctex"]
+source_file="res://scenes/props/wooden_props/assets/barrel/t_wooden_barrel_001_orm.png"
+dest_files=["res://.godot/imported/t_wooden_barrel_001_orm.png-8b6fef9795d27c350fbb3724438cd003.s3tc.ctex"]
 
 [params]
 

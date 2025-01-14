@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://cbhabq5j0vtnr"]
 
-[ext_resource type="PackedScene" uid="uid://clrvtj4bnutw5" path="res://scenes/props/wooden_props/assets/wooden_barrel/sm_wooden_barrel_001.tscn" id="1_y1t4d"]
+[ext_resource type="PackedScene" uid="uid://clrvtj4bnutw5" path="res://scenes/props/wooden_props/assets/barrel/sm_wooden_barrel_001.tscn" id="1_y1t4d"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_e7dxa"]
 height = 1.0
