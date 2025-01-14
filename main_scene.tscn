@@ -1,8 +1,8 @@
 [gd_scene load_steps=5 format=3 uid="uid://co645fg3hplrm"]
 
 [ext_resource type="Script" path="res://main_scene.gd" id="1_gfkd4"]
-[ext_resource type="PackedScene" uid="uid://0ojdxwerkcvd" path="res://scenes/levels/tutorial/tutorial.tscn" id="2_6rrw1"]
-[ext_resource type="PackedScene" uid="uid://bsrvl85f7jxdv" path="res://scenes/interface/hud/hud.tscn" id="3_quvpp"]
+[ext_resource type="PackedScene" uid="uid://0ojdxwerkcvd" path="res://scenes/levels/tutorial/tutorial.tscn" id="2_thdgv"]
+[ext_resource type="PackedScene" uid="uid://bsrvl85f7jxdv" path="res://scenes/interface/hud/hud.tscn" id="3_ru21u"]
 [ext_resource type="PackedScene" uid="uid://ds1vrl4d2nbqm" path="res://scenes/interface/loading_screen/loading_screen.tscn" id="4_s2nc2"]
 
 [node name="MainScene" type="Node"]
@@ -11,7 +11,7 @@ script = ExtResource("1_gfkd4")
 [node name="World3D" type="Node3D" parent="."]
 unique_name_in_owner = true
 
-[node name="Tutorial" parent="World3D" instance=ExtResource("2_6rrw1")]
+[node name="Tutorial" parent="World3D" instance=ExtResource("2_thdgv")]
 
 [node name="World2D" type="Node2D" parent="."]
 unique_name_in_owner = true
@@ -28,7 +28,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="Hud" parent="UserInterface" instance=ExtResource("3_quvpp")]
+[node name="Hud" parent="UserInterface" instance=ExtResource("3_ru21u")]
 layout_mode = 1
 
 [node name="LoadingScreen" parent="." instance=ExtResource("4_s2nc2")]

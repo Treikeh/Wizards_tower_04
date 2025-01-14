@@ -6,7 +6,7 @@ extends Control
 
 
 func _on_play_button_pressed() -> void:
-	Globals.main_scene.change_3d_level("res://scenes/levels/test_level.tscn")
+	Globals.main_scene.change_3d_level("res://scenes/levels/tutorial/tutorial.tscn")
 	Globals.main_scene.change_ui_scene("res://scenes/interface/hud/hud.tscn")
 
 

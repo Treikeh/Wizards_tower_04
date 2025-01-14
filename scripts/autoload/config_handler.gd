@@ -7,6 +7,7 @@ signal video_settings_changed
 
 
 #TODO: Change to proper path when shipping
+# <PATH>
 const CONFIG_PATH: String = "res://configs/.settings.ini"
 
 var config_file: ConfigFile = ConfigFile.new()

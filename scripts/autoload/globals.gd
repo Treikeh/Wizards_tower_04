@@ -17,4 +17,4 @@ signal health_bar_updated(health: float)
 signal player_casted_spell(id: int, spell_cooldown: float)
 
 
-var main_scene: MainScene
+@onready var main_scene: MainScene = get_tree().current_scene

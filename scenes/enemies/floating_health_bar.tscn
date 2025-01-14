@@ -4,13 +4,13 @@
 [ext_resource type="Script" path="res://scenes/enemies/floating_health_bar.gd" id="1_wdss0"]
 [ext_resource type="StyleBox" uid="uid://bsqtahxlwo7o6" path="res://resources/stylebox/health_fill_flat.tres" id="2_6pmgs"]
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_8pjmy"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_x6y30"]
 viewport_path = NodePath("SubViewport")
 
 [node name="FloatingHealthBar" type="Sprite3D" node_paths=PackedStringArray("progress_bar", "fade_delay")]
 billboard = 1
 texture_filter = 0
-texture = SubResource("ViewportTexture_8pjmy")
+texture = SubResource("ViewportTexture_x6y30")
 script = ExtResource("1_wdss0")
 progress_bar = NodePath("SubViewport/MarginContainer/ProgressBar")
 fade_delay = NodePath("FadeDelay")

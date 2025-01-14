@@ -1,8 +1,8 @@
 [gd_scene load_steps=2 format=3 uid="uid://qhdu2ae7fbx7"]
 
-[ext_resource type="Script" path="res://scenes/interface/text_box/text_box.gd" id="1_uober"]
+[ext_resource type="Script" path="res://scenes/interface/text_popup/text_popup.gd" id="1_uober"]
 
-[node name="TextBox" type="Control"]
+[node name="TextPopup" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -37,6 +37,7 @@ theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
 [node name="RichTextLabel" type="RichTextLabel" parent="VBoxContainer/PanelContainer/MarginContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 text = "Hello is this on?"
 
