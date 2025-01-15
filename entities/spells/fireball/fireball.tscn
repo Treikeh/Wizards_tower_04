@@ -1,0 +1,38 @@
+[gd_scene load_steps=7 format=3 uid="uid://cndpdurb3rxia"]
+
+[ext_resource type="Script" path="res://entities/spells/fireball/fireball.gd" id="1_jy2c8"]
+[ext_resource type="Resource" uid="uid://bpafmjg70eeb4" path="res://entities/spells/fireball/fireball_damage.tres" id="3_8owbw"]
+[ext_resource type="PackedScene" uid="uid://di7vp8irr7xdl" path="res://common/scenes/damage_area_3d.tscn" id="3_d2eq5"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_hqxag"]
+radius = 0.1
+
+[sub_resource type="SphereMesh" id="SphereMesh_4ec31"]
+radius = 0.1
+height = 0.2
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_54fjm"]
+radius = 0.1
+
+[node name="Fireball" type="RigidBody3D"]
+collision_layer = 32
+gravity_scale = 0.0
+contact_monitor = true
+max_contacts_reported = 1
+script = ExtResource("1_jy2c8")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_hqxag")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("SphereMesh_4ec31")
+
+[node name="DamageArea" parent="." instance=ExtResource("3_d2eq5")]
+collision_mask = 128
+damage = ExtResource("3_8owbw")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DamageArea"]
+shape = SubResource("SphereShape3D_54fjm")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="collided_with_health_area" from="DamageArea" to="." method="_on_damage_area_collided_with_health_area"]

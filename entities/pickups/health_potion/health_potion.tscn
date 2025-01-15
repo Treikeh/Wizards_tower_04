@@ -1,0 +1,39 @@
+[gd_scene load_steps=7 format=3 uid="uid://dgqvbvg6txlno"]
+
+[ext_resource type="Script" path="res://entities/pickups/health_potion/health_potion.gd" id="1_oi4jq"]
+[ext_resource type="PackedScene" uid="uid://di7vp8irr7xdl" path="res://common/scenes/damage_area_3d.tscn" id="2_kntei"]
+[ext_resource type="Script" path="res://common/scripts/damage.gd" id="3_64d74"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_m8vxv"]
+top_radius = 0.1
+bottom_radius = 0.1
+height = 0.5
+radial_segments = 8
+rings = 0
+
+[sub_resource type="Resource" id="Resource_5vk0c"]
+script = ExtResource("3_64d74")
+amount = 25.0
+type = 2
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_r6ybd"]
+size = Vector3(0.5, 1, 0.5)
+
+[node name="HealthPotion" type="Node3D"]
+script = ExtResource("1_oi4jq")
+
+[node name="Mesh" type="Node3D" parent="."]
+unique_name_in_owner = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Mesh"]
+transform = Transform3D(0.866025, 0.5, 0, -0.5, 0.866025, 0, 0, 0, 1, 0, 0.7, 0)
+mesh = SubResource("CylinderMesh_m8vxv")
+
+[node name="DamageArea3D" parent="." instance=ExtResource("2_kntei")]
+damage = SubResource("Resource_5vk0c")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DamageArea3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+shape = SubResource("BoxShape3D_r6ybd")
+
+[connection signal="collided_with_health_area" from="DamageArea3D" to="." method="_on_damage_area_3d_collided_with_health_area"]

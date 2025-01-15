@@ -1,9 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://ddufakdkmxhwr"]
-
-[ext_resource type="Script" path="res://scenes/health_area_3d.gd" id="1_wjrov"]
-
-[node name="HealthArea3D" type="Area3D"]
-collision_layer = 128
-collision_mask = 0
-monitoring = false
-script = ExtResource("1_wjrov")

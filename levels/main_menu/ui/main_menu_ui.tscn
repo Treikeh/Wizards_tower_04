@@ -1,0 +1,116 @@
+[gd_scene load_steps=4 format=3 uid="uid://bu4mvrao4smuy"]
+
+[ext_resource type="Script" path="res://levels/main_menu/ui/main_menu_ui.gd" id="1_ilwoj"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_i7wbi"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_2wt25"]
+
+[node name="MainMenuUi" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ilwoj")
+first_level_scene = "res://levels/tutorial/tutorial.tscn"
+hud_scene = "res://interface/hud/hud.tscn"
+settings_menu_scene = "res://interface/settings_menu/settings_menu.tscn"
+credits_scene = "res://interface/credits/credits.tscn"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_left = 67.0
+offset_top = 58.0
+offset_right = 599.0
+offset_bottom = 449.0
+
+[node name="TitleLabel" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 75
+text = "Wizards Tower"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 25
+theme_override_styles/separator = SubResource("StyleBoxEmpty_i7wbi")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="VSeparator" type="VSeparator" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 25
+theme_override_styles/separator = SubResource("StyleBoxEmpty_2wt25")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="PlayButton" type="Button" parent="VBoxContainer/HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(150, 50)
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_font_sizes/font_size = 25
+text = "Play"
+alignment = 0
+
+[node name="SettingsButton" type="Button" parent="VBoxContainer/HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(150, 50)
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_font_sizes/font_size = 25
+text = "Settings"
+alignment = 0
+
+[node name="CreditsButton" type="Button" parent="VBoxContainer/HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(150, 50)
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_font_sizes/font_size = 25
+text = "Credits"
+alignment = 0
+
+[node name="QuitButton" type="Button" parent="VBoxContainer/HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(150, 50)
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_font_sizes/font_size = 25
+text = "Quit"
+alignment = 0
+
+[node name="DevLabel" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -23.0
+offset_right = 152.0
+grow_vertical = 0
+theme_override_font_sizes/font_size = 10
+text = "Nonexistent game studio"
+vertical_alignment = 2
+
+[node name="VersionLabel" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -40.0
+offset_top = -23.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_font_sizes/font_size = 10
+text = "0.1.0.0"
+horizontal_alignment = 2
+vertical_alignment = 2
+
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/VBoxContainer/PlayButton" to="." method="_on_play_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/VBoxContainer/SettingsButton" to="." method="_on_settings_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/VBoxContainer/CreditsButton" to="." method="_on_credits_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/HBoxContainer/VBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]

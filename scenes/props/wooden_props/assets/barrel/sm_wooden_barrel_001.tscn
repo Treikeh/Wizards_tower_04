@@ -1,5 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://clrvtj4bnutw5"]
-
-[ext_resource type="PackedScene" uid="uid://yjjkgbf5t7s6" path="res://scenes/props/wooden_props/assets/barrel/sm_wooden_barrel_001.glb" id="1_v1lg0"]
-
-[node name="sm_wooden_barrel_001" instance=ExtResource("1_v1lg0")]

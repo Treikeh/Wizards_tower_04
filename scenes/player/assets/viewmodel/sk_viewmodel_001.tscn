@@ -1,5 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://cjrur1ejf0dcp"]
-
-[ext_resource type="PackedScene" uid="uid://q7ntkwpjn1sn" path="res://scenes/player/assets/viewmodel/sk_viewmodel_001.glb" id="1_2fn23"]
-
-[node name="sk_viewmodel_001" instance=ExtResource("1_2fn23")]

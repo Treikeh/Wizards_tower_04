@@ -20,8 +20,8 @@ config/icon="res://icon.png"
 
 [autoload]
 
-Globals="*res://scripts/autoload/globals.gd"
-ConfigHandler="*res://scripts/autoload/config_handler.gd"
+Globals="*res://common/scripts/autoload/globals.gd"
+ConfigHandler="*res://common/scripts/autoload/config_handler.gd"
 
 [display]
 
@@ -37,10 +37,11 @@ version_control/autoload_on_startup=true
 [file_customization]
 
 folder_colors={
-"res://addons/": "gray",
-"res://scenes/enemies/": "red",
-"res://scenes/interface/": "green",
-"res://scenes/levels/": "orange"
+"res://addons/": "pink",
+"res://common/": "gray",
+"res://entities/": "blue",
+"res://interface/": "green",
+"res://levels/": "orange"
 }
 
 [global_group]
@@ -115,8 +116,8 @@ wind_blast={
 
 [limbo_ai]
 
-behavior_tree/behavior_tree_default_dir="res://resources/behavior_trees"
-behavior_tree/user_task_dir_1="res://scripts/ai_tasks"
+behavior_tree/behavior_tree_default_dir="res://common/behavior_trees"
+behavior_tree/user_task_dir_1="res://common/scripts/ai_tasks"
 
 [physics]
 

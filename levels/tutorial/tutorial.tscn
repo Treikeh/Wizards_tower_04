@@ -1,0 +1,205 @@
+[gd_scene load_steps=10 format=3 uid="uid://0ojdxwerkcvd"]
+
+[ext_resource type="Material" uid="uid://botmm8kkk1h67" path="res://common/materials/dev_grid_gray.tres" id="1_u5m3k"]
+[ext_resource type="PackedScene" uid="uid://dh8dcfqs8vv8p" path="res://entities/player/player_controller.tscn" id="2_8qj3e"]
+[ext_resource type="Material" uid="uid://pqlkm5aadfhn" path="res://common/materials/dev_grid_orange.tres" id="2_fdpc6"]
+[ext_resource type="PackedScene" uid="uid://bdan64bohs08a" path="res://entities/props/wooden_props/sign/wooden_sign.tscn" id="3_5mm4b"]
+[ext_resource type="PackedScene" uid="uid://xxhxvfmbcxdw" path="res://entities/props/wooden_props/table/wooden_table.tscn" id="4_ifj4y"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_q6ljs"]
+sky_top_color = Color(0.225015, 0.274197, 0.342598, 1)
+sky_horizon_color = Color(0.333282, 0.326209, 0.296948, 1)
+ground_horizon_color = Color(0.300041, 0.307688, 0.31976, 1)
+
+[sub_resource type="Sky" id="Sky_rymkg"]
+sky_material = SubResource("ProceduralSkyMaterial_q6ljs")
+
+[sub_resource type="Environment" id="Environment_e88ck"]
+background_mode = 2
+sky = SubResource("Sky_rymkg")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_y7m3u"]
+top_radius = 0.05
+bottom_radius = 0.05
+height = 0.1
+
+[node name="Tutorial" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_e88ck")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.638214, -0.666718, 0.384928, -1.49013e-08, 0.499998, 0.866027, -0.769859, 0.55271, -0.319106, 0, 10, 0)
+light_color = Color(0.302577, 0.270616, 0.463975, 1)
+shadow_enabled = true
+
+[node name="Environment" type="Node3D" parent="."]
+
+[node name="Ground" type="CSGBox3D" parent="Environment"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, -2.5)
+material_override = ExtResource("1_u5m3k")
+use_collision = true
+size = Vector3(10, 1, 15)
+
+[node name="Wall" type="CSGBox3D" parent="Environment"]
+transform = Transform3D(0.739772, 0, -0.672858, 0, 1, 0, 0.672858, 0, 0.739772, -1.29676, 3.75104, -15.5796)
+material_override = ExtResource("1_u5m3k")
+use_collision = true
+size = Vector3(1.84778, 9.50208, 13.1045)
+
+[node name="Wall5" type="CSGBox3D" parent="Environment"]
+transform = Transform3D(0.739772, 0, -0.672858, 0, 1, 0, 0.672858, 0, 0.739772, 7.17961, 2.48099, -7.84655)
+material_override = ExtResource("1_u5m3k")
+use_collision = true
+size = Vector3(1.84778, 6.96198, 5.52228)
+
+[node name="Wall3" type="CSGBox3D" parent="Environment"]
+transform = Transform3D(0.998489, 0, -0.0549502, 0, 1, 0, 0.0549502, 0, 0.998489, 5.27444, 2.85, -0.175039)
+material_override = ExtResource("1_u5m3k")
+use_collision = true
+size = Vector3(1.84778, 7.7, 13.1045)
+
+[node name="Wall4" type="CSGBox3D" parent="Environment"]
+transform = Transform3D(0.158606, 0, -0.987342, 0, 1, 0, 0.987342, 0, 0.158606, 15.6478, 2.45826, -10.7292)
+material_override = ExtResource("1_u5m3k")
+use_collision = true
+size = Vector3(1.84778, 6.91653, 14.665)
+
+[node name="Wall2" type="CSGBox3D" parent="Environment"]
+transform = Transform3D(0.129367, 0, -0.991597, 0, 1, 0, 0.991597, 0, 0.129367, 15.0436, 5.5535, -22.0834)
+material_override = ExtResource("1_u5m3k")
+use_collision = true
+size = Vector3(1.84778, 13.107, 26.4668)
+
+[node name="Wall6" type="CSGBox3D" parent="Environment"]
+transform = Transform3D(0.025828, 0, -0.999666, 0, 1, 0, 0.999666, 0, 0.025828, 93.0177, 1.87987, -53.9306)
+material_override = ExtResource("1_u5m3k")
+use_collision = true
+size = Vector3(1.84778, 5.79573, 26.4668)
+
+[node name="Wall7" type="CSGBox3D" parent="Environment"]
+transform = Transform3D(0.025828, 0, -0.999666, 0, 1, 0, 0.999666, 0, 0.025828, 64.6774, 1.21463, -58.1299)
+material_override = ExtResource("1_u5m3k")
+use_collision = true
+size = Vector3(0.8, 4.46525, 3.16922)
+
+[node name="Wall8" type="CSGBox3D" parent="Environment"]
+transform = Transform3D(0.025828, 0, -0.999666, 0, 1, 0, 0.999666, 0, 0.025828, 71.1808, 1.21463, -58.1299)
+material_override = ExtResource("1_u5m3k")
+use_collision = true
+size = Vector3(0.8, 4.46525, 3.16922)
+
+[node name="Ground2" type="CSGBox3D" parent="Environment"]
+transform = Transform3D(0.735506, 0, -0.677518, 0, 1, 0, 0.677518, 0, 0.735506, 2.9849, -0.5, -11.3181)
+material_override = ExtResource("1_u5m3k")
+use_collision = true
+size = Vector3(10, 1, 12.8281)
+
+[node name="Ground4" type="CSGBox3D" parent="Environment"]
+transform = Transform3D(0.170519, 0, -0.985354, 0, 1, 0, 0.985354, 0, 0.170519, 29.4323, -0.499999, -18.9444)
+material_override = ExtResource("1_u5m3k")
+use_collision = true
+size = Vector3(10, 1, 12.8281)
+
+[node name="Ground6" type="CSGBox3D" parent="Environment"]
+transform = Transform3D(0.930123, 0, -0.367248, 0, 1, 0, 0.367248, 0, 0.930123, 44.4435, -0.499999, -35.8601)
+material_override = ExtResource("1_u5m3k")
+use_collision = true
+size = Vector3(10, 1, 27.9448)
+
+[node name="Ground13" type="CSGBox3D" parent="Environment"]
+transform = Transform3D(0.116203, 0, -0.993226, 0, 1, 0, 0.993226, 0, 0.116203, 53.9038, -0.499999, -47.9073)
+material_override = ExtResource("1_u5m3k")
+use_collision = true
+size = Vector3(10, 1, 26.0464)
+
+[node name="Ground12" type="CSGBox3D" parent="Environment"]
+transform = Transform3D(-0.254028, 0, -0.967197, 0, 1, 0, 0.967197, 0, -0.254028, 86.5841, -0.499995, -47.2766)
+material_override = ExtResource("1_u5m3k")
+use_collision = true
+size = Vector3(8.07202, 1, 15.532)
+
+[node name="Ground8" type="CSGBox3D" parent="Environment"]
+transform = Transform3D(0.607528, 0, -0.794298, 0, 1, 0, 0.794298, 0, 0.607528, 37.6812, -0.499999, -21.6978)
+material_override = ExtResource("1_u5m3k")
+use_collision = true
+size = Vector3(9.1759, 1, 11.5518)
+
+[node name="Ground7" type="CSGBox3D" parent="Environment"]
+transform = Transform3D(0.0793639, 0, -0.996846, 0, 1, 0, 0.996846, 0, 0.0793639, 72.0497, -0.499995, -56.0503)
+material_override = ExtResource("1_u5m3k")
+use_collision = true
+size = Vector3(26.3527, 1, 16.8138)
+
+[node name="Ground14" type="CSGBox3D" parent="Environment"]
+transform = Transform3D(0.0793639, 0, -0.996846, 0, 1, 0, 0.996846, 0, 0.0793639, 88.0808, -0.499995, -62.9265)
+material_override = ExtResource("1_u5m3k")
+use_collision = true
+size = Vector3(15.1882, 1, 16.8138)
+
+[node name="Ground5" type="CSGBox3D" parent="Environment"]
+transform = Transform3D(0.170519, 0, -0.985354, 0, 1, 0, 0.985354, 0, 0.170519, 11.1995, -0.499999, -14.1803)
+material_override = ExtResource("1_u5m3k")
+use_collision = true
+size = Vector3(6.82959, 1, 12.8281)
+
+[node name="Ground10" type="CSGBox3D" parent="Environment"]
+transform = Transform3D(0.170519, 0, -0.985354, 0, 1, 0, 0.985354, 0, 0.170519, 6.92154, -0.499999, -18.4608)
+material_override = ExtResource("1_u5m3k")
+use_collision = true
+size = Vector3(3.25305, 1, 7.83411)
+
+[node name="Ground11" type="CSGBox3D" parent="Environment"]
+transform = Transform3D(0.170519, 0.525828, -0.833323, 7.45058e-09, 0.845709, 0.533644, 0.985354, -0.0909965, 0.14421, 13.7043, -2.4481, -19.6346)
+material_override = ExtResource("1_u5m3k")
+use_collision = true
+size = Vector3(3.25305, 1, 7.83411)
+
+[node name="Ground9" type="CSGBox3D" parent="Environment"]
+transform = Transform3D(0.170519, 0, -0.985354, 0, 1, 0, 0.985354, 0, 0.170519, 19.2736, -3.6041, -17.1864)
+material_override = ExtResource("1_u5m3k")
+use_collision = true
+size = Vector3(10, 1, 12.8281)
+
+[node name="Tower" type="CSGCylinder3D" parent="Environment"]
+transform = Transform3D(0.187227, 0, 0.982317, 0, 1, 0, -0.982317, 0, 0.187227, 77.2419, 22.8, -190.427)
+material_override = ExtResource("2_fdpc6")
+radius = 12.1175
+height = 51.9622
+sides = 16
+
+[node name="SpotLight3D" type="SpotLight3D" parent="Environment/Tower"]
+transform = Transform3D(0.824768, 2.47175e-08, -0.565471, 0.565471, -3.60518e-08, 0.824768, 0, -1, -4.37114e-08, -13.5502, 28.8549, 0)
+light_color = Color(4.62055e-06, 0.794197, 0.966621, 1)
+light_energy = 96.92
+spot_range = 10.7138
+
+[node name="Props" type="Node3D" parent="Environment"]
+
+[node name="TextSign" parent="Environment/Props" instance=ExtResource("3_5mm4b")]
+transform = Transform3D(-0.965926, 0, 0.258819, 0, 1, 0, -0.258819, 0, -0.965926, 1.98987, -4.76837e-07, -8.32105)
+text = "Mouse: Look
+WASD: Move
+Space: Jump
+E: Interact"
+
+[node name="WoodenTable" parent="Environment/Props" instance=ExtResource("4_ifj4y")]
+transform = Transform3D(-0.0166497, 0, 0.999861, 0, 1, 0, -0.999861, 0, -0.0166497, 64.3856, 3.33786e-06, -62.1712)
+
+[node name="Candle" type="MeshInstance3D" parent="Environment/Props/WoodenTable"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.730901, 0.996716, -0.191264)
+mesh = SubResource("CylinderMesh_y7m3u")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="Environment/Props/WoodenTable/Candle"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.131631, 0)
+light_color = Color(0.863773, 0.528257, 0.276979, 1)
+omni_range = 1.82769
+
+[node name="TextSign2" parent="Environment/Props" instance=ExtResource("3_5mm4b")]
+transform = Transform3D(-0.0192848, 0, 0.999814, 0, 1, 0, -0.999814, 0, -0.0192848, 71.6221, 3.33786e-06, -62.7956)
+text = "Left mouse button: Cast fireball"
+
+[node name="RigidbodyPlayer" parent="." instance=ExtResource("2_8qj3e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
