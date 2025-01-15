@@ -96,10 +96,10 @@ func quit_game() -> void:
 
 func change_3d_level(level_path: String) -> void:
 	# Check if level exists
-	#FIXME: Always fails in build mode
-	#if not FileAccess.file_exists(level_path):
-	#	print("ERROR!: Level not found. Invalid path")
-	#	return
+	#NOTE: FileAccess.file_exists() doesn't work in a exported project
+	if not ResourceLoader.exists(level_path):
+		print("ERROR!: Level not found. Invalid path")
+		return
 	
 	# Show loading screen
 	%LoadingScreen.transition_inn()
@@ -123,10 +123,10 @@ func add_3d_scene(scene: Node3D) -> void:
 
 func change_ui_scene(scene_path: String) -> void:
 	# Check if scene exists
-	#FIXME: Always fails in build mode
-	#if not FileAccess.file_exists(scene_path):
-	#	print("ERROR!: Ui scene not found. Invalid path")
-	#	return
+	#NOTE: FileAccess.file_exists() doesn't work in a exported project
+	if not ResourceLoader.exists(scene_path):
+		print("ERROR!: Ui scene not found. Invalid path")
+		return
 	
 	# Remove old scene
 	for child in %UserInterface.get_children():

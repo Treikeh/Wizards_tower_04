@@ -1,8 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://co645fg3hplrm"]
+[gd_scene load_steps=4 format=3 uid="uid://co645fg3hplrm"]
 
 [ext_resource type="Script" path="res://main_scene.gd" id="1_gfkd4"]
 [ext_resource type="PackedScene" uid="uid://0ojdxwerkcvd" path="res://levels/tutorial/tutorial.tscn" id="2_thdgv"]
-[ext_resource type="PackedScene" uid="uid://bsrvl85f7jxdv" path="res://interface/hud/hud.tscn" id="3_ru21u"]
 [ext_resource type="PackedScene" uid="uid://ds1vrl4d2nbqm" path="res://interface/loading_screen/loading_screen.tscn" id="4_s2nc2"]
 
 [node name="MainScene" type="Node"]
@@ -27,9 +26,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-
-[node name="Hud" parent="UserInterface" instance=ExtResource("3_ru21u")]
-layout_mode = 1
 
 [node name="LoadingScreen" parent="." instance=ExtResource("4_s2nc2")]
 unique_name_in_owner = true
