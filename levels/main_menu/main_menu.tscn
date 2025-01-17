@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://df823edaivqws"]
+[gd_scene load_steps=8 format=3 uid="uid://df823edaivqws"]
 
 [ext_resource type="Script" path="res://levels/main_menu/main_menu.gd" id="1_xi5eq"]
 [ext_resource type="Material" uid="uid://botmm8kkk1h67" path="res://common/materials/dev_grid_gray.tres" id="2_pnq4k"]
-[ext_resource type="Material" uid="uid://pqlkm5aadfhn" path="res://common/materials/dev_grid_orange.tres" id="3_c1jyp"]
+[ext_resource type="PackedScene" uid="uid://cxi6v661g084x" path="res://entities/pickups/spellbook/spellbook_pickup.tscn" id="3_dretu"]
+[ext_resource type="PackedScene" uid="uid://bdoipkh1hfkmm" path="res://entities/props/lights/candle/candle.tscn" id="4_ckygi"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_2u3w3"]
 sky_top_color = Color(0.252901, 0.467097, 0.652159, 1)
@@ -45,18 +46,14 @@ transform = Transform3D(0.998205, 0, 0.0598813, 0, 1, 0, -0.0598813, 0, 0.998205
 material_override = ExtResource("2_pnq4k")
 size = Vector3(2, 0.1, 1)
 
-[node name="Book" type="CSGBox3D" parent="."]
-transform = Transform3D(0.944755, -0.132708, -0.299712, 0, 0.914374, -0.40487, 0.327779, 0.382503, 0.863859, 0.493227, 0.176181, 0.0200968)
-material_override = ExtResource("3_c1jyp")
-size = Vector3(0.570313, 0.0651367, 0.463867)
-
-[node name="Candle" type="CSGCylinder3D" parent="."]
-transform = Transform3D(0.916741, -0.0305256, -0.398313, 0.0502601, 0.997967, 0.0391953, 0.396307, -0.0559513, 0.916412, 0.14706, 0.19349, -0.323257)
-radius = 0.0601405
-height = 0.332106
-
 [node name="Tower" type="CSGCylinder3D" parent="."]
 transform = Transform3D(0.781052, 0.0364936, -0.623398, -0.0468452, 0.998902, -0.000216628, 0.622706, 0.0293724, 0.781904, 17.252, 1.20205, -27.1139)
 material_override = ExtResource("2_pnq4k")
 radius = 4.29373
 height = 18.3627
+
+[node name="SpellbookPickup" parent="." instance=ExtResource("3_dretu")]
+transform = Transform3D(0.944754, -0.132708, -0.299712, 0, 0.914374, -0.40487, 0.327779, 0.382503, 0.863859, 0.493227, 0.176181, 0.0200968)
+
+[node name="Candle" parent="." instance=ExtResource("4_ckygi")]
+transform = Transform3D(0.916741, -0.0305256, -0.398313, 0.0502601, 0.997967, 0.0391953, 0.396307, -0.0559513, 0.916412, 0.147074, 0.048691, -0.323231)

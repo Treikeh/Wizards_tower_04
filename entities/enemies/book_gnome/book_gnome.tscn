@@ -79,7 +79,7 @@ states/idle_001/position = Vector2(336, 57)
 states/walk_f_001/node = SubResource("AnimationNodeAnimation_vth14")
 states/walk_f_001/position = Vector2(508, 283)
 transitions = ["Start", "idle_001", SubResource("AnimationNodeStateMachineTransition_kn7pr"), "idle_001", "walk_f_001", SubResource("AnimationNodeStateMachineTransition_rawmr"), "walk_f_001", "idle_001", SubResource("AnimationNodeStateMachineTransition_7nsh1"), "walk_f_001", "attack_001", SubResource("AnimationNodeStateMachineTransition_m40u8"), "idle_001", "attack_001", SubResource("AnimationNodeStateMachineTransition_xbhfu"), "attack_001", "idle_001", SubResource("AnimationNodeStateMachineTransition_cyo37"), "idle_001", "died_001", SubResource("AnimationNodeStateMachineTransition_qk3n0"), "attack_001", "died_001", SubResource("AnimationNodeStateMachineTransition_sugqr"), "walk_f_001", "died_001", SubResource("AnimationNodeStateMachineTransition_gjnmb")]
-graph_offset = Vector2(-83, -8)
+graph_offset = Vector2(-58, 23)
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_cuy2h"]
 viewport_path = NodePath("SubViewport")
@@ -115,7 +115,6 @@ damage = ExtResource("5_rq5px")
 [node name="DamageCollision" type="CollisionShape3D" parent="Mesh/DamageArea3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.55, -0.5)
 shape = SubResource("BoxShape3D_xk6ae")
-disabled = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Mesh"]
 libraries = {

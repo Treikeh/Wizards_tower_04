@@ -5,6 +5,10 @@ extends Node
 @warning_ignore("unused_signal")
 signal player_died
 
+#NOTE: Not the best way to manage what spells are unlocked, but it works for now
+var fireball_unlocked: bool = true
+var rock_wall_unlocked: bool = true
+var wind_blast_unlocked: bool = true
 var player_health: float = 1.0
 
 
@@ -15,6 +19,13 @@ signal interact_prompt_updated(prompt: String)
 signal health_bar_updated(health: float)
 @warning_ignore("unused_signal")
 signal player_casted_spell(id: int, spell_cooldown: float)
+
+
+## System
+@warning_ignore("unused_signal")
+signal checkpoint_saved
+@warning_ignore("unused_signal")
+signal checkpoint_loaded
 
 
 @onready var main_scene: MainScene = get_tree().current_scene

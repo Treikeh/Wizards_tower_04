@@ -5,8 +5,8 @@
 [ext_resource type="PackedScene" uid="uid://d0lld0115r5yv" path="res://common/scenes/interact_area_3d.tscn" id="3_kj7jt"]
 [ext_resource type="Script" path="res://common/scripts/health.gd" id="6_ep4ar"]
 [ext_resource type="PackedScene" uid="uid://ddufakdkmxhwr" path="res://common/scenes/health_area_3d.tscn" id="6_i66f4"]
-[ext_resource type="Material" uid="uid://butaeuol8riqi" path="res://entities/spells/rock_wall/assets/rock_wall_preview_can_spawn_mat.tres" id="8_kjgf6"]
-[ext_resource type="Material" uid="uid://dusegx7j0olth" path="res://entities/spells/rock_wall/assets/rock_wall_preview_cannot_spawn_mat.tres" id="9_vd5uf"]
+[ext_resource type="Material" uid="uid://butaeuol8riqi" path="res://entities/spells/rock_wall/resources/rock_wall_preview_can_spawn_mat.tres" id="8_kjgf6"]
+[ext_resource type="Material" uid="uid://dusegx7j0olth" path="res://entities/spells/rock_wall/resources/rock_wall_preview_cannot_spawn_mat.tres" id="9_vd5uf"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_8ksd3"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)

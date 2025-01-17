@@ -13,7 +13,7 @@ var move_input: Vector2 = Vector2.ZERO
 @export var max_speed: float = 6.0
 @export var ground_accel: float = 500.0
 @export var air_accel: float = 200.0
-@export var jump_force: float = 7.0
+@export var jump_force: float = 8.0
 @export var max_slope_angle: float = 40.0
 var is_grounded: bool = false
 var ground_normal: Vector3 = Vector3.UP
@@ -58,17 +58,17 @@ func _input(event: InputEvent) -> void:
 			%InteractRay.interact_with_target()
 		
 		# Spell inputs
-		if event.is_action_pressed("fireball"):
+		if event.is_action_pressed("fireball") and Globals.wind_blast_unlocked:
 			%SpellRay.cast_fireball()
 		
-		if event.is_action_pressed("rock_wall"):
+		if event.is_action_pressed("rock_wall") and Globals.rock_wall_unlocked:
 			# Spawn rock wall preview
 			%SpellRay.spawn_rock_wall_preview()
 		elif event.is_action_released("rock_wall"):
 			# Spawn rock wall
 			%SpellRay.spawn_rock_wall()
 		
-		if event.is_action_pressed("wind_blast"):
+		if event.is_action_pressed("wind_blast") and Globals.wind_blast_unlocked:
 			%SpellRay.cast_wind_blast()
 		
 		# Get move_input

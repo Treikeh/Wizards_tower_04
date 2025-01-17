@@ -1,0 +1,17 @@
+[gd_scene load_steps=2 format=3 uid="uid://bdoipkh1hfkmm"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_nl7su"]
+top_radius = 0.06
+bottom_radius = 0.06
+height = 0.35
+
+[node name="Candle" type="Node3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.174602, 0)
+mesh = SubResource("CylinderMesh_nl7su")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.408111, 0)
+light_color = Color(0.965804, 0.517178, 0.326907, 1)
+omni_range = 1.51695
