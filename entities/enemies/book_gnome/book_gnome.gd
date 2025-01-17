@@ -7,23 +7,27 @@ extends Enemy
 
 @export_group("Nodes")
 @export var mesh: Node3D
-@export var face_direction: Node3D
+@export var target_direction: Node3D
+@export var beehave_tree: BeehaveTree
 @export var animation_tree: AnimationTree
 
 
 @warning_ignore("unused_parameter")
 func _process(delta: float) -> void:
 	# Orient mesh towards target
-	var target_node: Node3D = get_tree().get_first_node_in_group("player")
+	var target_node: Node3D = beehave_tree.blackboard.get_value(&"target")
 	if is_instance_valid(target_node):
-		face_direction.look_at(target_node.global_position)
+		target_direction.look_at(target_node.global_position)
+	# Rotate mesh
+	mesh.rotation.y = lerp_angle(mesh.rotation.y, target_direction.rotation.y, 5.0 * delta)
 	
-	mesh.rotation.y = lerp_angle(mesh.rotation.y, face_direction.rotation.y, 5.0 * delta)
+	# Idle -> walk animation blend
+	animation_tree.set("parameters/walk_blend/blend_amount", move_dir.length())
 
 
 func _physics_process(delta: float) -> void:
-	if not navigation.is_target_reached():
-		move_dir = (navigation.get_next_path_position() - global_position).normalized()
+	if not nav_agent.is_target_reached():
+		move_dir = (nav_agent.get_next_path_position() - global_position).normalized()
 	
 	# Update velocity
 	if not receiving_knockback:
@@ -38,17 +42,24 @@ func _physics_process(delta: float) -> void:
 
 
 func _attack() -> void:
-	animation_tree.set("parameters/conditions/attacking", true)
-	recive_knockback(-face_direction.global_basis.z)
+	# Play attack animation and sound
+	animation_tree.set("parameters/attack/request", AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE)
+	#TODO: Audio
+	
+	# Launch enemy towards target
+	recive_knockback(-target_direction.global_basis.z)
 
 
 #region Health
 
 func _on_health_depleted() -> void:
-	# Disable behavior tree
-	# Stop navigation agent
-	navigation.target_position = global_position
-	# Play death animation
-	animation_tree.set("parameters/conditions/dead", true)
+	# Disable AI and movement
+	beehave_tree.disable()
+	nav_agent.target_position = global_position
+	
+	# Play death animation and sound
+	animation_tree.set("parameters/died/request", AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE)
+	#TODO: Audio
+	
 
 #endregion

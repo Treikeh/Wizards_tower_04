@@ -10,14 +10,14 @@
 [ext_resource type="AnimationLibrary" uid="uid://cdnetenr57qcq" path="res://entities/enemies/book_gnome/mesh/anim_book_gnome_001.glb" id="6_k7rn5"]
 [ext_resource type="Script" path="res://addons/beehave/nodes/beehave_tree.gd" id="10_fgdmq"]
 [ext_resource type="Script" path="res://addons/beehave/nodes/composites/selector.gd" id="11_qb3q8"]
-[ext_resource type="Script" path="res://common/scripts/beehave/bh_get_first_group_node.gd" id="11_qu1or"]
+[ext_resource type="Script" path="res://common/beehave/get_first_group_node_action.gd" id="11_qu1or"]
 [ext_resource type="Script" path="res://addons/beehave/nodes/composites/sequence.gd" id="12_74elj"]
-[ext_resource type="Script" path="res://common/scripts/beehave/bh_set_navigation_to_target.gd" id="13_26kjk"]
-[ext_resource type="Script" path="res://addons/beehave/nodes/decorators/cooldown.gd" id="14_p8jne"]
-[ext_resource type="Script" path="res://common/scripts/beehave/bh_call_method.gd" id="14_uoxnv"]
-[ext_resource type="Script" path="res://common/scripts/beehave/bh_is_value_valid_condition.gd" id="15_13axp"]
+[ext_resource type="Script" path="res://common/beehave/set_navigation_to_target_action.gd" id="13_26kjk"]
+[ext_resource type="Script" path="res://common/beehave/call_method_action.gd" id="14_uoxnv"]
+[ext_resource type="Script" path="res://common/beehave/wait_action.gd" id="15_04rwq"]
+[ext_resource type="Script" path="res://common/beehave/is_value_valid_condition.gd" id="15_13axp"]
 [ext_resource type="Script" path="res://addons/beehave/blackboard.gd" id="16_vm2um"]
-[ext_resource type="Script" path="res://common/scripts/beehave/bh_is_node_in_range.gd" id="16_vu0he"]
+[ext_resource type="Script" path="res://common/beehave/is_node_in_range_condition.gd" id="16_vu0he"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_kgyn0"]
 radius = 0.4
@@ -142,39 +142,35 @@ script = ExtResource("11_qb3q8")
 [node name="HasPlayerNode" type="Node" parent="BookGnomeTree/SelectorComposite"]
 script = ExtResource("12_74elj")
 
-[node name="IsTargetValid" type="Node" parent="BookGnomeTree/SelectorComposite/HasPlayerNode"]
+[node name="IsValueValidCondition" type="Node" parent="BookGnomeTree/SelectorComposite/HasPlayerNode"]
 script = ExtResource("15_13axp")
 key = &"target"
 
-[node name="SelectorComposite" type="Node" parent="BookGnomeTree/SelectorComposite/HasPlayerNode"]
-script = ExtResource("11_qb3q8")
-
-[node name="AttackCooldown" type="Node" parent="BookGnomeTree/SelectorComposite/HasPlayerNode/SelectorComposite"]
-script = ExtResource("14_p8jne")
-wait_time = 1.5
-
-[node name="Attack" type="Node" parent="BookGnomeTree/SelectorComposite/HasPlayerNode/SelectorComposite/AttackCooldown"]
+[node name="SequenceComposite" type="Node" parent="BookGnomeTree/SelectorComposite/HasPlayerNode"]
 script = ExtResource("12_74elj")
 
-[node name="InAttackRange" type="Node" parent="BookGnomeTree/SelectorComposite/HasPlayerNode/SelectorComposite/AttackCooldown/Attack"]
+[node name="IsNodeInRangeCondition" type="Node" parent="BookGnomeTree/SelectorComposite/HasPlayerNode/SequenceComposite"]
 script = ExtResource("16_vu0he")
-max_range = 4.0
+max_range = 2.5
 
-[node name="Attack" type="Node" parent="BookGnomeTree/SelectorComposite/HasPlayerNode/SelectorComposite/AttackCooldown/Attack"]
+[node name="CallMethodAction" type="Node" parent="BookGnomeTree/SelectorComposite/HasPlayerNode/SequenceComposite"]
 script = ExtResource("14_uoxnv")
 method_name = "_attack"
 
-[node name="Chase" type="Node" parent="BookGnomeTree/SelectorComposite/HasPlayerNode/SelectorComposite"]
+[node name="WaitAction" type="Node" parent="BookGnomeTree/SelectorComposite/HasPlayerNode/SequenceComposite"]
+script = ExtResource("15_04rwq")
+
+[node name="Chase" type="Node" parent="BookGnomeTree/SelectorComposite/HasPlayerNode"]
 script = ExtResource("12_74elj")
 
-[node name="InChaseRange" type="Node" parent="BookGnomeTree/SelectorComposite/HasPlayerNode/SelectorComposite/Chase"]
+[node name="IsNodeInRangeCondition" type="Node" parent="BookGnomeTree/SelectorComposite/HasPlayerNode/Chase"]
 script = ExtResource("16_vu0he")
 max_range = 15.0
 
-[node name="NavigateToTarget" type="Node" parent="BookGnomeTree/SelectorComposite/HasPlayerNode/SelectorComposite/Chase"]
+[node name="SetNavigationToTargetAction" type="Node" parent="BookGnomeTree/SelectorComposite/HasPlayerNode/Chase"]
 script = ExtResource("13_26kjk")
 
-[node name="GetPlayerNode" type="Node" parent="BookGnomeTree/SelectorComposite"]
+[node name="GetFirstGroupNodeAction" type="Node" parent="BookGnomeTree/SelectorComposite"]
 script = ExtResource("11_qu1or")
 group = "player"
 

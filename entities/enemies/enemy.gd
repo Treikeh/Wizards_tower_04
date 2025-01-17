@@ -2,7 +2,7 @@ class_name Enemy
 extends CharacterBody3D
 
 
-@export var navigation: NavigationAgent3D
+@export var nav_agent: NavigationAgent3D
 
 var move_dir: Vector3
 
