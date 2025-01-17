@@ -3,7 +3,6 @@ extends CharacterBody3D
 
 
 @export var navigation: NavigationAgent3D
-@export var behavior_tree: BTPlayer
 
 var move_dir: Vector3
 
@@ -13,8 +12,8 @@ var gravity_force: float = ProjectSettings.get_setting("physics/3d/default_gravi
 
 
 #TODO: Make knockback NOT time based
-func recive_knockback(direction: Vector3) -> void:
+func recive_knockback(direction: Vector3, force: float = 10.0) -> void:
 	receiving_knockback = true
-	velocity = direction * 10.0
+	velocity = direction * force
 	await get_tree().create_timer(knockback_duration).timeout
 	receiving_knockback = false
