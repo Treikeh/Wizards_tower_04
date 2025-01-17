@@ -1,17 +1,18 @@
 extends Node3D
 
 
-## 0 = fireball, 1 = rock wall, 2 = wind blas
-@export_range(0, 2) var spell_to_unlock: int = 0
+## fireball, rock_wall, wind_blast
+@export var spell_to_unlock: String = "fireball"
 
 
 func _on_interact_area_3d_interacted() -> void:
 	match spell_to_unlock:
-		0:
+		"fireball":
 			Globals.fireball_unlocked = true
-		1:
+		"rock_wall":
 			Globals.rock_wall_unlocked = true
-		2:
+		"wind_blast":
 			Globals.wind_blast_unlocked = true
 	
+	Globals.spell_unlocked.emit(spell_to_unlock)
 	queue_free()

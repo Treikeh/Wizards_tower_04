@@ -58,7 +58,7 @@ func _input(event: InputEvent) -> void:
 			%InteractRay.interact_with_target()
 		
 		# Spell inputs
-		if event.is_action_pressed("fireball") and Globals.wind_blast_unlocked:
+		if event.is_action_pressed("fireball") and Globals.fireball_unlocked:
 			%SpellRay.cast_fireball()
 		
 		if event.is_action_pressed("rock_wall") and Globals.rock_wall_unlocked:

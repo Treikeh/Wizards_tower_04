@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://0ojdxwerkcvd"]
+[gd_scene load_steps=12 format=3 uid="uid://0ojdxwerkcvd"]
 
 [ext_resource type="Script" path="res://levels/level_3d.gd" id="1_xrm32"]
 [ext_resource type="PackedScene" uid="uid://dh8dcfqs8vv8p" path="res://entities/player/player_controller.tscn" id="2_8qj3e"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://xxhxvfmbcxdw" path="res://entities/props/wooden_props/table/wooden_table.tscn" id="4_ifj4y"]
 [ext_resource type="PackedScene" uid="uid://cxi6v661g084x" path="res://entities/pickups/spellbook/spellbook_pickup.tscn" id="5_jls1s"]
 [ext_resource type="PackedScene" uid="uid://v74tcd2qhxgv" path="res://levels/tutorial/tutorial_layout.glb" id="6_wuqgg"]
+[ext_resource type="PackedScene" uid="uid://bdan64bohs08a" path="res://entities/props/wooden_props/sign/wooden_sign.tscn" id="7_d1mdp"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_q6ljs"]
 sky_top_color = Color(0.225015, 0.274197, 0.342598, 1)
@@ -59,3 +60,7 @@ transform = Transform3D(-0.999677, -0.00267591, 0.0252855, 0, 0.994447, 0.10524,
 
 [node name="RigidbodyPlayer" parent="." instance=ExtResource("2_8qj3e")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.10368, 0)
+
+[node name="WoodenSign" parent="." instance=ExtResource("7_d1mdp")]
+transform = Transform3D(-0.976379, 0, -0.216065, 0, 1, 0, 0.216065, 0, -0.976379, 56.9539, 8.5, -73.568)
+text = "Left-mouse button to cast fireball"
