@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://co645fg3hplrm"]
 
 [ext_resource type="Script" path="res://main_scene.gd" id="1_gfkd4"]
-[ext_resource type="PackedScene" uid="uid://0ojdxwerkcvd" path="res://levels/tutorial/tutorial.tscn" id="2_thdgv"]
+[ext_resource type="PackedScene" uid="uid://4jtdswc2727r" path="res://levels/ai_testing_facility.tscn" id="2_apgoc"]
 [ext_resource type="PackedScene" uid="uid://ds1vrl4d2nbqm" path="res://interface/loading_screen/loading_screen.tscn" id="4_s2nc2"]
 
 [node name="MainScene" type="Node"]
@@ -10,7 +10,7 @@ script = ExtResource("1_gfkd4")
 [node name="World3D" type="Node3D" parent="."]
 unique_name_in_owner = true
 
-[node name="Tutorial" parent="World3D" instance=ExtResource("2_thdgv")]
+[node name="AiTestingFacility" parent="World3D" instance=ExtResource("2_apgoc")]
 
 [node name="World2D" type="Node2D" parent="."]
 unique_name_in_owner = true

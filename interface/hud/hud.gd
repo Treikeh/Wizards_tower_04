@@ -23,7 +23,10 @@ func _ready() -> void:
 	# Set spell icon values
 	%FireBallIcon.value = 0.0
 	if Globals.fireball_unlocked:
-		%FireballIcon.value = 1.0
+		#FIXME: Value is reset when unpausing the game
+		# I belive i can fix this by adding the pause menu with add_ui_scene instead ->
+		# of change_ui_scene()
+		%FireBallIcon.value = 1.0
 		
 	%RockWallIcon.value = 0.0
 	if Globals.rock_wall_unlocked:

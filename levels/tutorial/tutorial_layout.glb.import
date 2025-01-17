@@ -36,6 +36,14 @@ _subresources={
 "gray": {
 "use_external/enabled": true,
 "use_external/path": "res://common/materials/dev_grid_gray.tres"
+},
+"green": {
+"use_external/enabled": true,
+"use_external/path": "res://common/materials/dev_grid_green.tres"
+},
+"windows": {
+"use_external/enabled": true,
+"use_external/path": "res://common/materials/orange_emissive.tres"
 }
 }
 }

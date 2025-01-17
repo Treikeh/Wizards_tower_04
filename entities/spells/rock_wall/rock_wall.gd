@@ -32,6 +32,7 @@ func spell_duration_over() -> void:
 #TODO: Find a better way to do this
 func recive_knockback(direction: Vector3) -> void:
 	velocity = Vector3(direction.x, 0.0, direction.z).normalized() * wind_blast_force
+	is_timed_explosion = true
 	# Add damage to movement
 
 
