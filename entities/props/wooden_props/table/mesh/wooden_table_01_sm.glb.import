@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://f4o831hn2tyi"
-path="res://.godot/imported/sm_wooden_table_001.glb-c5d68a79e453a719ba23f45ffdc5c8d9.scn"
+uid="uid://dmetjndxkh3h7"
+path="res://.godot/imported/wooden_table_01_sm.glb-9b0a9065d74f536d827e39bfe0f1afe9.scn"
 
 [deps]
 
-source_file="res://entities/props/wooden_props/table/mesh/sm_wooden_table_001.glb"
-dest_files=["res://.godot/imported/sm_wooden_table_001.glb-c5d68a79e453a719ba23f45ffdc5c8d9.scn"]
+source_file="res://entities/props/wooden_props/table/mesh/wooden_table_01_sm.glb"
+dest_files=["res://.godot/imported/wooden_table_01_sm.glb-9b0a9065d74f536d827e39bfe0f1afe9.scn"]
 
 [params]
 
@@ -35,18 +35,18 @@ _subresources={
 "materials": {
 "wooden_table_material.001": {
 "use_external/enabled": true,
-"use_external/path": "res://entities/props/wooden_props/table/mesh/m_wooden_table_001.tres"
+"use_external/path": "res://entities/props/wooden_props/wooden_props_01_m.tres"
 }
 },
 "meshes": {
-"sm_wooden_table_001_Cube_001": {
+"wooden_table_01_sm_Cube_001": {
 "generate/lightmap_uv": 0,
 "generate/lods": 0,
 "generate/shadow_meshes": 0,
 "lods/normal_merge_angle": 60.0,
 "lods/normal_split_angle": 25.0,
 "save_to_file/enabled": true,
-"save_to_file/path": "res://entities/props/wooden_props/table/mesh/col_wooden_table_001.res"
+"save_to_file/path": "res://entities/props/wooden_props/table/mesh/wooden_table_01_col.res"
 }
 },
 "nodes": {

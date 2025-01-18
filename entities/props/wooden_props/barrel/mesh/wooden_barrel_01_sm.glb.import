@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://yjjkgbf5t7s6"
-path="res://.godot/imported/sm_wooden_barrel_001.glb-aa467151ae8420901cc211aea2ebe027.scn"
+uid="uid://bx8bd014w1ar7"
+path="res://.godot/imported/wooden_barrel_01_sm.glb-5cab7209589aaf46923d82ac9914305c.scn"
 
 [deps]
 
-source_file="res://entities/props/wooden_props/barrel/mesh/sm_wooden_barrel_001.glb"
-dest_files=["res://.godot/imported/sm_wooden_barrel_001.glb-aa467151ae8420901cc211aea2ebe027.scn"]
+source_file="res://entities/props/wooden_props/barrel/mesh/wooden_barrel_01_sm.glb"
+dest_files=["res://.godot/imported/wooden_barrel_01_sm.glb-5cab7209589aaf46923d82ac9914305c.scn"]
 
 [params]
 
@@ -35,18 +35,18 @@ _subresources={
 "materials": {
 "wooden_barrel_material.001": {
 "use_external/enabled": true,
-"use_external/path": "res://entities/props/wooden_props/barrel/mesh/m_wooden_barrel_001.tres"
+"use_external/path": "res://entities/props/wooden_props/wooden_props_01_m.tres"
 }
 },
 "meshes": {
-"sm_wooden_barrel_001_wooden_barrel_collision_001": {
+"wooden_barrel_01_sm_wooden_barrel_collision_001": {
 "generate/lightmap_uv": 0,
 "generate/lods": 0,
 "generate/shadow_meshes": 0,
 "lods/normal_merge_angle": 60.0,
 "lods/normal_split_angle": 25.0,
 "save_to_file/enabled": true,
-"save_to_file/path": "res://entities/props/wooden_props/barrel/mesh/col_wooden_barrel_001.res"
+"save_to_file/path": "res://entities/props/wooden_props/barrel/mesh/wooden_barrel_01_col.res"
 }
 },
 "nodes": {

@@ -1,9 +1,0 @@
-[gd_resource type="ORMMaterial3D" load_steps=3 format=3 uid="uid://c1qehtpixrgka"]
-
-[ext_resource type="Texture2D" uid="uid://ccquhh35hi4o4" path="res://entities/props/wooden_props/barrel/mesh/t_wooden_barrel_001_bc.png" id="1_macdg"]
-[ext_resource type="Texture2D" uid="uid://dgo47bjbjqpgr" path="res://entities/props/wooden_props/barrel/mesh/t_wooden_barrel_001_orm.png" id="2_7tvl1"]
-
-[resource]
-albedo_texture = ExtResource("1_macdg")
-orm_texture = ExtResource("2_7tvl1")
-texture_filter = 0

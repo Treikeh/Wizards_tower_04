@@ -1,8 +1,8 @@
 [gd_scene load_steps=8 format=3 uid="uid://exjnmfqooik7"]
 
-[ext_resource type="Script" path="res://entities/props/explosive_barrel/explosive_barrel.gd" id="1_1mcf7"]
-[ext_resource type="PackedScene" uid="uid://yjjkgbf5t7s6" path="res://entities/props/wooden_props/barrel/mesh/sm_wooden_barrel_001.glb" id="1_2cb4m"]
+[ext_resource type="Script" path="res://entities/hazards/explosive_barrel/explosive_barrel.gd" id="1_1mcf7"]
 [ext_resource type="Material" uid="uid://c4eykp21shtlp" path="res://common/materials/dev_grid_red.tres" id="2_kme22"]
+[ext_resource type="PackedScene" uid="uid://bx8bd014w1ar7" path="res://entities/props/wooden_props/barrel/mesh/wooden_barrel_01_sm.glb" id="2_xro8i"]
 [ext_resource type="PackedScene" uid="uid://ddufakdkmxhwr" path="res://common/scenes/health_area_3d.tscn" id="3_ljiqa"]
 [ext_resource type="Script" path="res://common/scripts/health.gd" id="5_4nupu"]
 
@@ -16,9 +16,9 @@ radius = 0.444625
 [node name="ExplosiveBarrel" type="Node3D"]
 script = ExtResource("1_1mcf7")
 
-[node name="sm_wooden_barrel_001" parent="." instance=ExtResource("1_2cb4m")]
+[node name="wooden_barrel_01_sm" parent="." instance=ExtResource("2_xro8i")]
 
-[node name="wooden_barrel_mesh_001" parent="sm_wooden_barrel_001" index="0"]
+[node name="wooden_barrel_mesh_001" parent="wooden_barrel_01_sm" index="0"]
 material_override = ExtResource("2_kme22")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="."]
@@ -38,4 +38,4 @@ script = ExtResource("5_4nupu")
 
 [connection signal="damage_recived" from="HealthArea3D" to="." method="_on_health_area_3d_damage_recived"]
 
-[editable path="sm_wooden_barrel_001"]
+[editable path="wooden_barrel_01_sm"]

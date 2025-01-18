@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://ga3fem51x7yq"
-path="res://.godot/imported/sm_wooden_chair_001.glb-1d3dbbb35791aaa42af293b57f54a882.scn"
+uid="uid://capfisjt7v2au"
+path="res://.godot/imported/wooden_chair_01_sm.glb-f5b5058d3ab92882950e2a8690bf9c31.scn"
 
 [deps]
 
-source_file="res://entities/props/wooden_props/chair/mesh/sm_wooden_chair_001.glb"
-dest_files=["res://.godot/imported/sm_wooden_chair_001.glb-1d3dbbb35791aaa42af293b57f54a882.scn"]
+source_file="res://entities/props/wooden_props/chair/mesh/wooden_chair_01_sm.glb"
+dest_files=["res://.godot/imported/wooden_chair_01_sm.glb-f5b5058d3ab92882950e2a8690bf9c31.scn"]
 
 [params]
 
@@ -35,27 +35,27 @@ _subresources={
 "materials": {
 "wooden_chair_material.001": {
 "use_external/enabled": true,
-"use_external/path": "res://entities/props/wooden_props/chair/mesh/m_wooden_chair_001.tres"
+"use_external/path": "res://entities/props/wooden_props/wooden_props_01_m.tres"
 }
 },
 "meshes": {
-"sm_wooden_chair_001_Cube": {
+"wooden_chair_01_sm_wooden_chair_collision_001": {
 "generate/lightmap_uv": 0,
 "generate/lods": 0,
 "generate/shadow_meshes": 0,
 "lods/normal_merge_angle": 60.0,
 "lods/normal_split_angle": 25.0,
 "save_to_file/enabled": true,
-"save_to_file/path": "res://entities/props/wooden_props/chair/mesh/col_wooden_chair_001.res"
+"save_to_file/path": "res://entities/props/wooden_props/chair/mesh/wooden_chair_01_col.res"
 },
-"sm_wooden_chair_001_wooden_chair_mesh_001": {
+"wooden_chair_01_sm_wooden_chair_mesh_001": {
 "generate/lightmap_uv": 0,
 "generate/lods": 0,
 "generate/shadow_meshes": 0,
 "lods/normal_merge_angle": 60.0,
 "lods/normal_split_angle": 25.0,
 "save_to_file/enabled": false,
-"save_to_file/path": "res://entities/props/wooden_props/chair/mesh/col_wooden_chair_001.res"
+"save_to_file/path": "res://entities/props/wooden_props/chair/mesh/wooden_chair_01_col.res"
 }
 },
 "nodes": {

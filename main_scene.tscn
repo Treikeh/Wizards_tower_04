@@ -12,16 +12,13 @@ user_interface = NodePath("UserInterface")
 loading_screen = NodePath("LoadingScreen")
 
 [node name="World3D" type="Node3D" parent="."]
-unique_name_in_owner = true
 
 [node name="AiTestingFacility" parent="World3D" instance=ExtResource("2_6by5o")]
 
 [node name="World2D" type="Node2D" parent="."]
-unique_name_in_owner = true
 visible = false
 
 [node name="UserInterface" type="Control" parent="."]
-unique_name_in_owner = true
 process_mode = 3
 layout_mode = 3
 anchors_preset = 15
@@ -32,4 +29,3 @@ grow_vertical = 2
 mouse_filter = 2
 
 [node name="LoadingScreen" parent="." instance=ExtResource("4_s2nc2")]
-unique_name_in_owner = true
