@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://v74tcd2qhxgv"
-path="res://.godot/imported/tutorial_layout.glb-883feb68e5ce4c4dc9931dffd067ffeb.scn"
+uid="uid://cyxo2if3f12wv"
+path="res://.godot/imported/sm_wooden_barrel_002.glb-e265d3570573b493bf9862c5c4c61e71.scn"
 
 [deps]
 
-source_file="res://levels/tutorial/tutorial_layout.glb"
-dest_files=["res://.godot/imported/tutorial_layout.glb-883feb68e5ce4c4dc9931dffd067ffeb.scn"]
+source_file="res://entities/props/wooden_props/barrel/gradient/sm_wooden_barrel_002.glb"
+dest_files=["res://.godot/imported/sm_wooden_barrel_002.glb-e265d3570573b493bf9862c5c4c61e71.scn"]
 
 [params]
 
@@ -25,7 +25,7 @@ meshes/light_baking=1
 meshes/lightmap_texel_size=0.2
 meshes/force_disable_compression=false
 skins/use_named_skins=true
-animation/import=true
+animation/import=false
 animation/fps=30
 animation/trimming=false
 animation/remove_immutable_tracks=true
@@ -33,13 +33,9 @@ animation/import_rest_as_RESET=false
 import_script/path=""
 _subresources={
 "materials": {
-"gray": {
+"wooden_barrel_material.002": {
 "use_external/enabled": true,
-"use_external/path": "res://common/materials/dev_grid_gray.tres"
-},
-"windows": {
-"use_external/enabled": true,
-"use_external/path": "res://common/materials/orange_emissive.tres"
+"use_external/path": "res://entities/props/wooden_props/barrel/gradient/new_standard_material_3d.tres"
 }
 }
 }

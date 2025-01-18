@@ -1,16 +1,20 @@
 [gd_scene load_steps=4 format=3 uid="uid://co645fg3hplrm"]
 
 [ext_resource type="Script" path="res://main_scene.gd" id="1_gfkd4"]
-[ext_resource type="PackedScene" uid="uid://4jtdswc2727r" path="res://levels/ai_testing_facility.tscn" id="2_apgoc"]
+[ext_resource type="PackedScene" uid="uid://4jtdswc2727r" path="res://levels/dev_levels/ai_testing_facility.tscn" id="2_6by5o"]
 [ext_resource type="PackedScene" uid="uid://ds1vrl4d2nbqm" path="res://interface/loading_screen/loading_screen.tscn" id="4_s2nc2"]
 
-[node name="MainScene" type="Node"]
+[node name="MainScene" type="Node" node_paths=PackedStringArray("world_3d", "world_2d", "user_interface", "loading_screen")]
 script = ExtResource("1_gfkd4")
+world_3d = NodePath("World3D")
+world_2d = NodePath("World2D")
+user_interface = NodePath("UserInterface")
+loading_screen = NodePath("LoadingScreen")
 
 [node name="World3D" type="Node3D" parent="."]
 unique_name_in_owner = true
 
-[node name="AiTestingFacility" parent="World3D" instance=ExtResource("2_apgoc")]
+[node name="AiTestingFacility" parent="World3D" instance=ExtResource("2_6by5o")]
 
 [node name="World2D" type="Node2D" parent="."]
 unique_name_in_owner = true

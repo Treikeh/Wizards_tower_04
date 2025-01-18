@@ -2,21 +2,19 @@ extends Control
 
 
 @export_file("*.tscn") var main_menu_scene: String
-
-@export_file("*.tscn") var hud_scene: String
 @export_file("*.tscn") var settings_menu_scene: String
 
 
-func _input(event: InputEvent) -> void:
-	# Spawn hud when pressing ESC
-	if event.is_action_pressed("ui_cancel"):
+@warning_ignore("unused_parameter")
+func _process(delta: float) -> void:
+	if Input.is_action_just_pressed("ui_cancel"):
 		_resume_game()
 
 
 func _resume_game()-> void:
-	get_tree().paused = false
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-	Globals.main_scene.change_ui_scene(hud_scene)
+	get_tree().paused = false
+	queue_free()
 
 
 func _on_resume_button_pressed() -> void:
@@ -25,13 +23,11 @@ func _on_resume_button_pressed() -> void:
 
 func _on_settings_button_pressed() -> void:
 	hide()
-	var settings_menu: Control = load(settings_menu_scene).instantiate()
-	settings_menu.menu_closed.connect(_on_settings_menu_closed)
-	Globals.main_scene.add_ui_scene(settings_menu)
+	var settings_menu: Control = Globals.main_scene.add_ui_scene(settings_menu_scene)
+	settings_menu.tree_exiting.connect(_on_settings_menu_closed)
 
 
-func _on_settings_menu_closed(menu: Control)-> void:
-	menu.queue_free()
+func _on_settings_menu_closed()-> void:
 	show()
 
 

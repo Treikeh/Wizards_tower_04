@@ -1,0 +1,7 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://b4570c3y7lwfa"]
+
+[ext_resource type="Texture2D" uid="uid://bgmo52iga8sv" path="res://entities/props/wooden_props/barrel/gradient/_GRADIENT.png" id="1_aah6x"]
+
+[resource]
+albedo_texture = ExtResource("1_aah6x")
+texture_filter = 0

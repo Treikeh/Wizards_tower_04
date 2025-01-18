@@ -6,6 +6,7 @@ extends Node3D
 
 
 func _ready() -> void:
+	%Mesh.hide()
 	if spawn_on_ready:
 		spawn_enemy()
 

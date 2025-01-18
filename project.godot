@@ -129,3 +129,7 @@ behavior_tree/user_task_dir_1="res://common/scripts/ai_tasks"
 
 3d/physics_engine="GodotPhysics3D"
 3d/default_gravity=12.5
+
+[rendering]
+
+anti_aliasing/screen_space_roughness_limiter/enabled=false

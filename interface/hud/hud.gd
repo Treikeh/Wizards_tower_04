@@ -23,9 +23,6 @@ func _ready() -> void:
 	# Set spell icon values
 	%FireBallIcon.value = 0.0
 	if Globals.fireball_unlocked:
-		#FIXME: Value is reset when unpausing the game
-		# I belive i can fix this by adding the pause menu with add_ui_scene instead ->
-		# of change_ui_scene()
 		%FireBallIcon.value = 1.0
 		
 	%RockWallIcon.value = 0.0
@@ -37,16 +34,21 @@ func _ready() -> void:
 		%WindBlastIcon.value = 1.0
 
 
-func _input(event: InputEvent) -> void:
-	# Spawn pause menu when pressing ESC
-	if event.is_action_pressed("ui_cancel"):
-		get_tree().paused = true
-		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
-		Globals.main_scene.change_ui_scene(pause_menu_scene)
-
-
 func _process(_delta: float) -> void:
 	%FpsLabel.text = str(Engine.get_frames_per_second())
+	
+	# Pause game when pressing ESC
+	if Input.is_action_just_pressed("ui_cancel"):
+		hide()
+		get_tree().paused = true
+		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+		# Spawn pause menu
+		var pause_menu: Control = Globals.main_scene.add_ui_scene(pause_menu_scene)
+		pause_menu.tree_exited.connect(_on_pause_menu_closed)
+
+
+func _on_pause_menu_closed() -> void:
+	show()
 
 
 func _on_interact_prompt_updated(prompt: String) -> void:

@@ -8,6 +8,11 @@ var curret_3d_level: Node3D
 var current_2d_level: Node2D
 var current_ui_scene: Control
 
+@export var world_3d: Node3D
+@export var world_2d: Node2D
+@export var user_interface: Control
+@export var loading_screen: LoadingScreen
+
 
 func _ready() -> void:
 	#Globals.main_scene = self
@@ -139,5 +144,7 @@ func change_ui_scene(scene_path: String) -> void:
 	current_ui_scene = new_scene
 
 
-func add_ui_scene(scene: Control) -> void:
-	%UserInterface.add_child(scene)
+func add_ui_scene(scene_path: String) -> Control:
+	var scene: Control = load(scene_path).instantiate()
+	user_interface.add_child(scene)
+	return scene

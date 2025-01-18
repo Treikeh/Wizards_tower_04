@@ -1,8 +1,8 @@
 [gd_scene load_steps=18 format=3 uid="uid://bsrvl85f7jxdv"]
 
 [ext_resource type="Script" path="res://interface/hud/hud.gd" id="1_t53q1"]
-[ext_resource type="StyleBox" uid="uid://qtun7cbqouf7" path="res://common/stylebox/health_background_flat.tres" id="2_ww7ko"]
-[ext_resource type="StyleBox" uid="uid://bsqtahxlwo7o6" path="res://common/stylebox/health_fill_flat.tres" id="3_ghl2y"]
+[ext_resource type="StyleBox" uid="uid://qtun7cbqouf7" path="res://common/style_boxes/health_background_flat.tres" id="2_ww7ko"]
+[ext_resource type="StyleBox" uid="uid://bsqtahxlwo7o6" path="res://common/style_boxes/health_fill_flat.tres" id="3_ghl2y"]
 
 [sub_resource type="Gradient" id="Gradient_8rdpu"]
 offsets = PackedFloat32Array(0.0572519, 0.0954198)

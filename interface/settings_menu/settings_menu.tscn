@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://interface/settings_menu/settings_menu.gd" id="1_smsaw"]
 [ext_resource type="Script" path="res://interface/settings_menu/settings_input.gd" id="2_cs3ik"]
 [ext_resource type="Script" path="res://interface/settings_menu/settings_video.gd" id="2_p7w4h"]
-[ext_resource type="StyleBox" uid="uid://b6384he3uakmw" path="res://common/stylebox/style_box_empty.tres" id="3_iieoi"]
+[ext_resource type="StyleBox" uid="uid://b6384he3uakmw" path="res://common/style_boxes/style_box_empty.tres" id="3_iieoi"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_knh2t"]
 

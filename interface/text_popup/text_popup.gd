@@ -1,4 +1,4 @@
-extends UiMenu
+extends Control
 
 
 var text: String
@@ -9,4 +9,4 @@ func _ready() -> void:
 
 
 func _on_close_button_pressed() -> void:
-	menu_closed.emit(self)
+	queue_free()

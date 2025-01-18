@@ -17,7 +17,6 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_87ra5")
 main_menu_scene = "res://levels/main_menu/main_menu.tscn"
-hud_scene = "res://interface/hud/hud.tscn"
 settings_menu_scene = "res://interface/settings_menu/settings_menu.tscn"
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
