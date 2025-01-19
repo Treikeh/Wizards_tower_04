@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dahny415vtce4"
-path.s3tc="res://.godot/imported/t_viewmodel_001_orm.png-c547834539396827b7d591adc5ba2794.s3tc.ctex"
+uid="uid://cvqw5taqvbkoa"
+path.s3tc="res://.godot/imported/viewmodel_01_bc.png-43084fdafe29cc512210841bf885a8b6.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://entities/player/viewmodel/t_viewmodel_001_orm.png"
-dest_files=["res://.godot/imported/t_viewmodel_001_orm.png-c547834539396827b7d591adc5ba2794.s3tc.ctex"]
+source_file="res://entities/player/viewmodel/viewmodel_01_bc.png"
+dest_files=["res://.godot/imported/viewmodel_01_bc.png-43084fdafe29cc512210841bf885a8b6.s3tc.ctex"]
 
 [params]
 

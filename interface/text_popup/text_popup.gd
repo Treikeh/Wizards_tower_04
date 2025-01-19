@@ -1,10 +1,7 @@
 extends Control
 
 
-var text: String
-
-
-func _ready() -> void:
+func add_text(text: String) -> void:
 	%RichTextLabel.text = text
 
 

@@ -1,9 +1,9 @@
 [gd_scene load_steps=17 format=3 uid="uid://b2n0kf0vd4u8n"]
 
-[ext_resource type="Script" path="res://entities/spells/rock_wall/rock_wall.gd" id="1_3mufw"]
+[ext_resource type="Script" path="res://entities/player/spells/rock_wall/rock_wall.gd" id="1_3mufw"]
 [ext_resource type="PackedScene" uid="uid://ddufakdkmxhwr" path="res://common/scenes/health_area_3d.tscn" id="2_imdi2"]
 [ext_resource type="Script" path="res://common/scripts/health.gd" id="3_5nyv3"]
-[ext_resource type="Resource" uid="uid://ddwge00ixpgh1" path="res://entities/spells/rock_wall/resources/rock_wall_explosion_damage.tres" id="4_1d6k7"]
+[ext_resource type="Resource" uid="uid://ddwge00ixpgh1" path="res://entities/player/spells/rock_wall/resources/rock_wall_explosion_damage.tres" id="4_1d6k7"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_uv1ks"]
 radius = 0.1

@@ -26,17 +26,27 @@ var move_direction: Vector3 = Vector3.ZERO
 @export var spring_damping: float = 25.0
 var check_for_ground: bool = true
 
+@export_group("Nodes")
+@export var orientation: Node3D
+@export var head: Node3D
+@export var camera: Camera3D
+@export var ground_check: RayCast3D
+@export var interact_ray: RayCast3D
+@export var spell_ray: RayCast3D
+@export var animation_tree: AnimationTree
+
 
 func _ready() -> void:
-	# Set child nodes references
-	%SpellRay.orientation = %Orientation
-	
 	# Load config settings
 	ConfigHandler.input_settings_changed.connect(_load_input_settings)
 	_load_input_settings()
 	
 	# Capture mouse when game begins
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	
+	# Connect signals
+	Globals.checkpoint_loaded.connect(_on_checkpoint_loaded)
+	Globals.spell_unlocked.connect(_on_spell_unlocked)
 	
 	# Spawn hud
 	Globals.main_scene.change_ui_scene(hud_scene)
@@ -46,30 +56,30 @@ func _input(event: InputEvent) -> void:
 	if Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
 		# Rotate camera
 		if event is InputEventMouseMotion:
-			%Orientation.rotate_object_local(Vector3.UP, -deg_to_rad(event.relative.x * camera_sensitivity))
-			%Head.rotate_object_local(Vector3.RIGHT, -deg_to_rad(event.relative.y * camera_sensitivity))
-			%Head.rotation.x = clampf(%Head.rotation.x, -deg_to_rad(89), deg_to_rad(89))
+			orientation.rotate_object_local(Vector3.UP, -deg_to_rad(event.relative.x * camera_sensitivity))
+			head.rotate_object_local(Vector3.RIGHT, -deg_to_rad(event.relative.y * camera_sensitivity))
+			head.rotation.x = clampf(head.rotation.x, -deg_to_rad(89), deg_to_rad(89))
 		
 		# jump input
 		if event.is_action_pressed("jump"):
 			_jump()
 		
 		if event.is_action_pressed("interact"):
-			%InteractRay.interact_with_target()
+			interact_ray.interact_with_target()
 		
 		# Spell inputs
 		if event.is_action_pressed("fireball") and Globals.fireball_unlocked:
-			%SpellRay.cast_fireball()
+			spell_ray.cast_fireball()
 		
 		if event.is_action_pressed("rock_wall") and Globals.rock_wall_unlocked:
 			# Spawn rock wall preview
-			%SpellRay.spawn_rock_wall_preview()
+			spell_ray.spawn_rock_wall_preview()
 		elif event.is_action_released("rock_wall"):
 			# Spawn rock wall
-			%SpellRay.spawn_rock_wall()
+			spell_ray.spawn_rock_wall()
 		
 		if event.is_action_pressed("wind_blast") and Globals.wind_blast_unlocked:
-			%SpellRay.cast_wind_blast()
+			spell_ray.cast_wind_blast()
 		
 		# Get move_input
 		move_input = Input.get_vector("move_l", "move_r", "move_f", "move_b")
@@ -81,22 +91,22 @@ func _input(event: InputEvent) -> void:
 #@warning_ignore("unused_parameter")
 func _process(delta: float) -> void:
 	is_grounded = _is_on_walkable_slope()
-	%Camera.apply_camera_tilt(linear_velocity, move_direction, delta)
+	camera.apply_camera_tilt(linear_velocity, move_direction, delta)
 	if is_grounded and check_for_ground:
-		%Camera.head_bobbing(linear_velocity, delta)
+		camera.head_bobbing(linear_velocity, delta)
 		gravity_scale = 0.1
-		%GroundCheck.target_position = to_local(global_position + (Vector3.DOWN * (rest_height + ground_buffer)))
+		ground_check.target_position = to_local(global_position + (Vector3.DOWN * (rest_height + ground_buffer)))
 	else:
 		gravity_scale = 1.0
-		%GroundCheck.target_position = to_local(global_position + (Vector3.DOWN * rest_height))
+		ground_check.target_position = to_local(global_position + (Vector3.DOWN * rest_height))
 	# Align move_input to orientation
-	move_direction = %Orientation.global_basis * Vector3(move_input.x, 0.0, move_input.y).normalized()
+	move_direction = orientation.global_basis * Vector3(move_input.x, 0.0, move_input.y).normalized()
 
 
 #@warning_ignore("unused_parameter")
 func _physics_process(delta: float) -> void:
 	if is_grounded:
-		ground_normal = %GroundCheck.get_collision_normal()
+		ground_normal = ground_check.get_collision_normal()
 		var slope_dir: Vector3 = move_direction.slide(ground_normal)
 		var target_vel: Vector3 = slope_dir * max_speed
 		var needed_vel: Vector3 = target_vel - linear_velocity
@@ -115,12 +125,25 @@ func _load_input_settings() -> void:
 	camera_sensitivity = input_settings.camera_sensitivity
 
 
+func _on_checkpoint_saved() -> void:
+	print("Checkpoint saved")
+
+
+func _on_checkpoint_loaded() -> void:
+	print("Checkpoint loaded")
+
+
+func _on_spell_unlocked(_spell: String) -> void:
+	# Animations
+	animation_tree.set("parameters/reset_idle_blend/blend_amount", 1.0)
+
+
 #region Movement
 
 # I feel there should be a need for delta, but i do not know where :\
 # Apply a spring force to that moves the palyer towards rest_height
 func _snap_to_ground(_delta: float) -> void:
-	var hit_distance: float = (%GroundCheck.global_position - %GroundCheck.get_collision_point()).length()
+	var hit_distance: float = (ground_check.global_position - ground_check.get_collision_point()).length()
 	var normal_vel: float = -ground_normal.dot(linear_velocity)
 	var dispalcement: float = hit_distance - rest_height
 	var force: float = (spring_force * dispalcement) - (normal_vel * spring_damping)
@@ -128,8 +151,8 @@ func _snap_to_ground(_delta: float) -> void:
 
 
 func _is_on_walkable_slope() -> bool:
-	if %GroundCheck.is_colliding():
-		ground_normal = %GroundCheck.get_collision_normal()
+	if ground_check.is_colliding():
+		ground_normal = ground_check.get_collision_normal()
 		# Compare ground normal to upwards direction to get slope angle
 		if ground_normal.angle_to(Vector3.UP) < deg_to_rad(max_slope_angle):
 			return true

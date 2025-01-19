@@ -12,3 +12,6 @@ func _ready() -> void:
 	Globals.fireball_unlocked = fireball_unlocked
 	Globals.rock_wall_unlocked = rock_wall_unlocked
 	Globals.wind_blast_unlocked = wind_blast_unlocked
+	#NOTE: This is to show player animations when any spell is unlocked
+	if fireball_unlocked or rock_wall_unlocked or wind_blast_unlocked:
+		Globals.spell_unlocked.emit("")

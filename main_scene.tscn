@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://co645fg3hplrm"]
 
 [ext_resource type="Script" path="res://main_scene.gd" id="1_gfkd4"]
-[ext_resource type="PackedScene" uid="uid://4jtdswc2727r" path="res://levels/dev_levels/ai_testing_facility.tscn" id="2_6by5o"]
+[ext_resource type="PackedScene" uid="uid://0ojdxwerkcvd" path="res://levels/tutorial/tutorial.tscn" id="2_j5vel"]
 [ext_resource type="PackedScene" uid="uid://ds1vrl4d2nbqm" path="res://interface/loading_screen/loading_screen.tscn" id="4_s2nc2"]
 
 [node name="MainScene" type="Node" node_paths=PackedStringArray("world_3d", "world_2d", "user_interface", "loading_screen")]
@@ -13,10 +13,9 @@ loading_screen = NodePath("LoadingScreen")
 
 [node name="World3D" type="Node3D" parent="."]
 
-[node name="AiTestingFacility" parent="World3D" instance=ExtResource("2_6by5o")]
+[node name="Tutorial" parent="World3D" instance=ExtResource("2_j5vel")]
 
 [node name="World2D" type="Node2D" parent="."]
-visible = false
 
 [node name="UserInterface" type="Control" parent="."]
 process_mode = 3

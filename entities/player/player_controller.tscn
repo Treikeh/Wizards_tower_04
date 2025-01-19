@@ -1,12 +1,11 @@
-[gd_scene load_steps=14 format=3 uid="uid://dh8dcfqs8vv8p"]
+[gd_scene load_steps=17 format=3 uid="uid://dh8dcfqs8vv8p"]
 
 [ext_resource type="Script" path="res://entities/player/scripts/player_controller.gd" id="1_ck1rn"]
 [ext_resource type="Material" uid="uid://uwtl3uvytx4g" path="res://common/materials/dev_grid_green.tres" id="2_7yv5a"]
 [ext_resource type="PackedScene" uid="uid://ddufakdkmxhwr" path="res://common/scenes/health_area_3d.tscn" id="2_8fr2j"]
 [ext_resource type="Script" path="res://entities/player/scripts/player_camera.gd" id="2_kvlkg"]
 [ext_resource type="Script" path="res://entities/player/scripts/player_interact_ray.gd" id="3_6mksv"]
-[ext_resource type="PackedScene" uid="uid://cjrur1ejf0dcp" path="res://entities/player/viewmodel/sk_viewmodel_001.tscn" id="4_nb6p0"]
-[ext_resource type="AnimationLibrary" uid="uid://cjpa37n30lvtd" path="res://entities/player/viewmodel/anim_viewmodel_001.glb" id="5_84d4y"]
+[ext_resource type="PackedScene" uid="uid://dn2jwre4f6j4e" path="res://entities/player/viewmodel/viewmodel_01_sk.glb" id="4_t6a4j"]
 [ext_resource type="PackedScene" uid="uid://cavgwqcbmxw3w" path="res://entities/player/spellray.tscn" id="6_urw7v"]
 [ext_resource type="Script" path="res://common/scripts/health.gd" id="7_s4lvk"]
 
@@ -27,7 +26,25 @@ radial_segments = 16
 radius = 0.4
 height = 1.75
 
-[node name="RigidbodyPlayer" type="RigidBody3D" groups=["player"]]
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_7jca0"]
+animation = &"idle_001"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_e2i24"]
+animation = &"RESET"
+
+[sub_resource type="AnimationNodeBlend2" id="AnimationNodeBlend2_ocjic"]
+
+[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_vy1x0"]
+graph_offset = Vector2(-548.007, -31.1355)
+nodes/Idle/node = SubResource("AnimationNodeAnimation_7jca0")
+nodes/Idle/position = Vector2(-120, 260)
+nodes/RESET/node = SubResource("AnimationNodeAnimation_e2i24")
+nodes/RESET/position = Vector2(-120, 120)
+nodes/reset_idle_blend/node = SubResource("AnimationNodeBlend2_ocjic")
+nodes/reset_idle_blend/position = Vector2(80, 120)
+node_connections = [&"output", 0, &"reset_idle_blend", &"reset_idle_blend", 0, &"RESET", &"reset_idle_blend", 1, &"Idle"]
+
+[node name="RigidbodyPlayer" type="RigidBody3D" node_paths=PackedStringArray("orientation", "head", "camera", "ground_check", "interact_ray", "spell_ray", "animation_tree") groups=["player"]]
 collision_layer = 4
 collision_mask = 15
 physics_material_override = SubResource("PhysicsMaterial_ebie1")
@@ -36,6 +53,13 @@ script = ExtResource("1_ck1rn")
 hud_scene = "res://interface/hud/hud.tscn"
 max_speed = 7.0
 air_accel = 175.0
+orientation = NodePath("Orientation")
+head = NodePath("Orientation/Head")
+camera = NodePath("Orientation/Head/Camera")
+ground_check = NodePath("GroundCheck")
+interact_ray = NodePath("Orientation/Head/InteractRay")
+spell_ray = NodePath("Orientation/Head/SpellRay")
+animation_tree = NodePath("Orientation/Head/viewmodel_01_sk/AnimationTree")
 
 [node name="StandingCollision" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_kcqpx")
@@ -55,27 +79,38 @@ health_node = NodePath("../../Health")
 shape = SubResource("CapsuleShape3D_w1r5e")
 
 [node name="Orientation" type="Node3D" parent="."]
-unique_name_in_owner = true
 
 [node name="Head" type="Node3D" parent="Orientation"]
-unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.475, 0)
 
-[node name="Viewmodel" parent="Orientation/Head" instance=ExtResource("4_nb6p0")]
+[node name="viewmodel_01_sk" parent="Orientation/Head" instance=ExtResource("4_t6a4j")]
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Orientation/Head/Viewmodel"]
-libraries = {
-"": ExtResource("5_84d4y")
-}
-autoplay = "idle_001"
+[node name="Skeleton3D" parent="Orientation/Head/viewmodel_01_sk" index="0"]
+bones/3/rotation = Quaternion(0.401194, 0.587348, -0.415789, 0.566731)
+bones/3/scale = Vector3(1, 1, 1)
+bones/4/rotation = Quaternion(0.151733, -0.0021134, 0.0112042, 0.988356)
+bones/4/scale = Vector3(1, 1, 1)
+bones/5/rotation = Quaternion(0.422204, -0.00290762, 0.0225532, 0.906215)
+bones/6/rotation = Quaternion(-0.0696132, 0.0204564, -0.0150605, 0.997251)
+bones/6/scale = Vector3(1, 1, 1)
+bones/7/rotation = Quaternion(0.401194, -0.587348, 0.415789, 0.566731)
+bones/7/scale = Vector3(1, 1, 1)
+bones/8/rotation = Quaternion(0.151733, 0.0021134, -0.0112042, 0.988356)
+bones/8/scale = Vector3(1, 1, 1)
+bones/9/rotation = Quaternion(0.422204, 0.00290762, -0.0225532, 0.906215)
+bones/10/rotation = Quaternion(-0.0696132, -0.0204564, 0.0150605, 0.997251)
+bones/10/scale = Vector3(1, 1, 1)
+
+[node name="AnimationTree" type="AnimationTree" parent="Orientation/Head/viewmodel_01_sk"]
+tree_root = SubResource("AnimationNodeBlendTree_vy1x0")
+anim_player = NodePath("../AnimationPlayer")
+parameters/reset_idle_blend/blend_amount = 0.0
 
 [node name="Camera" type="Camera3D" parent="Orientation/Head"]
-unique_name_in_owner = true
 fov = 90.0
 script = ExtResource("2_kvlkg")
 
 [node name="InteractRay" type="RayCast3D" parent="Orientation/Head"]
-unique_name_in_owner = true
 target_position = Vector3(0, 0, -1.7)
 collision_mask = 19
 collide_with_areas = true
@@ -83,11 +118,10 @@ debug_shape_custom_color = Color(1, 0, 0, 1)
 debug_shape_thickness = 1
 script = ExtResource("3_6mksv")
 
-[node name="SpellRay" parent="Orientation/Head" instance=ExtResource("6_urw7v")]
-unique_name_in_owner = true
+[node name="SpellRay" parent="Orientation/Head" node_paths=PackedStringArray("orientation") instance=ExtResource("6_urw7v")]
+orientation = NodePath("../..")
 
 [node name="GroundCheck" type="RayCast3D" parent="."]
-unique_name_in_owner = true
 target_position = Vector3(0, -1.5, 0)
 collision_mask = 3
 
@@ -96,3 +130,5 @@ script = ExtResource("7_s4lvk")
 
 [connection signal="health_changed" from="Health" to="." method="_on_health_changed"]
 [connection signal="health_depleted" from="Health" to="." method="_on_health_depleted"]
+
+[editable path="Orientation/Head/viewmodel_01_sk"]

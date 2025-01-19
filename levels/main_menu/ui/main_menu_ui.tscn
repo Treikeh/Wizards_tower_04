@@ -15,7 +15,6 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_ilwoj")
 first_level_scene = "res://levels/tutorial/tutorial.tscn"
-hud_scene = "res://interface/hud/hud.tscn"
 settings_menu_scene = "res://interface/settings_menu/settings_menu.tscn"
 credits_scene = "res://interface/credits/credits.tscn"
 
@@ -106,7 +105,7 @@ offset_top = -23.0
 grow_horizontal = 0
 grow_vertical = 0
 theme_override_font_sizes/font_size = 10
-text = "0.1.0.0"
+text = "0.1.0.2"
 horizontal_alignment = 2
 vertical_alignment = 2
 

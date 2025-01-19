@@ -2,8 +2,7 @@ extends RayCast3D
 
 
 ## Players orientation node. Used to orient Rock wall spell
-## Assigned by player_controller script
-var orientation: Node3D
+@export var orientation: Node3D
 
 
 @warning_ignore("unused_parameter")
@@ -24,7 +23,7 @@ func _physics_process(delta: float) -> void:
 @export_group("Fireball")
 @export var fireball_cooldown: float = 0.1
 var can_fireball: bool = true
-var fireball_scene: PackedScene = preload("res://entities/spells/fireball/fireball.tscn")
+var fireball_scene: PackedScene = preload("res://entities/player/spells/fireball/fireball.tscn")
 
 
 func cast_fireball() -> void:
@@ -58,10 +57,10 @@ func cast_fireball() -> void:
 @export var rock_wall_range: float = 5.0
 ## If the palyer can cast the rock wall
 var can_rock_wall: bool = true
-var rock_wall_scene: PackedScene = preload("res://entities/spells/rock_wall/rock_wall.tscn")
+var rock_wall_scene: PackedScene = preload("res://entities/player/spells/rock_wall/rock_wall.tscn")
 # Preview
 var rock_wall_preview: Node3D
-var rock_wall_preview_scene: PackedScene = preload("res://entities/spells/rock_wall/rock_wall_preview.tscn")
+var rock_wall_preview_scene: PackedScene = preload("res://entities/player/spells/rock_wall/rock_wall_preview.tscn")
 
 
 func spawn_rock_wall_preview() -> void:
@@ -106,7 +105,7 @@ func spawn_rock_wall() -> void:
 @export var wind_blast_force: float = 25.0
 @export var wind_blast_cooldown: float = 0.1
 var can_wind_blast: bool = true
-var wind_blast_effect_scene: PackedScene = preload("res://entities/spells/wind_blast/wind_blast_effect.tscn")
+var wind_blast_effect_scene: PackedScene = preload("res://entities/player/spells/wind_blast/wind_blast_effect.tscn")
 
 
 func cast_wind_blast() -> void:

@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://levels/level_3d.gd" id="1_w1yec"]
 [ext_resource type="Material" uid="uid://botmm8kkk1h67" path="res://common/materials/dev_grid_gray.tres" id="2_m582j"]
-[ext_resource type="PackedScene" uid="uid://chw0vev703cjt" path="res://entities/enemies/spawner/enemy_spawner.tscn" id="4_k7mrc"]
+[ext_resource type="PackedScene" uid="uid://chw0vev703cjt" path="res://common/scenes/enemy_spawner.tscn" id="4_k7mrc"]
 [ext_resource type="PackedScene" uid="uid://dh8dcfqs8vv8p" path="res://entities/player/player_controller.tscn" id="5_qo66a"]
 [ext_resource type="PackedScene" uid="uid://c21l6816x4oka" path="res://entities/interactables/button/standing_button.tscn" id="5_syd0i"]
 [ext_resource type="PackedScene" uid="uid://dgqvbvg6txlno" path="res://entities/pickups/health_potion/health_potion.tscn" id="5_u8rwk"]

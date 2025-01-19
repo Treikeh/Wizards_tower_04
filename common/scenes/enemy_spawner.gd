@@ -2,7 +2,7 @@ extends Node3D
 
 
 @export_file("*.tscn") var enemy_scene: String
-@export var spawn_on_ready: bool = true
+@export var spawn_on_ready: bool = false
 
 
 func _ready() -> void:
@@ -12,5 +12,6 @@ func _ready() -> void:
 
 
 func spawn_enemy() -> void:
+	print("spawn enemy")
 	var enemy: Enemy = load(enemy_scene).instantiate()
 	add_child(enemy)

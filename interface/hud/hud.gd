@@ -21,6 +21,7 @@ func _ready() -> void:
 	%NotificationLabel.modulate = Color.TRANSPARENT
 	
 	# Set spell icon values
+	await get_tree().process_frame
 	%FireBallIcon.value = 0.0
 	if Globals.fireball_unlocked:
 		%FireBallIcon.value = 1.0
