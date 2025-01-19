@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bvixu55in33bx"
-path.s3tc="res://.godot/imported/t_book_gnome_001_orm.png-3f48e7ce8f66110d4bc128ac5f368cae.s3tc.ctex"
+uid="uid://cpnhu3fges6rt"
+path.s3tc="res://.godot/imported/book_gnome_01_bc.png-6fdd0f49e9cbf4b998c97709bf69b630.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://entities/enemies/book_gnome/mesh/t_book_gnome_001_orm.png"
-dest_files=["res://.godot/imported/t_book_gnome_001_orm.png-3f48e7ce8f66110d4bc128ac5f368cae.s3tc.ctex"]
+source_file="res://entities/enemies/book_gnome/mesh/book_gnome_01_bc.png"
+dest_files=["res://.godot/imported/book_gnome_01_bc.png-6fdd0f49e9cbf4b998c97709bf69b630.s3tc.ctex"]
 
 [params]
 

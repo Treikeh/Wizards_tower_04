@@ -1,5 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://bugwwiabmbvo7"]
-
-[ext_resource type="PackedScene" uid="uid://cokq66v5wyj7p" path="res://entities/enemies/book_gnome/mesh/sk_book_gnome_001.glb" id="1_ntvys"]
-
-[node name="sk_book_gnome_001" instance=ExtResource("1_ntvys")]

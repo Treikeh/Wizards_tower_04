@@ -1,15 +1,15 @@
 [remap]
 
-importer="animation_library"
+importer="scene"
 importer_version=1
-type="AnimationLibrary"
-uid="uid://cdnetenr57qcq"
-path="res://.godot/imported/anim_book_gnome_001.glb-f383a21b86b448bebc96f6be31a35772.res"
+type="PackedScene"
+uid="uid://dnn2p6cuwx2e7"
+path="res://.godot/imported/book_gnome_01_sk.glb-5932f6430b1ae633d6b2dfc91b1175bc.scn"
 
 [deps]
 
-source_file="res://entities/enemies/book_gnome/mesh/anim_book_gnome_001.glb"
-dest_files=["res://.godot/imported/anim_book_gnome_001.glb-f383a21b86b448bebc96f6be31a35772.res"]
+source_file="res://entities/enemies/book_gnome/mesh/book_gnome_01_sk.glb"
+dest_files=["res://.godot/imported/book_gnome_01_sk.glb-5932f6430b1ae633d6b2dfc91b1175bc.scn"]
 
 [params]
 
@@ -5431,10 +5431,10 @@ _subresources={
 "slices/amount": 0
 },
 "idle_001": {
-"save_to_file/enabled": false,
-"save_to_file/keep_custom_tracks": "",
-"save_to_file/path": "",
-"settings/loop_mode": 1,
+"save_to_file/enabled": true,
+"save_to_file/keep_custom_tracks": false,
+"save_to_file/path": "res://entities/enemies/book_gnome/mesh/anims/idle_001.res",
+"settings/loop_mode": 0,
 "slice_1/end_frame": 0,
 "slice_1/loop_mode": 0,
 "slice_1/name": "",
@@ -7230,10 +7230,10 @@ _subresources={
 "slices/amount": 0
 },
 "walk_f_001": {
-"save_to_file/enabled": false,
+"save_to_file/enabled": true,
 "save_to_file/keep_custom_tracks": "",
-"save_to_file/path": "",
-"settings/loop_mode": 1,
+"save_to_file/path": "res://entities/enemies/book_gnome/mesh/anims/walk_f_001.res",
+"settings/loop_mode": 0,
 "slice_1/end_frame": 0,
 "slice_1/loop_mode": 0,
 "slice_1/name": "",
@@ -9027,6 +9027,12 @@ _subresources={
 "slice_99/save_to_file/path": "",
 "slice_99/start_frame": 0,
 "slices/amount": 0
+}
+},
+"materials": {
+"book_gnome_material.001": {
+"use_external/enabled": true,
+"use_external/path": "res://entities/enemies/book_gnome/mesh/book_gnome_01_m.tres"
 }
 }
 }

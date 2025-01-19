@@ -70,16 +70,19 @@ func _input(event: InputEvent) -> void:
 		# Spell inputs
 		if event.is_action_pressed("fireball") and Globals.fireball_unlocked:
 			spell_ray.cast_fireball()
+			animation_tree.set("parameters/fireball_oneshot/request", AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE)
 		
 		if event.is_action_pressed("rock_wall") and Globals.rock_wall_unlocked:
 			# Spawn rock wall preview
 			spell_ray.spawn_rock_wall_preview()
-		elif event.is_action_released("rock_wall"):
+		elif event.is_action_released("rock_wall") and Globals.rock_wall_unlocked:
 			# Spawn rock wall
 			spell_ray.spawn_rock_wall()
+			animation_tree.set("parameters/rock_wall_oneshot/request", AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE)
 		
 		if event.is_action_pressed("wind_blast") and Globals.wind_blast_unlocked:
 			spell_ray.cast_wind_blast()
+			animation_tree.set("parameters/wind_blast_oneshot/request", AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE)
 		
 		# Get move_input
 		move_input = Input.get_vector("move_l", "move_r", "move_f", "move_b")

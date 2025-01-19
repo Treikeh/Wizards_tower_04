@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://dh8dcfqs8vv8p"]
+[gd_scene load_steps=23 format=3 uid="uid://dh8dcfqs8vv8p"]
 
 [ext_resource type="Script" path="res://entities/player/scripts/player_controller.gd" id="1_ck1rn"]
 [ext_resource type="Material" uid="uid://uwtl3uvytx4g" path="res://common/materials/dev_grid_green.tres" id="2_7yv5a"]
@@ -26,23 +26,50 @@ radial_segments = 16
 radius = 0.4
 height = 1.75
 
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_dr8i2"]
+animation = &"fireball_001"
+
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_7jca0"]
 animation = &"idle_001"
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_e2i24"]
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_2i217"]
 animation = &"RESET"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_pre1v"]
+animation = &"rock_wall_001"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_c13qi"]
+animation = &"wind_blast_001"
+
+[sub_resource type="AnimationNodeOneShot" id="AnimationNodeOneShot_hvhph"]
 
 [sub_resource type="AnimationNodeBlend2" id="AnimationNodeBlend2_ocjic"]
 
+[sub_resource type="AnimationNodeOneShot" id="AnimationNodeOneShot_738qc"]
+
+[sub_resource type="AnimationNodeOneShot" id="AnimationNodeOneShot_2ywnk"]
+
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_vy1x0"]
-graph_offset = Vector2(-548.007, -31.1355)
+graph_offset = Vector2(-774.184, -144.84)
+nodes/Fireball/node = SubResource("AnimationNodeAnimation_dr8i2")
+nodes/Fireball/position = Vector2(-120, 340)
 nodes/Idle/node = SubResource("AnimationNodeAnimation_7jca0")
-nodes/Idle/position = Vector2(-120, 260)
-nodes/RESET/node = SubResource("AnimationNodeAnimation_e2i24")
-nodes/RESET/position = Vector2(-120, 120)
+nodes/Idle/position = Vector2(-780, 80)
+nodes/RESET/node = SubResource("AnimationNodeAnimation_2i217")
+nodes/RESET/position = Vector2(-780, -60)
+nodes/Rock_wall/node = SubResource("AnimationNodeAnimation_pre1v")
+nodes/Rock_wall/position = Vector2(-360, 280)
+nodes/Wind_blast/node = SubResource("AnimationNodeAnimation_c13qi")
+nodes/Wind_blast/position = Vector2(-600, 180)
+nodes/fireball_oneshot/node = SubResource("AnimationNodeOneShot_hvhph")
+nodes/fireball_oneshot/position = Vector2(120, 140)
 nodes/reset_idle_blend/node = SubResource("AnimationNodeBlend2_ocjic")
-nodes/reset_idle_blend/position = Vector2(80, 120)
-node_connections = [&"output", 0, &"reset_idle_blend", &"reset_idle_blend", 0, &"RESET", &"reset_idle_blend", 1, &"Idle"]
+nodes/reset_idle_blend/position = Vector2(-600, -40)
+nodes/rock_wall_oneshot/node = SubResource("AnimationNodeOneShot_738qc")
+nodes/rock_wall_oneshot/position = Vector2(-120, 80)
+nodes/wind_blast_oneshot/node = SubResource("AnimationNodeOneShot_2ywnk")
+nodes/wind_blast_oneshot/position = Vector2(-360, 20)
+node_connections = [&"fireball_oneshot", 0, &"rock_wall_oneshot", &"fireball_oneshot", 1, &"Fireball", &"output", 0, &"fireball_oneshot", &"reset_idle_blend", 0, &"RESET", &"reset_idle_blend", 1, &"Idle", &"rock_wall_oneshot", 0, &"wind_blast_oneshot", &"rock_wall_oneshot", 1, &"Rock_wall", &"wind_blast_oneshot", 0, &"reset_idle_blend", &"wind_blast_oneshot", 1, &"Wind_blast"]
 
 [node name="RigidbodyPlayer" type="RigidBody3D" node_paths=PackedStringArray("orientation", "head", "camera", "ground_check", "interact_ray", "spell_ray", "animation_tree") groups=["player"]]
 collision_layer = 4
@@ -104,7 +131,16 @@ bones/10/scale = Vector3(1, 1, 1)
 [node name="AnimationTree" type="AnimationTree" parent="Orientation/Head/viewmodel_01_sk"]
 tree_root = SubResource("AnimationNodeBlendTree_vy1x0")
 anim_player = NodePath("../AnimationPlayer")
+parameters/fireball_oneshot/active = false
+parameters/fireball_oneshot/internal_active = false
+parameters/fireball_oneshot/request = 0
 parameters/reset_idle_blend/blend_amount = 0.0
+parameters/rock_wall_oneshot/active = false
+parameters/rock_wall_oneshot/internal_active = false
+parameters/rock_wall_oneshot/request = 0
+parameters/wind_blast_oneshot/active = false
+parameters/wind_blast_oneshot/internal_active = false
+parameters/wind_blast_oneshot/request = 0
 
 [node name="Camera" type="Camera3D" parent="Orientation/Head"]
 fov = 90.0

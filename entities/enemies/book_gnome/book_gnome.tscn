@@ -1,13 +1,12 @@
-[gd_scene load_steps=31 format=3 uid="uid://uvws4xru1kpl"]
+[gd_scene load_steps=30 format=3 uid="uid://uvws4xru1kpl"]
 
 [ext_resource type="Script" path="res://entities/enemies/book_gnome/book_gnome.gd" id="1_ucrke"]
+[ext_resource type="PackedScene" uid="uid://dnn2p6cuwx2e7" path="res://entities/enemies/book_gnome/mesh/book_gnome_01_sk.glb" id="2_1d5g8"]
 [ext_resource type="PackedScene" uid="uid://ddufakdkmxhwr" path="res://common/scenes/health_area_3d.tscn" id="3_ap0dj"]
-[ext_resource type="PackedScene" uid="uid://bugwwiabmbvo7" path="res://entities/enemies/book_gnome/mesh/sk_book_gnome_001.tscn" id="3_i4bgf"]
 [ext_resource type="PackedScene" uid="uid://cs53wyj8yt4s4" path="res://entities/enemies/floating_health_bar.tscn" id="4_010fi"]
 [ext_resource type="Script" path="res://common/scripts/health.gd" id="4_ejrbm"]
 [ext_resource type="PackedScene" uid="uid://di7vp8irr7xdl" path="res://common/scenes/damage_area_3d.tscn" id="4_pe1ou"]
-[ext_resource type="Resource" uid="uid://dc7hcuasftdvh" path="res://entities/enemies/book_gnome/resources/book_gnome_attack_damage.tres" id="5_rq5px"]
-[ext_resource type="AnimationLibrary" uid="uid://cdnetenr57qcq" path="res://entities/enemies/book_gnome/mesh/anim_book_gnome_001.glb" id="6_k7rn5"]
+[ext_resource type="Resource" uid="uid://dc7hcuasftdvh" path="res://entities/enemies/book_gnome/book_gnome_damage.tres" id="5_rq5px"]
 [ext_resource type="Script" path="res://addons/beehave/nodes/beehave_tree.gd" id="10_fgdmq"]
 [ext_resource type="Script" path="res://addons/beehave/nodes/composites/selector.gd" id="11_qb3q8"]
 [ext_resource type="Script" path="res://common/scripts/beehave/bh_get_first_group_node.gd" id="11_qu1or"]
@@ -22,12 +21,6 @@
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_kgyn0"]
 radius = 0.4
 height = 1.1
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_cf1hn"]
-size = Vector3(0.705078, 0.906494, 0.575684)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_xk6ae"]
-size = Vector3(0.5, 0.7, 0.5)
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ojtuh"]
 animation = &"attack_001"
@@ -48,7 +41,7 @@ animation = &"walk_f_001"
 [sub_resource type="AnimationNodeBlend2" id="AnimationNodeBlend2_0xu1g"]
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_6rjv8"]
-graph_offset = Vector2(-740.374, -103.539)
+graph_offset = Vector2(-659.735, -121.306)
 nodes/AttackAnimation/node = SubResource("AnimationNodeAnimation_ojtuh")
 nodes/AttackAnimation/position = Vector2(-460, 240)
 nodes/DeathAnimation/node = SubResource("AnimationNodeAnimation_efe3t")
@@ -65,6 +58,12 @@ nodes/walk_blend/node = SubResource("AnimationNodeBlend2_0xu1g")
 nodes/walk_blend/position = Vector2(-460, 0)
 node_connections = [&"attack", 0, &"walk_blend", &"attack", 1, &"AttackAnimation", &"died", 0, &"attack", &"died", 1, &"DeathAnimation", &"output", 0, &"died", &"walk_blend", 0, &"Idle", &"walk_blend", 1, &"Walk"]
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_cf1hn"]
+size = Vector3(0.705078, 0.906494, 0.575684)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_xk6ae"]
+size = Vector3(0.5, 0.7, 0.5)
+
 [sub_resource type="ViewportTexture" id="ViewportTexture_cuy2h"]
 viewport_path = NodePath("SubViewport")
 
@@ -72,10 +71,10 @@ viewport_path = NodePath("SubViewport")
 collision_layer = 8
 collision_mask = 15
 script = ExtResource("1_ucrke")
-mesh = NodePath("Mesh")
+mesh = NodePath("book_gnome_01_sk")
 target_direction = NodePath("TargetDirection")
 beehave_tree = NodePath("BookGnomeTree")
-animation_tree = NodePath("Mesh/AnimationTree")
+animation_tree = NodePath("book_gnome_01_sk/AnimationTree")
 nav_agent = NodePath("NavigationAgent3D")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
@@ -84,31 +83,30 @@ shape = SubResource("CapsuleShape3D_kgyn0")
 
 [node name="TargetDirection" type="Node3D" parent="."]
 
-[node name="Mesh" parent="." instance=ExtResource("3_i4bgf")]
+[node name="book_gnome_01_sk" parent="." instance=ExtResource("2_1d5g8")]
 
-[node name="HealthArea3D" parent="Mesh" node_paths=PackedStringArray("health_node") instance=ExtResource("3_ap0dj")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.030045)
-health_node = NodePath("../../Health")
-damage_multiplier = 0.5
+[node name="Skeleton3D" parent="book_gnome_01_sk" index="0"]
+bones/1/rotation = Quaternion(0, 0.707107, 0.707107, 0)
+bones/2/position = Vector3(1.62838e-16, 0.245117, 0.178967)
+bones/2/rotation = Quaternion(0.650424, -5.7346e-08, -4.91056e-08, 0.759571)
+bones/3/rotation = Quaternion(0.367487, -0.349485, -0.604114, 0.614704)
+bones/3/scale = Vector3(1, 1, 1)
+bones/4/rotation = Quaternion(-0.380122, -0.335354, -0.632807, 0.585321)
+bones/4/scale = Vector3(1, 1, 1)
+bones/5/rotation = Quaternion(-0.0375805, 2.15778e-08, -2.67391e-07, 0.999294)
+bones/6/rotation = Quaternion(0.508438, -5.1644e-08, -1.48003e-07, 0.861098)
+bones/7/rotation = Quaternion(0.190234, -5.60127e-06, -1.97151e-06, 0.981739)
+bones/8/position = Vector3(3.21829e-08, 0.587239, 0.20697)
+bones/8/rotation = Quaternion(-0.0352754, 3.07332e-08, 5.09014e-09, 0.999378)
+bones/8/scale = Vector3(1, 1, 1)
+bones/9/rotation = Quaternion(0.352735, 0.364283, 0.612844, 0.606051)
+bones/9/scale = Vector3(1, 1, 1)
+bones/10/rotation = Quaternion(-0.395357, 0.321059, 0.623411, 0.593273)
+bones/11/rotation = Quaternion(-0.037556, 5.17911e-08, 2.98863e-07, 0.999295)
+bones/12/rotation = Quaternion(0.508428, -4.48676e-08, 3.02048e-07, 0.861105)
+bones/13/rotation = Quaternion(0.190234, 5.60127e-06, 1.97151e-06, 0.981739)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Mesh/HealthArea3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.508789, 0.0285645)
-shape = SubResource("BoxShape3D_cf1hn")
-
-[node name="DamageArea3D" parent="Mesh" instance=ExtResource("4_pe1ou")]
-damage = ExtResource("5_rq5px")
-
-[node name="DamageCollision" type="CollisionShape3D" parent="Mesh/DamageArea3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.55, -0.5)
-shape = SubResource("BoxShape3D_xk6ae")
-disabled = true
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Mesh"]
-libraries = {
-"": ExtResource("6_k7rn5")
-}
-
-[node name="AnimationTree" type="AnimationTree" parent="Mesh"]
+[node name="AnimationTree" type="AnimationTree" parent="book_gnome_01_sk"]
 tree_root = SubResource("AnimationNodeBlendTree_6rjv8")
 anim_player = NodePath("../AnimationPlayer")
 parameters/attack/active = false
@@ -118,6 +116,23 @@ parameters/died/active = false
 parameters/died/internal_active = false
 parameters/died/request = 0
 parameters/walk_blend/blend_amount = 0
+
+[node name="HealthArea3D" parent="book_gnome_01_sk" node_paths=PackedStringArray("health_node") instance=ExtResource("3_ap0dj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.030045)
+health_node = NodePath("../../Health")
+damage_multiplier = 0.5
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="book_gnome_01_sk/HealthArea3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.508789, 0.0285645)
+shape = SubResource("BoxShape3D_cf1hn")
+
+[node name="DamageArea3D" parent="book_gnome_01_sk" instance=ExtResource("4_pe1ou")]
+damage = ExtResource("5_rq5px")
+
+[node name="DamageCollision" type="CollisionShape3D" parent="book_gnome_01_sk/DamageArea3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.55, -0.5)
+shape = SubResource("BoxShape3D_xk6ae")
+disabled = true
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
 path_height_offset = 1.0
@@ -187,3 +202,5 @@ blackboard = {
 
 [connection signal="health_changed" from="Health" to="FloatingHealthBar" method="_on_health_changed"]
 [connection signal="health_depleted" from="Health" to="." method="_on_health_depleted"]
+
+[editable path="book_gnome_01_sk"]
