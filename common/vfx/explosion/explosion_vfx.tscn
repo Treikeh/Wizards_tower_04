@@ -1,3 +1,12 @@
-[gd_scene format=3 uid="uid://dwtlgghlk0gtn"]
+[gd_scene load_steps=3 format=3 uid="uid://dwtlgghlk0gtn"]
 
-[node name="ExplosionVFX" type="Node3D"]
+[ext_resource type="Material" uid="uid://blsagikhb12s0" path="res://common/vfx/explosion/explosion_vfx_mp.tres" id="1_opv70"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_cdyea"]
+radial_segments = 16
+rings = 8
+
+[node name="ExplosionVFX" type="GPUParticles3D"]
+explosiveness = 0.75
+process_material = ExtResource("1_opv70")
+draw_pass_1 = SubResource("SphereMesh_cdyea")

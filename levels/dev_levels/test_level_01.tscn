@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://cscm07iintxhd"]
+[gd_scene load_steps=30 format=3 uid="uid://cscm07iintxhd"]
 
 [ext_resource type="Script" path="res://levels/level_3d.gd" id="1_5hjb2"]
 [ext_resource type="PackedScene" uid="uid://chw0vev703cjt" path="res://common/scenes/scene_spawner.tscn" id="2_4xdsy"]
@@ -15,6 +15,7 @@
 [ext_resource type="PackedScene" uid="uid://cj0ckw6b4kq8l" path="res://common/scenes/level_transtion_area_3d.tscn" id="12_5pukf"]
 [ext_resource type="Material" uid="uid://do2qv4y2sei0e" path="res://common/materials/dev_grid_black.tres" id="12_le4xk"]
 [ext_resource type="PackedScene" uid="uid://bdan64bohs08a" path="res://entities/interactables/sign/wooden_sign.tscn" id="14_u1ybs"]
+[ext_resource type="PackedScene" uid="uid://dwtlgghlk0gtn" path="res://common/vfx/explosion/explosion_vfx.tscn" id="16_8ugd5"]
 [ext_resource type="PackedScene" uid="uid://di7vp8irr7xdl" path="res://common/scenes/damage_area_3d.tscn" id="17_b7e50"]
 [ext_resource type="Material" uid="uid://dusegx7j0olth" path="res://entities/player/spells/rock_wall/resources/rock_wall_preview_cannot_spawn_mat.tres" id="18_3tha2"]
 [ext_resource type="Script" path="res://common/scripts/damage.gd" id="18_f8c2g"]
@@ -169,6 +170,9 @@ transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 7, 0, 
 text = "Level transition test"
 
 [node name="VFX" type="Node3D" parent="."]
+
+[node name="ExplosionVFX" parent="VFX" instance=ExtResource("16_8ugd5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -20)
 
 [node name="DamageOverTimeArea" parent="." instance=ExtResource("17_b7e50")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 0.5, -12)
