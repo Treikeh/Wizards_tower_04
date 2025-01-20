@@ -135,7 +135,7 @@ debug_enabled = true
 
 [node name="BeehaveTree" type="Node" parent="." node_paths=PackedStringArray("blackboard", "actor")]
 script = ExtResource("7_xq1dp")
-blackboard = NodePath("@Node@85369")
+blackboard = NodePath("@Node@17297")
 actor = NodePath("../Mesh/AnimationPlayer")
 
 [node name="ActionLeaf" type="Node" parent="BeehaveTree"]

@@ -111,8 +111,8 @@ wind_blast={
 
 [layer_names]
 
-3d_physics/layer_1="static_env"
-3d_physics/layer_2="dynamic_env"
+3d_physics/layer_1="walkable"
+3d_physics/layer_2="no_projectile"
 3d_physics/layer_3="player"
 3d_physics/layer_4="enemy"
 3d_physics/layer_5="interaction"

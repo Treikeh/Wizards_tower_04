@@ -13,27 +13,26 @@ data = PackedVector3Array(0, 0.5, -0.4548, 0.261, 1, -0.261, 0, 1, -0.3691, 0, 0
 height = 1.0
 radius = 0.444625
 
-[node name="ExplosiveBarrel" type="Node3D"]
+[node name="ExplosiveBarrel" type="StaticBody3D"]
 script = ExtResource("1_1mcf7")
+explosion_vfx_scene = "res://common/vfx/explosion/explosion_vfx.tscn"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("ConcavePolygonShape3D_2pqm0")
 
 [node name="wooden_barrel_01_sm" parent="." instance=ExtResource("2_xro8i")]
 
 [node name="wooden_barrel_mesh_001" parent="wooden_barrel_01_sm" index="0"]
 material_override = ExtResource("2_kme22")
 
-[node name="StaticBody3D" type="StaticBody3D" parent="."]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
-shape = SubResource("ConcavePolygonShape3D_2pqm0")
-
 [node name="HealthArea3D" parent="." node_paths=PackedStringArray("health_node") instance=ExtResource("3_ljiqa")]
-health_node = NodePath("../Health")
+health_node = NodePath("Health")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="HealthArea3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 shape = SubResource("CylinderShape3D_n8ylb")
 
-[node name="Health" type="Node" parent="."]
+[node name="Health" type="Node" parent="HealthArea3D"]
 script = ExtResource("5_4nupu")
 
 [connection signal="damage_recived" from="HealthArea3D" to="." method="_on_health_area_3d_damage_recived"]

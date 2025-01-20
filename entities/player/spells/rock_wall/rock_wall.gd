@@ -1,5 +1,7 @@
 extends CharacterBody3D
 
+
+@export_file("*.tscn") var explosion_vfx_scene: String
 @export var wind_blast_force: float = 7.5
 ## How long the rock wall will be in the scene before despawning
 @export var lifetime: float = 10.0
@@ -29,6 +31,13 @@ func spell_duration_over() -> void:
 	_on_health_depleted()
 
 
+func _launch_enemies()-> void:
+	var overlapping_enemies: Array[Node3D] = %EnemyLaunchArea.get_overlapping_bodies()
+	for body in overlapping_enemies:
+		if body is Enemy:
+			body.recive_knockback(Vector3.UP, 7.5)
+
+
 #TODO: Find a better way to do this
 func recive_knockback(direction: Vector3) -> void:
 	velocity = Vector3(direction.x, 0.0, direction.z).normalized() * wind_blast_force
@@ -37,6 +46,10 @@ func recive_knockback(direction: Vector3) -> void:
 
 
 func _explode() -> void:
+	var vfx: GPUParticles3D = Globals.main_scene.add_3d_scene(explosion_vfx_scene, global_position)
+	vfx.finished.connect(vfx.queue_free)
+	#TODO: Scale vfx to match explosion damage area
+	vfx.restart()
 	%AnimationPlayer.play("explode")
 
 

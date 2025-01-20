@@ -1,12 +1,31 @@
-[gd_scene load_steps=3 format=3 uid="uid://dwtlgghlk0gtn"]
+[gd_scene load_steps=7 format=3 uid="uid://dwtlgghlk0gtn"]
 
 [ext_resource type="Material" uid="uid://blsagikhb12s0" path="res://common/vfx/explosion/explosion_vfx_mp.tres" id="1_opv70"]
+[ext_resource type="Shader" uid="uid://18h33qoa5xhi" path="res://common/vfx/explosion/explosion_vfx_vs.tres" id="2_lhdk2"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_u8fs4"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_decg3"]
+noise = SubResource("FastNoiseLite_u8fs4")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_63g02"]
+render_priority = 0
+shader = ExtResource("2_lhdk2")
+shader_parameter/displacement_speed = Vector2(0, 0.5)
+shader_parameter/displacement_scale = 0.3
+shader_parameter/base_color = Color(0.901961, 0.396078, 0, 1)
+shader_parameter/alpha = 0.75
+shader_parameter/emission_strength = 1.0
+shader_parameter/displacement_texture = SubResource("NoiseTexture2D_decg3")
 
 [sub_resource type="SphereMesh" id="SphereMesh_cdyea"]
 radial_segments = 16
 rings = 8
 
 [node name="ExplosionVFX" type="GPUParticles3D"]
+material_override = SubResource("ShaderMaterial_63g02")
+emitting = false
+one_shot = true
 explosiveness = 0.75
 process_material = ExtResource("1_opv70")
 draw_pass_1 = SubResource("SphereMesh_cdyea")

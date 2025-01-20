@@ -120,8 +120,11 @@ func change_3d_level(level_path: String) -> void:
 	ResourceLoader.load_threaded_request(level_path)
 
 
-func add_3d_scene(scene: Node3D) -> void:
+func add_3d_scene(scene_path: String, position: Vector3 = Vector3.ZERO) -> Node3D:
+	var scene: Node3D = load(scene_path).instantiate()
 	world_3d.add_child(scene)
+	scene.global_position = position
+	return scene
 
 
 func change_ui_scene(scene_path: String) -> void:

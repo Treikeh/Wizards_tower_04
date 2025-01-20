@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://cscm07iintxhd"]
+[gd_scene load_steps=33 format=3 uid="uid://cscm07iintxhd"]
 
 [ext_resource type="Script" path="res://levels/level_3d.gd" id="1_5hjb2"]
 [ext_resource type="PackedScene" uid="uid://chw0vev703cjt" path="res://common/scenes/scene_spawner.tscn" id="2_4xdsy"]
@@ -20,6 +20,7 @@
 [ext_resource type="Material" uid="uid://dusegx7j0olth" path="res://entities/player/spells/rock_wall/resources/rock_wall_preview_cannot_spawn_mat.tres" id="18_3tha2"]
 [ext_resource type="Script" path="res://common/scripts/damage.gd" id="18_f8c2g"]
 [ext_resource type="PackedScene" uid="uid://exjnmfqooik7" path="res://entities/hazards/explosive_barrel/explosive_barrel.tscn" id="19_imr74"]
+[ext_resource type="Material" uid="uid://b4576fxo40ync" path="res://common/materials/dev_grid_pink.tres" id="21_3nqud"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_8ksd3"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -54,6 +55,12 @@ type = 1
 [sub_resource type="BoxShape3D" id="BoxShape3D_bhbd4"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_bxpty"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_pgvik"]
+size = Vector3(2, 2, 2)
+
+[sub_resource type="BoxMesh" id="BoxMesh_g0yty"]
+size = Vector3(2, 2, 2)
 
 [node name="TestLevel01" type="Node3D"]
 script = ExtResource("1_5hjb2")
@@ -108,7 +115,7 @@ prompt = "Spawn living armor"
 [node name="Interactable" type="Node3D" parent="."]
 
 [node name="SpellBookTable" parent="Interactable" instance=ExtResource("4_0jf04")]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -8, 0, -2.5)
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 3.88722e-07, 0, -6.5)
 
 [node name="FireballPickup" parent="Interactable/SpellBookTable" instance=ExtResource("6_tsqfk")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.700001, 1, 0)
@@ -173,6 +180,8 @@ text = "Level transition test"
 
 [node name="ExplosionVFX" parent="VFX" instance=ExtResource("16_8ugd5")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -20)
+emitting = true
+one_shot = false
 
 [node name="DamageOverTimeArea" parent="." instance=ExtResource("17_b7e50")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 0.5, -12)
@@ -188,6 +197,17 @@ mesh = SubResource("BoxMesh_bxpty")
 
 [node name="ExplosiveBarrel" parent="." instance=ExtResource("19_imr74")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 0, 3)
+
+[node name="BigBox" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 1, -1.5)
+collision_mask = 7
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="BigBox"]
+shape = SubResource("BoxShape3D_pgvik")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="BigBox"]
+material_override = ExtResource("21_3nqud")
+mesh = SubResource("BoxMesh_g0yty")
 
 [connection signal="interacted" from="Enemies/BookGnomeSpawnerButton" to="Enemies/BookGnomeSpawner" method="spawn_scene"]
 [connection signal="interacted" from="Enemies/LivingArmorSpawnerButton" to="Enemies/LivingArmorSpawner" method="spawn_scene"]
