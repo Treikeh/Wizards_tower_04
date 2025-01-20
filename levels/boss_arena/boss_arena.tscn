@@ -20,9 +20,6 @@ glow_enabled = true
 
 [node name="BossArena" type="Node3D"]
 script = ExtResource("1_d1jrd")
-fireball_unlocked = false
-rock_wall_unlocked = false
-wind_blast_unlocked = false
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_yigib")

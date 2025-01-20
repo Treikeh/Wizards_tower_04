@@ -1,0 +1,190 @@
+[gd_scene load_steps=29 format=3 uid="uid://cscm07iintxhd"]
+
+[ext_resource type="Script" path="res://levels/level_3d.gd" id="1_5hjb2"]
+[ext_resource type="PackedScene" uid="uid://chw0vev703cjt" path="res://common/scenes/scene_spawner.tscn" id="2_4xdsy"]
+[ext_resource type="Material" uid="uid://pqlkm5aadfhn" path="res://common/materials/dev_grid_orange.tres" id="2_atc4e"]
+[ext_resource type="PackedScene" uid="uid://cbhabq5j0vtnr" path="res://entities/props/wooden_props/barrel/wooden_barrel.tscn" id="2_bv8w7"]
+[ext_resource type="Material" uid="uid://botmm8kkk1h67" path="res://common/materials/dev_grid_gray.tres" id="2_m12yk"]
+[ext_resource type="PackedScene" uid="uid://dh8dcfqs8vv8p" path="res://entities/player/player_controller.tscn" id="2_vbosa"]
+[ext_resource type="PackedScene" uid="uid://c21l6816x4oka" path="res://entities/interactables/button/standing_button.tscn" id="3_5yhwb"]
+[ext_resource type="PackedScene" uid="uid://862q5145e3uy" path="res://entities/props/wooden_props/chair/wooden_chair.tscn" id="3_ofj0x"]
+[ext_resource type="PackedScene" uid="uid://xxhxvfmbcxdw" path="res://entities/props/wooden_props/table/wooden_table.tscn" id="4_0jf04"]
+[ext_resource type="PackedScene" uid="uid://bdoipkh1hfkmm" path="res://entities/props/lights/candle/candle.tscn" id="5_qpv1q"]
+[ext_resource type="Material" uid="uid://uwtl3uvytx4g" path="res://common/materials/dev_grid_green.tres" id="6_sx1ik"]
+[ext_resource type="PackedScene" uid="uid://cxi6v661g084x" path="res://entities/pickups/spellbook/spellbook_pickup.tscn" id="6_tsqfk"]
+[ext_resource type="PackedScene" uid="uid://cj0ckw6b4kq8l" path="res://common/scenes/level_transtion_area_3d.tscn" id="12_5pukf"]
+[ext_resource type="Material" uid="uid://do2qv4y2sei0e" path="res://common/materials/dev_grid_black.tres" id="12_le4xk"]
+[ext_resource type="PackedScene" uid="uid://bdan64bohs08a" path="res://entities/interactables/sign/wooden_sign.tscn" id="14_u1ybs"]
+[ext_resource type="PackedScene" uid="uid://di7vp8irr7xdl" path="res://common/scenes/damage_area_3d.tscn" id="17_b7e50"]
+[ext_resource type="Material" uid="uid://dusegx7j0olth" path="res://entities/player/spells/rock_wall/resources/rock_wall_preview_cannot_spawn_mat.tres" id="18_3tha2"]
+[ext_resource type="Script" path="res://common/scripts/damage.gd" id="18_f8c2g"]
+[ext_resource type="PackedScene" uid="uid://exjnmfqooik7" path="res://entities/hazards/explosive_barrel/explosive_barrel.tscn" id="19_imr74"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_8ksd3"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_w046n"]
+sky_material = SubResource("ProceduralSkyMaterial_8ksd3")
+
+[sub_resource type="Environment" id="Environment_4v6j6"]
+background_mode = 2
+sky = SubResource("Sky_w046n")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="NavigationMesh" id="NavigationMesh_ni132"]
+vertices = PackedVector3Array(-6.5, 1, -6.5, -6.5, 1, 6.5, 6.5, 1, 6.5, 6.5, 1, -6.5)
+polygons = [PackedInt32Array(3, 2, 0), PackedInt32Array(0, 2, 1)]
+geometry_parsed_geometry_type = 1
+geometry_source_geometry_mode = 1
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_0pou3"]
+size = Vector3(1, 4, 2.5)
+
+[sub_resource type="BoxMesh" id="BoxMesh_xyxip"]
+size = Vector3(1, 4, 2.5)
+
+[sub_resource type="Resource" id="Resource_7xnej"]
+script = ExtResource("18_f8c2g")
+amount = 10.0
+type = 1
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_bhbd4"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_bxpty"]
+
+[node name="TestLevel01" type="Node3D"]
+script = ExtResource("1_5hjb2")
+fireball_unlocked = false
+rock_wall_unlocked = false
+wind_blast_unlocked = false
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_4v6j6")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 10, 0)
+shadow_enabled = true
+
+[node name="RigidbodyPlayer" parent="." instance=ExtResource("2_vbosa")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+
+[node name="MainFloor" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, -4)
+material_override = ExtResource("2_m12yk")
+use_collision = true
+size = Vector3(20, 1, 20)
+
+[node name="Enemies" type="Node3D" parent="."]
+
+[node name="NavigationRegion3D" type="NavigationRegion3D" parent="Enemies"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17, -0.5, -7)
+navigation_mesh = SubResource("NavigationMesh_ni132")
+
+[node name="EnemyFloor" type="CSGBox3D" parent="Enemies" groups=["navigation_mesh_source_group"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17, -0.5, -7)
+material_override = ExtResource("2_atc4e")
+use_collision = true
+size = Vector3(14, 1, 14)
+
+[node name="BookGnomeSpawner" parent="Enemies" instance=ExtResource("2_4xdsy")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 17, 4, -7)
+scene_to_spawn = "res://entities/enemies/book_gnome/book_gnome.tscn"
+
+[node name="BookGnomeSpawnerButton" parent="Enemies" instance=ExtResource("3_5yhwb")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 9.5, 0, -11)
+prompt = "Spawn book gnome"
+
+[node name="LivingArmorSpawner" parent="Enemies" instance=ExtResource("2_4xdsy")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 17, 4, -7)
+scene_to_spawn = "res://entities/enemies/living_armor/living_armor.tscn"
+
+[node name="LivingArmorSpawnerButton" parent="Enemies" instance=ExtResource("3_5yhwb")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 9.5, 0, -8)
+prompt = "Spawn living armor"
+
+[node name="Interactable" type="Node3D" parent="."]
+
+[node name="SpellBookTable" parent="Interactable" instance=ExtResource("4_0jf04")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -8, 0, -2.5)
+
+[node name="FireballPickup" parent="Interactable/SpellBookTable" instance=ExtResource("6_tsqfk")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.700001, 1, 0)
+
+[node name="RockWallPickup" parent="Interactable/SpellBookTable" instance=ExtResource("6_tsqfk")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 2.38419e-07, 1, 0)
+spell_to_unlock = "rock_wall"
+
+[node name="WindBlastPickup" parent="Interactable/SpellBookTable" instance=ExtResource("6_tsqfk")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -0.7, 1, 0)
+spell_to_unlock = "wind_blast"
+
+[node name="HealtHPoitionSpawner" parent="Interactable" instance=ExtResource("2_4xdsy")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -8, 0, -7.5)
+scene_to_spawn = "res://entities/pickups/health_potion/health_potion.tscn"
+spawn_on_ready = true
+
+[node name="HealthPotionSpawnButton" parent="Interactable" instance=ExtResource("3_5yhwb")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -7.5, 0, -6)
+prompt = "Spawn health potion"
+
+[node name="Props" type="Node3D" parent="."]
+
+[node name="PropsFloor" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 11)
+material_override = ExtResource("6_sx1ik")
+use_collision = true
+size = Vector3(10, 1, 10)
+
+[node name="WoodenBarrel" parent="Props" instance=ExtResource("2_bv8w7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.1, 0, 11.3)
+
+[node name="WoodenChair" parent="Props" instance=ExtResource("3_ofj0x")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.1, 0, 11.3)
+
+[node name="WoodenTable" parent="Props" instance=ExtResource("4_0jf04")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 11.3)
+
+[node name="Candle" parent="Props/WoodenTable" instance=ExtResource("5_qpv1q")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.79695, 0.9453, 0.242626)
+
+[node name="LevelTransition" type="Node3D" parent="."]
+
+[node name="LevelTranstionArea3D" parent="LevelTransition" instance=ExtResource("12_5pukf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9, 0.5, 3)
+level_path = "res://levels/dev_levels/test_level_02.tscn"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="LevelTransition/LevelTranstionArea3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+shape = SubResource("BoxShape3D_0pou3")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="LevelTransition/LevelTranstionArea3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+material_override = ExtResource("12_le4xk")
+mesh = SubResource("BoxMesh_xyxip")
+
+[node name="WoodenSign" parent="LevelTransition" instance=ExtResource("14_u1ybs")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 7, 0, 2)
+text = "Level transition test"
+
+[node name="VFX" type="Node3D" parent="."]
+
+[node name="DamageOverTimeArea" parent="." instance=ExtResource("17_b7e50")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 0.5, -12)
+damage = SubResource("Resource_7xnej")
+apply_over_time = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DamageOverTimeArea"]
+shape = SubResource("BoxShape3D_bhbd4")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="DamageOverTimeArea"]
+material_override = ExtResource("18_3tha2")
+mesh = SubResource("BoxMesh_bxpty")
+
+[node name="ExplosiveBarrel" parent="." instance=ExtResource("19_imr74")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 0, 3)
+
+[connection signal="interacted" from="Enemies/BookGnomeSpawnerButton" to="Enemies/BookGnomeSpawner" method="spawn_scene"]
+[connection signal="interacted" from="Enemies/LivingArmorSpawnerButton" to="Enemies/LivingArmorSpawner" method="spawn_scene"]
+[connection signal="interacted" from="Interactable/HealthPotionSpawnButton" to="Interactable/HealtHPoitionSpawner" method="spawn_scene"]

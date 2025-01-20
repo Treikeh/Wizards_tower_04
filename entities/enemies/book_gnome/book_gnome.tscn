@@ -71,6 +71,7 @@ viewport_path = NodePath("SubViewport")
 collision_layer = 8
 collision_mask = 15
 script = ExtResource("1_ucrke")
+max_speed = 4.5
 mesh = NodePath("book_gnome_01_sk")
 target_direction = NodePath("TargetDirection")
 beehave_tree = NodePath("BookGnomeTree")
@@ -166,7 +167,7 @@ script = ExtResource("11_qb3q8")
 
 [node name="AttackCooldown" type="Node" parent="BookGnomeTree/SelectorComposite/HasPlayerNode/SelectorComposite"]
 script = ExtResource("14_p8jne")
-wait_time = 1.5
+wait_time = 1.0
 
 [node name="Attack" type="Node" parent="BookGnomeTree/SelectorComposite/HasPlayerNode/SelectorComposite/AttackCooldown"]
 script = ExtResource("12_74elj")
@@ -184,7 +185,7 @@ script = ExtResource("12_74elj")
 
 [node name="InChaseRange" type="Node" parent="BookGnomeTree/SelectorComposite/HasPlayerNode/SelectorComposite/Chase"]
 script = ExtResource("16_vu0he")
-max_range = 15.0
+max_range = 25.0
 
 [node name="NavigateToTarget" type="Node" parent="BookGnomeTree/SelectorComposite/HasPlayerNode/SelectorComposite/Chase"]
 script = ExtResource("13_26kjk")

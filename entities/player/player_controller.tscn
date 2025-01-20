@@ -50,7 +50,6 @@ animation = &"wind_blast_001"
 [sub_resource type="AnimationNodeOneShot" id="AnimationNodeOneShot_2ywnk"]
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_vy1x0"]
-graph_offset = Vector2(-774.184, -144.84)
 nodes/Fireball/node = SubResource("AnimationNodeAnimation_dr8i2")
 nodes/Fireball/position = Vector2(-120, 340)
 nodes/Idle/node = SubResource("AnimationNodeAnimation_7jca0")

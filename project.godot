@@ -55,6 +55,7 @@ folder_colors={
 player=""
 nav_mesh=""
 enemy=""
+navigation_mesh_source_group=""
 
 [gui]
 
