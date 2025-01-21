@@ -11,11 +11,13 @@ radius = 0.1
 radius = 0.1
 height = 0.2
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_54fjm"]
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_3nxf7"]
 radius = 0.1
+height = 0.4
 
-[node name="Fireball" type="RigidBody3D"]
+[node name="Fireball" type="RigidBody3D" groups=["fireball"]]
 collision_layer = 32
+collision_mask = 3
 gravity_scale = 0.0
 contact_monitor = true
 max_contacts_reported = 1
@@ -33,7 +35,8 @@ collision_mask = 128
 damage = ExtResource("3_8owbw")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="DamageArea"]
-shape = SubResource("SphereShape3D_54fjm")
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, -0.1)
+shape = SubResource("CapsuleShape3D_3nxf7")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="collided_with_health_area" from="DamageArea" to="." method="_on_damage_area_collided_with_health_area"]

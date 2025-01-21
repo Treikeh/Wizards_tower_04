@@ -4,7 +4,6 @@
 [ext_resource type="PackedScene" uid="uid://ddufakdkmxhwr" path="res://common/scenes/health_area_3d.tscn" id="2_imdi2"]
 [ext_resource type="Script" path="res://common/scripts/health.gd" id="3_5nyv3"]
 [ext_resource type="Resource" uid="uid://ddwge00ixpgh1" path="res://entities/player/spells/rock_wall/resources/rock_wall_explosion_damage.tres" id="4_1d6k7"]
-[ext_resource type="PackedScene" uid="uid://xl1x86mw45ri" path="res://common/scenes/explosion_area_3d.tscn" id="5_34713"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_uv1ks"]
 radius = 0.1
@@ -101,6 +100,30 @@ tracks/5/keys = {
 "update": 1,
 "values": [false]
 }
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("ExplosionArea:visible")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("ExplosionArea/ExplosionCollision:disabled")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
 
 [sub_resource type="Animation" id="Animation_vxmtp"]
 resource_name = "destroyed"
@@ -153,6 +176,98 @@ tracks/3/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [true]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("ExplosionArea/ExplosionCollision:disabled")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_niy6s"]
+resource_name = "explode"
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.0333333, 1),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": [],
+"method": &"deal_explosion_damage"
+}, {
+"args": [],
+"method": &"queue_free"
+}]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("WallCollision:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("LaunchBody/LaunchBodyCollision:disabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("LaunchBodyTransform/HealthArea/HealthAreaCollision:disabled")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("ExplosionArea:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("ExplosionArea/ExplosionCollision:disabled")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
 }
 
 [sub_resource type="Animation" id="Animation_7onb7"]
@@ -225,18 +340,18 @@ tracks/4/keys = {
 _data = {
 "RESET": SubResource("Animation_4wp80"),
 "destroyed": SubResource("Animation_vxmtp"),
+"explode": SubResource("Animation_niy6s"),
 "spawn": SubResource("Animation_7onb7")
 }
 
-[node name="RockWall" type="CharacterBody3D" node_paths=PackedStringArray("enemy_launch_area", "explosion_area", "animation_player", "duration_timer")]
+[node name="RockWall" type="CharacterBody3D" node_paths=PackedStringArray("duration_timer")]
 collision_layer = 32
 collision_mask = 9
 floor_max_angle = 0.261799
 floor_snap_length = 0.5
 script = ExtResource("1_3mufw")
-enemy_launch_area = NodePath("LaunchBody/EnemyLaunchArea")
-explosion_area = NodePath("ExplosionArea")
-animation_player = NodePath("AnimationPlayer")
+explosion_vfx_scene = "res://common/vfx/explosion/explosion_vfx.tscn"
+explosion_damage = ExtResource("4_1d6k7")
 duration_timer = NodePath("Timer")
 
 [node name="WallCollision" type="CollisionShape3D" parent="."]
@@ -264,7 +379,6 @@ shape = SubResource("BoxShape3D_2okjq")
 
 [node name="Health" type="Node" parent="LaunchBodyTransform/HealthArea"]
 script = ExtResource("3_5nyv3")
-fire_resistance = 50.0
 
 [node name="LaunchBody" type="AnimatableBody3D" parent="."]
 collision_layer = 256
@@ -276,6 +390,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("BoxShape3D_0uc3d")
 
 [node name="EnemyLaunchArea" type="Area3D" parent="LaunchBody"]
+unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
 collision_layer = 0
 collision_mask = 8
@@ -285,12 +400,25 @@ monitorable = false
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0)
 shape = SubResource("BoxShape3D_s7pmr")
 
-[node name="ExplosionArea" parent="." instance=ExtResource("5_34713")]
-damage = ExtResource("4_1d6k7")
+[node name="ExplosionArea" type="Area3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+visible = false
+collision_layer = 0
+collision_mask = 192
+monitorable = false
 
 [node name="ExplosionCollision" type="CollisionShape3D" parent="ExplosionArea"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("SphereShape3D_08y1q")
+disabled = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+unique_name_in_owner = true
+callback_mode_process = 0
+libraries = {
+"": SubResource("AnimationLibrary_hck4l")
+}
+autoplay = "spawn"
 
 [node name="Timer" type="Timer" parent="."]
 process_callback = 0
@@ -298,13 +426,7 @@ wait_time = 10.0
 one_shot = true
 autostart = true
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-callback_mode_process = 0
-libraries = {
-"": SubResource("AnimationLibrary_hck4l")
-}
-autoplay = "spawn"
-
 [connection signal="body_entered" from="LaunchBodyTransform/HealthArea" to="." method="_on_health_area_body_entered"]
+[connection signal="damage_recived" from="LaunchBodyTransform/HealthArea" to="." method="_on_health_area_damage_recived"]
 [connection signal="health_depleted" from="LaunchBodyTransform/HealthArea/Health" to="." method="_on_health_depleted"]
 [connection signal="timeout" from="Timer" to="." method="_on_duration_timer_timeout"]

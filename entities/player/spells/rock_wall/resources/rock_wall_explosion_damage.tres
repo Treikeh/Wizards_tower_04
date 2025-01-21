@@ -5,4 +5,4 @@
 [resource]
 script = ExtResource("1_x01i4")
 amount = 50.0
-type = 1
+type = 2

@@ -2,18 +2,28 @@ class_name Health
 extends Node
 
 
+## Emitted when damage has been registered but before damage resistance is applied.
+## Will not emit after health has dropped below
+signal damage_taken(damage: Damage)
 ## Emitted when health is changed. Usefull for updating other nodes like the UI or enemy behaviour
 signal health_changed(current_health: float, max_health: float)
-## Emitted when health <= 0.0 (Owner is dead).
+## Emitted when current_health drops below 0.0
 signal health_depleted
 
 
 @export var max_health: float = 100.0
-## How many % to reduce or increase (if negative) incoming physical damage by. Will be healed if over 100.0
 #NOTE: Might change from resistance to mult since it's easier to work with
+## How many % to reduce or increase (if negative) incoming physical damage by.
+## Will be healed if over 100.0
 @export var physical_resistance: float = 0.0
-## How many % to reduce or increase (if negative) incoming fire damage by. Will be healed if over 100.0
+## How many % to reduce or increase (if negative) incoming fire damage by.
+## Will be healed if over 100.0
 @export var fire_resistance: float = 0.0
+## How many % to reduce or increase (if negative) incoming Explosive damage by.
+## Will be healed if over 100.0
+@export var explosive_resistance: float = 0.0
+## How many % to reduce or increase (if negative) incoming healing damage by.
+## Will be healed if over 100.0
 @export var healing_resistance: float = 200.0
 
 var is_dead: bool = false
@@ -27,12 +37,13 @@ func _ready() -> void:
 func take_damage(damage: Damage) -> void:
 	if is_dead:
 		return
-	var damage_taken: float = _apply_damage_resistance(damage)
-	current_health -= damage_taken
+	damage_taken.emit(damage)
+	var modified_damage: float = _apply_damage_resistance(damage)
+	current_health -= modified_damage
 	health_changed.emit(current_health, max_health)
 	if current_health <= 0.0:
-		health_depleted.emit()
 		is_dead = true
+		health_depleted.emit()
 	# Stop current health from being greater thatn max_health
 	elif current_health > max_health:
 		current_health = max_health
@@ -44,6 +55,8 @@ func _apply_damage_resistance(damage: Damage) -> float:
 			return damage.amount * _resistance_to_mult(physical_resistance)
 		Damage.Type.FIRE:
 			return damage.amount * _resistance_to_mult(fire_resistance)
+		Damage.Type.EXPLOSIVE:
+			return damage.amount * _resistance_to_mult(explosive_resistance)
 		Damage.Type.HEALING:
 			return damage.amount * _resistance_to_mult(healing_resistance)
 	return damage.amount

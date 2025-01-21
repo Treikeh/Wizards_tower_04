@@ -67,20 +67,24 @@ size = Vector3(0.5, 0.7, 0.5)
 [sub_resource type="ViewportTexture" id="ViewportTexture_cuy2h"]
 viewport_path = NodePath("SubViewport")
 
-[node name="BookGnome" type="CharacterBody3D" node_paths=PackedStringArray("mesh", "target_direction", "beehave_tree", "animation_tree", "nav_agent") groups=["enemy"]]
+[node name="BookGnome" type="CharacterBody3D" node_paths=PackedStringArray("mesh", "target_direction", "animation_tree", "beehave_tree", "nav_agent") groups=["enemy"]]
 collision_layer = 8
-collision_mask = 15
+collision_mask = 271
 script = ExtResource("1_ucrke")
 max_speed = 4.5
 mesh = NodePath("book_gnome_01_sk")
 target_direction = NodePath("TargetDirection")
-beehave_tree = NodePath("BookGnomeTree")
 animation_tree = NodePath("book_gnome_01_sk/AnimationTree")
+beehave_tree = NodePath("BookGnomeTree")
 nav_agent = NodePath("NavigationAgent3D")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.55, 0)
 shape = SubResource("CapsuleShape3D_kgyn0")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+path_height_offset = 1.0
+debug_enabled = true
 
 [node name="TargetDirection" type="Node3D" parent="."]
 
@@ -134,10 +138,6 @@ damage = ExtResource("5_rq5px")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.55, -0.5)
 shape = SubResource("BoxShape3D_xk6ae")
 disabled = true
-
-[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
-path_height_offset = 1.0
-debug_enabled = true
 
 [node name="Health" type="Node" parent="."]
 script = ExtResource("4_ejrbm")

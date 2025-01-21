@@ -105,7 +105,7 @@ shadow_enabled = true
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
 navigation_mesh = SubResource("NavigationMesh_f6871")
 
-[node name="tutorial_layout" parent="." groups=["nav_mesh"] instance=ExtResource("6_wuqgg")]
+[node name="tutorial_layout" parent="." instance=ExtResource("6_wuqgg")]
 
 [node name="LevelTranstionArea3D" parent="tutorial_layout" instance=ExtResource("11_yiblw")]
 transform = Transform3D(0.866025, 0, 0.5, 0, 1, 0, -0.5, 0, 0.866025, -74, -5.4, -239.22)

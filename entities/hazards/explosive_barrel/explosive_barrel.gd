@@ -1,13 +1,18 @@
 extends Node3D
 
 
-@export_file("*.tscn") var explosion_vfx_scene: String
+@export_group("Nodes")
+@export var explosion_area: Area3D
+@export var health_area: HealthArea3D
+@export var explosion_delay: Timer
 
 
-func _on_health_area_3d_damage_recived(damage: Damage) -> void:
-	match damage.type:
-		Damage.Type.FIRE:
-			var vfx: GPUParticles3D = Globals.main_scene.add_3d_scene(explosion_vfx_scene, global_position)
-			vfx.finished.connect(vfx.queue_free)
-			vfx.restart()
-			queue_free()
+func _on_health_health_depleted() -> void:
+	# A small delay before the barrel explodes to avoid having every barrel in its radius explode ->
+	# <- at the same time
+	explosion_delay.start(0.0)
+
+
+func _on_explosion_delay_timeout() -> void:
+	explosion_area.trigger()
+	queue_free()

@@ -4,6 +4,7 @@ extends Area3D
 
 
 ## Emitted when this Hurtbox collides with a Hitbox.
+#TODO: Find a better name
 signal collided_with_health_area(health_area: HealthArea3D)
 
 
@@ -20,13 +21,12 @@ func _process(delta: float) -> void:
 			if area is HealthArea3D:
 				var scaled_damage: Damage = damage.duplicate()
 				scaled_damage.amount *= delta
-				area.recive_damage(scaled_damage)
+				area.recive_damage(scaled_damage, false)
 
 
 func _on_area_entered(area: Area3D) -> void:
 	if area is HealthArea3D and not apply_over_time:
 		# Duplicating damage resource to avoid permanently changing damage.amount if it hits a -
 		# - HealthArea3D with a damage sacle other than 1.0
-		var duped_damage: Damage = damage.duplicate()
-		area.recive_damage(duped_damage)
 		collided_with_health_area.emit(area)
+		area.recive_damage(damage)

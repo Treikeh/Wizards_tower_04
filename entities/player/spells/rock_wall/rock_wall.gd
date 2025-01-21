@@ -1,22 +1,19 @@
 extends CharacterBody3D
 
 
-@export_file("*.tscn") var explosion_vfx_scene: String
+## How fast the wall will move when hit by the wind blast spell
 @export var wind_blast_force: float = 7.5
-## How long the rock wall will be in the scene before despawning
-@export var lifetime: float = 10.0
-@export var explosion_damage: Damage
+## How long it will take for the wall to explode when hit with the fireball spell (when stationary)
+@export var explosion_delay: float = 3.0
 
-# Explosion
-var is_timed_explosion: bool = false
-var timed_explosion_duration: float = 5.0
-## Minnimum amount of damage needed to trigger explosion
-var damage_threshold: float = 10.0
+var ready_to_explode: bool = false
 
-
-func _ready() -> void:
-	# Despawwn wall after duration runs out
-	get_tree().create_timer(lifetime).timeout.connect(spell_duration_over)
+@export_group("Nodes")
+@export var enemy_launch_area: Area3D
+@export var explosion_area: Area3D
+## Timer to manage how long the spell will remain in the scene
+@export var duration_timer: Timer
+@export var animation_player: AnimationPlayer
 
 
 @warning_ignore("unused_parameter")
@@ -26,13 +23,16 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 
 
-# When spell duration ends
-func spell_duration_over() -> void:
-	_on_health_depleted()
+# Despawn or explode wall when timer is done
+func _on_duration_timer_timeout() -> void:
+	if ready_to_explode:
+		_explode()
+	else:
+		_on_health_depleted()
 
 
 func _launch_enemies()-> void:
-	var overlapping_enemies: Array[Node3D] = %EnemyLaunchArea.get_overlapping_bodies()
+	var overlapping_enemies: Array[Node3D] = enemy_launch_area.get_overlapping_bodies()
 	for body in overlapping_enemies:
 		if body is Enemy:
 			body.recive_knockback(Vector3.UP, 7.5)
@@ -41,51 +41,29 @@ func _launch_enemies()-> void:
 #TODO: Find a better way to do this
 func recive_knockback(direction: Vector3) -> void:
 	velocity = Vector3(direction.x, 0.0, direction.z).normalized() * wind_blast_force
-	is_timed_explosion = true
+	ready_to_explode = true
 	# Add damage to movement
 
 
 func _explode() -> void:
-	var vfx: GPUParticles3D = Globals.main_scene.add_3d_scene(explosion_vfx_scene, global_position)
-	vfx.finished.connect(vfx.queue_free)
-	#TODO: Scale vfx to match explosion damage area
-	vfx.restart()
-	%AnimationPlayer.play("explode")
-
-
-#TODO: Find a better name for function
-func deal_explosion_damage() -> void:
-	# Explosion damage
-	var damaged_health_nodes: Array[Health] = []
-	var overlapping_areas: Array[Area3D] = %ExplosionArea.get_overlapping_areas()
-	for area in overlapping_areas:
-		if area is HealthArea3D:
-			# Check if the health_node of the hurtbox has allready been hit
-			if damaged_health_nodes.has(area.health_node):
-				return
-			#TODO: Line of sight check
-			#TODO: Scale damage based on distance form center
-			var duped_damage: Damage = explosion_damage.duplicate()
-			area.recive_damage(duped_damage)
-			damaged_health_nodes.append(area.health_node)
+	explosion_area.trigger()
+	_on_health_depleted()
 
 
 #region Health
 
 # When wall health is depleted
 func _on_health_depleted() -> void:
-	%AnimationPlayer.play("destroyed")
+	animation_player.play("destroyed")
 
 
-func _on_health_area_damage_recived(damage: Damage) -> void:
-	match damage.type:
-		Damage.Type.FIRE:
-			if damage.amount < damage_threshold:
-				return
-			if !is_timed_explosion:
-				is_timed_explosion = true
-				get_tree().create_timer(timed_explosion_duration).timeout.connect(_explode)
-			else:
-				_explode()
+func _on_health_area_body_entered(body: Node3D) -> void:
+	if body.is_in_group("fireball"):
+		if ready_to_explode:
+			_explode()
+		else:
+			ready_to_explode = true
+			duration_timer.wait_time = explosion_delay
+			duration_timer.start(0.0)
 
 #endregion

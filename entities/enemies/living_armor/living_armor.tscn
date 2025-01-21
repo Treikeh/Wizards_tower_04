@@ -74,15 +74,26 @@ _data = {
 [sub_resource type="ViewportTexture" id="ViewportTexture_arqjo"]
 viewport_path = NodePath("SubViewport")
 
-[node name="LivingArmor" type="CharacterBody3D" node_paths=PackedStringArray("nav_agent") groups=["enemy"]]
+[node name="LivingArmor" type="CharacterBody3D" node_paths=PackedStringArray("mesh", "target_direction", "animation_player", "beehave_tree", "nav_agent") groups=["enemy"]]
 collision_layer = 8
-collision_mask = 15
+collision_mask = 271
 script = ExtResource("1_06wta")
+mesh = NodePath("Mesh")
+target_direction = NodePath("TargetDirection")
+animation_player = NodePath("Mesh/AnimationPlayer")
+beehave_tree = NodePath("BeehaveTree")
 nav_agent = NodePath("NavigationAgent3D")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, 0)
 shape = SubResource("CapsuleShape3D_7ua38")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+target_desired_distance = 2.0
+path_height_offset = 0.5
+debug_enabled = true
+
+[node name="TargetDirection" type="Node3D" parent="."]
 
 [node name="Mesh" type="Node3D" parent="."]
 unique_name_in_owner = true
@@ -120,18 +131,13 @@ libraries = {
 "": SubResource("AnimationLibrary_847wy")
 }
 
-[node name="FloatingHealthBar" parent="." instance=ExtResource("1_2e566")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.9, 0)
-texture = SubResource("ViewportTexture_arqjo")
-
 [node name="Health" type="Node" parent="."]
 script = ExtResource("2_6r6ee")
 max_health = 50.0
 
-[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
-target_desired_distance = 2.0
-path_height_offset = 0.5
-debug_enabled = true
+[node name="FloatingHealthBar" parent="." instance=ExtResource("1_2e566")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.9, 0)
+texture = SubResource("ViewportTexture_arqjo")
 
 [node name="BeehaveTree" type="Node" parent="." node_paths=PackedStringArray("blackboard", "actor")]
 script = ExtResource("7_xq1dp")
@@ -143,6 +149,9 @@ script = ExtResource("8_byj3e")
 
 [node name="Blackboard" type="Node" parent="."]
 script = ExtResource("9_pylr6")
+blackboard = {
+"target": null
+}
 
 [connection signal="health_changed" from="Health" to="FloatingHealthBar" method="_on_health_changed"]
 [connection signal="health_depleted" from="Health" to="." method="_on_health_depleted"]

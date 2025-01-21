@@ -7,7 +7,7 @@ extends Control
 
 @warning_ignore("unused_parameter")
 func _process(delta: float) -> void:
-	if Input.is_action_just_pressed("ui_cancel"):
+	if Input.is_action_just_pressed("ui_cancel") and visible:
 		_resume_game()
 
 

@@ -6,7 +6,7 @@
 [ext_resource type="Script" path="res://entities/player/scripts/player_camera.gd" id="2_kvlkg"]
 [ext_resource type="Script" path="res://entities/player/scripts/player_interact_ray.gd" id="3_6mksv"]
 [ext_resource type="PackedScene" uid="uid://dn2jwre4f6j4e" path="res://entities/player/viewmodel/viewmodel_01_sk.glb" id="4_t6a4j"]
-[ext_resource type="PackedScene" uid="uid://cavgwqcbmxw3w" path="res://entities/player/spellray.tscn" id="6_urw7v"]
+[ext_resource type="PackedScene" uid="uid://cavgwqcbmxw3w" path="res://entities/player/spell_manager.tscn" id="6_urw7v"]
 [ext_resource type="Script" path="res://common/scripts/health.gd" id="7_s4lvk"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_ebie1"]
@@ -70,9 +70,9 @@ nodes/wind_blast_oneshot/node = SubResource("AnimationNodeOneShot_2ywnk")
 nodes/wind_blast_oneshot/position = Vector2(-360, 20)
 node_connections = [&"fireball_oneshot", 0, &"rock_wall_oneshot", &"fireball_oneshot", 1, &"Fireball", &"output", 0, &"fireball_oneshot", &"reset_idle_blend", 0, &"RESET", &"reset_idle_blend", 1, &"Idle", &"rock_wall_oneshot", 0, &"wind_blast_oneshot", &"rock_wall_oneshot", 1, &"Rock_wall", &"wind_blast_oneshot", 0, &"reset_idle_blend", &"wind_blast_oneshot", 1, &"Wind_blast"]
 
-[node name="RigidbodyPlayer" type="RigidBody3D" node_paths=PackedStringArray("orientation", "head", "camera", "ground_check", "interact_ray", "spell_ray", "animation_tree") groups=["player"]]
+[node name="RigidbodyPlayer" type="RigidBody3D" node_paths=PackedStringArray("orientation", "head", "camera", "ground_check", "interact_ray", "spell_manager", "animation_tree") groups=["player"]]
 collision_layer = 4
-collision_mask = 15
+collision_mask = 271
 physics_material_override = SubResource("PhysicsMaterial_ebie1")
 lock_rotation = true
 script = ExtResource("1_ck1rn")
@@ -84,7 +84,7 @@ head = NodePath("Orientation/Head")
 camera = NodePath("Orientation/Head/Camera")
 ground_check = NodePath("GroundCheck")
 interact_ray = NodePath("Orientation/Head/InteractRay")
-spell_ray = NodePath("Orientation/Head/SpellRay")
+spell_manager = NodePath("Orientation/Head/SpellManager")
 animation_tree = NodePath("Orientation/Head/viewmodel_01_sk/AnimationTree")
 
 [node name="StandingCollision" type="CollisionShape3D" parent="."]
@@ -147,18 +147,18 @@ script = ExtResource("2_kvlkg")
 
 [node name="InteractRay" type="RayCast3D" parent="Orientation/Head"]
 target_position = Vector3(0, 0, -1.7)
-collision_mask = 19
+collision_mask = 275
 collide_with_areas = true
 debug_shape_custom_color = Color(1, 0, 0, 1)
 debug_shape_thickness = 1
 script = ExtResource("3_6mksv")
 
-[node name="SpellRay" parent="Orientation/Head" node_paths=PackedStringArray("orientation") instance=ExtResource("6_urw7v")]
+[node name="SpellManager" parent="Orientation/Head" node_paths=PackedStringArray("orientation") instance=ExtResource("6_urw7v")]
 orientation = NodePath("../..")
 
 [node name="GroundCheck" type="RayCast3D" parent="."]
 target_position = Vector3(0, -1.5, 0)
-collision_mask = 3
+collision_mask = 259
 
 [node name="Health" type="Node" parent="."]
 script = ExtResource("7_s4lvk")

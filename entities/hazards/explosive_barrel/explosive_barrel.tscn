@@ -1,21 +1,28 @@
-[gd_scene load_steps=8 format=3 uid="uid://exjnmfqooik7"]
+[gd_scene load_steps=11 format=3 uid="uid://exjnmfqooik7"]
 
 [ext_resource type="Script" path="res://entities/hazards/explosive_barrel/explosive_barrel.gd" id="1_1mcf7"]
 [ext_resource type="Material" uid="uid://c4eykp21shtlp" path="res://common/materials/dev_grid_red.tres" id="2_kme22"]
 [ext_resource type="PackedScene" uid="uid://bx8bd014w1ar7" path="res://entities/props/wooden_props/barrel/mesh/wooden_barrel_01_sm.glb" id="2_xro8i"]
 [ext_resource type="PackedScene" uid="uid://ddufakdkmxhwr" path="res://common/scenes/health_area_3d.tscn" id="3_ljiqa"]
 [ext_resource type="Script" path="res://common/scripts/health.gd" id="5_4nupu"]
+[ext_resource type="Resource" uid="uid://bjo5hgv6bn8ly" path="res://entities/hazards/explosive_barrel/explosive_barrel_damage.tres" id="5_i6ro4"]
+[ext_resource type="PackedScene" uid="uid://xl1x86mw45ri" path="res://common/scenes/explosion_area_3d.tscn" id="6_q2a43"]
 
 [sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_2pqm0"]
 data = PackedVector3Array(0, 0.5, -0.4548, 0.261, 1, -0.261, 0, 1, -0.3691, 0, 0.5, -0.4548, 0.3216, 0.5, -0.3216, 0.261, 1, -0.261, 0.3216, 0.5, -0.3216, 0.3691, 1, 0, 0.261, 1, -0.261, 0.3216, 0.5, -0.3216, 0.4548, 0.5, 0, 0.3691, 1, 0, 0.4548, 0.5, 0, 0.261, 1, 0.261, 0.3691, 1, 0, 0.4548, 0.5, 0, 0.3216, 0.5, 0.3216, 0.261, 1, 0.261, 0.3216, 0.5, 0.3216, 0, 1, 0.3691, 0.261, 1, 0.261, 0.3216, 0.5, 0.3216, 0, 0.5, 0.4548, 0, 1, 0.3691, 0, 0.5, 0.4548, -0.261, 1, 0.261, 0, 1, 0.3691, 0, 0.5, 0.4548, -0.3216, 0.5, 0.3216, -0.261, 1, 0.261, -0.3216, 0.5, 0.3216, -0.3691, 1, 0, -0.261, 1, 0.261, -0.3216, 0.5, 0.3216, -0.4548, 0.5, 0, -0.3691, 1, 0, 0.3691, 1, 0, 0, 1, -0.3691, 0.261, 1, -0.261, 0, 1, -0.3691, -0.3691, 1, 0, -0.261, 1, -0.261, -0.3691, 1, 0, 0, 1, 0.3691, -0.261, 1, 0.261, 0, 1, 0.3691, 0.3691, 1, 0, 0.261, 1, 0.261, 0.3691, 1, 0, -0.3691, 1, 0, 0, 1, -0.3691, -0.3691, 1, 0, 0.3691, 1, 0, 0, 1, 0.3691, -0.4548, 0.5, 0, -0.261, 1, -0.261, -0.3691, 1, 0, -0.4548, 0.5, 0, -0.3216, 0.5, -0.3216, -0.261, 1, -0.261, -0.3216, 0.5, -0.3216, 0, 1, -0.3691, -0.261, 1, -0.261, -0.3216, 0.5, -0.3216, 0, 0.5, -0.4548, 0, 1, -0.3691, -0.261, 0, -0.261, 0.261, 0, -0.261, 0, 0, -0.3691, 0.261, 0, -0.261, 0.261, 0, 0.261, 0.3691, 0, 0, 0.261, 0, 0.261, -0.261, 0, 0.261, 0, 0, 0.3691, -0.261, 0, 0.261, -0.261, 0, -0.261, -0.3691, 0, 0, -0.261, 0, -0.261, 0.261, 0, 0.261, 0.261, 0, -0.261, 0.261, 0, 0.261, -0.261, 0, -0.261, -0.261, 0, 0.261, -0.261, 0, -0.261, 0, 0.5, -0.4548, -0.3216, 0.5, -0.3216, -0.261, 0, -0.261, 0, 0, -0.3691, 0, 0.5, -0.4548, -0.3691, 0, 0, -0.3216, 0.5, -0.3216, -0.4548, 0.5, 0, -0.3691, 0, 0, -0.261, 0, -0.261, -0.3216, 0.5, -0.3216, -0.261, 0, 0.261, -0.4548, 0.5, 0, -0.3216, 0.5, 0.3216, -0.261, 0, 0.261, -0.3691, 0, 0, -0.4548, 0.5, 0, 0, 0, 0.3691, -0.3216, 0.5, 0.3216, 0, 0.5, 0.4548, 0, 0, 0.3691, -0.261, 0, 0.261, -0.3216, 0.5, 0.3216, 0.261, 0, 0.261, 0, 0.5, 0.4548, 0.3216, 0.5, 0.3216, 0.261, 0, 0.261, 0, 0, 0.3691, 0, 0.5, 0.4548, 0.3691, 0, 0, 0.3216, 0.5, 0.3216, 0.4548, 0.5, 0, 0.3691, 0, 0, 0.261, 0, 0.261, 0.3216, 0.5, 0.3216, 0.261, 0, -0.261, 0.4548, 0.5, 0, 0.3216, 0.5, -0.3216, 0.261, 0, -0.261, 0.3691, 0, 0, 0.4548, 0.5, 0, 0, 0, -0.3691, 0.3216, 0.5, -0.3216, 0, 0.5, -0.4548, 0, 0, -0.3691, 0.261, 0, -0.261, 0.3216, 0.5, -0.3216)
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_5u3vp"]
+radius = 3.5
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_n8ylb"]
 height = 1.0
 radius = 0.444625
 
-[node name="ExplosiveBarrel" type="StaticBody3D"]
+[node name="ExplosiveBarrel" type="StaticBody3D" node_paths=PackedStringArray("explosion_area", "health_area", "explosion_delay")]
 script = ExtResource("1_1mcf7")
-explosion_vfx_scene = "res://common/vfx/explosion/explosion_vfx.tscn"
+explosion_area = NodePath("ExplosionArea3D")
+health_area = NodePath("HealthArea3D")
+explosion_delay = NodePath("ExplosionDelay")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("ConcavePolygonShape3D_2pqm0")
@@ -24,6 +31,13 @@ shape = SubResource("ConcavePolygonShape3D_2pqm0")
 
 [node name="wooden_barrel_mesh_001" parent="wooden_barrel_01_sm" index="0"]
 material_override = ExtResource("2_kme22")
+
+[node name="ExplosionArea3D" parent="." instance=ExtResource("6_q2a43")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+damage = ExtResource("5_i6ro4")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ExplosionArea3D"]
+shape = SubResource("SphereShape3D_5u3vp")
 
 [node name="HealthArea3D" parent="." node_paths=PackedStringArray("health_node") instance=ExtResource("3_ljiqa")]
 health_node = NodePath("Health")
@@ -34,7 +48,15 @@ shape = SubResource("CylinderShape3D_n8ylb")
 
 [node name="Health" type="Node" parent="HealthArea3D"]
 script = ExtResource("5_4nupu")
+max_health = 10.0
+physical_resistance = 100.0
+healing_resistance = 100.0
 
-[connection signal="damage_recived" from="HealthArea3D" to="." method="_on_health_area_3d_damage_recived"]
+[node name="ExplosionDelay" type="Timer" parent="."]
+wait_time = 0.25
+one_shot = true
+
+[connection signal="health_depleted" from="HealthArea3D/Health" to="." method="_on_health_health_depleted"]
+[connection signal="timeout" from="ExplosionDelay" to="." method="_on_explosion_delay_timeout"]
 
 [editable path="wooden_barrel_01_sm"]

@@ -5,6 +5,7 @@ extends Resource
 enum Type {
 	PHYSICAL,
 	FIRE,
+	EXPLOSIVE,
 	HEALING,
 }
 

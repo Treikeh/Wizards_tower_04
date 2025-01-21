@@ -1,4 +1,4 @@
-extends RayCast3D
+extends Node3D
 
 
 ## Players orientation node. Used to orient Rock wall spell
@@ -10,10 +10,10 @@ func _physics_process(delta: float) -> void:
 	if rock_wall_preview != null:
 		# Set rock wall preview transform
 		rock_wall_preview.global_rotation = orientation.global_rotation
-		if is_colliding():
-			var hit_distance: float = global_position.distance_to(get_collision_point())
+		if rock_wall_ray.is_colliding():
+			var hit_distance: float = global_position.distance_to(rock_wall_ray.get_collision_point())
 			if hit_distance < rock_wall_range:
-				rock_wall_preview.global_position = get_collision_point()
+				rock_wall_preview.global_position = rock_wall_ray.get_collision_point()
 			else:
 				rock_wall_preview.global_position = global_position
 
@@ -22,6 +22,7 @@ func _physics_process(delta: float) -> void:
 
 @export_group("Fireball")
 @export var fireball_cooldown: float = 0.1
+@export var fireball_ray: RayCast3D
 var can_fireball: bool = true
 var fireball_scene: PackedScene = preload("res://entities/player/spells/fireball/fireball.tscn")
 
@@ -55,6 +56,7 @@ func cast_fireball() -> void:
 @export var rock_wall_cooldown: float = 0.5
 ## How far away from the player the rock wall can be spawned
 @export var rock_wall_range: float = 5.0
+@export var rock_wall_ray: RayCast3D
 ## If the palyer can cast the rock wall
 var can_rock_wall: bool = true
 var rock_wall_scene: PackedScene = preload("res://entities/player/spells/rock_wall/rock_wall.tscn")
@@ -76,7 +78,7 @@ func spawn_rock_wall() -> void:
 		return
 	# Make sure there's enough space for the wall to spawn
 	#TODO: Add distance check to is_colliding part
-	elif not rock_wall_preview.enough_space or not is_colliding():
+	elif not rock_wall_preview.enough_space or not rock_wall_ray.is_colliding():
 		# Despawn rock wall preview
 		rock_wall_preview.queue_free()
 		return
@@ -104,6 +106,7 @@ func spawn_rock_wall() -> void:
 @export_group("Wind blast")
 @export var wind_blast_force: float = 25.0
 @export var wind_blast_cooldown: float = 0.1
+@export var wind_blast_area: Area3D
 var can_wind_blast: bool = true
 var wind_blast_effect_scene: PackedScene = preload("res://entities/player/spells/wind_blast/wind_blast_effect.tscn")
 
@@ -111,7 +114,7 @@ var wind_blast_effect_scene: PackedScene = preload("res://entities/player/spells
 func cast_wind_blast() -> void:
 	if can_wind_blast:
 		# Check for bodies in wind_blast area
-		for body in %WindBlastArea.get_overlapping_bodies():
+		for body in wind_blast_area.get_overlapping_bodies():
 			print(body)
 			if body is RigidBody3D:
 				body.apply_central_impulse(-global_basis.z * wind_blast_force * body.mass)

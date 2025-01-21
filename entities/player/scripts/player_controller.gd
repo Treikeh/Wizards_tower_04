@@ -32,7 +32,7 @@ var check_for_ground: bool = true
 @export var camera: Camera3D
 @export var ground_check: RayCast3D
 @export var interact_ray: RayCast3D
-@export var spell_ray: RayCast3D
+@export var spell_manager: Node3D
 @export var animation_tree: AnimationTree
 
 
@@ -69,19 +69,19 @@ func _input(event: InputEvent) -> void:
 		
 		# Spell inputs
 		if event.is_action_pressed("fireball") and Globals.fireball_unlocked:
-			spell_ray.cast_fireball()
+			spell_manager.cast_fireball()
 			animation_tree.set("parameters/fireball_oneshot/request", AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE)
 		
 		if event.is_action_pressed("rock_wall") and Globals.rock_wall_unlocked:
 			# Spawn rock wall preview
-			spell_ray.spawn_rock_wall_preview()
+			spell_manager.spawn_rock_wall_preview()
 		elif event.is_action_released("rock_wall") and Globals.rock_wall_unlocked:
 			# Spawn rock wall
-			spell_ray.spawn_rock_wall()
+			spell_manager.spawn_rock_wall()
 			animation_tree.set("parameters/rock_wall_oneshot/request", AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE)
 		
 		if event.is_action_pressed("wind_blast") and Globals.wind_blast_unlocked:
-			spell_ray.cast_wind_blast()
+			spell_manager.cast_wind_blast()
 			animation_tree.set("parameters/wind_blast_oneshot/request", AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE)
 		
 		# Get move_input

@@ -8,8 +8,8 @@ extends Enemy
 @export_group("Nodes")
 @export var mesh: Node3D
 @export var target_direction: Node3D
-@export var beehave_tree: BeehaveTree
 @export var animation_tree: AnimationTree
+@export var beehave_tree: BeehaveTree
 
 
 @warning_ignore("unused_parameter")

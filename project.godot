@@ -53,9 +53,9 @@ folder_colors={
 [global_group]
 
 player=""
-nav_mesh=""
 enemy=""
 navigation_mesh_source_group=""
+fireball=""
 
 [gui]
 
@@ -111,8 +111,8 @@ wind_blast={
 
 [layer_names]
 
-3d_physics/layer_1="walkable"
-3d_physics/layer_2="no_projectile"
+3d_physics/layer_1="static"
+3d_physics/layer_2="physics"
 3d_physics/layer_3="player"
 3d_physics/layer_4="enemy"
 3d_physics/layer_5="interaction"
@@ -120,6 +120,7 @@ wind_blast={
 3d_navigation/layer_6="projectile"
 3d_physics/layer_7="player_hitbox"
 3d_physics/layer_8="enemy_hitbox"
+3d_physics/layer_9="rock_wall"
 
 [limbo_ai]
 
