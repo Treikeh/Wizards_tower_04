@@ -210,6 +210,10 @@ shape = SubResource("BoxShape3D_pgvik")
 material_override = ExtResource("21_3nqud")
 mesh = SubResource("BoxMesh_g0yty")
 
+[node name="WoodenSign" parent="." instance=ExtResource("14_u1ybs")]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -4.99189e-07, 0, -12.5)
+text = "You can play the real game by going to the main menu and pressing play"
+
 [connection signal="interacted" from="Enemies/BookGnomeSpawnerButton" to="Enemies/BookGnomeSpawner" method="spawn_scene"]
 [connection signal="interacted" from="Enemies/LivingArmorSpawnerButton" to="Enemies/LivingArmorSpawner" method="spawn_scene"]
 [connection signal="interacted" from="Interactable/HealthPotionSpawnButton" to="Interactable/HealtHPoitionSpawner" method="spawn_scene"]

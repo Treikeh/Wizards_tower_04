@@ -1,7 +1,8 @@
-[gd_scene load_steps=30 format=3 uid="uid://uvws4xru1kpl"]
+[gd_scene load_steps=33 format=3 uid="uid://uvws4xru1kpl"]
 
 [ext_resource type="Script" path="res://entities/enemies/book_gnome/book_gnome.gd" id="1_ucrke"]
 [ext_resource type="PackedScene" uid="uid://dnn2p6cuwx2e7" path="res://entities/enemies/book_gnome/mesh/book_gnome_01_sk.glb" id="2_1d5g8"]
+[ext_resource type="Script" path="res://common/scripts/match_y_rotation.gd" id="3_0tnmg"]
 [ext_resource type="PackedScene" uid="uid://ddufakdkmxhwr" path="res://common/scenes/health_area_3d.tscn" id="3_ap0dj"]
 [ext_resource type="PackedScene" uid="uid://cs53wyj8yt4s4" path="res://entities/enemies/floating_health_bar.tscn" id="4_010fi"]
 [ext_resource type="Script" path="res://common/scripts/health.gd" id="4_ejrbm"]
@@ -9,14 +10,16 @@
 [ext_resource type="Resource" uid="uid://dc7hcuasftdvh" path="res://entities/enemies/book_gnome/book_gnome_damage.tres" id="5_rq5px"]
 [ext_resource type="Script" path="res://addons/beehave/nodes/beehave_tree.gd" id="10_fgdmq"]
 [ext_resource type="Script" path="res://addons/beehave/nodes/composites/selector.gd" id="11_qb3q8"]
-[ext_resource type="Script" path="res://common/scripts/beehave/bh_get_first_group_node.gd" id="11_qu1or"]
+[ext_resource type="Script" path="res://common/scripts/beehave/get_first_node_in_group_action.gd" id="11_qu1or"]
 [ext_resource type="Script" path="res://addons/beehave/nodes/composites/sequence.gd" id="12_74elj"]
-[ext_resource type="Script" path="res://common/scripts/beehave/bh_set_navigation_to_target.gd" id="13_26kjk"]
+[ext_resource type="Script" path="res://common/scripts/beehave/navigate_to_node_action.gd" id="13_26kjk"]
 [ext_resource type="Script" path="res://addons/beehave/nodes/decorators/cooldown.gd" id="14_p8jne"]
-[ext_resource type="Script" path="res://common/scripts/beehave/bh_call_method.gd" id="14_uoxnv"]
-[ext_resource type="Script" path="res://common/scripts/beehave/bh_is_value_valid_condition.gd" id="15_13axp"]
-[ext_resource type="Script" path="res://addons/beehave/blackboard.gd" id="16_vm2um"]
-[ext_resource type="Script" path="res://common/scripts/beehave/bh_is_node_in_range.gd" id="16_vu0he"]
+[ext_resource type="Script" path="res://common/scripts/beehave/call_method_action.gd" id="14_uoxnv"]
+[ext_resource type="Script" path="res://common/scripts/beehave/is_value_valid_condition.gd" id="15_13axp"]
+[ext_resource type="Script" path="res://common/scripts/beehave/node_look_at_node_action.gd" id="16_fwfny"]
+[ext_resource type="Script" path="res://common/scripts/beehave/node_in_range_condition.gd" id="16_vu0he"]
+[ext_resource type="Script" path="res://common/scripts/beehave/wait_action.gd" id="17_f62x3"]
+[ext_resource type="Script" path="res://common/scripts/beehave/debug_print_action.gd" id="18_x15na"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_kgyn0"]
 radius = 0.4
@@ -67,28 +70,27 @@ size = Vector3(0.5, 0.7, 0.5)
 [sub_resource type="ViewportTexture" id="ViewportTexture_cuy2h"]
 viewport_path = NodePath("SubViewport")
 
-[node name="BookGnome" type="CharacterBody3D" node_paths=PackedStringArray("mesh", "target_direction", "animation_tree", "beehave_tree", "nav_agent") groups=["enemy"]]
+[node name="BookGnome" type="CharacterBody3D" node_paths=PackedStringArray("target_direction", "animation_tree", "nav_agent", "beehave_tree") groups=["enemy"]]
 collision_layer = 8
 collision_mask = 271
 script = ExtResource("1_ucrke")
-max_speed = 4.5
-mesh = NodePath("book_gnome_01_sk")
 target_direction = NodePath("TargetDirection")
 animation_tree = NodePath("book_gnome_01_sk/AnimationTree")
-beehave_tree = NodePath("BookGnomeTree")
 nav_agent = NodePath("NavigationAgent3D")
+beehave_tree = NodePath("BookGnomeTree")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.55, 0)
 shape = SubResource("CapsuleShape3D_kgyn0")
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
-path_height_offset = 1.0
 debug_enabled = true
 
 [node name="TargetDirection" type="Node3D" parent="."]
 
-[node name="book_gnome_01_sk" parent="." instance=ExtResource("2_1d5g8")]
+[node name="book_gnome_01_sk" parent="." node_paths=PackedStringArray("target_node") instance=ExtResource("2_1d5g8")]
+script = ExtResource("3_0tnmg")
+target_node = NodePath("../TargetDirection")
 
 [node name="Skeleton3D" parent="book_gnome_01_sk" index="0"]
 bones/1/rotation = Quaternion(0, 0.707107, 0.707107, 0)
@@ -149,57 +151,70 @@ texture = SubResource("ViewportTexture_cuy2h")
 
 [node name="BookGnomeTree" type="Node" parent="." node_paths=PackedStringArray("blackboard", "actor")]
 script = ExtResource("10_fgdmq")
-blackboard = NodePath("../Blackboard")
+blackboard = NodePath("@Node@43545")
 actor = NodePath("..")
 
 [node name="SelectorComposite" type="Node" parent="BookGnomeTree"]
 script = ExtResource("11_qb3q8")
 
-[node name="HasPlayerNode" type="Node" parent="BookGnomeTree/SelectorComposite"]
+[node name="MoveToPlayer" type="Node" parent="BookGnomeTree/SelectorComposite"]
 script = ExtResource("12_74elj")
 
-[node name="IsTargetValid" type="Node" parent="BookGnomeTree/SelectorComposite/HasPlayerNode"]
+[node name="HasPlayerNode" type="Node" parent="BookGnomeTree/SelectorComposite/MoveToPlayer"]
 script = ExtResource("15_13axp")
-key = &"target"
+key = &"player"
 
-[node name="SelectorComposite" type="Node" parent="BookGnomeTree/SelectorComposite/HasPlayerNode"]
+[node name="CanAttack" type="Node" parent="BookGnomeTree/SelectorComposite/MoveToPlayer"]
 script = ExtResource("11_qb3q8")
 
-[node name="AttackCooldown" type="Node" parent="BookGnomeTree/SelectorComposite/HasPlayerNode/SelectorComposite"]
-script = ExtResource("14_p8jne")
-wait_time = 1.0
-
-[node name="Attack" type="Node" parent="BookGnomeTree/SelectorComposite/HasPlayerNode/SelectorComposite/AttackCooldown"]
+[node name="Attack" type="Node" parent="BookGnomeTree/SelectorComposite/MoveToPlayer/CanAttack"]
 script = ExtResource("12_74elj")
 
-[node name="InAttackRange" type="Node" parent="BookGnomeTree/SelectorComposite/HasPlayerNode/SelectorComposite/AttackCooldown/Attack"]
+[node name="PlayerInAttackRange" type="Node" parent="BookGnomeTree/SelectorComposite/MoveToPlayer/CanAttack/Attack"]
 script = ExtResource("16_vu0he")
-max_range = 4.0
+node_key = &"player"
+max_range = 2.5
 
-[node name="Attack" type="Node" parent="BookGnomeTree/SelectorComposite/HasPlayerNode/SelectorComposite/AttackCooldown/Attack"]
+[node name="Attack" type="Node" parent="BookGnomeTree/SelectorComposite/MoveToPlayer/CanAttack/Attack"]
 script = ExtResource("14_uoxnv")
 method_name = "_attack"
 
-[node name="Chase" type="Node" parent="BookGnomeTree/SelectorComposite/HasPlayerNode/SelectorComposite"]
+[node name="WaitAction" type="Node" parent="BookGnomeTree/SelectorComposite/MoveToPlayer/CanAttack/Attack"]
+script = ExtResource("17_f62x3")
+wait_time = 0.85
+
+[node name="Chase" type="Node" parent="BookGnomeTree/SelectorComposite/MoveToPlayer/CanAttack"]
 script = ExtResource("12_74elj")
 
-[node name="InChaseRange" type="Node" parent="BookGnomeTree/SelectorComposite/HasPlayerNode/SelectorComposite/Chase"]
+[node name="PlayerInChaseRange" type="Node" parent="BookGnomeTree/SelectorComposite/MoveToPlayer/CanAttack/Chase"]
 script = ExtResource("16_vu0he")
+node_key = &"player"
 max_range = 25.0
 
-[node name="NavigateToTarget" type="Node" parent="BookGnomeTree/SelectorComposite/HasPlayerNode/SelectorComposite/Chase"]
+[node name="NavigateToPlayer" type="Node" parent="BookGnomeTree/SelectorComposite/MoveToPlayer/CanAttack/Chase"]
 script = ExtResource("13_26kjk")
+node_key = &"player"
 
-[node name="GetPlayerNode" type="Node" parent="BookGnomeTree/SelectorComposite"]
+[node name="LookAtPlayer" type="Node" parent="BookGnomeTree/SelectorComposite/MoveToPlayer/CanAttack/Chase" node_paths=PackedStringArray("node")]
+script = ExtResource("16_fwfny")
+node_key = &"player"
+node = NodePath("../../../../../../TargetDirection")
+
+[node name="TryToGetPlayerCooldown" type="Node" parent="BookGnomeTree/SelectorComposite"]
+script = ExtResource("14_p8jne")
+wait_time = 1.0
+
+[node name="SequenceComposite" type="Node" parent="BookGnomeTree/SelectorComposite/TryToGetPlayerCooldown"]
+script = ExtResource("12_74elj")
+
+[node name="GetPlayerNode" type="Node" parent="BookGnomeTree/SelectorComposite/TryToGetPlayerCooldown/SequenceComposite"]
 script = ExtResource("11_qu1or")
 group = "player"
+save_key = &"player"
 
-[node name="Blackboard" type="Node" parent="."]
-script = ExtResource("16_vm2um")
-blackboard = {
-"is_dead": false,
-"target": null
-}
+[node name="DebugPrintAction" type="Node" parent="BookGnomeTree/SelectorComposite/TryToGetPlayerCooldown/SequenceComposite"]
+script = ExtResource("18_x15na")
+text = "TryingToGetPlayer"
 
 [connection signal="health_changed" from="Health" to="FloatingHealthBar" method="_on_health_changed"]
 [connection signal="health_depleted" from="Health" to="." method="_on_health_depleted"]

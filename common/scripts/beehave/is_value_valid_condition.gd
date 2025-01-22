@@ -1,4 +1,4 @@
-class_name IsValueValidBH
+class_name IsKeyValidCondition
 extends ConditionLeaf
 
 
@@ -9,5 +9,4 @@ extends ConditionLeaf
 func tick(_actor: Node, blackboard: Blackboard) -> int:
 	if is_instance_valid(blackboard.get_value(key)):
 		return SUCCESS
-	
 	return FAILURE

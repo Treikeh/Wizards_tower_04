@@ -1,14 +1,24 @@
-[gd_scene load_steps=18 format=3 uid="uid://bmdxr06ji3ymb"]
+[gd_scene load_steps=28 format=3 uid="uid://bmdxr06ji3ymb"]
 
 [ext_resource type="PackedScene" uid="uid://cs53wyj8yt4s4" path="res://entities/enemies/floating_health_bar.tscn" id="1_2e566"]
 [ext_resource type="Script" path="res://entities/enemies/living_armor/living_armor.gd" id="1_06wta"]
 [ext_resource type="Material" uid="uid://c4eykp21shtlp" path="res://common/materials/dev_grid_red.tres" id="2_1u7fy"]
 [ext_resource type="Script" path="res://common/scripts/health.gd" id="2_6r6ee"]
+[ext_resource type="Script" path="res://common/scripts/match_y_rotation.gd" id="2_jgje8"]
 [ext_resource type="Material" uid="uid://botmm8kkk1h67" path="res://common/materials/dev_grid_gray.tres" id="3_oj627"]
 [ext_resource type="PackedScene" uid="uid://ddufakdkmxhwr" path="res://common/scenes/health_area_3d.tscn" id="3_tgsqs"]
 [ext_resource type="Script" path="res://addons/beehave/nodes/beehave_tree.gd" id="7_xq1dp"]
-[ext_resource type="Script" path="res://addons/beehave/nodes/leaves/action.gd" id="8_byj3e"]
-[ext_resource type="Script" path="res://addons/beehave/blackboard.gd" id="9_pylr6"]
+[ext_resource type="Script" path="res://addons/beehave/nodes/composites/selector.gd" id="8_qqjc7"]
+[ext_resource type="Script" path="res://addons/beehave/nodes/composites/sequence.gd" id="9_0vmq6"]
+[ext_resource type="Script" path="res://common/scripts/beehave/is_value_valid_condition.gd" id="10_7b77a"]
+[ext_resource type="Script" path="res://common/scripts/beehave/debug_print_action.gd" id="11_2lye5"]
+[ext_resource type="Script" path="res://addons/beehave/nodes/decorators/cooldown.gd" id="12_f0udt"]
+[ext_resource type="Script" path="res://common/scripts/beehave/node_in_range_condition.gd" id="12_qo062"]
+[ext_resource type="Script" path="res://common/scripts/beehave/node_look_at_node_action.gd" id="12_uiwsr"]
+[ext_resource type="Script" path="res://common/scripts/beehave/navigate_to_node_action.gd" id="13_p4t58"]
+[ext_resource type="Script" path="res://common/scripts/beehave/get_first_node_in_group_action.gd" id="13_tbnnk"]
+[ext_resource type="Script" path="res://common/scripts/beehave/stop_movement_action.gd" id="14_r2yqp"]
+[ext_resource type="Script" path="res://common/scripts/beehave/wait_action.gd" id="15_c1ov7"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_7ua38"]
 height = 1.6
@@ -74,29 +84,27 @@ _data = {
 [sub_resource type="ViewportTexture" id="ViewportTexture_arqjo"]
 viewport_path = NodePath("SubViewport")
 
-[node name="LivingArmor" type="CharacterBody3D" node_paths=PackedStringArray("mesh", "target_direction", "animation_player", "beehave_tree", "nav_agent") groups=["enemy"]]
+[node name="LivingArmor" type="CharacterBody3D" node_paths=PackedStringArray("animation_player", "nav_agent", "beehave_tree") groups=["enemy"]]
 collision_layer = 8
 collision_mask = 271
 script = ExtResource("1_06wta")
-mesh = NodePath("Mesh")
-target_direction = NodePath("TargetDirection")
 animation_player = NodePath("Mesh/AnimationPlayer")
-beehave_tree = NodePath("BeehaveTree")
 nav_agent = NodePath("NavigationAgent3D")
+beehave_tree = NodePath("BeehaveTree")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, 0)
 shape = SubResource("CapsuleShape3D_7ua38")
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
-target_desired_distance = 2.0
-path_height_offset = 0.5
 debug_enabled = true
 
 [node name="TargetDirection" type="Node3D" parent="."]
 
-[node name="Mesh" type="Node3D" parent="."]
+[node name="Mesh" type="Node3D" parent="." node_paths=PackedStringArray("target_node")]
 unique_name_in_owner = true
+script = ExtResource("2_jgje8")
+target_node = NodePath("../TargetDirection")
 
 [node name="Body" type="MeshInstance3D" parent="Mesh"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
@@ -142,16 +150,65 @@ texture = SubResource("ViewportTexture_arqjo")
 [node name="BeehaveTree" type="Node" parent="." node_paths=PackedStringArray("blackboard", "actor")]
 script = ExtResource("7_xq1dp")
 blackboard = NodePath("@Node@17297")
-actor = NodePath("../Mesh/AnimationPlayer")
+actor = NodePath("..")
 
-[node name="ActionLeaf" type="Node" parent="BeehaveTree"]
-script = ExtResource("8_byj3e")
+[node name="SelectorComposite" type="Node" parent="BeehaveTree"]
+script = ExtResource("8_qqjc7")
 
-[node name="Blackboard" type="Node" parent="."]
-script = ExtResource("9_pylr6")
-blackboard = {
-"target": null
-}
+[node name="MoveToPlayer" type="Node" parent="BeehaveTree/SelectorComposite"]
+script = ExtResource("9_0vmq6")
+
+[node name="HasPlayerNode" type="Node" parent="BeehaveTree/SelectorComposite/MoveToPlayer"]
+script = ExtResource("10_7b77a")
+key = &"player"
+
+[node name="CanAttack" type="Node" parent="BeehaveTree/SelectorComposite/MoveToPlayer"]
+script = ExtResource("8_qqjc7")
+
+[node name="Attack" type="Node" parent="BeehaveTree/SelectorComposite/MoveToPlayer/CanAttack"]
+script = ExtResource("9_0vmq6")
+
+[node name="NodeInRangeCondition" type="Node" parent="BeehaveTree/SelectorComposite/MoveToPlayer/CanAttack/Attack"]
+script = ExtResource("12_qo062")
+node_key = &"player"
+max_range = 4.0
+
+[node name="DebugPrintAction" type="Node" parent="BeehaveTree/SelectorComposite/MoveToPlayer/CanAttack/Attack"]
+script = ExtResource("11_2lye5")
+text = "Attack"
+
+[node name="StopMovementAction" type="Node" parent="BeehaveTree/SelectorComposite/MoveToPlayer/CanAttack/Attack"]
+script = ExtResource("14_r2yqp")
+
+[node name="NodeLookAtNodeAction" type="Node" parent="BeehaveTree/SelectorComposite/MoveToPlayer/CanAttack/Attack" node_paths=PackedStringArray("node")]
+script = ExtResource("12_uiwsr")
+node_key = &"player"
+node = NodePath("../../../../../../TargetDirection")
+
+[node name="WaitAction" type="Node" parent="BeehaveTree/SelectorComposite/MoveToPlayer/CanAttack/Attack"]
+script = ExtResource("15_c1ov7")
+wait_time = 2.5
+
+[node name="Chase" type="Node" parent="BeehaveTree/SelectorComposite/MoveToPlayer/CanAttack"]
+script = ExtResource("9_0vmq6")
+
+[node name="NavigateToPlayer" type="Node" parent="BeehaveTree/SelectorComposite/MoveToPlayer/CanAttack/Chase"]
+script = ExtResource("13_p4t58")
+node_key = &"player"
+
+[node name="NodeLookAtNodeAction" type="Node" parent="BeehaveTree/SelectorComposite/MoveToPlayer/CanAttack/Chase" node_paths=PackedStringArray("node")]
+script = ExtResource("12_uiwsr")
+node_key = &"player"
+node = NodePath("../../../../../../TargetDirection")
+
+[node name="TryToGetPlayerCooldown" type="Node" parent="BeehaveTree/SelectorComposite"]
+script = ExtResource("12_f0udt")
+wait_time = 1.0
+
+[node name="GetPlayerNode" type="Node" parent="BeehaveTree/SelectorComposite/TryToGetPlayerCooldown"]
+script = ExtResource("13_tbnnk")
+group = "player"
+save_key = &"player"
 
 [connection signal="health_changed" from="Health" to="FloatingHealthBar" method="_on_health_changed"]
 [connection signal="health_depleted" from="Health" to="." method="_on_health_depleted"]

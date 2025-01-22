@@ -1,4 +1,4 @@
-class_name CallMethodBH
+class_name CallMethodAction
 extends ActionLeaf
 
 

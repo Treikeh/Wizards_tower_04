@@ -4,4 +4,4 @@
 
 [resource]
 albedo_texture = ExtResource("1_gn5mq")
-texture_filter = 0
+texture_filter = 2
