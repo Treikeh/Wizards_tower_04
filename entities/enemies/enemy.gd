@@ -6,6 +6,7 @@ extends CharacterBody3D
 @export var move_speed: float = 5.0
 @export var acceleration: float = 10.0
 var gravity_force: float = ProjectSettings.get_setting("physics/3d/default_gravity")
+var movement_enabled: bool = true
 var move_dir: Vector3
 
 var receiving_knockback: bool = false
@@ -29,7 +30,8 @@ func _physics_process(delta: float) -> void:
 	if not is_on_floor():
 		velocity.y -= gravity_force * delta
 	
-	move_and_slide()
+	if movement_enabled:
+		move_and_slide()
 
 
 #TODO: Make knockback NOT time based

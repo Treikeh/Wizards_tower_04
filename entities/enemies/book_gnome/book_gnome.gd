@@ -25,7 +25,7 @@ func _attack() -> void:
 func _on_health_depleted() -> void:
 	# Disable AI and movement
 	beehave_tree.disable()
-	nav_agent.target_position = global_position
+	movement_enabled = false
 	
 	# Play death animation and sound
 	animation_tree.set("parameters/died/request", AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE)

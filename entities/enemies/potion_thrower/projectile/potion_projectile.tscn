@@ -1,0 +1,32 @@
+[gd_scene load_steps=5 format=3 uid="uid://x8vosrq0tkhx"]
+
+[ext_resource type="Script" path="res://entities/enemies/potion_thrower/projectile/potion_projectile.gd" id="1_tfk2o"]
+[ext_resource type="Material" uid="uid://c4eykp21shtlp" path="res://common/materials/dev_grid_red.tres" id="2_q3v3e"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_f4pxa"]
+radius = 0.25
+
+[sub_resource type="SphereMesh" id="SphereMesh_u3yno"]
+radius = 0.25
+height = 0.5
+radial_segments = 16
+rings = 8
+
+[node name="PotionProjectile" type="RigidBody3D"]
+collision_layer = 0
+collision_mask = 0
+script = ExtResource("1_tfk2o")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_f4pxa")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+material_override = ExtResource("2_q3v3e")
+mesh = SubResource("SphereMesh_u3yno")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 10.0
+one_shot = true
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

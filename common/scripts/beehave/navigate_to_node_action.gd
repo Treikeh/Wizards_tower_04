@@ -9,8 +9,8 @@ extends ActionLeaf
 func tick(actor: Node, blackboard: Blackboard) -> int:
 	var node: Node3D = blackboard.get_value(node_key)
 	if is_instance_valid(node):
-		var position: Vector3 = node.global_position
-		#TODO: Check if the position is in a nav mesh
+		var map: RID = actor.nav_agent.get_navigation_map()
+		var position: Vector3 = NavigationServer3D.map_get_closest_point(map, node.global_position)
 		actor.nav_agent.target_position = position
 		return SUCCESS
 	
