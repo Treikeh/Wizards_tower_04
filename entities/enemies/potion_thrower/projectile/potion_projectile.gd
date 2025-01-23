@@ -1,11 +1,11 @@
-extends RigidBody3D
+extends Projectile
 
 
-@export var initial_velocity: float = 10.0
+@export_flags_3d_physics var reflected_collision_mask: int
 
 
-func _ready() -> void:
-	apply_central_impulse(-global_basis.z * initial_velocity)
+func _on_projectile_reflected() -> void:
+	%DamageArea3D.collision_mask = reflected_collision_mask
 
 
 func _on_body_entered(_body: Node) -> void:

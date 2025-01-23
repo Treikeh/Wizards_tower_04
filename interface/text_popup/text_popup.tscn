@@ -36,10 +36,15 @@ theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="RichTextLabel" type="RichTextLabel" parent="VBoxContainer/PanelContainer/MarginContainer"]
+[node name="Label" type="Label" parent="VBoxContainer/PanelContainer/MarginContainer"]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
+size_flags_vertical = 1
 text = "Hello is this on?"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
 
 [node name="CloseButton" type="Button" parent="VBoxContainer"]
 layout_mode = 2

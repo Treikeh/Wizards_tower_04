@@ -11,10 +11,10 @@ extends Node3D
 func _on_health_health_depleted() -> void:
 	# A small delay before the barrel explodes to avoid having every barrel in its radius explode ->
 	# <- at the same time
-	camera_shake_source.shake_camera()
 	explosion_delay.start(0.0)
 
 
 func _on_explosion_delay_timeout() -> void:
 	explosion_area.trigger()
+	camera_shake_source.shake_camera()
 	queue_free()

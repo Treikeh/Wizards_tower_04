@@ -1,12 +1,4 @@
-extends RigidBody3D
-
-
-@export var initial_velocity: float = 20.0
-
-
-func _ready() -> void:
-	# Apply initial_velocity
-	apply_central_impulse(-global_basis.z * initial_velocity)
+extends Projectile
 
 
 func _on_body_entered(_body: Node) -> void:

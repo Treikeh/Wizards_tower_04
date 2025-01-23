@@ -29,6 +29,7 @@ gravity_scale = 0.3
 contact_monitor = true
 max_contacts_reported = 1
 script = ExtResource("1_tfk2o")
+reflected_collision_mask = 128
 initial_velocity = 15.0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
@@ -39,6 +40,7 @@ material_override = ExtResource("2_q3v3e")
 mesh = SubResource("SphereMesh_u3yno")
 
 [node name="DamageArea3D" parent="." instance=ExtResource("3_ak3dk")]
+unique_name_in_owner = true
 damage = SubResource("Resource_cbn8q")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="DamageArea3D"]

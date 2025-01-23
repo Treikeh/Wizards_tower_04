@@ -115,9 +115,18 @@ func cast_wind_blast() -> void:
 	if can_wind_blast:
 		# Check for bodies in wind_blast area
 		for body in wind_blast_area.get_overlapping_bodies():
-			print(body)
-			if body is RigidBody3D:
+			# Reflect projectile
+			if body is Projectile:
+				var dir: Vector3 = -global_basis.z
+				if fireball_ray.is_colliding():
+					var hit_position = fireball_ray.get_collision_point()
+					dir = body.global_position.direction_to(hit_position)
+				body.reflected.emit()
+				body.linear_velocity = dir * body.initial_velocity * body.mass
+			# Add force to rigidbodies
+			elif body is RigidBody3D:
 				body.apply_central_impulse(-global_basis.z * wind_blast_force * body.mass)
+			# Apply knockback
 			elif body.has_method("recive_knockback"):
 				body.recive_knockback(-global_basis.z)
 		
