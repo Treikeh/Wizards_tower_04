@@ -36,5 +36,7 @@ signal checkpoint_saved
 @warning_ignore("unused_signal")
 signal checkpoint_loaded
 
+var checkpoint_positoin: Vector3 = Vector3.ZERO
+
 
 @onready var main_scene: MainScene = get_tree().current_scene

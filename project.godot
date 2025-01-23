@@ -122,6 +122,7 @@ wind_blast={
 3d_physics/layer_7="player_hitbox"
 3d_physics/layer_8="enemy_hitbox"
 3d_physics/layer_9="rock_wall"
+3d_physics/layer_10="camera_shake"
 
 [limbo_ai]
 

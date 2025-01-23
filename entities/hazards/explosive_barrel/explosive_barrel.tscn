@@ -1,9 +1,10 @@
-[gd_scene load_steps=11 format=3 uid="uid://exjnmfqooik7"]
+[gd_scene load_steps=13 format=3 uid="uid://exjnmfqooik7"]
 
 [ext_resource type="Script" path="res://entities/hazards/explosive_barrel/explosive_barrel.gd" id="1_1mcf7"]
 [ext_resource type="Material" uid="uid://c4eykp21shtlp" path="res://common/materials/dev_grid_red.tres" id="2_kme22"]
 [ext_resource type="PackedScene" uid="uid://bx8bd014w1ar7" path="res://entities/props/wooden_props/barrel/mesh/wooden_barrel_01_sm.glb" id="2_xro8i"]
 [ext_resource type="PackedScene" uid="uid://ddufakdkmxhwr" path="res://common/scenes/health_area_3d.tscn" id="3_ljiqa"]
+[ext_resource type="PackedScene" uid="uid://0m38n8mm2vo1" path="res://common/scenes/camera_shake_source.tscn" id="4_hildl"]
 [ext_resource type="Script" path="res://common/scripts/health.gd" id="5_4nupu"]
 [ext_resource type="Resource" uid="uid://bjo5hgv6bn8ly" path="res://entities/hazards/explosive_barrel/explosive_barrel_damage.tres" id="5_i6ro4"]
 [ext_resource type="PackedScene" uid="uid://xl1x86mw45ri" path="res://common/scenes/explosion_area_3d.tscn" id="6_q2a43"]
@@ -18,10 +19,14 @@ radius = 3.5
 height = 1.0
 radius = 0.444625
 
-[node name="ExplosiveBarrel" type="StaticBody3D" node_paths=PackedStringArray("explosion_area", "health_area", "explosion_delay")]
+[sub_resource type="SphereShape3D" id="SphereShape3D_gmg3x"]
+radius = 3.5
+
+[node name="ExplosiveBarrel" type="StaticBody3D" node_paths=PackedStringArray("explosion_area", "health_area", "camera_shake_source", "explosion_delay")]
 script = ExtResource("1_1mcf7")
 explosion_area = NodePath("ExplosionArea3D")
 health_area = NodePath("HealthArea3D")
+camera_shake_source = NodePath("CameraShakeSource")
 explosion_delay = NodePath("ExplosionDelay")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
@@ -51,6 +56,13 @@ script = ExtResource("5_4nupu")
 max_health = 10.0
 physical_resistance = 100.0
 healing_resistance = 100.0
+
+[node name="CameraShakeSource" parent="." instance=ExtResource("4_hildl")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+shake_amount = 10.0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CameraShakeSource"]
+shape = SubResource("SphereShape3D_gmg3x")
 
 [node name="ExplosionDelay" type="Timer" parent="."]
 wait_time = 0.25

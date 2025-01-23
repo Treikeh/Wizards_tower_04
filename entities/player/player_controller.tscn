@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://dh8dcfqs8vv8p"]
+[gd_scene load_steps=25 format=3 uid="uid://dh8dcfqs8vv8p"]
 
 [ext_resource type="Script" path="res://entities/player/scripts/player_controller.gd" id="1_ck1rn"]
 [ext_resource type="Material" uid="uid://uwtl3uvytx4g" path="res://common/materials/dev_grid_green.tres" id="2_7yv5a"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" path="res://entities/player/scripts/player_camera.gd" id="2_kvlkg"]
 [ext_resource type="Script" path="res://entities/player/scripts/player_interact_ray.gd" id="3_6mksv"]
 [ext_resource type="PackedScene" uid="uid://dn2jwre4f6j4e" path="res://entities/player/viewmodel/viewmodel_01_sk.glb" id="4_t6a4j"]
+[ext_resource type="PackedScene" uid="uid://rs6tjh0gjpje" path="res://entities/player/shakeable_camera.tscn" id="5_c70jp"]
 [ext_resource type="PackedScene" uid="uid://cavgwqcbmxw3w" path="res://entities/player/spell_manager.tscn" id="6_urw7v"]
 [ext_resource type="Script" path="res://common/scripts/health.gd" id="7_s4lvk"]
 
@@ -70,6 +71,9 @@ nodes/wind_blast_oneshot/node = SubResource("AnimationNodeOneShot_2ywnk")
 nodes/wind_blast_oneshot/position = Vector2(-360, 20)
 node_connections = [&"fireball_oneshot", 0, &"rock_wall_oneshot", &"fireball_oneshot", 1, &"Fireball", &"output", 0, &"fireball_oneshot", &"reset_idle_blend", 0, &"RESET", &"reset_idle_blend", 1, &"Idle", &"rock_wall_oneshot", 0, &"wind_blast_oneshot", &"rock_wall_oneshot", 1, &"Rock_wall", &"wind_blast_oneshot", 0, &"reset_idle_blend", &"wind_blast_oneshot", 1, &"Wind_blast"]
 
+[sub_resource type="SphereShape3D" id="SphereShape3D_b1xif"]
+radius = 0.25
+
 [node name="RigidbodyPlayer" type="RigidBody3D" node_paths=PackedStringArray("orientation", "head", "camera", "ground_check", "interact_ray", "spell_manager", "animation_tree") groups=["player"]]
 collision_layer = 4
 collision_mask = 271
@@ -81,7 +85,7 @@ max_speed = 7.0
 air_accel = 175.0
 orientation = NodePath("Orientation")
 head = NodePath("Orientation/Head")
-camera = NodePath("Orientation/Head/Camera")
+camera = NodePath("Orientation/Head/ShakeableCamera/Camera")
 ground_check = NodePath("GroundCheck")
 interact_ray = NodePath("Orientation/Head/InteractRay")
 spell_manager = NodePath("Orientation/Head/SpellManager")
@@ -141,7 +145,12 @@ parameters/wind_blast_oneshot/active = false
 parameters/wind_blast_oneshot/internal_active = false
 parameters/wind_blast_oneshot/request = 0
 
-[node name="Camera" type="Camera3D" parent="Orientation/Head"]
+[node name="ShakeableCamera" parent="Orientation/Head" instance=ExtResource("5_c70jp")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Orientation/Head/ShakeableCamera"]
+shape = SubResource("SphereShape3D_b1xif")
+
+[node name="Camera" type="Camera3D" parent="Orientation/Head/ShakeableCamera"]
 fov = 90.0
 script = ExtResource("2_kvlkg")
 

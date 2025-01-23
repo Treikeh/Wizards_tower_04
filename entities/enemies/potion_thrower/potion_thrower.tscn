@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://dirwqc7j3yvyf"]
+[gd_scene load_steps=30 format=3 uid="uid://dirwqc7j3yvyf"]
 
 [ext_resource type="Script" path="res://entities/enemies/potion_thrower/potion_thrower.gd" id="1_awttq"]
 [ext_resource type="Script" path="res://common/scripts/match_y_rotation.gd" id="2_dc5ws"]
@@ -16,7 +16,11 @@
 [ext_resource type="Script" path="res://common/scripts/beehave/node_in_range_condition.gd" id="14_mw7c2"]
 [ext_resource type="Script" path="res://common/scripts/beehave/debug_print_action.gd" id="15_rqhs8"]
 [ext_resource type="Script" path="res://common/scripts/beehave/call_method_action.gd" id="16_uxjkp"]
+[ext_resource type="Script" path="res://common/scripts/beehave/stop_movement_action.gd" id="17_atbbh"]
+[ext_resource type="Script" path="res://common/scripts/beehave/wait_action.gd" id="17_bj1sb"]
+[ext_resource type="Script" path="res://common/scripts/beehave/get_position_away_from_node_action.gd" id="17_wf8vp"]
 [ext_resource type="Script" path="res://common/scripts/beehave/get_first_node_in_group_action.gd" id="17_ybfxo"]
+[ext_resource type="Script" path="res://common/scripts/beehave/navigate_to_position_action.gd" id="18_4xmdw"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_7ua38"]
 radius = 0.7
@@ -147,7 +151,7 @@ texture = SubResource("ViewportTexture_arqjo")
 
 [node name="BeehaveTree" type="Node" parent="." node_paths=PackedStringArray("blackboard", "actor")]
 script = ExtResource("8_yln8x")
-blackboard = NodePath("@Node@37171")
+blackboard = NodePath("@Node@17299")
 actor = NodePath("..")
 
 [node name="SelectorComposite" type="Node" parent="BeehaveTree"]
@@ -187,9 +191,28 @@ text = "Attack"
 script = ExtResource("16_uxjkp")
 method_name = "_attack"
 
-[node name="WaitToAttackPrint" type="Node" parent="BeehaveTree/SelectorComposite/AttackPlayer/CanAttack"]
+[node name="StopMovementAction" type="Node" parent="BeehaveTree/SelectorComposite/AttackPlayer/CanAttack/AttackCooldown/AttackSequence"]
+script = ExtResource("17_atbbh")
+
+[node name="WaitAction" type="Node" parent="BeehaveTree/SelectorComposite/AttackPlayer/CanAttack/AttackCooldown/AttackSequence"]
+script = ExtResource("17_bj1sb")
+wait_time = 0.5
+
+[node name="MoveAwayFromPlayer" type="Node" parent="BeehaveTree/SelectorComposite/AttackPlayer/CanAttack"]
+script = ExtResource("10_s4ho7")
+
+[node name="WaitToAttackPrint" type="Node" parent="BeehaveTree/SelectorComposite/AttackPlayer/CanAttack/MoveAwayFromPlayer"]
 script = ExtResource("15_rqhs8")
 text = "Waiting to attack"
+
+[node name="GetPositionAwayFromNodeAction" type="Node" parent="BeehaveTree/SelectorComposite/AttackPlayer/CanAttack/MoveAwayFromPlayer"]
+script = ExtResource("17_wf8vp")
+node_key = &"player"
+save_key = &"away_position"
+
+[node name="NavigateToPositionAction" type="Node" parent="BeehaveTree/SelectorComposite/AttackPlayer/CanAttack/MoveAwayFromPlayer"]
+script = ExtResource("18_4xmdw")
+position_key = &"away_position"
 
 [node name="TryToGetPlayerCooldown" type="Node" parent="BeehaveTree/SelectorComposite"]
 script = ExtResource("13_if2lo")

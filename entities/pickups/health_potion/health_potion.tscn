@@ -33,4 +33,4 @@ damage = ExtResource("3_megh8")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 shape = SubResource("BoxShape3D_r6ybd")
 
-[connection signal="collided_with_health_area" from="DamageArea3D" to="." method="_on_damage_area_3d_collided_with_health_area"]
+[connection signal="hit_health_area" from="DamageArea3D" to="." method="_on_damage_area_hit_health_area"]
