@@ -17,7 +17,7 @@ shape = SubResource("CapsuleShape3D_q7msi")
 
 [node name="BeehaveTree" type="Node" parent="." node_paths=PackedStringArray("blackboard", "actor")]
 script = ExtResource("2_hgr05")
-blackboard = NodePath("@Node@101808")
+blackboard = NodePath("@Node@17301")
 actor = NodePath("..")
 
 [node name="ActionLeaf" type="Node" parent="BeehaveTree"]
