@@ -2,10 +2,9 @@ extends Enemy
 
 
 @export var animation_player: AnimationPlayer
+@export var target_direction: Node3D
 
 var projectile_scene: PackedScene = preload("res://entities/enemies/potion_thrower/projectile/potion_projectile.tscn")
-
-@onready var target_direction: Node3D = $TargetDirection
 
 
 func _attack() -> void:
@@ -19,7 +18,7 @@ func _attack() -> void:
 func _on_health_depleted() -> void:
 	# Disable AI tree and stop movement
 	beehave_tree.disable()
-	nav_agent.target_position = global_position
+	movement_enabled = false
 	
 	# Play death animation
 	%AnimationPlayer.play("died")

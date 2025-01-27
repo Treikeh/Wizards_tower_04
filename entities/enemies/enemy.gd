@@ -18,8 +18,10 @@ var knockback_duration: float = 0.5
 
 
 func _physics_process(delta: float) -> void:
-	if not nav_agent.is_target_reached():
+	if not nav_agent.is_navigation_finished():
 		move_dir = (nav_agent.get_next_path_position() - global_position).normalized()
+	else:
+		move_dir = Vector3.ZERO
 	
 	# Update velocity
 	if not receiving_knockback:

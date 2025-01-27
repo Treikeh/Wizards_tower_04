@@ -107,7 +107,7 @@ transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 17, 4,
 scene_to_spawn = "res://entities/enemies/book_gnome/book_gnome.tscn"
 
 [node name="BookGnomeSpawnerButton" parent="Enemies" instance=ExtResource("3_5yhwb")]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 9.5, 0, -12.5)
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 9.5, 0, -13)
 prompt = "Spawn book gnome"
 
 [node name="LivingArmorSpawner" parent="Enemies" instance=ExtResource("2_4xdsy")]
@@ -115,7 +115,7 @@ transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 17, 4,
 scene_to_spawn = "res://entities/enemies/living_armor/living_armor.tscn"
 
 [node name="LivingArmorSpawnerButton" parent="Enemies" instance=ExtResource("3_5yhwb")]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 9.5, 0, -9.5)
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 9.5, 0, -10)
 prompt = "Spawn living armor"
 
 [node name="PotionThrowerSpawner" parent="Enemies" instance=ExtResource("2_4xdsy")]
@@ -123,8 +123,20 @@ transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 17, 4,
 scene_to_spawn = "res://entities/enemies/potion_thrower/potion_thrower.tscn"
 
 [node name="PotionThrowerSpawnerButton" parent="Enemies" instance=ExtResource("3_5yhwb")]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 9.5, 0, -6.5)
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 9.5, 0, -7)
 prompt = "Spawn potion thrower"
+
+[node name="GolemSpawner" parent="Enemies" instance=ExtResource("2_4xdsy")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 17, 4, -7)
+scene_to_spawn = "res://entities/enemies/golem/golem.tscn"
+
+[node name="GolemSpawnerButton" parent="Enemies" instance=ExtResource("3_5yhwb")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 9.5, 0, -4)
+prompt = "Spawn golem"
+
+[node name="EnemySpawnerButton3" parent="Enemies" instance=ExtResource("3_5yhwb")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 9.5, 0, -1)
+prompt = "Spawn <null>"
 
 [node name="Interactable" type="Node3D" parent="."]
 
@@ -160,13 +172,13 @@ use_collision = true
 size = Vector3(10, 1, 10)
 
 [node name="WoodenBarrel" parent="Props" instance=ExtResource("2_bv8w7")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.1, 0, 11.3)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.1, 0.1, 11.3)
 
 [node name="WoodenChair" parent="Props" instance=ExtResource("3_ofj0x")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.1, 0, 11.3)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.1, 0.1, 11.3)
 
 [node name="WoodenTable" parent="Props" instance=ExtResource("4_0jf04")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 11.3)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 11.3)
 
 [node name="Candle" parent="Props/WoodenTable" instance=ExtResource("5_qpv1q")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.79695, 0.9453, 0.242626)
@@ -233,4 +245,5 @@ text = "You can play the real game by going to the main menu and pressing play"
 [connection signal="interacted" from="Enemies/BookGnomeSpawnerButton" to="Enemies/BookGnomeSpawner" method="spawn_scene"]
 [connection signal="interacted" from="Enemies/LivingArmorSpawnerButton" to="Enemies/LivingArmorSpawner" method="spawn_scene"]
 [connection signal="interacted" from="Enemies/PotionThrowerSpawnerButton" to="Enemies/PotionThrowerSpawner" method="spawn_scene"]
+[connection signal="interacted" from="Enemies/GolemSpawnerButton" to="Enemies/GolemSpawner" method="spawn_scene"]
 [connection signal="interacted" from="Interactable/HealthPotionSpawnButton" to="Interactable/HealtHPoitionSpawner" method="spawn_scene"]
