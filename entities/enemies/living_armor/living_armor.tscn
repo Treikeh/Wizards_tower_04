@@ -1,11 +1,10 @@
-[gd_scene load_steps=28 format=3 uid="uid://bmdxr06ji3ymb"]
+[gd_scene load_steps=25 format=3 uid="uid://bmdxr06ji3ymb"]
 
 [ext_resource type="PackedScene" uid="uid://cs53wyj8yt4s4" path="res://entities/enemies/floating_health_bar.tscn" id="1_2e566"]
 [ext_resource type="Script" path="res://entities/enemies/living_armor/living_armor.gd" id="1_06wta"]
-[ext_resource type="Material" uid="uid://c4eykp21shtlp" path="res://common/materials/dev_grid_red.tres" id="2_1u7fy"]
 [ext_resource type="Script" path="res://common/scripts/health.gd" id="2_6r6ee"]
 [ext_resource type="Script" path="res://common/scripts/match_y_rotation.gd" id="2_jgje8"]
-[ext_resource type="Material" uid="uid://botmm8kkk1h67" path="res://common/materials/dev_grid_gray.tres" id="3_oj627"]
+[ext_resource type="PackedScene" uid="uid://chglbc4d0q6tp" path="res://entities/enemies/living_armor/mesh/living_armor_01_sk.glb" id="3_o1tl7"]
 [ext_resource type="PackedScene" uid="uid://ddufakdkmxhwr" path="res://common/scenes/health_area_3d.tscn" id="3_tgsqs"]
 [ext_resource type="Script" path="res://addons/beehave/nodes/beehave_tree.gd" id="7_xq1dp"]
 [ext_resource type="Script" path="res://addons/beehave/nodes/composites/selector.gd" id="8_qqjc7"]
@@ -21,15 +20,8 @@
 [ext_resource type="Script" path="res://common/scripts/beehave/wait_action.gd" id="15_c1ov7"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_7ua38"]
-height = 1.8
-
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_uog2t"]
-height = 1.8
-
-[sub_resource type="BoxMesh" id="BoxMesh_427y3"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_dim8n"]
-height = 1.8
 
 [sub_resource type="Animation" id="Animation_obki4"]
 length = 0.001
@@ -48,31 +40,31 @@ tracks/0/keys = {
 
 [sub_resource type="Animation" id="Animation_va3kr"]
 resource_name = "died"
-tracks/0/type = "value"
+tracks/0/type = "method"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("..:rotation")
+tracks/0/path = NodePath("..")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.5),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector3(0, 0, 0), Vector3(1.5708, 0, 0)]
-}
-tracks/1/type = "method"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("..")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
 "times": PackedFloat32Array(1),
 "transitions": PackedFloat32Array(1),
 "values": [{
 "args": [],
 "method": &"queue_free"
 }]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("..:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(1.5708, 0, 0)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_847wy"]
@@ -93,7 +85,7 @@ nav_agent = NodePath("NavigationAgent3D")
 beehave_tree = NodePath("BeehaveTree")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("CapsuleShape3D_7ua38")
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
@@ -106,23 +98,13 @@ unique_name_in_owner = true
 script = ExtResource("2_jgje8")
 target_node = NodePath("../TargetDirection")
 
-[node name="Body" type="MeshInstance3D" parent="Mesh"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
-material_override = ExtResource("2_1u7fy")
-mesh = SubResource("CapsuleMesh_uog2t")
-skeleton = NodePath("../..")
-
-[node name="Eyes" type="MeshInstance3D" parent="Mesh/Body"]
-transform = Transform3D(0.681115, 0, 0, 0, 0.27, 0, 0, 0, 0.246996, 0, 0.4, -0.407643)
-material_override = ExtResource("3_oj627")
-mesh = SubResource("BoxMesh_427y3")
+[node name="living_armor_01_sk" parent="Mesh" instance=ExtResource("3_o1tl7")]
 
 [node name="HealthArea3D" parent="Mesh" node_paths=PackedStringArray("health_node") instance=ExtResource("3_tgsqs")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 health_node = NodePath("../../Health")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Mesh/HealthArea3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
 shape = SubResource("CapsuleShape3D_dim8n")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Mesh"]
@@ -137,12 +119,12 @@ script = ExtResource("2_6r6ee")
 max_health = 50.0
 
 [node name="FloatingHealthBar" parent="." instance=ExtResource("1_2e566")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.9, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.2, 0)
 texture = SubResource("ViewportTexture_arqjo")
 
 [node name="BeehaveTree" type="Node" parent="." node_paths=PackedStringArray("blackboard", "actor")]
 script = ExtResource("7_xq1dp")
-blackboard = NodePath("@Node@17310")
+blackboard = NodePath("@Node@17327")
 actor = NodePath("..")
 
 [node name="SelectorComposite" type="Node" parent="BeehaveTree"]

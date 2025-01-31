@@ -143,6 +143,7 @@ bones/16/rotation = Quaternion(0.13436, -0.179645, 0.144643, 0.963718)
 bones/16/scale = Vector3(1, 1, 1)
 bones/17/rotation = Quaternion(0.0305699, -0.0122365, 0.145533, 0.988805)
 bones/18/scale = Vector3(1, 1, 1)
+bones/19/scale = Vector3(1, 1, 1)
 bones/20/rotation = Quaternion(0.160737, -0.0660508, 0.0715207, 0.982184)
 bones/21/rotation = Quaternion(0.0832799, 0.028126, -0.0514934, 0.994797)
 bones/21/scale = Vector3(1, 1, 1)
@@ -169,6 +170,7 @@ bones/35/rotation = Quaternion(-0.0294997, 0.035159, -0.167276, 0.984841)
 bones/36/rotation = Quaternion(-0.0247838, 0.0255403, -0.0952322, 0.994819)
 bones/37/position = Vector3(0.00319408, 0.0935359, 0.0396132)
 bones/37/rotation = Quaternion(0.13436, 0.179645, -0.144643, 0.963718)
+bones/37/scale = Vector3(1, 1, 1)
 bones/38/rotation = Quaternion(0.03057, 0.0122365, -0.145533, 0.988805)
 bones/38/scale = Vector3(1, 1, 1)
 bones/39/rotation = Quaternion(0.00948843, 0.0133827, -0.111094, 0.993674)
@@ -179,7 +181,7 @@ bones/42/rotation = Quaternion(0.08328, -0.0281259, 0.0514934, 0.994797)
 bones/42/scale = Vector3(1, 1, 1)
 
 [node name="EqL" type="BoneAttachment3D" parent="Orientation/Head/viewmodel_01_sk/Skeleton3D" index="1"]
-transform = Transform3D(0.908661, 0.115969, 0.401106, -0.417534, 0.252379, 0.872909, -2.468e-07, -0.960654, 0.277749, -0.42337, -0.897886, -0.00812744)
+transform = Transform3D(0.908661, 0.115969, 0.401106, -0.417534, 0.252379, 0.872908, -2.42144e-07, -0.960654, 0.277748, -0.423369, -0.897885, -0.00812739)
 bone_name = "hand_eq_L.001"
 bone_idx = 6
 

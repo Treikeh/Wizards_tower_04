@@ -1,0 +1,43 @@
+[remap]
+
+importer="scene"
+importer_version=1
+type="PackedScene"
+uid="uid://chglbc4d0q6tp"
+path="res://.godot/imported/living_armor_01_sk.glb-01dc4e7f109eb8b3cb08051fbc9c071f.scn"
+
+[deps]
+
+source_file="res://entities/enemies/living_armor/mesh/living_armor_01_sk.glb"
+dest_files=["res://.godot/imported/living_armor_01_sk.glb-01dc4e7f109eb8b3cb08051fbc9c071f.scn"]
+
+[params]
+
+nodes/root_type=""
+nodes/root_name=""
+nodes/apply_root_scale=true
+nodes/root_scale=1.0
+nodes/import_as_skeleton_bones=true
+meshes/ensure_tangents=true
+meshes/generate_lods=true
+meshes/create_shadow_meshes=true
+meshes/light_baking=1
+meshes/lightmap_texel_size=0.2
+meshes/force_disable_compression=false
+skins/use_named_skins=true
+animation/import=true
+animation/fps=30
+animation/trimming=false
+animation/remove_immutable_tracks=true
+animation/import_rest_as_RESET=false
+import_script/path=""
+_subresources={
+"materials": {
+"living_armor_material.001": {
+"use_external/enabled": true,
+"use_external/path": "res://entities/enemies/living_armor/mesh/living_armor_01_m.tres"
+}
+}
+}
+gltf/naming_version=1
+gltf/embedded_image_handling=1

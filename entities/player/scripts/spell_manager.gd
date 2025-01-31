@@ -21,7 +21,7 @@ func _physics_process(delta: float) -> void:
 #region Fireball
 
 @export_group("Fireball")
-@export var fireball_cooldown: float = 0.1
+@export var fireball_cooldown: float = 0.3
 @export var fireball_ray: RayCast3D
 var can_fireball: bool = true
 var fireball_scene: PackedScene = preload("res://entities/player/spells/fireball/fireball.tscn")
@@ -53,7 +53,7 @@ func cast_fireball() -> void:
 # - floating rigidbody or maybe i could manually move a node3d.
 
 @export_group("Rock wall")
-@export var rock_wall_cooldown: float = 0.5
+@export var rock_wall_cooldown: float = 1.75
 ## How far away from the player the rock wall can be spawned
 @export var rock_wall_range: float = 5.0
 @export var rock_wall_ray: RayCast3D
@@ -105,7 +105,7 @@ func spawn_rock_wall() -> void:
 
 @export_group("Wind blast")
 @export var wind_blast_force: float = 25.0
-@export var wind_blast_cooldown: float = 0.1
+@export var wind_blast_cooldown: float = 1.25
 @export var wind_blast_area: Area3D
 var can_wind_blast: bool = true
 var wind_blast_effect_scene: PackedScene = preload("res://entities/player/spells/wind_blast/wind_blast_effect.tscn")

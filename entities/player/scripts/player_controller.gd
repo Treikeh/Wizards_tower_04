@@ -163,12 +163,10 @@ func _is_on_walkable_slope() -> bool:
 	return false
 
 
-# FIXME: Make jumping consistent when moving up and down a slope
-# Jumping is shorter when moving down a slope since the palyer already has downwards force
 func _jump() -> void:
 	if is_grounded:
 		check_for_ground = false
-		apply_central_impulse(Vector3.UP * jump_force)
+		linear_velocity = Vector3(linear_velocity.x, jump_force, linear_velocity.z)
 		await get_tree().create_timer(0.25).timeout
 		check_for_ground = true
 
