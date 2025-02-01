@@ -1,7 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://df823edaivqws"]
+[gd_scene load_steps=9 format=3 uid="uid://df823edaivqws"]
 
 [ext_resource type="Script" path="res://levels/main_menu/main_menu.gd" id="1_xi5eq"]
 [ext_resource type="Material" uid="uid://botmm8kkk1h67" path="res://common/materials/dev_grid_gray.tres" id="2_pnq4k"]
+[ext_resource type="PackedScene" uid="uid://0faiuoyx1auv" path="res://entities/player/spellbook/spellbook_01_sm.glb" id="3_6kwbp"]
 [ext_resource type="PackedScene" uid="uid://cxi6v661g084x" path="res://entities/pickups/spellbook/spellbook_pickup.tscn" id="3_dretu"]
 [ext_resource type="PackedScene" uid="uid://bdoipkh1hfkmm" path="res://entities/props/lights/candle/candle.tscn" id="4_ckygi"]
 
@@ -52,8 +53,11 @@ material_override = ExtResource("2_pnq4k")
 radius = 4.29373
 height = 18.3627
 
+[node name="spellbook_01_sm" parent="." instance=ExtResource("3_6kwbp")]
+transform = Transform3D(-1.44504, -0.187662, 0.449749, 0.0327917, 1.36676, 0.675653, -0.486226, 0.649896, -1.29106, 0.517629, 0.143266, -0.0280098)
+
 [node name="SpellbookPickup" parent="." instance=ExtResource("3_dretu")]
-transform = Transform3D(0.944754, -0.132708, -0.299712, 0, 0.914374, -0.40487, 0.327779, 0.382503, 0.863859, 0.493227, 0.176181, 0.0200968)
+transform = Transform3D(0.99824, 0.00447931, -0.0591199, -0.00370778, 0.999906, 0.0131531, 0.059174, -0.0129105, 0.998164, 0.505616, 0.0919135, -0.220124)
 
 [node name="Candle" parent="." instance=ExtResource("4_ckygi")]
-transform = Transform3D(0.916741, -0.0305256, -0.398313, 0.0502601, 0.997967, 0.0391953, 0.396307, -0.0559513, 0.916412, 0.147074, 0.048691, -0.323231)
+transform = Transform3D(0.916741, -0.0305256, -0.398313, 0.0502601, 0.997967, 0.0391954, 0.396307, -0.0559513, 0.916412, 0.0416125, 0.0461669, -0.310715)

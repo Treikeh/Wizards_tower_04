@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://bmdxr06ji3ymb"]
+[gd_scene load_steps=26 format=3 uid="uid://bmdxr06ji3ymb"]
 
 [ext_resource type="PackedScene" uid="uid://cs53wyj8yt4s4" path="res://entities/enemies/floating_health_bar.tscn" id="1_2e566"]
 [ext_resource type="Script" path="res://entities/enemies/living_armor/living_armor.gd" id="1_06wta"]
@@ -20,6 +20,12 @@
 [ext_resource type="Script" path="res://common/scripts/beehave/wait_action.gd" id="15_c1ov7"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_7ua38"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_ivhn2"]
+top_radius = 0.025
+bottom_radius = 0.025
+radial_segments = 4
+rings = 0
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_dim8n"]
 
@@ -100,6 +106,29 @@ target_node = NodePath("../TargetDirection")
 
 [node name="living_armor_01_sk" parent="Mesh" instance=ExtResource("3_o1tl7")]
 
+[node name="Skeleton3D" parent="Mesh/living_armor_01_sk" index="0"]
+bones/6/rotation = Quaternion(0.160268, 0.224967, 0.705081, 0.653119)
+bones/7/rotation = Quaternion(-0.253622, 0.0913861, 0.321377, 0.907767)
+bones/8/rotation = Quaternion(-0.374567, -0.00294055, 0.00737646, 0.927166)
+bones/9/rotation = Quaternion(-0.00333371, 0.318514, -0.0122419, 0.947833)
+bones/10/rotation = Quaternion(-0.476932, -0.513155, 0.514589, -0.494374)
+bones/10/scale = Vector3(1, 1, 1)
+bones/12/rotation = Quaternion(-0.253622, -0.0913861, -0.321378, 0.907767)
+bones/13/rotation = Quaternion(-0.374567, 0.00294052, -0.00737644, 0.927166)
+bones/14/rotation = Quaternion(-0.00333372, -0.318514, 0.0122419, 0.947833)
+bones/15/scale = Vector3(1, 1, 1)
+
+[node name="HandEqR" type="BoneAttachment3D" parent="Mesh/living_armor_01_sk/Skeleton3D" index="1"]
+transform = Transform3D(0.83938, 0.223225, -0.495593, 0.0713832, 0.85861, 0.507636, 0.538838, -0.461476, 0.704765, 0.572376, 1.13406, -0.271902)
+bone_name = "hand_eq_R.002"
+bone_idx = 15
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Mesh/living_armor_01_sk/Skeleton3D/HandEqR"]
+mesh = SubResource("CylinderMesh_ivhn2")
+
+[node name="AnimationPlayer" parent="Mesh/living_armor_01_sk" index="1"]
+autoplay = "idle_001"
+
 [node name="HealthArea3D" parent="Mesh" node_paths=PackedStringArray("health_node") instance=ExtResource("3_tgsqs")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 health_node = NodePath("../../Health")
@@ -124,7 +153,7 @@ texture = SubResource("ViewportTexture_arqjo")
 
 [node name="BeehaveTree" type="Node" parent="." node_paths=PackedStringArray("blackboard", "actor")]
 script = ExtResource("7_xq1dp")
-blackboard = NodePath("@Node@17327")
+blackboard = NodePath("@Node@17311")
 actor = NodePath("..")
 
 [node name="SelectorComposite" type="Node" parent="BeehaveTree"]
@@ -187,3 +216,5 @@ save_key = &"player"
 
 [connection signal="health_changed" from="Health" to="FloatingHealthBar" method="_on_health_changed"]
 [connection signal="health_depleted" from="Health" to="." method="_on_health_depleted"]
+
+[editable path="Mesh/living_armor_01_sk"]

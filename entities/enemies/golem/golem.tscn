@@ -75,7 +75,7 @@ script = ExtResource("4_hsrnx")
 
 [node name="BeehaveTree" type="Node" parent="." node_paths=PackedStringArray("blackboard", "actor")]
 script = ExtResource("2_hgr05")
-blackboard = NodePath("@Node@17331")
+blackboard = NodePath("@Node@17315")
 actor = NodePath("..")
 
 [node name="SelectorComposite" type="Node" parent="BeehaveTree"]

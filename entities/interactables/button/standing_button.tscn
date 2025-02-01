@@ -17,6 +17,7 @@ size = Vector3(0.2, 0.1, 0.2)
 size = Vector3(0.3, 1, 0.3)
 
 [node name="StandingButton" instance=ExtResource("1_j204s")]
+prompt = "Press"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." index="0"]
 transform = Transform3D(1, 0, 0, 0, 0.965926, 0.258819, 0, -0.258819, 0.965926, 0, 1, 0)
