@@ -136,7 +136,7 @@ func _on_checkpoint_loaded() -> void:
 	print("Checkpoint loaded")
 
 
-func _on_spell_unlocked(_spell: String) -> void:
+func _on_spell_unlocked(_spell: int) -> void:
 	# Animations
 	animation_tree.set("parameters/reset_idle_blend/blend_amount", 1.0)
 

@@ -61,15 +61,15 @@ func _on_health_bar_updated(value: float) -> void:
 	Globals.player_health = value
 
 
-func _on_spell_unlocked(spell: String) -> void:
+func _on_spell_unlocked(spell: int) -> void:
 	match spell:
-		"fireball":
+		0:
 			%FireBallIcon.value = 1.0
 			_on_notification_message_sent("Fireball learned")
-		"rock_wall":
+		1:
 			%RockWallIcon.value = 1.0
 			_on_notification_message_sent("Rock wall learned")
-		"wind_blast":
+		2:
 			%WindBlastIcon.value = 1.0
 			_on_notification_message_sent("Wind blast leared")
 

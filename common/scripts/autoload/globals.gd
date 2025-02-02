@@ -20,7 +20,7 @@ signal interact_prompt_updated(prompt: String)
 signal health_bar_updated(health: float)
 
 @warning_ignore("unused_signal")
-signal spell_unlocked(spell: String)
+signal spell_unlocked(spell: int)
 
 @warning_ignore("unused_signal")
 signal player_casted_spell(id: int, spell_cooldown: float)

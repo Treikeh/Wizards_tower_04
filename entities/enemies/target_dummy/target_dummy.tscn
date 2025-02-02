@@ -1,0 +1,69 @@
+[gd_scene load_steps=9 format=3 uid="uid://dksnuasja7g8f"]
+
+[ext_resource type="Material" uid="uid://dafw6yvwuk1bj" path="res://common/materials/dev_grid_brown.tres" id="2_o2rrs"]
+[ext_resource type="PackedScene" uid="uid://chglbc4d0q6tp" path="res://entities/enemies/living_armor/mesh/living_armor_01_sk.glb" id="3_vh1cs"]
+[ext_resource type="PackedScene" uid="uid://ddufakdkmxhwr" path="res://common/scenes/health_area_3d.tscn" id="4_ttlu7"]
+[ext_resource type="Script" path="res://common/scripts/health.gd" id="5_jxnsv"]
+[ext_resource type="PackedScene" uid="uid://cs53wyj8yt4s4" path="res://entities/enemies/floating_health_bar.tscn" id="6_xw767"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_7ua38"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_dim8n"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_arqjo"]
+viewport_path = NodePath("SubViewport")
+
+[node name="TargetDummy" type="CharacterBody3D" groups=["enemy"]]
+collision_layer = 8
+collision_mask = 271
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_7ua38")
+
+[node name="living_armor_01_sk" parent="." instance=ExtResource("3_vh1cs")]
+
+[node name="Skeleton3D" parent="living_armor_01_sk" index="0"]
+bones/2/rotation = Quaternion(-0.0191595, 6.33183e-08, -1.21337e-09, 0.999816)
+bones/4/rotation = Quaternion(-0.179722, -1.46585e-08, -8.0342e-09, 0.983717)
+bones/5/rotation = Quaternion(0.146069, 4.4224e-08, 1.0883e-08, 0.989274)
+bones/6/rotation = Quaternion(0.160268, 0.224967, 0.705081, 0.653119)
+bones/6/scale = Vector3(1, 1, 1)
+bones/7/rotation = Quaternion(-0.253622, 0.0913861, 0.321377, 0.907767)
+bones/8/rotation = Quaternion(-0.374567, -0.00294055, 0.00737646, 0.927166)
+bones/8/scale = Vector3(1, 1, 1)
+bones/9/rotation = Quaternion(-0.00333371, 0.318514, -0.0122419, 0.947833)
+bones/9/scale = Vector3(1, 1, 1)
+bones/10/rotation = Quaternion(-0.476932, -0.513155, 0.514589, -0.494374)
+bones/10/scale = Vector3(1, 1, 1)
+bones/11/rotation = Quaternion(0.160268, -0.224967, -0.705081, 0.653119)
+bones/11/scale = Vector3(1, 1, 1)
+bones/12/rotation = Quaternion(-0.253622, -0.0913861, -0.321378, 0.907767)
+bones/13/rotation = Quaternion(-0.374567, 0.00294052, -0.00737644, 0.927166)
+bones/13/scale = Vector3(1, 1, 1)
+bones/14/rotation = Quaternion(-0.00333372, -0.318514, 0.0122419, 0.947833)
+bones/14/scale = Vector3(1, 1, 1)
+bones/15/scale = Vector3(1, 1, 1)
+
+[node name="living_armor_mesh_001" parent="living_armor_01_sk/Skeleton3D" index="0"]
+material_override = ExtResource("2_o2rrs")
+
+[node name="HealthArea3D" parent="." node_paths=PackedStringArray("health_node") instance=ExtResource("4_ttlu7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+health_node = NodePath("../Health")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HealthArea3D"]
+shape = SubResource("CapsuleShape3D_dim8n")
+
+[node name="Health" type="Node" parent="."]
+script = ExtResource("5_jxnsv")
+max_health = 50.0
+
+[node name="FloatingHealthBar" parent="." instance=ExtResource("6_xw767")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.2, 0)
+texture = SubResource("ViewportTexture_arqjo")
+
+[connection signal="health_changed" from="Health" to="FloatingHealthBar" method="_on_health_changed"]
+[connection signal="health_depleted" from="Health" to="." method="_on_health_depleted"]
+
+[editable path="living_armor_01_sk"]

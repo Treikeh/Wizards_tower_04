@@ -1,0 +1,55 @@
+[remap]
+
+importer="scene"
+importer_version=1
+type="PackedScene"
+uid="uid://cmvpm1lh05hyd"
+path="res://.godot/imported/tutorial_layout_02.glb-41a02dc1bd144799dfe636aa43743614.scn"
+
+[deps]
+
+source_file="res://levels/tutorial/tutorial_layout_02.glb"
+dest_files=["res://.godot/imported/tutorial_layout_02.glb-41a02dc1bd144799dfe636aa43743614.scn"]
+
+[params]
+
+nodes/root_type=""
+nodes/root_name=""
+nodes/apply_root_scale=true
+nodes/root_scale=1.0
+nodes/import_as_skeleton_bones=false
+meshes/ensure_tangents=true
+meshes/generate_lods=true
+meshes/create_shadow_meshes=true
+meshes/light_baking=1
+meshes/lightmap_texel_size=0.2
+meshes/force_disable_compression=false
+skins/use_named_skins=true
+animation/import=true
+animation/fps=30
+animation/trimming=false
+animation/remove_immutable_tracks=true
+animation/import_rest_as_RESET=false
+import_script/path="res://common/scripts/custom_gltf_import.gd"
+_subresources={
+"materials": {
+"grass.001": {
+"use_external/enabled": true,
+"use_external/path": "res://common/materials/dev_grid_green.tres"
+},
+"orange.001": {
+"use_external/enabled": true,
+"use_external/path": "res://common/materials/dev_grid_orange.tres"
+},
+"rock.001": {
+"use_external/enabled": true,
+"use_external/path": "res://common/materials/dev_grid_gray.tres"
+},
+"wood.001": {
+"use_external/enabled": true,
+"use_external/path": "res://common/materials/dev_grid_brown.tres"
+}
+}
+}
+gltf/naming_version=1
+gltf/embedded_image_handling=1
