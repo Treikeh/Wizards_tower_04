@@ -1,0 +1,86 @@
+[gd_scene load_steps=9 format=3 uid="uid://cqk1pqjyg3mer"]
+
+[ext_resource type="Script" path="res://levels/level_3d.gd" id="1_waqgn"]
+[ext_resource type="PackedScene" uid="uid://dh8dcfqs8vv8p" path="res://entities/player/player_controller.tscn" id="2_1540i"]
+[ext_resource type="Material" uid="uid://botmm8kkk1h67" path="res://common/materials/dev_grid_gray.tres" id="3_u0c0y"]
+[ext_resource type="Material" uid="uid://pqlkm5aadfhn" path="res://common/materials/dev_grid_orange.tres" id="4_ib65m"]
+[ext_resource type="PackedScene" uid="uid://c8u24wonyvfic" path="res://entities/interactables/door/interactable_door.tscn" id="5_0o1sj"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_abk0j"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_yuqkf"]
+sky_material = SubResource("ProceduralSkyMaterial_abk0j")
+
+[sub_resource type="Environment" id="Environment_emkjg"]
+background_mode = 2
+sky = SubResource("Sky_yuqkf")
+tonemap_mode = 2
+ssao_enabled = true
+ssil_enabled = true
+glow_enabled = true
+
+[node name="TutorialNGA" type="Node3D"]
+script = ExtResource("1_waqgn")
+fireball_unlocked = false
+rock_wall_unlocked = false
+wind_blast_unlocked = false
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 10, 0)
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_emkjg")
+
+[node name="RigidbodyPlayer" parent="." instance=ExtResource("2_1540i")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+
+[node name="Rooms" type="Node3D" parent="."]
+
+[node name="01" type="Node3D" parent="Rooms"]
+
+[node name="Floor" type="CSGBox3D" parent="Rooms/01"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, -3.5)
+material_override = ExtResource("3_u0c0y")
+use_collision = true
+size = Vector3(5, 1, 10)
+
+[node name="Floor2" type="CSGBox3D" parent="Rooms/01"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -2.5, -0.5, -11)
+material_override = ExtResource("3_u0c0y")
+use_collision = true
+size = Vector3(5, 1, 10)
+
+[node name="Wall" type="CSGBox3D" parent="Rooms/01"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 2, -3)
+material_override = ExtResource("4_ib65m")
+use_collision = true
+size = Vector3(1, 4, 9)
+
+[node name="Wall2" type="CSGBox3D" parent="Rooms/01"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 2, -3)
+material_override = ExtResource("4_ib65m")
+use_collision = true
+size = Vector3(1, 4, 9)
+
+[node name="Wall3" type="CSGBox3D" parent="Rooms/01"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.9407e-08, 2, 2)
+material_override = ExtResource("4_ib65m")
+use_collision = true
+size = Vector3(5, 4, 1)
+
+[node name="Wall4" type="CSGBox3D" parent="Rooms/01"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.9407e-08, 2, -8)
+material_override = ExtResource("4_ib65m")
+use_collision = true
+size = Vector3(5, 4, 1)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Rooms/01/Wall4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.95, 0)
+operation = 2
+size = Vector3(1.4, 2.3, 1.2)
+
+[node name="InteractableDoor" parent="Rooms/01" instance=ExtResource("5_0o1sj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.7, 0, -7.95)

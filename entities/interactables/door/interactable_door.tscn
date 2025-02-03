@@ -1,0 +1,37 @@
+[gd_scene load_steps=6 format=3 uid="uid://c8u24wonyvfic"]
+
+[ext_resource type="PackedScene" uid="uid://d0lld0115r5yv" path="res://common/scenes/interact_area_3d.tscn" id="1_16wup"]
+[ext_resource type="Script" path="res://entities/interactables/door/interactable_door.gd" id="1_if5o4"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_nbtts"]
+size = Vector3(1.4, 2.2, 0.25)
+
+[sub_resource type="BoxMesh" id="BoxMesh_nb0e5"]
+size = Vector3(1.4, 2.2, 0.25)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_dgi6b"]
+size = Vector3(1.5, 2.2, 0.3)
+
+[node name="InteractableDoor" type="Node3D" node_paths=PackedStringArray("door_body", "interact_area")]
+script = ExtResource("1_if5o4")
+door_body = NodePath("AnimatableBody3D")
+interact_area = NodePath("AnimatableBody3D/InteractArea3D")
+
+[node name="AnimatableBody3D" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="AnimatableBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.7, 1.1, 0)
+shape = SubResource("BoxShape3D_nbtts")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="AnimatableBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.7, 1.1, 0)
+mesh = SubResource("BoxMesh_nb0e5")
+
+[node name="InteractArea3D" parent="AnimatableBody3D" instance=ExtResource("1_16wup")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.7, 1.1, 0)
+prompt = "Open"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="AnimatableBody3D/InteractArea3D"]
+shape = SubResource("BoxShape3D_dgi6b")
+
+[connection signal="interacted" from="AnimatableBody3D/InteractArea3D" to="." method="_on_interact_area_3d_interacted"]

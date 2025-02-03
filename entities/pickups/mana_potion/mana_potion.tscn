@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://clqs24y75lbd5"]
+
+[ext_resource type="PackedScene" uid="uid://cpc66go0us0ub" path="res://entities/pickups/mana_potion/mesh/mana_potion_01_sm.glb" id="1_fhdf0"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_r6ybd"]
+size = Vector3(0.5, 1, 0.5)
+
+[node name="ManaPotion" type="Node3D"]
+
+[node name="Mesh" type="Node3D" parent="."]
+transform = Transform3D(0.432983, 0.25, -0.865966, -0.499966, 0.866025, 0, 0.749949, 0.433013, 0.499966, 0, 0.7, 0)
+
+[node name="mana_potion_01_sm" parent="Mesh" instance=ExtResource("1_fhdf0")]
+
+[node name="Area3D" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+shape = SubResource("BoxShape3D_r6ybd")

@@ -2,14 +2,8 @@
 
 [ext_resource type="Script" path="res://entities/pickups/health_potion/health_potion.gd" id="1_oi4jq"]
 [ext_resource type="PackedScene" uid="uid://di7vp8irr7xdl" path="res://common/scenes/damage_area_3d.tscn" id="2_kntei"]
+[ext_resource type="PackedScene" uid="uid://b5fln2hyrrnsj" path="res://entities/pickups/health_potion/mesh/health_potion_01_sm.glb" id="2_scm8u"]
 [ext_resource type="Resource" uid="uid://dfbq1thl85mmk" path="res://entities/pickups/health_potion/health_potion_damage.tres" id="3_megh8"]
-
-[sub_resource type="CylinderMesh" id="CylinderMesh_m8vxv"]
-top_radius = 0.1
-bottom_radius = 0.1
-height = 0.5
-radial_segments = 8
-rings = 0
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_r6ybd"]
 size = Vector3(0.5, 1, 0.5)
@@ -22,9 +16,8 @@ mesh = NodePath("Mesh")
 unique_name_in_owner = true
 transform = Transform3D(0.499092, 0, -0.86647, 0, 1, 0, 0.86647, 0, 0.499092, 0, -0.0494988, 0)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Mesh"]
+[node name="health_potion_01" parent="Mesh" instance=ExtResource("2_scm8u")]
 transform = Transform3D(0.866025, 0.5, 0, -0.5, 0.866025, 0, 0, 0, 1, 0, 0.7, 0)
-mesh = SubResource("CylinderMesh_m8vxv")
 
 [node name="DamageArea3D" parent="." instance=ExtResource("2_kntei")]
 damage = ExtResource("3_megh8")

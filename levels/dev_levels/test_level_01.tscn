@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://cscm07iintxhd"]
+[gd_scene load_steps=34 format=3 uid="uid://cscm07iintxhd"]
 
 [ext_resource type="Script" path="res://levels/level_3d.gd" id="1_5hjb2"]
 [ext_resource type="PackedScene" uid="uid://chw0vev703cjt" path="res://common/scenes/scene_spawner.tscn" id="2_4xdsy"]
@@ -21,6 +21,7 @@
 [ext_resource type="Script" path="res://common/scripts/damage.gd" id="18_f8c2g"]
 [ext_resource type="PackedScene" uid="uid://exjnmfqooik7" path="res://entities/hazards/explosive_barrel/explosive_barrel.tscn" id="19_imr74"]
 [ext_resource type="Material" uid="uid://b4576fxo40ync" path="res://common/materials/dev_grid_pink.tres" id="21_3nqud"]
+[ext_resource type="PackedScene" uid="uid://clqs24y75lbd5" path="res://entities/pickups/mana_potion/mana_potion.tscn" id="22_i3q2h"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_8ksd3"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -148,11 +149,11 @@ transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.7000
 
 [node name="RockWallPickup" parent="Interactable/SpellBookTable" instance=ExtResource("6_tsqfk")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 2.38419e-07, 1, 0)
-spell_to_unlock = "rock_wall"
+spell_to_unlock = 1
 
 [node name="WindBlastPickup" parent="Interactable/SpellBookTable" instance=ExtResource("6_tsqfk")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -0.7, 1, 0)
-spell_to_unlock = "wind_blast"
+spell_to_unlock = 2
 
 [node name="HealtHPoitionSpawner" parent="Interactable" instance=ExtResource("2_4xdsy")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -8, 0, -7.5)
@@ -241,6 +242,9 @@ mesh = SubResource("BoxMesh_g0yty")
 [node name="WoodenSign" parent="." instance=ExtResource("14_u1ybs")]
 transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -4.99189e-07, 0, -12.5)
 text = "You can play the real game by going to the main menu and pressing play"
+
+[node name="ManaPotion" parent="." instance=ExtResource("22_i3q2h")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.8, 0, -4.9)
 
 [connection signal="interacted" from="Enemies/BookGnomeSpawnerButton" to="Enemies/BookGnomeSpawner" method="spawn_scene"]
 [connection signal="interacted" from="Enemies/LivingArmorSpawnerButton" to="Enemies/LivingArmorSpawner" method="spawn_scene"]

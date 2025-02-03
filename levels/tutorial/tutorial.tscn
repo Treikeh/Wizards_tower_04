@@ -109,33 +109,6 @@ size = Vector3(2, 12, 1)
 [sub_resource type="BoxMesh" id="BoxMesh_gbhln"]
 size = Vector3(2, 12, 1)
 
-[sub_resource type="Animation" id="Animation_k26o4"]
-resource_name = "lower"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:rotation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector3(0, 0, 0), Vector3(1.5708, 0, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("../../BridgeButton/HealthArea3D:rotation")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.2),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector3(0.523599, 0, 0), Vector3(-0.523599, 0, 0)]
-}
-
 [sub_resource type="Animation" id="Animation_n43a0"]
 length = 0.001
 tracks/0/type = "value"
@@ -163,6 +136,33 @@ tracks/1/keys = {
 "values": [Vector3(0.523599, 0, 0)]
 }
 
+[sub_resource type="Animation" id="Animation_k26o4"]
+resource_name = "lower"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(1.5708, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../../BridgeButton/HealthArea3D:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0.523599, 0, 0), Vector3(-0.523599, 0, 0)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_bltht"]
 _data = {
 "RESET": SubResource("Animation_n43a0"),
@@ -181,21 +181,6 @@ size = Vector3(0.25, 4.7, 3.4)
 [sub_resource type="BoxMesh" id="BoxMesh_txqo4"]
 size = Vector3(0.25, 4.7, 3.4)
 
-[sub_resource type="Animation" id="Animation_l2vi6"]
-resource_name = "open"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector3(0, 0, 0), Vector3(0, 4, 0)]
-}
-
 [sub_resource type="Animation" id="Animation_11g11"]
 length = 0.001
 tracks/0/type = "value"
@@ -209,6 +194,21 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_l2vi6"]
+resource_name = "open"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 4, 0)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_wcr6f"]

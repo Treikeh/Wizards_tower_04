@@ -1,12 +1,8 @@
 extends Node3D
 
 
-## fireball, rock_wall, wind_blast
 @export_enum("Fireball", "Rock_wall", "Wind_blast") var spell_to_unlock: int = 0
 
-
-func _ready() -> void:
-	print(spell_to_unlock)
 
 func _on_interact_area_3d_interacted() -> void:
 	match spell_to_unlock:
