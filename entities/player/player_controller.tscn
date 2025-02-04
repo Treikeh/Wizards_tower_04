@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://dh8dcfqs8vv8p"]
+[gd_scene load_steps=29 format=3 uid="uid://dh8dcfqs8vv8p"]
 
 [ext_resource type="Script" path="res://entities/player/scripts/player_controller.gd" id="1_ck1rn"]
 [ext_resource type="Material" uid="uid://uwtl3uvytx4g" path="res://common/materials/dev_grid_green.tres" id="2_7yv5a"]
@@ -10,6 +10,9 @@
 [ext_resource type="PackedScene" uid="uid://rs6tjh0gjpje" path="res://entities/player/shakeable_camera.tscn" id="5_c70jp"]
 [ext_resource type="PackedScene" uid="uid://cavgwqcbmxw3w" path="res://entities/player/spell_manager.tscn" id="6_urw7v"]
 [ext_resource type="Script" path="res://common/scripts/health.gd" id="7_s4lvk"]
+[ext_resource type="AudioStream" uid="uid://biiiimggl568l" path="res://common/sfx/Shoe Step Stone Hard A.wav" id="11_g0yi8"]
+[ext_resource type="AudioStream" uid="uid://ctxgj877nt7wd" path="res://common/sfx/Land Step Stone A.wav" id="13_2bxrp"]
+[ext_resource type="AudioStream" uid="uid://b7wj5uswteyr3" path="res://common/sfx/Jump Step Stone A.wav" id="13_5agqx"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_ebie1"]
 friction = 0.0
@@ -75,7 +78,7 @@ node_connections = [&"fireball_oneshot", 0, &"rock_wall_oneshot", &"fireball_one
 [sub_resource type="SphereShape3D" id="SphereShape3D_b1xif"]
 radius = 0.25
 
-[node name="RigidbodyPlayer" type="RigidBody3D" node_paths=PackedStringArray("orientation", "head", "camera", "ground_check", "interact_ray", "spell_manager", "animation_tree") groups=["player"]]
+[node name="RigidbodyPlayer" type="RigidBody3D" node_paths=PackedStringArray("footsteps_audio_player", "jump_audio_player", "land_audio_player", "orientation", "head", "camera", "ground_check", "interact_ray", "spell_manager", "animation_tree") groups=["player"]]
 collision_layer = 4
 collision_mask = 271
 physics_material_override = SubResource("PhysicsMaterial_ebie1")
@@ -84,6 +87,9 @@ script = ExtResource("1_ck1rn")
 hud_scene = "res://interface/hud/hud.tscn"
 max_speed = 7.0
 air_accel = 175.0
+footsteps_audio_player = NodePath("FootstepsAudio")
+jump_audio_player = NodePath("JumpAudio")
+land_audio_player = NodePath("LandAudio")
 orientation = NodePath("Orientation")
 head = NodePath("Orientation/Head")
 camera = NodePath("Orientation/Head/ShakeableCamera/Camera")
@@ -231,6 +237,19 @@ collision_mask = 259
 [node name="Health" type="Node" parent="."]
 script = ExtResource("7_s4lvk")
 
+[node name="FootstepsAudio" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("11_g0yi8")
+bus = &"SFX"
+
+[node name="JumpAudio" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("13_5agqx")
+bus = &"SFX"
+
+[node name="LandAudio" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("13_2bxrp")
+bus = &"SFX"
+
+[connection signal="hb_trough_reached" from="Orientation/Head/ShakeableCamera/Camera" to="." method="_on_camera_hb_trough_reached"]
 [connection signal="health_changed" from="Health" to="." method="_on_health_changed"]
 [connection signal="health_depleted" from="Health" to="." method="_on_health_depleted"]
 

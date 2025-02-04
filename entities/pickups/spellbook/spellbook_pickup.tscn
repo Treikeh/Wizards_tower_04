@@ -1,26 +1,22 @@
-[gd_scene load_steps=6 format=3 uid="uid://cxi6v661g084x"]
+[gd_scene load_steps=5 format=3 uid="uid://cxi6v661g084x"]
 
 [ext_resource type="Script" path="res://entities/pickups/spellbook/spellbook_pickup.gd" id="1_m0ogd"]
-[ext_resource type="Material" uid="uid://pqlkm5aadfhn" path="res://common/materials/dev_grid_orange.tres" id="1_rgh7n"]
+[ext_resource type="PackedScene" uid="uid://hurlhofcnefh" path="res://entities/pickups/spellbook/mesh/book_pickup_01_sm.glb" id="2_jw3nu"]
 [ext_resource type="PackedScene" uid="uid://d0lld0115r5yv" path="res://common/scenes/interact_area_3d.tscn" id="3_uktar"]
 
-[sub_resource type="BoxMesh" id="BoxMesh_ux5f2"]
-size = Vector3(0.570313, 0.0651367, 0.463867)
-
 [sub_resource type="BoxShape3D" id="BoxShape3D_hpvww"]
-size = Vector3(0.570313, 0.0651367, 0.463867)
+size = Vector3(0.407148, 0.075, 0.48)
 
 [node name="SpellbookPickup" type="Node3D"]
 script = ExtResource("1_m0ogd")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-material_override = ExtResource("1_rgh7n")
-mesh = SubResource("BoxMesh_ux5f2")
+[node name="book_pickup_01_sm" parent="." instance=ExtResource("2_jw3nu")]
 
 [node name="InteractArea3D" parent="." instance=ExtResource("3_uktar")]
 prompt = "Learn spell"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="InteractArea3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00142579, 0.037, 0)
 shape = SubResource("BoxShape3D_hpvww")
 
 [connection signal="interacted" from="InteractArea3D" to="." method="_on_interact_area_3d_interacted"]

@@ -15,6 +15,9 @@ var move_input: Vector2 = Vector2.ZERO
 @export var air_accel: float = 200.0
 @export var jump_force: float = 8.0
 @export var max_slope_angle: float = 40.0
+@export var footsteps_audio_player: AudioStreamPlayer
+@export var jump_audio_player: AudioStreamPlayer
+@export var land_audio_player: AudioStreamPlayer
 var is_grounded: bool = false
 var ground_normal: Vector3 = Vector3.UP
 var move_direction: Vector3 = Vector3.ZERO
@@ -98,6 +101,9 @@ func _process(delta: float) -> void:
 	if is_grounded and check_for_ground:
 		camera.head_bobbing(linear_velocity, delta)
 		gravity_scale = 0.1
+		# Check if player just landed
+		if ground_check.target_position.length() < (rest_height + ground_buffer):
+			land_audio_player.play()
 		ground_check.target_position = to_local(global_position + (Vector3.DOWN * (rest_height + ground_buffer)))
 	else:
 		gravity_scale = 1.0
@@ -167,8 +173,14 @@ func _jump() -> void:
 	if is_grounded:
 		check_for_ground = false
 		linear_velocity = Vector3(linear_velocity.x, jump_force, linear_velocity.z)
+		jump_audio_player.play()
 		await get_tree().create_timer(0.25).timeout
 		check_for_ground = true
+
+
+func _on_camera_hb_trough_reached() -> void:
+	footsteps_audio_player.pitch_scale = randf_range(0.5, 1.5)
+	footsteps_audio_player.play()
 
 #endregion
 

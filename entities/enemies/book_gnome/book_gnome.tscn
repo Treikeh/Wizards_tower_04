@@ -98,19 +98,19 @@ bones/2/position = Vector3(1.62838e-16, 0.245117, 0.178967)
 bones/2/rotation = Quaternion(0.650424, -5.7346e-08, -4.91056e-08, 0.759571)
 bones/3/rotation = Quaternion(0.367487, -0.349485, -0.604114, 0.614704)
 bones/3/scale = Vector3(1, 1, 1)
-bones/4/rotation = Quaternion(-0.380122, -0.335354, -0.632807, 0.585321)
+bones/4/rotation = Quaternion(-0.380128, -0.335346, -0.632811, 0.585317)
 bones/4/scale = Vector3(1, 1, 1)
-bones/5/rotation = Quaternion(-0.0375805, 2.15778e-08, -2.67391e-07, 0.999294)
-bones/6/rotation = Quaternion(0.508438, -5.1644e-08, -1.48003e-07, 0.861098)
+bones/5/rotation = Quaternion(-0.0375578, 2.15778e-08, -2.67229e-07, 0.999294)
+bones/6/rotation = Quaternion(0.508429, -9.20481e-08, -1.95349e-07, 0.861104)
 bones/7/rotation = Quaternion(0.190234, -5.60127e-06, -1.97151e-06, 0.981739)
 bones/8/position = Vector3(3.21829e-08, 0.587239, 0.20697)
 bones/8/rotation = Quaternion(-0.0352754, 3.07332e-08, 5.09014e-09, 0.999378)
 bones/8/scale = Vector3(1, 1, 1)
-bones/9/rotation = Quaternion(0.352735, 0.364283, 0.612844, 0.606051)
+bones/9/rotation = Quaternion(0.352735, 0.364283, 0.612845, 0.606051)
 bones/9/scale = Vector3(1, 1, 1)
-bones/10/rotation = Quaternion(-0.395357, 0.321059, 0.623411, 0.593273)
-bones/11/rotation = Quaternion(-0.037556, 5.17911e-08, 2.98863e-07, 0.999295)
-bones/12/rotation = Quaternion(0.508428, -4.48676e-08, 3.02048e-07, 0.861105)
+bones/10/rotation = Quaternion(-0.395356, 0.321059, 0.62341, 0.593274)
+bones/11/rotation = Quaternion(-0.0375579, 5.17911e-08, 2.98878e-07, 0.999294)
+bones/12/rotation = Quaternion(0.508429, 9.20481e-08, 1.95348e-07, 0.861104)
 bones/13/rotation = Quaternion(0.190234, 5.60127e-06, 1.97151e-06, 0.981739)
 
 [node name="AnimationTree" type="AnimationTree" parent="book_gnome_01_sk"]
@@ -143,7 +143,7 @@ disabled = true
 
 [node name="Health" type="Node" parent="."]
 script = ExtResource("4_ejrbm")
-max_health = 5.0
+max_health = 10.0
 
 [node name="FloatingHealthBar" parent="." instance=ExtResource("4_010fi")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3, 0)
@@ -151,7 +151,7 @@ texture = SubResource("ViewportTexture_cuy2h")
 
 [node name="BookGnomeTree" type="Node" parent="." node_paths=PackedStringArray("blackboard", "actor")]
 script = ExtResource("10_fgdmq")
-blackboard = NodePath("@Node@43545")
+blackboard = NodePath("@Node@92327")
 actor = NodePath("..")
 
 [node name="SelectorComposite" type="Node" parent="BookGnomeTree"]
@@ -189,7 +189,6 @@ script = ExtResource("12_74elj")
 [node name="PlayerInChaseRange" type="Node" parent="BookGnomeTree/SelectorComposite/MoveToPlayer/CanAttack/Chase"]
 script = ExtResource("16_vu0he")
 node_key = &"player"
-max_range = 25.0
 
 [node name="NavigateToPlayer" type="Node" parent="BookGnomeTree/SelectorComposite/MoveToPlayer/CanAttack/Chase"]
 script = ExtResource("13_26kjk")
