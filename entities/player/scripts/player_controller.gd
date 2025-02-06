@@ -33,7 +33,7 @@ var check_for_ground: bool = true
 @export var orientation: Node3D
 @export var head: Node3D
 @export var camera: Camera3D
-@export var ground_check: RayCast3D
+@export var ground_check: ShapeCast3D
 @export var interact_ray: RayCast3D
 @export var spell_manager: Node3D
 @export var animation_tree: AnimationTree
@@ -102,12 +102,12 @@ func _process(delta: float) -> void:
 		camera.head_bobbing(linear_velocity, delta)
 		gravity_scale = 0.1
 		# Check if player just landed
-		if ground_check.target_position.length() < (rest_height + ground_buffer):
+		if ground_check.target_position == Vector3.ZERO:
 			land_audio_player.play()
-		ground_check.target_position = to_local(global_position + (Vector3.DOWN * (rest_height + ground_buffer)))
+		ground_check.target_position = Vector3(0.0, -0.5, 0.0)
 	else:
 		gravity_scale = 1.0
-		ground_check.target_position = to_local(global_position + (Vector3.DOWN * rest_height))
+		ground_check.target_position = Vector3.ZERO
 	# Align move_input to orientation
 	move_direction = orientation.global_basis * Vector3(move_input.x, 0.0, move_input.y).normalized()
 
@@ -115,7 +115,7 @@ func _process(delta: float) -> void:
 #@warning_ignore("unused_parameter")
 func _physics_process(delta: float) -> void:
 	if is_grounded:
-		ground_normal = ground_check.get_collision_normal()
+		ground_normal = ground_check.get_collision_normal(0)
 		var slope_dir: Vector3 = move_direction.slide(ground_normal)
 		var target_vel: Vector3 = slope_dir * max_speed
 		var needed_vel: Vector3 = target_vel - linear_velocity
@@ -152,7 +152,7 @@ func _on_spell_unlocked(_spell: int) -> void:
 # I feel there should be a need for delta, but i do not know where :\
 # Apply a spring force to that moves the palyer towards rest_height
 func _snap_to_ground(_delta: float) -> void:
-	var hit_distance: float = (ground_check.global_position - ground_check.get_collision_point()).length()
+	var hit_distance: float = (ground_check.global_position - ground_check.get_collision_point(0)).length()
 	var normal_vel: float = -ground_normal.dot(linear_velocity)
 	var dispalcement: float = hit_distance - rest_height
 	var force: float = (spring_force * dispalcement) - (normal_vel * spring_damping)
@@ -161,7 +161,7 @@ func _snap_to_ground(_delta: float) -> void:
 
 func _is_on_walkable_slope() -> bool:
 	if ground_check.is_colliding():
-		ground_normal = ground_check.get_collision_normal()
+		ground_normal = ground_check.get_collision_normal(0)
 		# Compare ground normal to upwards direction to get slope angle
 		if ground_normal.angle_to(Vector3.UP) < deg_to_rad(max_slope_angle):
 			return true
