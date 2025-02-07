@@ -7,17 +7,27 @@ extends Node
 @export var user_interface: Control
 @export var loading_screen: LoadingScreen
 
+@export_file("*.tscn") var starting_3d_level: String
+@export var show_loading_screen: bool = true
+
 var level_to_load: String = ""
 
 var curret_3d_level: Node3D
+var current_3d_level_path: String
 var current_2d_level: Node2D
 var current_ui_scene: Control
 
 
 func _ready() -> void:
 	# Set current levels and ui scenes
+	
 	if world_3d.get_child_count() > 0:
 		curret_3d_level = world_3d.get_child(0)
+	
+	if starting_3d_level != "":
+		change_3d_level(starting_3d_level)
+		LevelManager3D.change_3d_level(starting_3d_level)
+		UiManager.change_ui_scene(starting_3d_level)
 	
 	if world_2d.get_child_count() > 0:
 		curret_3d_level = world_2d.get_child(0)
@@ -54,7 +64,8 @@ func _process(_delta: float) -> void:
 				level_to_load = ""
 				curret_3d_level = new_level
 				# Hide loading screen
-				loading_screen.transition_out()
+				if show_loading_screen:
+					loading_screen.transition_out()
 				return
 
 
@@ -105,8 +116,9 @@ func change_3d_level(level_path: String) -> void:
 		return
 	
 	# Show loading screen
-	loading_screen.transition_inn()
-	await loading_screen.transition_finished
+	if show_loading_screen:
+		loading_screen.transition_inn()
+		await loading_screen.transition_finished
 	
 	#Unload previous level
 	for child in world_3d.get_children():
@@ -115,10 +127,11 @@ func change_3d_level(level_path: String) -> void:
 	# Give unload a frame to finish before doing anything else
 	await get_tree().physics_frame
 	
+	# Save level path for restarting level
+	current_3d_level_path = level_path
 	# Start level loading
 	level_to_load = level_path
 	ResourceLoader.load_threaded_request(level_path)
-
 
 func add_3d_scene(scene_path: String, position: Vector3 = Vector3.ZERO) -> Node3D:
 	var scene: Node3D = load(scene_path).instantiate()

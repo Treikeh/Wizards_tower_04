@@ -44,7 +44,6 @@ animation = &"walk_f_001"
 [sub_resource type="AnimationNodeBlend2" id="AnimationNodeBlend2_0xu1g"]
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_6rjv8"]
-graph_offset = Vector2(-659.735, -121.306)
 nodes/AttackAnimation/node = SubResource("AnimationNodeAnimation_ojtuh")
 nodes/AttackAnimation/position = Vector2(-460, 240)
 nodes/DeathAnimation/node = SubResource("AnimationNodeAnimation_efe3t")
@@ -151,7 +150,7 @@ texture = SubResource("ViewportTexture_cuy2h")
 
 [node name="BookGnomeTree" type="Node" parent="." node_paths=PackedStringArray("blackboard", "actor")]
 script = ExtResource("10_fgdmq")
-blackboard = NodePath("@Node@92327")
+blackboard = NodePath("@Node@18471")
 actor = NodePath("..")
 
 [node name="SelectorComposite" type="Node" parent="BookGnomeTree"]

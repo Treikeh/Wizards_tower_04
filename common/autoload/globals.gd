@@ -9,7 +9,6 @@ signal player_died
 var fireball_unlocked: bool = true
 var rock_wall_unlocked: bool = true
 var wind_blast_unlocked: bool = true
-var player_health: float = 1.0
 
 
 ## Hud

@@ -22,8 +22,10 @@ config/icon="res://icon.png"
 
 [autoload]
 
-Globals="*res://common/scripts/autoload/globals.gd"
-ConfigHandler="*res://common/scripts/autoload/config_handler.gd"
+Globals="*res://common/autoload/globals.gd"
+LevelManager3D="*res://common/autoload/level_manager_3d.tscn"
+UiManager="*res://common/autoload/ui_manager.tscn"
+ConfigHandler="*res://common/autoload/config_handler.gd"
 BeehaveGlobalMetrics="*res://addons/beehave/metrics/beehave_global_metrics.gd"
 BeehaveGlobalDebugger="*res://addons/beehave/debug/global_debugger.gd"
 

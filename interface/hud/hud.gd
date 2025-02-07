@@ -17,7 +17,7 @@ func _ready() -> void:
 	
 	# Set starting health
 	#TODO: I need a system that saves player data across levels.
-	%HealthBar.value = Globals.player_health
+	%HealthBar.value = %HealthBar.max_value
 	%NotificationLabel.modulate = Color.TRANSPARENT
 	
 	# Set spell icon values
@@ -58,7 +58,6 @@ func _on_interact_prompt_updated(prompt: String) -> void:
 
 func _on_health_bar_updated(value: float) -> void:
 	%HealthBar.value = value
-	Globals.player_health = value
 
 
 func _on_spell_unlocked(spell: int) -> void:

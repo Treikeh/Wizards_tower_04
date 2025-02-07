@@ -104,7 +104,7 @@ func spawn_rock_wall() -> void:
 #region Wind blast
 
 @export_group("Wind blast")
-@export var wind_blast_force: float = 25.0
+@export var wind_blast_force: float = 15.0
 @export var wind_blast_cooldown: float = 1.25
 @export var wind_blast_area: Area3D
 var can_wind_blast: bool = true

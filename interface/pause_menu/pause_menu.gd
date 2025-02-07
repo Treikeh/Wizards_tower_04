@@ -21,6 +21,12 @@ func _on_resume_button_pressed() -> void:
 	_resume_game()
 
 
+func _on_restart_level_button_pressed() -> void:
+	get_tree().paused = false
+	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	Globals.main_scene.change_3d_level(Globals.main_scene.current_3d_level_path)
+
+
 func _on_settings_button_pressed() -> void:
 	hide()
 	var settings_menu: Control = Globals.main_scene.add_ui_scene(settings_menu_scene)
