@@ -1,6 +1,11 @@
 extends RigidBody3D
 
 
+#TODO: Add coyote time
+#TODO: Add a shape_cast on top of the ray_cast to check for ground. Use ray_cast to check angle ->
+#<- and shape cast for collision. Might work if ray_cast x,y position is set to shape_cast collision point
+
+
 @export_file("*.tscn") var hud_scene: String
 
 @export_group("Input")
@@ -23,6 +28,7 @@ var ground_normal: Vector3 = Vector3.UP
 var move_direction: Vector3 = Vector3.ZERO
 
 @export_group("Spring force")
+#TODO: make shape_cast use rest_height and ground buffer when setting target_positon
 @export var rest_height: float = 1.0
 @export var ground_buffer: float = 0.5
 @export var spring_force: float = 300.0
@@ -33,7 +39,12 @@ var check_for_ground: bool = true
 @export var orientation: Node3D
 @export var head: Node3D
 @export var camera: Camera3D
-@export var ground_check: ShapeCast3D
+## Only checks if the player is hitting a floor or not
+@export var ground_shape: ShapeCast3D
+## If ground_shape hits this ray is used for the rest of the ground check calculations. It's done
+## this way to avoid only having a ray to check for the ground. While also avoiding the issue
+## where the shape cast hits the wall of a ledge, causing the player to be airborne for a few frames
+@export var ground_ray: RayCast3D
 @export var interact_ray: RayCast3D
 @export var spell_manager: Node3D
 @export var animation_tree: AnimationTree
@@ -96,37 +107,38 @@ func _input(event: InputEvent) -> void:
 
 #@warning_ignore("unused_parameter")
 func _process(delta: float) -> void:
-	is_grounded = _is_on_walkable_slope()
 	camera.apply_camera_tilt(linear_velocity, move_direction, delta)
 	if is_grounded and check_for_ground:
 		camera.head_bobbing(linear_velocity, delta)
-		gravity_scale = 0.1
-		# Check if player just landed
-		if ground_check.target_position == Vector3.ZERO:
-			land_audio_player.play()
-		ground_check.target_position = Vector3(0.0, -0.5, 0.0)
-	else:
-		gravity_scale = 1.0
-		ground_check.target_position = Vector3.ZERO
 	# Align move_input to orientation
 	move_direction = orientation.global_basis * Vector3(move_input.x, 0.0, move_input.y).normalized()
 
 
 #@warning_ignore("unused_parameter")
 func _physics_process(delta: float) -> void:
+	is_grounded = _is_on_walkable_slope()
 	if is_grounded:
-		ground_normal = ground_check.get_collision_normal(0)
 		var slope_dir: Vector3 = move_direction.slide(ground_normal)
 		var target_vel: Vector3 = slope_dir * max_speed
 		var needed_vel: Vector3 = target_vel - linear_velocity
 		apply_central_force(needed_vel * ground_accel * delta * mass)
+		# Check if player just landed
+		if ground_shape.target_position.y > -1.0:
+			land_audio_player.play()
+			gravity_scale = 0.1
+		# Give ground_shape a buffer while grounded to allow snapping when walking down ledges
+		ground_shape.target_position.y = -1.0
 		if check_for_ground:
 			_snap_to_ground(delta)
 	else:
+		gravity_scale = 1.0
 		var target_vel: Vector3 = move_direction * max_speed
 		var gravity_vector: Vector3 = linear_velocity.dot(Vector3.DOWN) * Vector3.DOWN
 		var needed_vel: Vector3 = target_vel - (linear_velocity - gravity_vector)
 		apply_central_force(needed_vel * air_accel * delta * mass)
+		
+		# Reduce ground_shape size while airborne to get more accurate landing collision
+		ground_shape.target_position.y = -0.5
 
 
 func _load_input_settings() -> void:
@@ -152,7 +164,7 @@ func _on_spell_unlocked(_spell: int) -> void:
 # I feel there should be a need for delta, but i do not know where :\
 # Apply a spring force to that moves the palyer towards rest_height
 func _snap_to_ground(_delta: float) -> void:
-	var hit_distance: float = (ground_check.global_position - ground_check.get_collision_point(0)).length()
+	var hit_distance: float = (ground_ray.global_position - ground_ray.get_collision_point()).length()
 	var normal_vel: float = -ground_normal.dot(linear_velocity)
 	var dispalcement: float = hit_distance - rest_height
 	var force: float = (spring_force * dispalcement) - (normal_vel * spring_damping)
@@ -160,12 +172,17 @@ func _snap_to_ground(_delta: float) -> void:
 
 
 func _is_on_walkable_slope() -> bool:
-	if ground_check.is_colliding():
-		ground_normal = ground_check.get_collision_normal(0)
+	if ground_shape.is_colliding():
+		# Set ground_ray position
+		var col: Vector3 = ground_shape.get_collision_point(0)
+		ground_ray.global_position.x = col.x
+		ground_ray.global_position.z = col.z
+		ground_normal = ground_ray.get_collision_normal()
 		# Compare ground normal to upwards direction to get slope angle
 		if ground_normal.angle_to(Vector3.UP) < deg_to_rad(max_slope_angle):
 			return true
 		return false
+	ground_ray.global_position = to_global(Vector3.ZERO)
 	return false
 
 
@@ -186,6 +203,11 @@ func _on_camera_hb_trough_reached() -> void:
 
 
 #region Health
+
+
+func _on_health_damage_taken(damage: Damage) -> void:
+	%ShakeableCamera.add_camera_shake(damage.amount / 50.0)
+
 
 func _on_health_changed(current_health: float, max_health: float) -> void:
 	Globals.health_bar_updated.emit(current_health / max_health)
