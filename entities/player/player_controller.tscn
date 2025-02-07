@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://dh8dcfqs8vv8p"]
+[gd_scene load_steps=29 format=3 uid="uid://dh8dcfqs8vv8p"]
 
 [ext_resource type="Script" path="res://entities/player/scripts/player_controller.gd" id="1_ck1rn"]
 [ext_resource type="Material" uid="uid://uwtl3uvytx4g" path="res://common/materials/dev_grid_green.tres" id="2_7yv5a"]
@@ -78,15 +78,7 @@ node_connections = [&"fireball_oneshot", 0, &"rock_wall_oneshot", &"fireball_one
 [sub_resource type="SphereShape3D" id="SphereShape3D_b1xif"]
 radius = 0.25
 
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_qqodr"]
-radius = 0.25
-height = 1.0
-
-[sub_resource type="SphereMesh" id="SphereMesh_uo4w7"]
-radius = 0.05
-height = 0.1
-
-[node name="RigidbodyPlayer" type="RigidBody3D" node_paths=PackedStringArray("footsteps_audio_player", "jump_audio_player", "land_audio_player", "orientation", "head", "camera", "ground_shape", "ground_ray", "interact_ray", "spell_manager", "animation_tree") groups=["player"]]
+[node name="RigidbodyPlayer" type="RigidBody3D" node_paths=PackedStringArray("footsteps_audio_player", "jump_audio_player", "land_audio_player", "orientation", "head", "camera", "ground_ray", "interact_ray", "spell_manager", "animation_tree") groups=["player"]]
 collision_layer = 4
 collision_mask = 271
 physics_material_override = SubResource("PhysicsMaterial_ebie1")
@@ -101,7 +93,6 @@ land_audio_player = NodePath("LandAudio")
 orientation = NodePath("Orientation")
 head = NodePath("Orientation/Head")
 camera = NodePath("Orientation/Head/ShakeableCamera/Camera")
-ground_shape = NodePath("GroundShape")
 ground_ray = NodePath("GroundRay")
 interact_ray = NodePath("Orientation/Head/InteractRay")
 spell_manager = NodePath("Orientation/Head/SpellManager")
@@ -230,7 +221,6 @@ fov = 90.0
 script = ExtResource("2_kvlkg")
 
 [node name="InteractRay" type="RayCast3D" parent="Orientation/Head"]
-visible = false
 target_position = Vector3(0, 0, -1.7)
 collision_mask = 275
 collide_with_areas = true
@@ -239,20 +229,11 @@ debug_shape_thickness = 1
 script = ExtResource("3_6mksv")
 
 [node name="SpellManager" parent="Orientation/Head" node_paths=PackedStringArray("orientation") instance=ExtResource("6_urw7v")]
-visible = false
 orientation = NodePath("../..")
-
-[node name="GroundShape" type="ShapeCast3D" parent="."]
-shape = SubResource("CapsuleShape3D_qqodr")
-max_results = 1
-collision_mask = 259
 
 [node name="GroundRay" type="RayCast3D" parent="."]
 target_position = Vector3(0, -1.5, 0)
 collision_mask = 259
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="GroundRay"]
-mesh = SubResource("SphereMesh_uo4w7")
 
 [node name="Health" type="Node" parent="."]
 script = ExtResource("7_s4lvk")
