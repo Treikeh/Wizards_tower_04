@@ -29,6 +29,7 @@ var is_grounded: bool = false
 var coyote_time: float = 0.0
 var jump_buffer: float = 0.0
 var ground_normal: Vector3 = Vector3.UP
+var ground_vel: Vector3 = Vector3.ZERO
 var move_direction: Vector3 = Vector3.ZERO
 
 @export_group("Spring force")
@@ -105,9 +106,9 @@ func _input(event: InputEvent) -> void:
 
 #@warning_ignore("unused_parameter")
 func _process(delta: float) -> void:
-	camera.apply_camera_tilt(linear_velocity, move_direction, delta)
+	camera.apply_camera_tilt(linear_velocity - ground_vel, move_direction, delta)
 	if is_grounded and check_for_ground:
-		camera.head_bobbing(linear_velocity, delta)
+		camera.head_bobbing(linear_velocity - ground_vel, delta)
 	
 	# Align move_input to orientation
 	move_direction = orientation.global_basis * Vector3(move_input.x, 0.0, move_input.y).normalized()
@@ -118,9 +119,10 @@ func _physics_process(delta: float) -> void:
 	is_grounded = _is_on_walkable_slope()
 	if is_grounded:
 		gravity_scale = 0.1
+		ground_vel = get_ground_vel()
 		var slope_dir: Vector3 = move_direction.slide(ground_normal)
 		var target_vel: Vector3 = slope_dir * max_speed
-		var needed_vel: Vector3 = target_vel - linear_velocity
+		var needed_vel: Vector3 = target_vel - (linear_velocity - ground_vel)
 		apply_central_force(needed_vel * ground_accel * delta * mass)
 		if check_for_ground:
 			# Check if player just landed
@@ -148,6 +150,7 @@ func _physics_process(delta: float) -> void:
 		
 		# Reduce ground_shape size while airborne to get more accurate landing collision
 		ground_ray.target_position.y = -rest_height
+		ground_vel = Vector3.ZERO
 
 
 func _load_input_settings() -> void:
@@ -170,11 +173,24 @@ func _on_spell_unlocked(_spell: int) -> void:
 
 #region Movement
 
+
+func _jump() -> void:
+	if coyote_time < COYOTE_TIME_DURATION:
+		coyote_time = COYOTE_TIME_DURATION
+		check_for_ground = false
+		linear_velocity = Vector3(linear_velocity.x, jump_force, linear_velocity.z) + ground_vel
+		jump_audio_player.play()
+		await get_tree().create_timer(0.25).timeout
+		check_for_ground = true
+	elif not is_grounded:
+		jump_buffer = JUMP_BUFFER_DURATION
+
+
 # I feel there should be a need for delta, but i do not know where :\
 # Apply a spring force to that moves the palyer towards rest_height
 func _snap_to_ground(_delta: float) -> void:
 	var hit_distance: float = (ground_ray.global_position - ground_ray.get_collision_point()).length()
-	var normal_vel: float = -ground_normal.dot(linear_velocity)
+	var normal_vel: float = -ground_normal.dot(linear_velocity - ground_vel)
 	var dispalcement: float = hit_distance - rest_height
 	var force: float = (spring_force * dispalcement) - (normal_vel * spring_damping)
 	apply_central_force(Vector3.DOWN * force * mass)
@@ -190,21 +206,23 @@ func _is_on_walkable_slope() -> bool:
 	return false
 
 
-func _jump() -> void:
-	if coyote_time < COYOTE_TIME_DURATION:
-		coyote_time = COYOTE_TIME_DURATION
-		check_for_ground = false
-		linear_velocity = Vector3(linear_velocity.x, jump_force, linear_velocity.z)
-		jump_audio_player.play()
-		await get_tree().create_timer(0.25).timeout
-		check_for_ground = true
-	elif not is_grounded:
-		jump_buffer = JUMP_BUFFER_DURATION
+func get_ground_vel() -> Vector3:
+	var collider: Object = ground_ray.get_collider()
+	var point: Vector3 = ground_ray.get_collision_point()
+	if collider is RigidBody3D:
+		return get_rigidbody_point_velocity(point, collider)
+	return Vector3.ZERO
 
 
+func get_rigidbody_point_velocity(point: Vector3, body: RigidBody3D) -> Vector3:
+	return body.linear_velocity + body.angular_velocity.cross(point - body.transform.origin)
+
+
+# Play foot steps sounds
 func _on_camera_hb_trough_reached() -> void:
 	footsteps_audio_player.pitch_scale = randf_range(0.5, 1.5)
 	footsteps_audio_player.play()
+
 
 #endregion
 
@@ -227,5 +245,6 @@ func _on_health_depleted() -> void:
 	# Show game over screen
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	Globals.main_scene.change_ui_scene("res://interface/game_over/game_over.tscn")
+
 
 #endregion
