@@ -1,0 +1,237 @@
+[gd_scene load_steps=19 format=3 uid="uid://bcqlh303l8l7r"]
+
+[ext_resource type="Script" path="res://levels/level_3d.gd" id="1_flrxo"]
+[ext_resource type="PackedScene" uid="uid://dh8dcfqs8vv8p" path="res://entities/player/player_controller.tscn" id="2_2tyw5"]
+[ext_resource type="Material" uid="uid://pwjimh5imhjl" path="res://common/materials/stone_brick_wall_01_m.tres" id="3_llu5a"]
+[ext_resource type="Material" uid="uid://uwtl3uvytx4g" path="res://common/materials/dev_grid_green.tres" id="4_xa5gr"]
+[ext_resource type="PackedScene" uid="uid://cj0ckw6b4kq8l" path="res://common/scenes/level_transtion_area_3d.tscn" id="5_1dgb1"]
+[ext_resource type="Material" uid="uid://8qm7nxt6hftu" path="res://common/materials/wood_floor_01_m.tres" id="6_nf8px"]
+[ext_resource type="Material" uid="uid://bvhhob5sjttf" path="res://common/materials/lava_01_m.tres" id="7_iml0x"]
+[ext_resource type="PackedScene" uid="uid://c8u24wonyvfic" path="res://entities/interactables/door/interactable_door.tscn" id="8_asxlf"]
+[ext_resource type="PackedScene" uid="uid://xxhxvfmbcxdw" path="res://entities/props/wooden_props/table/wooden_table.tscn" id="9_q23ml"]
+[ext_resource type="PackedScene" uid="uid://cxi6v661g084x" path="res://entities/pickups/spellbook/spellbook_pickup.tscn" id="10_u7w7g"]
+[ext_resource type="PackedScene" uid="uid://chw0vev703cjt" path="res://common/scenes/scene_spawner.tscn" id="11_wrktf"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ap1ce"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_ufqtp"]
+sky_material = SubResource("ProceduralSkyMaterial_ap1ce")
+
+[sub_resource type="Environment" id="Environment_dtso7"]
+background_mode = 2
+sky = SubResource("Sky_ufqtp")
+tonemap_mode = 2
+ssao_enabled = true
+ssil_enabled = true
+glow_enabled = true
+fog_depth_curve = 0.812252
+
+[sub_resource type="NavigationMesh" id="NavigationMesh_2l26b"]
+vertices = PackedVector3Array(-6.95, -24.5, -24.25, -6.95, -24.5, 36.25, 39.3, -24.5, 36.25, 39.3, -24.5, -24.25, -2.45, -1.75, -9.75, 2.3, -1.75, -9.75, 2.3, -1.75, -10.75, 1.3, -1.75, -11, -1.45, -1.75, -11, -2.45, -1.75, -10.75, 1.3, -1.75, -13.75, -1.45, -1.75, -13.75, -2.45, -7.75, -10.75, -2.45, -7.75, -7.75, 2.3, -7.75, -7.75, 2.3, -7.75, -10.75, 8.55, -6.75, -4.5, 8.55, -9.75, 4.5, 10.55, -9.75, 4.5, 10.3, -6.75, -6.5, 8.55, -9.75, 1.92857, 10.4875, -9.75, 1.75, 10.3625, -7, -3.75, -2.45, -6.75, -6.75, -2.45, -6.75, -4.5, -2.45, -7.75, -3.5, -2.45, -7.75, 4.5, 2.3, -7.75, 4.5, 2.3, -7.75, -3.5, -5.2, 1, -3.25, -5.2, 1, -2.5, -3.45, 1, -2.5, -3.45, 1, -3.25, 15.55, -9.75, 9.75, 16.8, -9.75, 9.5, 16.8, -9.75, 4.5, 8.55, -9.75, 11.25, 15.55, -9.75, 11.25, 18.05, -9.75, 9.75, 18.05, -9.75, 11.25, 24.55, -9.75, 11.25, 24.55, -9.75, 4.5, 2.3, -1.75, 5.5, -2.45, -1.75, 5.5, -2.45, -1.75, 10.75, -0.950001, -1.75, 11, 0.799999, -1.75, 11, 2.3, -1.75, 10.75, -0.950001, -6, 26.25, 0.799999, -6, 26.25, -0.950001, -1.75, 15.1591, -0.950001, -5.5, 23.4773, 0.799999, -5.5, 23.4773, 0.799999, -1.75, 15.1591, 16.55, -8.75, 10.5, 16.55, -8.75, 12, 17.05, -8.75, 12, 17.05, -8.75, 10.5, 16.8, -9.75, 18.25, 16.8, -9.75, 13, 15.55, -9.75, 12.75, 8.55, -9.75, 18.25, 18.05, -9.75, 12.75, 24.55, -9.75, 18.25)
+polygons = [PackedInt32Array(3, 2, 0), PackedInt32Array(0, 2, 1), PackedInt32Array(9, 8, 4), PackedInt32Array(4, 8, 7), PackedInt32Array(4, 7, 6), PackedInt32Array(4, 6, 5), PackedInt32Array(8, 11, 7), PackedInt32Array(7, 11, 10), PackedInt32Array(15, 14, 12), PackedInt32Array(12, 14, 13), PackedInt32Array(19, 22, 16), PackedInt32Array(16, 22, 21), PackedInt32Array(16, 21, 20), PackedInt32Array(20, 21, 17), PackedInt32Array(17, 21, 18), PackedInt32Array(24, 23, 16), PackedInt32Array(16, 23, 19), PackedInt32Array(28, 27, 25), PackedInt32Array(25, 27, 26), PackedInt32Array(32, 31, 29), PackedInt32Array(29, 31, 30), PackedInt32Array(35, 34, 33), PackedInt32Array(36, 17, 18), PackedInt32Array(33, 37, 36), PackedInt32Array(35, 33, 18), PackedInt32Array(18, 33, 36), PackedInt32Array(38, 34, 35), PackedInt32Array(40, 39, 38), PackedInt32Array(35, 41, 38), PackedInt32Array(38, 41, 40), PackedInt32Array(45, 44, 46), PackedInt32Array(46, 44, 47), PackedInt32Array(47, 44, 43), PackedInt32Array(47, 43, 42), PackedInt32Array(48, 51, 49), PackedInt32Array(49, 51, 52), PackedInt32Array(52, 51, 50), PackedInt32Array(52, 50, 53), PackedInt32Array(53, 50, 45), PackedInt32Array(53, 45, 46), PackedInt32Array(57, 56, 54), PackedInt32Array(54, 56, 55), PackedInt32Array(58, 60, 59), PackedInt32Array(36, 37, 60), PackedInt32Array(58, 61, 60), PackedInt32Array(60, 61, 36), PackedInt32Array(58, 59, 62), PackedInt32Array(62, 39, 40), PackedInt32Array(58, 62, 63), PackedInt32Array(63, 62, 40)]
+geometry_parsed_geometry_type = 1
+geometry_source_geometry_mode = 1
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_clcag"]
+size = Vector3(4, 5, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_l72cs"]
+size = Vector3(3, 3.5, 0.2)
+
+[sub_resource type="BoxMesh" id="BoxMesh_ge4wx"]
+material = ExtResource("6_nf8px")
+size = Vector3(3, 3.5, 0.2)
+
+[node name="Level_01_Fireball" type="Node3D"]
+script = ExtResource("1_flrxo")
+fireball_unlocked = false
+rock_wall_unlocked = false
+wind_blast_unlocked = false
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_dtso7")
+
+[node name="RigidbodyPlayer" parent="." instance=ExtResource("2_2tyw5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -4.75, 26.218)
+
+[node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
+visible = false
+navigation_mesh = SubResource("NavigationMesh_2l26b")
+
+[node name="CSGCombiner3D" type="CSGCombiner3D" parent="." groups=["navigation_mesh_source_group"]]
+use_collision = true
+
+[node name="InteriorBounds" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19.25, 0, 5.95)
+flip_faces = true
+size = Vector3(53.9, 50, 61.9)
+
+[node name="Rooms" type="CSGCombiner3D" parent="CSGCombiner3D"]
+operation = 2
+
+[node name="01" type="CSGCombiner3D" parent="CSGCombiner3D/Rooms"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.85, 0)
+
+[node name="Node3D" type="Node3D" parent="CSGCombiner3D/Rooms/01"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.85, 0)
+
+[node name="WoodFloor" type="CSGBox3D" parent="CSGCombiner3D/Rooms/01/Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.15, 8.25)
+use_collision = true
+size = Vector3(6, 0.1, 6.1)
+material = ExtResource("6_nf8px")
+
+[node name="WoodPlatform" type="CSGBox3D" parent="CSGCombiner3D/Rooms/01/Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.19209e-07, -2.35, -10.4)
+material_override = ExtResource("6_nf8px")
+use_collision = true
+size = Vector3(6, 0.5, 2)
+
+[node name="WoodPlatform2" type="CSGBox3D" parent="CSGCombiner3D/Rooms/01/Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.75, 0.45, -3.5)
+material_override = ExtResource("6_nf8px")
+use_collision = true
+size = Vector3(0.5, 0.5, 4)
+
+[node name="Lava" type="CSGBox3D" parent="CSGCombiner3D/Rooms/01/Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -7.85, -3.1)
+size = Vector3(6, 0.5, 16.6)
+material = ExtResource("7_iml0x")
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="CSGCombiner3D/Rooms/01/Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -7.35, -5.7)
+use_collision = true
+size = Vector3(6, 0.5, 3)
+material = ExtResource("3_llu5a")
+
+[node name="ExitDoorway" type="CSGBox3D" parent="CSGCombiner3D/Rooms/01"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.45, -12.9)
+size = Vector3(4, 5, 3)
+material = ExtResource("4_xa5gr")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="CSGCombiner3D/Rooms/01/ExitDoorway"]
+
+[node name="LevelTranstionArea3D" parent="CSGCombiner3D/Rooms/01/ExitDoorway" instance=ExtResource("5_1dgb1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)
+level_path = "res://levels/level_02/level_02.tscn"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CSGCombiner3D/Rooms/01/ExitDoorway/LevelTranstionArea3D"]
+shape = SubResource("BoxShape3D_clcag")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="CSGCombiner3D/Rooms/01"]
+size = Vector3(6, 6, 22.8)
+material = ExtResource("3_llu5a")
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="CSGCombiner3D/Rooms/01"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -5.95, -3.1)
+size = Vector3(6, 5.9, 16.6)
+material = ExtResource("3_llu5a")
+
+[node name="CSGBox3D6" type="CSGBox3D" parent="CSGCombiner3D/Rooms/01"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.25, 13.3)
+size = Vector3(3, 3.5, 4)
+material = ExtResource("3_llu5a")
+
+[node name="CSGBox3D7" type="CSGBox3D" parent="CSGCombiner3D/Rooms/01"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.4, 0.65, -3)
+size = Vector3(2.8, 2, 2)
+
+[node name="CSGPolygon3D2" type="CSGPolygon3D" parent="CSGCombiner3D/Rooms/01"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -1.5, -3, 15.3)
+polygon = PackedVector2Array(0, 0, 0, 3.5, 9.4, -0.4, 9.4, -4.3)
+depth = 3.0
+material = ExtResource("3_llu5a")
+
+[node name="CSGBox3D8" type="CSGBox3D" parent="CSGCombiner3D/Rooms/01"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -5.35, 25.8)
+size = Vector3(3, 3.9, 2.2)
+material = ExtResource("3_llu5a")
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="CSGCombiner3D/Rooms/01"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.85, 6.95)
+size = Vector3(6, 5.7, 8.9)
+material = ExtResource("3_llu5a")
+
+[node name="02" type="CSGCombiner3D" parent="CSGCombiner3D/Rooms"]
+transform = Transform3D(2.98023e-08, 0, -1, 0, 1, 0, 1, 0, 2.98023e-08, 15.4, -7.35, 11.3)
+
+[node name="Node3D" type="Node3D" parent="CSGCombiner3D/Rooms/02"]
+
+[node name="CSGPolygon3D2" type="CSGPolygon3D" parent="CSGCombiner3D/Rooms/02/Node3D"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -1.4, -2.8, 1)
+material_override = ExtResource("6_nf8px")
+use_collision = true
+polygon = PackedVector2Array(0, 0, 0, 1, 2.3, 0)
+depth = 3.0
+
+[node name="CSGBox3D" type="CSGBox3D" parent="CSGCombiner3D/Rooms/02/Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.100003, -2.3, -0.200001)
+use_collision = true
+size = Vector3(3, 1, 2.4)
+material = ExtResource("6_nf8px")
+
+[node name="CSGBox3D5" type="CSGBox3D" parent="CSGCombiner3D/Rooms/02"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.8147e-06, 1, -1.15)
+size = Vector3(15, 7.5, 17.3)
+material = ExtResource("3_llu5a")
+
+[node name="CSGBox3D6" type="CSGBox3D" parent="CSGCombiner3D/Rooms/02"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.8147e-06, -0.75, -18.4)
+size = Vector3(5, 4, 17.4)
+material = ExtResource("3_llu5a")
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="CSGCombiner3D/Rooms/02"]
+transform = Transform3D(2.98023e-08, 0, 1, 0, 1, 0, -1, 0, 2.98023e-08, -17, 2, 8.5)
+size = Vector3(8, 3.5, 3)
+material = ExtResource("3_llu5a")
+
+[node name="CSGPolygon3D" type="CSGPolygon3D" parent="CSGCombiner3D/Rooms/02"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.5, 0.25, 7.5)
+polygon = PackedVector2Array(0, 0, 0, 3.5, 6, 0.5, 6, -3)
+depth = 3.0
+material = ExtResource("3_llu5a")
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="CSGCombiner3D/Rooms/02"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.45, -1, 6)
+size = Vector3(2.1, 3.5, 3)
+material = ExtResource("3_llu5a")
+
+[node name="InteractableDoor" parent="CSGCombiner3D/Rooms/02/CSGBox3D4" instance=ExtResource("8_asxlf")]
+transform = Transform3D(2.98023e-08, 0, 1, 0, 1, 0, -1, 0, 2.98023e-08, 0.4, 1.7, 1.19209e-08)
+open_position = Vector3(0, -3.5, 0)
+open_rotation = Vector3(0, 0, 0)
+
+[node name="MeshInstance3D" parent="CSGCombiner3D/Rooms/02/CSGBox3D4/InteractableDoor/AnimatableBody3D" index="1"]
+visible = false
+
+[node name="InteractArea3D" parent="CSGCombiner3D/Rooms/02/CSGBox3D4/InteractableDoor/AnimatableBody3D" index="2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.7, 1.1, 0)
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="CSGCombiner3D/Rooms/02/CSGBox3D4/InteractableDoor/AnimatableBody3D" index="3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.75, 0)
+shape = SubResource("BoxShape3D_l72cs")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="CSGCombiner3D/Rooms/02/CSGBox3D4/InteractableDoor/AnimatableBody3D/CollisionShape3D2"]
+mesh = SubResource("BoxMesh_ge4wx")
+
+[node name="WoodenTable" parent="CSGCombiner3D/Rooms/02" instance=ExtResource("9_q23ml")]
+transform = Transform3D(1, 0, -7.35137e-08, 0, 1, 0, 7.35137e-08, 0, 1, 0.0999998, -1.95, -0.500001)
+
+[node name="SpellbookPickup" parent="CSGCombiner3D/Rooms/02/WoodenTable" instance=ExtResource("10_u7w7g")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0.1, 1, 0)
+
+[node name="SceneSpawner" parent="CSGCombiner3D/Rooms/02" instance=ExtResource("11_wrktf")]
+transform = Transform3D(-0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, -0.707107, -6.40711, -2.75, -8.62426)
+scene_to_spawn = "res://entities/enemies/book_gnome/book_gnome.tscn"
+
+[node name="SceneSpawner2" parent="CSGCombiner3D/Rooms/02" instance=ExtResource("11_wrktf")]
+transform = Transform3D(-0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, -0.707107, 6.32082, -2.75, -8.62426)
+scene_to_spawn = "res://entities/enemies/book_gnome/book_gnome.tscn"
+
+[connection signal="picked_up" from="CSGCombiner3D/Rooms/02/WoodenTable/SpellbookPickup" to="CSGCombiner3D/Rooms/02/SceneSpawner" method="spawn_scene"]
+[connection signal="picked_up" from="CSGCombiner3D/Rooms/02/WoodenTable/SpellbookPickup" to="CSGCombiner3D/Rooms/02/SceneSpawner2" method="spawn_scene"]
+[connection signal="picked_up" from="CSGCombiner3D/Rooms/02/WoodenTable/SpellbookPickup" to="CSGCombiner3D/Rooms/02/CSGBox3D4/InteractableDoor" method="_on_interact_area_3d_interacted"]
+
+[editable path="CSGCombiner3D/Rooms/02/CSGBox3D4/InteractableDoor"]

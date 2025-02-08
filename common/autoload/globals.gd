@@ -35,7 +35,8 @@ signal checkpoint_saved
 @warning_ignore("unused_signal")
 signal checkpoint_loaded
 
-var checkpoint_positoin: Vector3 = Vector3.ZERO
+var is_checkpoint_active: bool = false
+var checkpoint_transform: Transform3D
 
 
 @onready var main_scene: MainScene = get_tree().current_scene

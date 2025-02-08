@@ -15,5 +15,3 @@ func _ready() -> void:
 	#NOTE: This is to show player animations when any spell is unlocked
 	if fireball_unlocked or rock_wall_unlocked or wind_blast_unlocked:
 		Globals.spell_unlocked.emit(4)
-	
-	Globals.checkpoint_saved.emit()

@@ -39,9 +39,6 @@ shadow_enabled = true
 transform = Transform3D(0.979743, -0.00828473, -0.200086, -0.02326, 0.987673, -0.154791, 0.198902, 0.156309, 0.967474, -0.386951, 0.450734, 1.84441)
 fov = 45.0
 
-[node name="CameraTransform" type="RemoteTransform3D" parent="Camera3D"]
-transform = Transform3D(1, -5.58794e-09, 7.45058e-08, -1.86265e-09, 0.999999, -3.42727e-07, 0, 1.49012e-08, 1, 0, 0, 0)
-
 [node name="Table" type="CSGBox3D" parent="."]
 transform = Transform3D(0.998205, 0, 0.0598813, 0, 1, 0, -0.0598813, 0, 0.998205, 0, 0, 0)
 material_override = ExtResource("2_pnq4k")
@@ -57,7 +54,7 @@ height = 18.3627
 transform = Transform3D(-1.44504, -0.187662, 0.449749, 0.0327917, 1.36676, 0.675653, -0.486226, 0.649896, -1.29106, 0.517629, 0.143266, -0.0280098)
 
 [node name="SpellbookPickup" parent="." instance=ExtResource("3_dretu")]
-transform = Transform3D(0.99824, 0.00447931, -0.0591199, -0.00370778, 0.999906, 0.0131531, 0.059174, -0.0129105, 0.998164, 0.505616, 0.0919135, -0.220124)
+transform = Transform3D(-0.126481, 0.00447931, -0.991959, 0.0133735, 0.999906, 0.00281026, 0.991878, -0.0129105, -0.126529, 0.505437, 0.0519352, -0.219608)
 
 [node name="Candle" parent="." instance=ExtResource("4_ckygi")]
 transform = Transform3D(0.916741, -0.0305256, -0.398313, 0.0502601, 0.997967, 0.0391954, 0.396307, -0.0559513, 0.916412, 0.0416125, 0.0461669, -0.310715)

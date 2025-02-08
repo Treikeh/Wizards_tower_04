@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=3 uid="uid://cscm07iintxhd"]
+[gd_scene load_steps=37 format=3 uid="uid://cscm07iintxhd"]
 
 [ext_resource type="Script" path="res://levels/level_3d.gd" id="1_5hjb2"]
 [ext_resource type="PackedScene" uid="uid://chw0vev703cjt" path="res://common/scenes/scene_spawner.tscn" id="2_4xdsy"]
@@ -62,6 +62,20 @@ type = 1
 [sub_resource type="BoxShape3D" id="BoxShape3D_bhbd4"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_bxpty"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_brxce"]
+friction = 0.0
+rough = true
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_3xuvs"]
+height = 1.0
+radius = 10.0
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_2dyht"]
+top_radius = 10.0
+bottom_radius = 10.0
+height = 1.0
+rings = 0
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_pgvik"]
 size = Vector3(2, 2, 2)
@@ -226,6 +240,25 @@ mesh = SubResource("BoxMesh_bxpty")
 
 [node name="ExplosiveBarrel" parent="." instance=ExtResource("19_imr74")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 0, 3)
+
+[node name="BigDisc" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -28.5, 0.5, -10.7622)
+collision_mask = 0
+physics_material_override = SubResource("PhysicsMaterial_brxce")
+gravity_scale = 0.0
+linear_damp_mode = 1
+angular_velocity = Vector3(0, 0.523599, 0)
+angular_damp_mode = 1
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="BigDisc"]
+shape = SubResource("CylinderShape3D_3xuvs")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="BigDisc"]
+material_override = ExtResource("21_3nqud")
+mesh = SubResource("CylinderMesh_2dyht")
+
+[node name="WoodenTable" parent="BigDisc" instance=ExtResource("4_0jf04")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 
 [node name="BigBox" type="RigidBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 1, -1.5)

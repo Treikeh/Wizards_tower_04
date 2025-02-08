@@ -9,7 +9,7 @@ world_3d = NodePath("World3D")
 world_2d = NodePath("World2D")
 user_interface = NodePath("UserInterface")
 loading_screen = NodePath("LoadingScreen")
-starting_3d_level = "res://levels/level_1/level_1.tscn"
+starting_3d_level = "res://levels/level_01/level_01.tscn"
 show_loading_screen = false
 
 [node name="World3D" type="Node3D" parent="."]

@@ -206,7 +206,7 @@ tracks/3/keys = {
 "times": PackedFloat32Array(0, 0.4),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector3(0, 4, 0), Vector3(0, 0, 0)]
+"values": [Vector3(0, 3, 0), Vector3(0, 0, 0)]
 }
 tracks/4/type = "value"
 tracks/4/imported = false
@@ -228,7 +228,7 @@ _data = {
 "spawn": SubResource("Animation_7onb7")
 }
 
-[node name="RockWall" type="CharacterBody3D" node_paths=PackedStringArray("enemy_launch_area", "explosion_area", "animation_player", "duration_timer")]
+[node name="RockWall" type="CharacterBody3D" node_paths=PackedStringArray("enemy_launch_area", "explosion_area", "duration_timer", "animation_player")]
 collision_layer = 32
 collision_mask = 9
 floor_max_angle = 0.261799
@@ -236,8 +236,8 @@ floor_snap_length = 0.5
 script = ExtResource("1_3mufw")
 enemy_launch_area = NodePath("LaunchBody/EnemyLaunchArea")
 explosion_area = NodePath("ExplosionArea")
-animation_player = NodePath("AnimationPlayer")
 duration_timer = NodePath("Timer")
+animation_player = NodePath("AnimationPlayer")
 
 [node name="WallCollision" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
@@ -267,6 +267,7 @@ script = ExtResource("3_5nyv3")
 fire_resistance = 50.0
 
 [node name="LaunchBody" type="AnimatableBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2, 0)
 collision_layer = 256
 collision_mask = 0
 physics_material_override = SubResource("PhysicsMaterial_vu7t5")

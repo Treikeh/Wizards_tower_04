@@ -122,7 +122,7 @@ func change_3d_level(level_path: String) -> void:
 	
 	#Unload previous level
 	for child in world_3d.get_children():
-		world_3d.remove_child(child)
+		world_3d.remove_child.call_deferred(child)
 		child.queue_free()
 	# Give unload a frame to finish before doing anything else
 	await get_tree().physics_frame

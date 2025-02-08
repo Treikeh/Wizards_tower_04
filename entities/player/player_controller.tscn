@@ -230,6 +230,7 @@ script = ExtResource("3_6mksv")
 
 [node name="SpellManager" parent="Orientation/Head" node_paths=PackedStringArray("orientation") instance=ExtResource("6_urw7v")]
 orientation = NodePath("../..")
+rock_wall_range = 7.5
 
 [node name="GroundRay" type="RayCast3D" parent="."]
 target_position = Vector3(0, -1.5, 0)

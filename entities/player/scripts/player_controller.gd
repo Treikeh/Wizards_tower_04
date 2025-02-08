@@ -11,6 +11,7 @@ extends RigidBody3D
 @export_group("Input")
 var camera_sensitivity: float = 0.1
 var move_input: Vector2 = Vector2.ZERO
+var checkpoint_loaded: bool = false
 
 @export_group("Movement")
 # FIXME: Player has too much speed in the air so they can slide up steep slopes
@@ -58,6 +59,7 @@ func _ready() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	
 	# Connect signals
+	Globals.checkpoint_saved.connect(_on_checkpoint_saved)
 	Globals.checkpoint_loaded.connect(_on_checkpoint_loaded)
 	Globals.spell_unlocked.connect(_on_spell_unlocked)
 	
@@ -153,17 +155,29 @@ func _physics_process(delta: float) -> void:
 		ground_vel = Vector3.ZERO
 
 
+
+func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
+	if checkpoint_loaded:
+		state.transform = Globals.checkpoint_transform
+		checkpoint_loaded = false
+
+
 func _load_input_settings() -> void:
 	var input_settings: Dictionary = ConfigHandler.load_input_settings()
 	camera_sensitivity = input_settings.camera_sensitivity
 
 
 func _on_checkpoint_saved() -> void:
+	Globals.notification_message_sent.emit("Checkpoint saved")
 	print("Checkpoint saved")
 
 
 func _on_checkpoint_loaded() -> void:
-	print("Checkpoint loaded")
+	orientation.rotation.y = 0.0
+	head.rotation.x = 0.0
+	$Health.current_health = $Health.max_health
+	$Health.is_dead = false
+	checkpoint_loaded = true
 
 
 func _on_spell_unlocked(_spell: int) -> void:

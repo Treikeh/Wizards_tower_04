@@ -7,6 +7,10 @@ extends Control
 @export_file("*.tscn") var credits_scene: String
 
 
+func _ready() -> void:
+	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+
+
 func _on_play_button_pressed() -> void:
 	Globals.main_scene.change_3d_level(first_level_scene)
 

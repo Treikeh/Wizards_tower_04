@@ -4,7 +4,7 @@
 [ext_resource type="Script" path="res://levels/level_3d.gd" id="1_5l2ew"]
 [ext_resource type="Material" uid="uid://botmm8kkk1h67" path="res://common/materials/dev_grid_gray.tres" id="1_lik6l"]
 [ext_resource type="PackedScene" uid="uid://dh8dcfqs8vv8p" path="res://entities/player/player_controller.tscn" id="2_7yhon"]
-[ext_resource type="Script" path="res://levels/dev_levels/hell_environment.gd" id="2_42ekn"]
+[ext_resource type="Script" path="res://levels/test_levels/hell_environment.gd" id="2_42ekn"]
 [ext_resource type="Material" uid="uid://do2qv4y2sei0e" path="res://common/materials/dev_grid_black.tres" id="3_gknln"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_aw788"]
