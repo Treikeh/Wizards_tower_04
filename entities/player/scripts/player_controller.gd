@@ -23,7 +23,11 @@ var move_input: Vector2 = Vector2.ZERO
 @export var footsteps_audio_player: AudioStreamPlayer
 @export var jump_audio_player: AudioStreamPlayer
 @export var land_audio_player: AudioStreamPlayer
+const COYOTE_TIME_DURATION: float = 0.2
+const JUMP_BUFFER_DURATION: float = 0.15
 var is_grounded: bool = false
+var coyote_time: float = 0.0
+var jump_buffer: float = 0.0
 var ground_normal: Vector3 = Vector3.UP
 var move_direction: Vector3 = Vector3.ZERO
 
@@ -120,8 +124,12 @@ func _physics_process(delta: float) -> void:
 		apply_central_force(needed_vel * ground_accel * delta * mass)
 		if check_for_ground:
 			# Check if player just landed
-			if ground_ray.target_position.y < -(rest_height + ground_buffer):
+			if ground_ray.target_position.y > -(rest_height + ground_buffer):
 				land_audio_player.play()
+				coyote_time = 0.0
+				if jump_buffer > 0.0:
+					jump_buffer = 0.0
+					_jump()
 			# Give ground_ray a buffer while grounded to allow snapping when walking down ledges
 			ground_ray.target_position.y = -(rest_height + ground_buffer)
 			_snap_to_ground(delta)
@@ -134,6 +142,9 @@ func _physics_process(delta: float) -> void:
 		var gravity_vector: Vector3 = linear_velocity.dot(Vector3.DOWN) * Vector3.DOWN
 		var needed_vel: Vector3 = target_vel - (linear_velocity - gravity_vector)
 		apply_central_force(needed_vel * air_accel * delta * mass)
+		
+		coyote_time += delta
+		jump_buffer -= delta
 		
 		# Reduce ground_shape size while airborne to get more accurate landing collision
 		ground_ray.target_position.y = -rest_height
@@ -180,12 +191,15 @@ func _is_on_walkable_slope() -> bool:
 
 
 func _jump() -> void:
-	if is_grounded:
+	if coyote_time < COYOTE_TIME_DURATION:
+		coyote_time = COYOTE_TIME_DURATION
 		check_for_ground = false
 		linear_velocity = Vector3(linear_velocity.x, jump_force, linear_velocity.z)
 		jump_audio_player.play()
 		await get_tree().create_timer(0.25).timeout
 		check_for_ground = true
+	elif not is_grounded:
+		jump_buffer = JUMP_BUFFER_DURATION
 
 
 func _on_camera_hb_trough_reached() -> void:
