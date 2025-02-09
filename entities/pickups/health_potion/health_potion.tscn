@@ -1,6 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://dgqvbvg6txlno"]
+[gd_scene load_steps=7 format=3 uid="uid://dgqvbvg6txlno"]
 
 [ext_resource type="Script" path="res://entities/pickups/health_potion/health_potion.gd" id="1_oi4jq"]
+[ext_resource type="Script" path="res://entities/pickups/pickup_hover.gd" id="2_f0pam"]
 [ext_resource type="PackedScene" uid="uid://di7vp8irr7xdl" path="res://common/scenes/damage_area_3d.tscn" id="2_kntei"]
 [ext_resource type="PackedScene" uid="uid://b5fln2hyrrnsj" path="res://entities/pickups/health_potion/mesh/health_potion_01_sm.glb" id="2_scm8u"]
 [ext_resource type="Resource" uid="uid://dfbq1thl85mmk" path="res://entities/pickups/health_potion/health_potion_damage.tres" id="3_megh8"]
@@ -8,13 +9,13 @@
 [sub_resource type="BoxShape3D" id="BoxShape3D_r6ybd"]
 size = Vector3(0.5, 1, 0.5)
 
-[node name="HealthPotion" type="Node3D" node_paths=PackedStringArray("mesh")]
+[node name="HealthPotion" type="Node3D"]
 script = ExtResource("1_oi4jq")
-mesh = NodePath("Mesh")
 
 [node name="Mesh" type="Node3D" parent="."]
 unique_name_in_owner = true
 transform = Transform3D(0.499092, 0, -0.86647, 0, 1, 0, 0.86647, 0, 0.499092, 0, -0.0494988, 0)
+script = ExtResource("2_f0pam")
 
 [node name="health_potion_01" parent="Mesh" instance=ExtResource("2_scm8u")]
 transform = Transform3D(0.866025, 0.5, 0, -0.5, 0.866025, 0, 0, 0, 1, 0, 0.7, 0)
