@@ -158,6 +158,7 @@ func _physics_process(delta: float) -> void:
 
 func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
 	if checkpoint_loaded:
+		state.linear_velocity = Vector3.ZERO
 		state.transform = Globals.checkpoint_transform
 		checkpoint_loaded = false
 
