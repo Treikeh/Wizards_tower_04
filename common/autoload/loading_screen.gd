@@ -1,8 +1,11 @@
-class_name LoadingScreen
 extends CanvasLayer
 
 
 signal transition_finished
+
+
+func _ready() -> void:
+	hide()
 
 
 func transition_inn() -> void:

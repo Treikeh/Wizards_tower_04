@@ -44,7 +44,7 @@ func _process(_delta: float) -> void:
 		get_tree().paused = true
 		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 		# Spawn pause menu
-		var pause_menu: Control = Globals.main_scene.add_ui_scene(pause_menu_scene)
+		var pause_menu: Control = UiManager.add_ui_scene(pause_menu_scene)
 		pause_menu.tree_exited.connect(_on_pause_menu_closed)
 
 

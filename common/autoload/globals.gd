@@ -39,4 +39,5 @@ var is_checkpoint_active: bool = false
 var checkpoint_transform: Transform3D
 
 
-@onready var main_scene: MainScene = get_tree().current_scene
+func quit_game() -> void:
+	get_tree().quit()

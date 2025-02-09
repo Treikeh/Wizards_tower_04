@@ -14,7 +14,7 @@ config/name="Wizards tower 04 -4.3"
 config/description="Wizards tower is a retro inspired first-person shooter where you play as a novice wizard trying to prove that you are worthy of being taken as a apprentice. On your journey you will learn different spells to solve puzzles and fight you way up a tower."
 config/version="0.1.0.3"
 config/tags=PackedStringArray("proper_project")
-run/main_scene="res://main_scene.tscn"
+run/main_scene="res://boot_scene.tscn"
 config/features=PackedStringArray("4.3")
 boot_splash/bg_color=Color(0, 0, 0, 1)
 boot_splash/show_image=false
@@ -23,8 +23,9 @@ config/icon="res://icon.png"
 [autoload]
 
 Globals="*res://common/autoload/globals.gd"
-LevelManager3D="*res://common/autoload/level_manager_3d.tscn"
-UiManager="*res://common/autoload/ui_manager.tscn"
+LevelManager="*res://common/autoload/level_manager.gd"
+UiManager="*res://common/autoload/ui_manager.gd"
+LoadingScreen="*res://common/autoload/loading_screen.tscn"
 ConfigHandler="*res://common/autoload/config_handler.gd"
 BeehaveGlobalMetrics="*res://addons/beehave/metrics/beehave_global_metrics.gd"
 BeehaveGlobalDebugger="*res://addons/beehave/debug/global_debugger.gd"

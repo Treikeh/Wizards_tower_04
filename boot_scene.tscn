@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://co645fg3hplrm"]
+
+[ext_resource type="Script" path="res://boot_scene.gd" id="1_cglpj"]
+[ext_resource type="PackedScene" uid="uid://bs6c872qg63dw" path="res://interface/splash_screen/splash_screen.tscn" id="2_75afd"]
+
+[node name="BootScene" type="Node"]
+script = ExtResource("1_cglpj")
+
+[node name="SplashScreen" parent="." instance=ExtResource("2_75afd")]

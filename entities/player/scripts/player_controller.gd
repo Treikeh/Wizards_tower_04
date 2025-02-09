@@ -64,7 +64,8 @@ func _ready() -> void:
 	Globals.spell_unlocked.connect(_on_spell_unlocked)
 	
 	# Spawn hud
-	Globals.main_scene.change_ui_scene(hud_scene)
+	UiManager.change_ui_scene(hud_scene)
+	#Globals.main_scene.change_ui_scene(hud_scene)
 
 
 func _input(event: InputEvent) -> void:
@@ -74,6 +75,9 @@ func _input(event: InputEvent) -> void:
 			orientation.rotate_object_local(Vector3.UP, -deg_to_rad(event.relative.x * camera_sensitivity))
 			head.rotate_object_local(Vector3.RIGHT, -deg_to_rad(event.relative.y * camera_sensitivity))
 			head.rotation.x = clampf(head.rotation.x, -deg_to_rad(89), deg_to_rad(89))
+		
+		#if event.is_action_pressed("ui_cancel"):
+		#	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 		
 		# jump input
 		if event.is_action_pressed("jump"):
@@ -104,6 +108,8 @@ func _input(event: InputEvent) -> void:
 	
 	else:
 		move_input = Vector2.ZERO
+		#if event is InputEventMouseButton:
+		#	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
 
 #@warning_ignore("unused_parameter")

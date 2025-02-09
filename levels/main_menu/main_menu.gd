@@ -5,4 +5,5 @@ extends Node3D
 
 
 func _ready() -> void:
-	Globals.main_scene.change_ui_scene(main_menu_ui_scene)
+	UiManager.change_ui_scene(main_menu_ui_scene)
+	#Globals.main_scene.change_ui_scene(main_menu_ui_scene)

@@ -24,12 +24,12 @@ func _on_resume_button_pressed() -> void:
 func _on_restart_level_button_pressed() -> void:
 	get_tree().paused = false
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-	Globals.main_scene.change_3d_level(Globals.main_scene.current_3d_level_path)
+	LevelManager.reload_level()
 
 
 func _on_settings_button_pressed() -> void:
 	hide()
-	var settings_menu: Control = Globals.main_scene.add_ui_scene(settings_menu_scene)
+	var settings_menu: Control = UiManager.add_ui_scene(settings_menu_scene)
 	settings_menu.tree_exiting.connect(_on_settings_menu_closed)
 
 
@@ -39,8 +39,8 @@ func _on_settings_menu_closed()-> void:
 
 func _on_main_menu_button_pressed() -> void:
 	get_tree().paused = false
-	Globals.main_scene.change_3d_level(main_menu_scene)
+	LevelManager.change_level(main_menu_scene)
 
 
 func _on_quit_button_pressed() -> void:
-	Globals.main_scene.quit_game()
+	Globals.quit_game()

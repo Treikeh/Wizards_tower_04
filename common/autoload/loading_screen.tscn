@@ -1,6 +1,6 @@
-[gd_scene load_steps=10 format=3 uid="uid://ds1vrl4d2nbqm"]
+[gd_scene load_steps=9 format=3 uid="uid://utne161qc8a6"]
 
-[ext_resource type="Script" path="res://interface/loading_screen/loading_screen.gd" id="1_gy2ie"]
+[ext_resource type="Script" path="res://common/autoload/loading_screen.gd" id="1_24jvn"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_17ry5"]
 bg_color = Color(0, 0, 0, 1)
@@ -23,22 +23,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Color(1, 1, 1, 1)]
-}
-
-[sub_resource type="Animation" id="Animation_yowcl"]
-resource_name = "autoplay"
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:visible")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
 }
 
 [sub_resource type="Animation" id="Animation_xq280"]
@@ -100,15 +84,13 @@ tracks/1/keys = {
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_qgl7r"]
 _data = {
 "RESET": SubResource("Animation_b38w0"),
-"autoplay": SubResource("Animation_yowcl"),
 "inn": SubResource("Animation_xq280"),
 "out": SubResource("Animation_052gd")
 }
 
 [node name="LoadingScreen" type="CanvasLayer"]
 process_mode = 3
-visible = false
-script = ExtResource("1_gy2ie")
+script = ExtResource("1_24jvn")
 
 [node name="BackgroundPanel" type="Panel" parent="."]
 anchors_preset = 15
@@ -163,4 +145,3 @@ unique_name_in_owner = true
 libraries = {
 "": SubResource("AnimationLibrary_qgl7r")
 }
-autoplay = "autoplay"

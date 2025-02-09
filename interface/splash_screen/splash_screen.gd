@@ -5,4 +5,4 @@ extends Control
 
 
 func spawn_main_menu() -> void:
-	Globals.main_scene.add_3d_scene(main_menu_scene)
+	LevelManager.change_level(main_menu_scene)
