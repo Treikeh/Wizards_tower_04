@@ -58,7 +58,9 @@ func _process(_delta: float) -> void:
 				return
 			3: ## THREAD_LOAD_LOADED
 				# Add new level
-				var new_level = ResourceLoader.load_threaded_get(level_to_load).instantiate()
+				var new_scene: PackedScene = ResourceLoader.load_threaded_get(level_to_load)
+				#get_tree().change_scene_to_packed(new_scene)
+				var new_level: Node3D = new_scene.instantiate()
 				world_3d.add_child.call_deferred(new_level)
 				# Finish level loading
 				level_to_load = ""

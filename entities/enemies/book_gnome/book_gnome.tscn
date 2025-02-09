@@ -219,7 +219,7 @@ texture = SubResource("ViewportTexture_cuy2h")
 [node name="BookGnomeTree" type="Node" parent="." node_paths=PackedStringArray("blackboard", "actor")]
 script = ExtResource("10_fgdmq")
 enabled = false
-blackboard = NodePath("@Node@17461")
+blackboard = NodePath("@Node@17445")
 actor = NodePath("..")
 
 [node name="SelectorComposite" type="Node" parent="BookGnomeTree"]
