@@ -20,7 +20,7 @@ func trigger() -> void:
 			damaged_health_nodes.append(area.health_node)
 	
 	# Spawn vfx
-	var vfx: GPUParticles3D = Globals.main_scene.add_3d_scene(vfx_scene, global_position)
+	var vfx: GPUParticles3D = LevelManager.add_3d_scene(vfx_scene, global_position)
 	vfx.finished.connect(vfx.queue_free)
 	#TODO: Scale vfx to match explosion damage area
 	vfx.restart()
