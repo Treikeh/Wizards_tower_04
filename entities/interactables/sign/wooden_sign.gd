@@ -1,6 +1,9 @@
 extends Node3D
 
 
+signal sign_closed
+
+
 @export_file("*.tscn") var text_popup_scene: String
 @export_multiline var text: String
 
@@ -15,3 +18,4 @@ func _on_interact_area_3d_interacted() -> void:
 
 func _on_text_box_menu_closed() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	sign_closed.emit()
