@@ -144,7 +144,7 @@ libraries = {
 
 [node name="Health" type="Node" parent="."]
 script = ExtResource("6_kn1ih")
-max_health = 50.0
+max_health = 40.0
 
 [node name="FloatingHealthBar" parent="." instance=ExtResource("7_wccmv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8, 0)
@@ -152,7 +152,7 @@ texture = SubResource("ViewportTexture_arqjo")
 
 [node name="BeehaveTree" type="Node" parent="." node_paths=PackedStringArray("blackboard", "actor")]
 script = ExtResource("8_yln8x")
-blackboard = NodePath("@Node@17313")
+blackboard = NodePath("@Node@26831")
 actor = NodePath("..")
 
 [node name="SelectorComposite" type="Node" parent="BeehaveTree"]
@@ -210,6 +210,7 @@ text = "Waiting to attack"
 script = ExtResource("17_wf8vp")
 node_key = &"player"
 save_key = &"away_position"
+distance = 10.0
 
 [node name="NavigateToPositionAction" type="Node" parent="BeehaveTree/SelectorComposite/AttackPlayer/CanAttack/MoveAwayFromPlayer"]
 script = ExtResource("18_4xmdw")

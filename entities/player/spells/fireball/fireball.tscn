@@ -1,8 +1,11 @@
-[gd_scene load_steps=7 format=3 uid="uid://cndpdurb3rxia"]
+[gd_scene load_steps=10 format=3 uid="uid://cndpdurb3rxia"]
 
 [ext_resource type="Script" path="res://entities/player/spells/fireball/fireball.gd" id="1_jy2c8"]
 [ext_resource type="Resource" uid="uid://bpafmjg70eeb4" path="res://entities/player/spells/fireball/fireball_damage.tres" id="3_8owbw"]
 [ext_resource type="PackedScene" uid="uid://di7vp8irr7xdl" path="res://common/scenes/damage_area_3d.tscn" id="3_d2eq5"]
+[ext_resource type="Material" uid="uid://b5ehaqk85imur" path="res://entities/player/spells/fireball/fireball_ppm.tres" id="4_1andq"]
+[ext_resource type="QuadMesh" uid="uid://bs74iy86w3241" path="res://common/meshes/simple_particle_mesh.tres" id="5_m0uif"]
+[ext_resource type="AudioStream" uid="uid://csxgakr508rnx" path="res://entities/player/spells/fireball/Small Fireball Trail Loop.wav" id="6_0brwb"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_hqxag"]
 radius = 0.1
@@ -11,9 +14,8 @@ radius = 0.1
 radius = 0.1
 height = 0.2
 
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_3nxf7"]
-radius = 0.1
-height = 0.4
+[sub_resource type="SphereShape3D" id="SphereShape3D_gq4pq"]
+radius = 0.15
 
 [node name="Fireball" type="RigidBody3D" groups=["fireball"]]
 collision_layer = 32
@@ -35,8 +37,19 @@ collision_mask = 128
 damage = ExtResource("3_8owbw")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="DamageArea"]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, -0.1)
-shape = SubResource("CapsuleShape3D_3nxf7")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.00406343)
+shape = SubResource("SphereShape3D_gq4pq")
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="."]
+lifetime = 0.15
+visibility_aabb = AABB(-0.25, -0.25, -0.25, 0.5, 0.5, 1)
+process_material = ExtResource("4_1andq")
+draw_pass_1 = ExtResource("5_m0uif")
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("6_0brwb")
+volume_db = -5.0
+autoplay = true
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 10.0

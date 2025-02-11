@@ -1,46 +1,12 @@
-[gd_scene load_steps=9 format=3 uid="uid://bdoipkh1hfkmm"]
+[gd_scene load_steps=4 format=3 uid="uid://bdoipkh1hfkmm"]
+
+[ext_resource type="Material" uid="uid://6v1if8tdqk6m" path="res://entities/props/lights/candle/candle_ppm.tres" id="1_vdlpl"]
+[ext_resource type="QuadMesh" uid="uid://bs74iy86w3241" path="res://common/meshes/simple_particle_mesh.tres" id="2_xjh0i"]
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_nl7su"]
 top_radius = 0.06
 bottom_radius = 0.06
 height = 0.35
-
-[sub_resource type="Gradient" id="Gradient_gmuth"]
-colors = PackedColorArray(0.83, 0.1245, 0, 1, 1, 0.983333, 0, 1)
-
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_2kq6b"]
-gradient = SubResource("Gradient_gmuth")
-
-[sub_resource type="Curve" id="Curve_dsjeq"]
-_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -2.32151, 0.0, 0, 0]
-point_count = 2
-
-[sub_resource type="CurveTexture" id="CurveTexture_8uvxk"]
-curve = SubResource("Curve_dsjeq")
-
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_06ehb"]
-angle_min = -180.0
-angle_max = 180.0
-direction = Vector3(0, 1, 0)
-spread = 30.0
-initial_velocity_max = 0.3
-gravity = Vector3(0, 1, 0)
-scale_min = 0.05
-scale_max = 0.15
-scale_curve = SubResource("CurveTexture_8uvxk")
-color_ramp = SubResource("GradientTexture1D_2kq6b")
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8r2wb"]
-shading_mode = 0
-vertex_color_use_as_albedo = true
-billboard_mode = 3
-billboard_keep_scale = true
-particles_anim_h_frames = 1
-particles_anim_v_frames = 1
-particles_anim_loop = false
-
-[sub_resource type="QuadMesh" id="QuadMesh_o1rrc"]
-material = SubResource("StandardMaterial3D_8r2wb")
 
 [node name="Candle" type="Node3D"]
 
@@ -56,5 +22,5 @@ omni_range = 1.51695
 [node name="GPUParticles3D" type="GPUParticles3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.40308, 0)
 visibility_aabb = AABB(-0.25, -0.05, -0.25, 0.5, 0.7, 0.5)
-process_material = SubResource("ParticleProcessMaterial_06ehb")
-draw_pass_1 = SubResource("QuadMesh_o1rrc")
+process_material = ExtResource("1_vdlpl")
+draw_pass_1 = ExtResource("2_xjh0i")

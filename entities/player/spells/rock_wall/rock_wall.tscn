@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://b2n0kf0vd4u8n"]
+[gd_scene load_steps=21 format=3 uid="uid://b2n0kf0vd4u8n"]
 
 [ext_resource type="Script" path="res://entities/player/spells/rock_wall/rock_wall.gd" id="1_3mufw"]
 [ext_resource type="PackedScene" uid="uid://ddufakdkmxhwr" path="res://common/scenes/health_area_3d.tscn" id="2_imdi2"]
@@ -10,8 +10,47 @@
 radius = 0.1
 height = 1.5
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kxvxe"]
+albedo_color = Color(0.708807, 0.593177, 0.324046, 1)
+
 [sub_resource type="BoxMesh" id="BoxMesh_820m5"]
 size = Vector3(2, 2, 1)
+
+[sub_resource type="Animation" id="Animation_eagji"]
+resource_name = "explode"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:material_override:albedo_color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0.708807, 0.593177, 0.324046, 1), Color(0.97, 0, 0, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_413ri"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:material_override:albedo_color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0.708807, 0.593177, 0.324046, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_p8fgd"]
+_data = {
+"RESET": SubResource("Animation_413ri"),
+"explode": SubResource("Animation_eagji")
+}
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_2okjq"]
 size = Vector3(2, 2, 1)
@@ -248,8 +287,14 @@ remote_path = NodePath("../LaunchBody")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="LaunchBodyTransform"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+material_override = SubResource("StandardMaterial3D_kxvxe")
 mesh = SubResource("BoxMesh_820m5")
 skeleton = NodePath("../..")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="LaunchBodyTransform/MeshInstance3D"]
+libraries = {
+"": SubResource("AnimationLibrary_p8fgd")
+}
 
 [node name="HealthArea" parent="LaunchBodyTransform" node_paths=PackedStringArray("health_node") instance=ExtResource("2_imdi2")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
@@ -267,7 +312,6 @@ script = ExtResource("3_5nyv3")
 fire_resistance = 50.0
 
 [node name="LaunchBody" type="AnimatableBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2, 0)
 collision_layer = 256
 collision_mask = 0
 physics_material_override = SubResource("PhysicsMaterial_vu7t5")

@@ -1,7 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://dwtlgghlk0gtn"]
+[gd_scene load_steps=8 format=3 uid="uid://dwtlgghlk0gtn"]
 
 [ext_resource type="Material" uid="uid://blsagikhb12s0" path="res://common/vfx/explosion/explosion_vfx_mp.tres" id="1_opv70"]
 [ext_resource type="Shader" uid="uid://18h33qoa5xhi" path="res://common/vfx/explosion/explosion_vfx_vs.tres" id="2_lhdk2"]
+[ext_resource type="AudioStream" uid="uid://cra3s7brup8mw" path="res://common/vfx/explosion/Medium Fireball Impact B.wav" id="3_jccny"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_u8fs4"]
 
@@ -29,3 +30,9 @@ one_shot = true
 explosiveness = 0.75
 process_material = ExtResource("1_opv70")
 draw_pass_1 = SubResource("SphereMesh_cdyea")
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("3_jccny")
+volume_db = -5.0
+autoplay = true
+bus = &"SFX"

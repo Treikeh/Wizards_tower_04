@@ -59,10 +59,14 @@ func _on_health_depleted() -> void:
 
 func _on_health_area_body_entered(body: Node3D) -> void:
 	if body.is_in_group("fireball"):
+		body.queue_free()
 		if ready_to_explode:
 			_explode()
 		else:
 			ready_to_explode = true
+			# Could be better to use Tweens
+			$LaunchBodyTransform/MeshInstance3D/AnimationPlayer.play("explode")
+			$LaunchBodyTransform/MeshInstance3D/AnimationPlayer.speed_scale = 1.0 / explosion_delay
 			duration_timer.wait_time = explosion_delay
 			duration_timer.start(0.0)
 
