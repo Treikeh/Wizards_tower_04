@@ -36,6 +36,8 @@ func _ready() -> void:
 	else:
 		# Load config file
 		config_file.load(CONFIG_PATH)
+	
+	apply_video_settings()
 
 
 #region Inputs
@@ -85,6 +87,40 @@ func load_video_settings() -> Dictionary:
 	for key in config_file.get_section_keys("VIDEO"):
 		video_settings[key] = config_file.get_value("VIDEO", key)
 	return video_settings
+
+
+func apply_video_settings() -> void:
+	var video_settings: Dictionary = load_video_settings()
+	if video_settings.is_empty():
+		return
+	
+	# Set display mode
+	match video_settings.display_mode:
+		"FULLSCREEN":
+			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
+			DisplayServer.window_set_flag(DisplayServer.WINDOW_FLAG_BORDERLESS, false)
+		"BORDERLESS_FULLSCREEN":
+			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
+			DisplayServer.window_set_flag(DisplayServer.WINDOW_FLAG_BORDERLESS, true)
+		"WINDOWED":
+			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
+			DisplayServer.window_set_flag(DisplayServer.WINDOW_FLAG_BORDERLESS, false)
+		"BORDERLESS_WINDOWED":
+			DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
+			DisplayServer.window_set_flag(DisplayServer.WINDOW_FLAG_BORDERLESS, true)
+	
+	# Set resolution when game starts
+	var resolution: String = str(video_settings.resolution)
+	match resolution:
+		"(720, 480)":
+			DisplayServer.window_set_size(Vector2i(720, 480))
+		"(960, 540)":
+			DisplayServer.window_set_size(Vector2i(960, 540))
+		"(1920, 1080)":
+			DisplayServer.window_set_size(Vector2i(1920, 1080))
+	
+	#TODO: Center window after loading video settings
+
 
 #endregion
 

@@ -57,6 +57,8 @@ func _on_display_options_item_selected(index: int) -> void:
 			ConfigHandler.save_video_settings("display_mode", "WINDOWED")
 		3: # Borderless windowed
 			ConfigHandler.save_video_settings("display_mode", "BORDERLESS_WINDOWED")
+	
+	ConfigHandler.apply_video_settings()
 
 
 func _on_resolution_options_item_selected(index: int) -> void:
