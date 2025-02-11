@@ -672,7 +672,7 @@ scene_to_spawn = "res://entities/enemies/book_gnome/book_gnome.tscn"
 
 [node name="SceneSpawner3" parent="CSGCombiner3D/Rooms/05/Node3D" instance=ExtResource("11_wrktf")]
 transform = Transform3D(0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, 0.707107, -10.4294, -5.85, -24.976)
-scene_to_spawn = "res://entities/enemies/book_gnome/book_gnome.tscn"
+scene_to_spawn = "res://entities/enemies/potion_thrower/potion_thrower.tscn"
 
 [node name="SceneSpawner2" parent="CSGCombiner3D/Rooms/05/Node3D" instance=ExtResource("11_wrktf")]
 transform = Transform3D(-0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, -0.707107, 1.80355, -9.85, -24.1982)
@@ -687,6 +687,10 @@ shape = SubResource("BoxShape3D_o2pqs")
 
 [node name="SceneSpawner4" parent="CSGCombiner3D/Rooms/05/Node3D" instance=ExtResource("11_wrktf")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.39889, -9.85, -2.16781)
+scene_to_spawn = "res://entities/enemies/potion_thrower/potion_thrower.tscn"
+
+[node name="SceneSpawner6" parent="CSGCombiner3D/Rooms/05/Node3D" instance=ExtResource("11_wrktf")]
+transform = Transform3D(0.866025, 0, -0.5, 0, 1, 0, 0.5, 0, 0.866025, -10.9989, -9.85, -9.86781)
 scene_to_spawn = "res://entities/enemies/living_armor/living_armor.tscn"
 
 [node name="PlayerTriggerArea3D2" parent="CSGCombiner3D/Rooms/05/Node3D" instance=ExtResource("16_e7dlv")]
@@ -730,8 +734,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, -3.8, -29.8)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.1, -3.8, -30.2)
 
 [connection signal="picked_up" from="CSGCombiner3D/Rooms/02/WoodenTable/SpellbookPickup" to="CSGCombiner3D/Rooms/02/InteractableDoor" method="_on_interact_area_3d_interacted"]
-[connection signal="picked_up" from="CSGCombiner3D/Rooms/02/WoodenTable/SpellbookPickup" to="CSGCombiner3D/Rooms/02/InteractableDoor2" method="_on_interact_area_3d_interacted"]
 [connection signal="picked_up" from="CSGCombiner3D/Rooms/02/WoodenTable/SpellbookPickup" to="CSGCombiner3D/Rooms/02/WoodenSign" method="_on_interact_area_3d_interacted"]
+[connection signal="sign_closed" from="CSGCombiner3D/Rooms/02/WoodenSign" to="CSGCombiner3D/Rooms/02/InteractableDoor2" method="_on_interact_area_3d_interacted"]
 [connection signal="sign_closed" from="CSGCombiner3D/Rooms/02/WoodenSign" to="CSGCombiner3D/Rooms/02/SceneSpawner" method="spawn_scene"]
 [connection signal="sign_closed" from="CSGCombiner3D/Rooms/02/WoodenSign" to="CSGCombiner3D/Rooms/02/SceneSpawner2" method="spawn_scene"]
 [connection signal="player_entered" from="CSGCombiner3D/Rooms/03/PlayerTriggerArea3D" to="CSGCombiner3D/Rooms/03/SceneSpawner" method="spawn_scene"]
@@ -746,6 +750,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.1, -3.8, -30.2)
 [connection signal="player_entered" from="CSGCombiner3D/Rooms/05/Node3D/PlayerTriggerArea3D" to="CSGCombiner3D/Rooms/05/Node3D/SceneSpawner3" method="spawn_scene"]
 [connection signal="player_entered" from="CSGCombiner3D/Rooms/05/Node3D/PlayerTriggerArea3D" to="CSGCombiner3D/Rooms/05/Node3D/SceneSpawner2" method="spawn_scene"]
 [connection signal="player_entered" from="CSGCombiner3D/Rooms/05/Node3D/PlayerTriggerArea3D2" to="CSGCombiner3D/Rooms/05/Node3D/SceneSpawner4" method="spawn_scene"]
+[connection signal="player_entered" from="CSGCombiner3D/Rooms/05/Node3D/PlayerTriggerArea3D2" to="CSGCombiner3D/Rooms/05/Node3D/SceneSpawner6" method="spawn_scene"]
 
 [editable path="CSGCombiner3D/Rooms/02/InteractableDoor"]
 [editable path="CSGCombiner3D/Rooms/02/InteractableDoor2"]
