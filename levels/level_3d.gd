@@ -15,3 +15,7 @@ func _ready() -> void:
 	#NOTE: This is to show player animations when any spell is unlocked
 	if fireball_unlocked or rock_wall_unlocked or wind_blast_unlocked:
 		Globals.spell_unlocked.emit(4)
+	
+	if Globals.checkpoint_transform:
+		var reset_transform: Transform3D
+		Globals.checkpoint_transform = reset_transform

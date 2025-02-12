@@ -4,7 +4,7 @@ extends Control
 @export_file("*.tscn") var pause_menu_scene: String
 
 var notification_duration: float = 3.0
-var notification_timer: SceneTreeTimer
+var notification_fade_tween: Tween
 
 
 func _ready() -> void:
@@ -14,6 +14,8 @@ func _ready() -> void:
 	Globals.player_casted_spell.connect(_on_player_casted_spell)
 	Globals.spell_unlocked.connect(_on_spell_unlocked)
 	Globals.notification_message_sent.connect(_on_notification_message_sent)
+	
+	%NotificationTimer.wait_time = notification_duration
 	
 	# Set starting health
 	#TODO: I need a system that saves player data across levels.
@@ -74,7 +76,7 @@ func _on_spell_unlocked(spell: int) -> void:
 
 
 func _on_player_casted_spell(id: int, spell_cooldown: float) -> void:
-	var color_tween: Tween = get_tree().create_tween()
+	var color_tween: Tween = create_tween()
 	match id:
 		0: # Fireball
 			%FireBallIcon.value = 0.0
@@ -88,9 +90,11 @@ func _on_player_casted_spell(id: int, spell_cooldown: float) -> void:
 
 
 func _on_notification_message_sent(message: String) -> void:
+	if notification_fade_tween:
+		notification_fade_tween.kill()
 	%NotificationLabel.modulate = Color.WHITE
 	%NotificationLabel.text = message
-	notification_timer = get_tree().create_timer(notification_duration)
-	await notification_timer.timeout
-	var fade_tween: Tween = get_tree().create_tween()
-	fade_tween.tween_property(%NotificationLabel, "modulate", Color.TRANSPARENT, 1.0)
+	%NotificationTimer.start(0.0)
+	await %NotificationTimer.timeout
+	notification_fade_tween = create_tween()
+	notification_fade_tween.tween_property(%NotificationLabel, "modulate", Color.TRANSPARENT, 1.0)

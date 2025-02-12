@@ -19,7 +19,7 @@
 [ext_resource type="PackedScene" uid="uid://exjnmfqooik7" path="res://entities/hazards/explosive_barrel/explosive_barrel.tscn" id="16_e0qsp"]
 [ext_resource type="PackedScene" uid="uid://bpkvnw0vkcjlr" path="res://common/scenes/player_trigger_area_3d.tscn" id="16_e7dlv"]
 [ext_resource type="PackedScene" uid="uid://dgqvbvg6txlno" path="res://entities/pickups/health_potion/health_potion.tscn" id="17_riak2"]
-[ext_resource type="PackedScene" uid="uid://bwwaepikf83yi" path="res://entities/pickups/godot_plushie/godot_plushine.tscn" id="19_7nuq8"]
+[ext_resource type="PackedScene" uid="uid://bwwaepikf83yi" path="res://entities/pickups/godot_plushie/godot_plushine_pickup.tscn" id="19_7nuq8"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ap1ce"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)

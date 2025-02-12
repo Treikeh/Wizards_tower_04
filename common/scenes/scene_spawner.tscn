@@ -42,3 +42,6 @@ mesh = SubResource("CylinderMesh_3t0rj")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.96046e-08, 0.3, 0)
 material_override = ExtResource("2_8da0c")
 mesh = SubResource("CylinderMesh_5pgil")
+
+[node name="Timer" type="Timer" parent="."]
+unique_name_in_owner = true

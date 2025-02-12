@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=3 uid="uid://bwwaepikf83yi"]
+
+[ext_resource type="Script" path="res://entities/pickups/godot_plushie/godot_plushine_pickup.gd" id="1_xgteb"]
+[ext_resource type="Script" path="res://entities/pickups/pickup_hover.gd" id="2_2ryo7"]
+[ext_resource type="PackedScene" uid="uid://rifpuji04xkg" path="res://entities/pickups/godot_plushie/mesh/godot_plush_V2_FR3NKD_sm.glb" id="3_adb1a"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_5fmfn"]
+size = Vector3(0.6, 1.4, 0.6)
+
+[node name="GodotPlushinePickup" type="Node3D"]
+script = ExtResource("1_xgteb")
+
+[node name="Mesh" type="Node3D" parent="."]
+script = ExtResource("2_2ryo7")
+
+[node name="godot_plush_V2_FR3NKD_sm" parent="Mesh" instance=ExtResource("3_adb1a")]
+transform = Transform3D(3, 0, 0, 0, 2.89778, -0.776457, 0, 0.776457, 2.89778, 0, 0.7, -0.1)
+
+[node name="Area3D" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 4
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 0)
+shape = SubResource("BoxShape3D_5fmfn")
+
+[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]

@@ -219,7 +219,7 @@ texture = SubResource("ViewportTexture_cuy2h")
 [node name="BookGnomeTree" type="Node" parent="." node_paths=PackedStringArray("blackboard", "actor")]
 script = ExtResource("10_fgdmq")
 enabled = false
-blackboard = NodePath("@Node@17445")
+blackboard = NodePath("@Node@39042")
 actor = NodePath("..")
 
 [node name="SelectorComposite" type="Node" parent="BookGnomeTree"]
@@ -257,7 +257,7 @@ script = ExtResource("12_74elj")
 [node name="PlayerInChaseRange" type="Node" parent="BookGnomeTree/SelectorComposite/MoveToPlayer/CanAttack/Chase"]
 script = ExtResource("16_vu0he")
 node_key = &"player"
-max_range = 20.0
+max_range = 50.0
 
 [node name="NavigateToPlayer" type="Node" parent="BookGnomeTree/SelectorComposite/MoveToPlayer/CanAttack/Chase"]
 script = ExtResource("13_26kjk")

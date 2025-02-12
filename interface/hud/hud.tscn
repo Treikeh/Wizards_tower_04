@@ -213,3 +213,6 @@ value = 0.5
 fill_mode = 3
 texture_under = SubResource("GradientTexture2D_57ay6")
 texture_progress = SubResource("GradientTexture2D_2xb85")
+
+[node name="NotificationTimer" type="Timer" parent="."]
+unique_name_in_owner = true

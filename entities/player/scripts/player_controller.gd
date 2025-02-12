@@ -267,7 +267,7 @@ func _on_health_depleted() -> void:
 	Globals.player_died.emit()
 	# Show game over screen
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
-	Globals.main_scene.change_ui_scene("res://interface/game_over/game_over.tscn")
+	UiManager.change_ui_scene("res://interface/game_over/game_over.tscn")
 
 
 #endregion
