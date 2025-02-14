@@ -14,8 +14,6 @@ var move_input: Vector2 = Vector2.ZERO
 var checkpoint_loaded: bool = false
 
 @export_group("Movement")
-# FIXME: Player has too much speed in the air so they can slide up steep slopes
-# The issue can be fixed with lower air accel at the cost of air control
 @export var max_speed: float = 6.0
 @export var ground_accel: float = 500.0
 @export var air_accel: float = 200.0
@@ -149,6 +147,13 @@ func _physics_process(delta: float) -> void:
 	else:
 		gravity_scale = 1.0
 		var target_vel: Vector3 = move_direction * max_speed
+		#Bad fix for sliding up steep slopes while in the air
+		#NOTE: With this fix i have even more of a reason to use a shape cast as ground check
+		var slope_normal: Vector3 = Vector3.ZERO
+		if move_direction and $ShapeCast3D.is_colliding():
+			slope_normal = $ShapeCast3D.get_collision_normal(0)
+			slope_normal = Vector3(slope_normal.x, 0.0, slope_normal.z)
+			target_vel = (move_direction + slope_normal) * max_speed
 		var gravity_vector: Vector3 = linear_velocity.dot(Vector3.DOWN) * Vector3.DOWN
 		var needed_vel: Vector3 = target_vel - (linear_velocity - gravity_vector)
 		apply_central_force(needed_vel * air_accel * delta * mass)
