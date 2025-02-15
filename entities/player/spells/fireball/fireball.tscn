@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://cndpdurb3rxia"]
+[gd_scene load_steps=15 format=3 uid="uid://cndpdurb3rxia"]
 
 [ext_resource type="Script" path="res://entities/player/spells/fireball/fireball.gd" id="1_jy2c8"]
 [ext_resource type="Shader" uid="uid://0q3k72lo6vkv" path="res://entities/player/spells/fireball/fireball_vs.tres" id="2_mix4r"]
@@ -32,6 +32,10 @@ rings = 16
 [sub_resource type="SphereShape3D" id="SphereShape3D_gq4pq"]
 radius = 0.15
 
+[sub_resource type="CylinderMesh" id="CylinderMesh_1u87u"]
+top_radius = 0.9
+bottom_radius = 0.0
+
 [node name="Fireball" type="RigidBody3D" groups=["fireball"]]
 collision_layer = 32
 collision_mask = 3
@@ -39,7 +43,7 @@ gravity_scale = 0.0
 contact_monitor = true
 max_contacts_reported = 1
 script = ExtResource("1_jy2c8")
-initial_velocity = 30.0
+initial_velocity = 25.0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("SphereShape3D_hqxag")
@@ -71,6 +75,12 @@ wait_time = 10.0
 one_shot = true
 autostart = true
 
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, -0.9)
+visible = false
+mesh = SubResource("CylinderMesh_1u87u")
+
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="reflected" from="." to="." method="_on_reflected"]
 [connection signal="hit_health_area" from="DamageArea" to="." method="_on_damage_area_hit_health_area"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

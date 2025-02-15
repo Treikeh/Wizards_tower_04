@@ -15,3 +15,9 @@ func _on_timer_timeout() -> void:
 
 func despawn_spell() -> void:
 	queue_free()
+
+
+func _on_reflected() -> void:
+	initial_velocity *= 1.5
+	$MeshInstance3D2.show()
+	# Do something fun here
