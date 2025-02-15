@@ -31,7 +31,6 @@ func cast_fireball() -> void:
 	if can_fireball:
 		var fireball: RigidBody3D = fireball_scene.instantiate()
 		add_child(fireball)
-		fireball.basis = global_basis
 		fireball.top_level = true
 		
 		# Cooldown
