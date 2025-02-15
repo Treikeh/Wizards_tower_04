@@ -3,10 +3,6 @@ extends CharacterBody3D
 
 ## How fast the wall will move when hit by the wind blast spell
 @export var wind_blast_force: float = 7.5
-## How long it will take for the wall to explode when hit with the fireball spell (when stationary)
-@export var explosion_delay: float = 3.0
-
-var ready_to_explode: bool = false
 
 @export_group("Nodes")
 @export var enemy_launch_area: Area3D
@@ -25,10 +21,7 @@ func _physics_process(delta: float) -> void:
 
 # Despawn or explode wall when timer is done
 func _on_duration_timer_timeout() -> void:
-	if ready_to_explode:
-		_explode()
-	else:
-		_on_health_depleted()
+	_on_health_depleted()
 
 
 func _launch_enemies()-> void:
@@ -41,8 +34,6 @@ func _launch_enemies()-> void:
 #TODO: Find a better way to do this
 func recive_knockback(direction: Vector3) -> void:
 	velocity = Vector3(direction.x, 0.0, direction.z).normalized() * wind_blast_force
-	ready_to_explode = true
-	# Add damage to movement
 
 
 func _explode() -> void:
@@ -60,14 +51,6 @@ func _on_health_depleted() -> void:
 func _on_health_area_body_entered(body: Node3D) -> void:
 	if body.is_in_group("fireball"):
 		body.queue_free()
-		if ready_to_explode:
-			_explode()
-		else:
-			ready_to_explode = true
-			# Could be better to use Tweens
-			$LaunchBodyTransform/MeshInstance3D/AnimationPlayer.play("explode")
-			$LaunchBodyTransform/MeshInstance3D/AnimationPlayer.speed_scale = 1.0 / explosion_delay
-			duration_timer.wait_time = explosion_delay
-			duration_timer.start(0.0)
+		_explode()
 
 #endregion

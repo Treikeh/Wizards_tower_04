@@ -1,16 +1,23 @@
-[gd_scene load_steps=5 format=3 uid="uid://dh3oppj1mqo0b"]
+[gd_scene load_steps=7 format=3 uid="uid://dh3oppj1mqo0b"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kkh1r"]
-transparency = 1
-cull_mode = 2
-shading_mode = 0
-albedo_color = Color(0.318646, 0.405704, 0.504998, 0.184314)
+[ext_resource type="Shader" uid="uid://b5spjy835fc4b" path="res://entities/player/spells/wind_blast/wind_blast_effect_vs.tres" id="1_rnh7l"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_013mu"]
+render_priority = 0
+shader = ExtResource("1_rnh7l")
+shader_parameter/displacement_speed = 1.0
+shader_parameter/displacement_scale = 0.4
+shader_parameter/normal_offset = 0.0
+shader_parameter/base_color = Color(0.6806, 0.78767, 0.83, 1)
+shader_parameter/alpha = 0.2
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_ul7jr"]
-material = SubResource("StandardMaterial3D_kkh1r")
+flip_faces = true
 top_radius = 1.0
-radial_segments = 16
-rings = 0
+radial_segments = 32
+rings = 16
+cap_top = false
+cap_bottom = false
 
 [sub_resource type="Animation" id="Animation_r55k6"]
 resource_name = "spawn"
@@ -28,9 +35,61 @@ tracks/0/keys = {
 "method": &"queue_free"
 }]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("MeshInstance3D:material_override:shader_parameter/alpha")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.466667, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.3, 0.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("MeshInstance3D:material_override:shader_parameter/normal_offset")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [-0.45, 1.5]
+}
+
+[sub_resource type="Animation" id="Animation_3ei1y"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MeshInstance3D:material_override:shader_parameter/alpha")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.2]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("MeshInstance3D:material_override:shader_parameter/normal_offset")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_5ail1"]
 _data = {
+"RESET": SubResource("Animation_3ei1y"),
 "spawn": SubResource("Animation_r55k6")
 }
 
@@ -38,6 +97,7 @@ _data = {
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, -1)
+material_override = SubResource("ShaderMaterial_013mu")
 mesh = SubResource("CylinderMesh_ul7jr")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]

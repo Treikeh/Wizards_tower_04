@@ -1,6 +1,7 @@
-[gd_scene load_steps=10 format=3 uid="uid://cndpdurb3rxia"]
+[gd_scene load_steps=14 format=3 uid="uid://cndpdurb3rxia"]
 
 [ext_resource type="Script" path="res://entities/player/spells/fireball/fireball.gd" id="1_jy2c8"]
+[ext_resource type="Shader" uid="uid://0q3k72lo6vkv" path="res://entities/player/spells/fireball/fireball_vs.tres" id="2_mix4r"]
 [ext_resource type="Resource" uid="uid://bpafmjg70eeb4" path="res://entities/player/spells/fireball/fireball_damage.tres" id="3_8owbw"]
 [ext_resource type="PackedScene" uid="uid://di7vp8irr7xdl" path="res://common/scenes/damage_area_3d.tscn" id="3_d2eq5"]
 [ext_resource type="Material" uid="uid://b5ehaqk85imur" path="res://entities/player/spells/fireball/fireball_ppm.tres" id="4_1andq"]
@@ -10,9 +11,23 @@
 [sub_resource type="SphereShape3D" id="SphereShape3D_hqxag"]
 radius = 0.1
 
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_nk52b"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_i4bfv"]
+noise = SubResource("FastNoiseLite_nk52b")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_pr0c7"]
+render_priority = 0
+shader = ExtResource("2_mix4r")
+shader_parameter/noise_speed = 0.0
+shader_parameter/noise_map = SubResource("NoiseTexture2D_i4bfv")
+
 [sub_resource type="SphereMesh" id="SphereMesh_4ec31"]
+material = SubResource("ShaderMaterial_pr0c7")
 radius = 0.1
 height = 0.2
+radial_segments = 32
+rings = 16
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_gq4pq"]
 radius = 0.15

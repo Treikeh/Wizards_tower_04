@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://dwtlgghlk0gtn"]
+[gd_scene load_steps=11 format=3 uid="uid://dwtlgghlk0gtn"]
 
 [ext_resource type="Material" uid="uid://blsagikhb12s0" path="res://common/vfx/explosion/explosion_vfx_mp.tres" id="1_opv70"]
 [ext_resource type="Shader" uid="uid://18h33qoa5xhi" path="res://common/vfx/explosion/explosion_vfx_vs.tres" id="2_lhdk2"]
@@ -23,9 +23,72 @@ shader_parameter/displacement_texture = SubResource("NoiseTexture2D_decg3")
 radial_segments = 16
 rings = 8
 
+[sub_resource type="Animation" id="Animation_anpev"]
+resource_name = "spawn"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:material_override:shader_parameter/base_color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.4, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0.901961, 0.396078, 0, 1), Color(0.169863, 0.155834, 0.125885, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:material_override:shader_parameter/emission_strength")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.4, 1.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [3.0, 1.0, 0.0]
+}
+
+[sub_resource type="Animation" id="Animation_cpc7m"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:material_override:shader_parameter/base_color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0.901961, 0.396078, 0, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:material_override:shader_parameter/emission_strength")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_da6qg"]
+_data = {
+"RESET": SubResource("Animation_cpc7m"),
+"spawn": SubResource("Animation_anpev")
+}
+
 [node name="ExplosionVFX" type="GPUParticles3D"]
 material_override = SubResource("ShaderMaterial_63g02")
 emitting = false
+amount = 16
+lifetime = 2.0
 one_shot = true
 explosiveness = 0.75
 process_material = ExtResource("1_opv70")
@@ -36,3 +99,9 @@ stream = ExtResource("3_jccny")
 volume_db = -5.0
 autoplay = true
 bus = &"SFX"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_da6qg")
+}
+autoplay = "spawn"
