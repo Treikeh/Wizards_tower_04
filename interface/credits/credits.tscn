@@ -47,13 +47,19 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 bbcode_enabled = true
-text = "Hi :)
-
-This game was made with the Godot game engine.
-[url]https://godotengine.org/[/url]
+text = "Hi
+Thank you for playing my game :)
 
 
-**Addons used during development**
+This was made in the Godot game engine.
+[url]https://godotengine.org[/url]
+
+
+All sound effects were made by \"Ovani Sound\"
+Website: [url]https://ovanisound.com[/url]
+
+
+[b]Addons used during development[/b]
 Godot git plugin
 Github: [url]https://github.com/godotengine/godot-git-plugin[/url]
 
@@ -64,10 +70,7 @@ Beehave addon by \"BitBrain\"
 Github: [url]https://github.com/bitbrain/beehave[/url]
 
 Script-IDE by \"Maran23\"
-Github: [url]https://github.com/Maran23/script-ide[/url]
-
-
-Thank you for playing :)"
+Github: [url]https://github.com/Maran23/script-ide[/url]"
 
 [node name="HSeparator" type="HSeparator" parent="PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
