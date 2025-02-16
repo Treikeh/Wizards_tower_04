@@ -91,7 +91,7 @@ func _on_player_casted_spell(id: int, spell_cooldown: float) -> void:
 
 func _on_notification_message_sent(message: String) -> void:
 	if notification_fade_tween:
-		notification_fade_tween.kill()
+		notification_fade_tween.stop()
 	%NotificationLabel.modulate = Color.WHITE
 	%NotificationLabel.text = message
 	%NotificationTimer.start(0.0)
