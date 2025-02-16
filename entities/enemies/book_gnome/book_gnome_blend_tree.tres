@@ -1,0 +1,29 @@
+[gd_resource type="AnimationNodeBlendTree" load_steps=6 format=3 uid="uid://bawe0qi3y1ca2"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ojtuh"]
+animation = &"attack_001"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_t3g2n"]
+animation = &"idle_001"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_fb0ym"]
+animation = &"walk_f_001"
+
+[sub_resource type="AnimationNodeOneShot" id="AnimationNodeOneShot_fnsus"]
+
+[sub_resource type="AnimationNodeBlend2" id="AnimationNodeBlend2_0xu1g"]
+
+[resource]
+graph_offset = Vector2(-741.718, -105.291)
+nodes/AttackAnimation/node = SubResource("AnimationNodeAnimation_ojtuh")
+nodes/AttackAnimation/position = Vector2(-460, 240)
+nodes/Idle/node = SubResource("AnimationNodeAnimation_t3g2n")
+nodes/Idle/position = Vector2(-780, -40)
+nodes/Walk/node = SubResource("AnimationNodeAnimation_fb0ym")
+nodes/Walk/position = Vector2(-780, 120)
+nodes/attack/node = SubResource("AnimationNodeOneShot_fnsus")
+nodes/attack/position = Vector2(-220, 80)
+nodes/output/position = Vector2(-40, 100)
+nodes/walk_blend/node = SubResource("AnimationNodeBlend2_0xu1g")
+nodes/walk_blend/position = Vector2(-460, 0)
+node_connections = [&"attack", 0, &"walk_blend", &"attack", 1, &"AttackAnimation", &"output", 0, &"attack", &"walk_blend", 0, &"Idle", &"walk_blend", 1, &"Walk"]

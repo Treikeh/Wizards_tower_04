@@ -1,10 +1,11 @@
-[gd_scene load_steps=36 format=3 uid="uid://uvws4xru1kpl"]
+[gd_scene load_steps=33 format=3 uid="uid://uvws4xru1kpl"]
 
 [ext_resource type="Script" path="res://entities/enemies/book_gnome/book_gnome.gd" id="1_ucrke"]
 [ext_resource type="PackedScene" uid="uid://dnn2p6cuwx2e7" path="res://entities/enemies/book_gnome/mesh/book_gnome_01_sk.glb" id="2_1d5g8"]
 [ext_resource type="Script" path="res://common/scripts/match_y_rotation.gd" id="3_0tnmg"]
 [ext_resource type="PackedScene" uid="uid://ddufakdkmxhwr" path="res://common/scenes/health_area_3d.tscn" id="3_ap0dj"]
 [ext_resource type="PackedScene" uid="uid://cs53wyj8yt4s4" path="res://entities/enemies/floating_health_bar.tscn" id="4_010fi"]
+[ext_resource type="AnimationNodeBlendTree" uid="uid://bawe0qi3y1ca2" path="res://entities/enemies/book_gnome/book_gnome_blend_tree.tres" id="4_be21s"]
 [ext_resource type="Script" path="res://common/scripts/health.gd" id="4_ejrbm"]
 [ext_resource type="PackedScene" uid="uid://di7vp8irr7xdl" path="res://common/scenes/damage_area_3d.tscn" id="4_pe1ou"]
 [ext_resource type="Resource" uid="uid://dc7hcuasftdvh" path="res://entities/enemies/book_gnome/book_gnome_damage.tres" id="5_rq5px"]
@@ -25,107 +26,42 @@
 radius = 0.4
 height = 1.1
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ojtuh"]
-animation = &"attack_001"
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_efe3t"]
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_twpae"]
 animation = &"died_001"
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_t3g2n"]
-animation = &"idle_001"
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_40ltg"]
+animation = &"spawn_001"
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_fb0ym"]
-animation = &"walk_f_001"
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_fjnbt"]
+advance_mode = 2
 
-[sub_resource type="AnimationNodeOneShot" id="AnimationNodeOneShot_fnsus"]
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_pejk8"]
+switch_mode = 2
+advance_mode = 2
 
-[sub_resource type="AnimationNodeOneShot" id="AnimationNodeOneShot_w336s"]
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_jr5ac"]
+advance_mode = 2
+advance_condition = &"dead"
 
-[sub_resource type="AnimationNodeBlend2" id="AnimationNodeBlend2_0xu1g"]
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_hsm2r"]
+advance_mode = 2
 
-[sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_6rjv8"]
-nodes/AttackAnimation/node = SubResource("AnimationNodeAnimation_ojtuh")
-nodes/AttackAnimation/position = Vector2(-460, 240)
-nodes/DeathAnimation/node = SubResource("AnimationNodeAnimation_efe3t")
-nodes/DeathAnimation/position = Vector2(-220, 340)
-nodes/Idle/node = SubResource("AnimationNodeAnimation_t3g2n")
-nodes/Idle/position = Vector2(-780, 0)
-nodes/Walk/node = SubResource("AnimationNodeAnimation_fb0ym")
-nodes/Walk/position = Vector2(-780, 180)
-nodes/attack/node = SubResource("AnimationNodeOneShot_fnsus")
-nodes/attack/position = Vector2(-220, 80)
-nodes/died/node = SubResource("AnimationNodeOneShot_w336s")
-nodes/died/position = Vector2(40, 140)
-nodes/walk_blend/node = SubResource("AnimationNodeBlend2_0xu1g")
-nodes/walk_blend/position = Vector2(-460, 0)
-node_connections = [&"attack", 0, &"walk_blend", &"attack", 1, &"AttackAnimation", &"died", 0, &"attack", &"died", 1, &"DeathAnimation", &"output", 0, &"died", &"walk_blend", 0, &"Idle", &"walk_blend", 1, &"Walk"]
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_l055f"]
+states/BlendTree/node = ExtResource("4_be21s")
+states/BlendTree/position = Vector2(333, 200)
+states/End/position = Vector2(482, 280)
+states/died_001/node = SubResource("AnimationNodeAnimation_twpae")
+states/died_001/position = Vector2(333, 280)
+states/spawn_001/node = SubResource("AnimationNodeAnimation_40ltg")
+states/spawn_001/position = Vector2(333, 100)
+transitions = ["Start", "spawn_001", SubResource("AnimationNodeStateMachineTransition_fjnbt"), "spawn_001", "BlendTree", SubResource("AnimationNodeStateMachineTransition_pejk8"), "BlendTree", "died_001", SubResource("AnimationNodeStateMachineTransition_jr5ac"), "died_001", "End", SubResource("AnimationNodeStateMachineTransition_hsm2r")]
+graph_offset = Vector2(-170, 22)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_cf1hn"]
 size = Vector3(0.705078, 0.906494, 0.575684)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_xk6ae"]
 size = Vector3(0.5, 0.7, 0.5)
-
-[sub_resource type="Animation" id="Animation_1a3m5"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0, 0, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("../BookGnomeTree:enabled")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-
-[sub_resource type="Animation" id="Animation_sf56u"]
-resource_name = "spawn"
-length = 0.8
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0.2, 0.8),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector3(0, -1.5, 0), Vector3(0, 0, 0)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("../BookGnomeTree:enabled")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.8),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [false, true]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_lxmpl"]
-_data = {
-"RESET": SubResource("Animation_1a3m5"),
-"spawn": SubResource("Animation_sf56u")
-}
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_cuy2h"]
 viewport_path = NodePath("SubViewport")
@@ -154,36 +90,31 @@ script = ExtResource("3_0tnmg")
 target_node = NodePath("../TargetDirection")
 
 [node name="Skeleton3D" parent="book_gnome_01_sk" index="0"]
-bones/1/rotation = Quaternion(0, 0.707107, 0.707107, 0)
-bones/2/position = Vector3(1.62838e-16, 0.245117, 0.178967)
-bones/2/rotation = Quaternion(0.650424, -5.7346e-08, -4.91056e-08, 0.759571)
+bones/2/position = Vector3(1.89477e-15, 0.178967, 0.245117)
+bones/2/rotation = Quaternion(5.82686e-09, 0.997017, 0.0771791, 7.52727e-08)
+bones/2/scale = Vector3(1, 1, 1)
 bones/3/rotation = Quaternion(0.367487, -0.349485, -0.604114, 0.614704)
-bones/3/scale = Vector3(1, 1, 1)
-bones/4/rotation = Quaternion(-0.380128, -0.335346, -0.632811, 0.585317)
-bones/4/scale = Vector3(1, 1, 1)
-bones/5/rotation = Quaternion(-0.0375578, 2.15778e-08, -2.67229e-07, 0.999294)
+bones/4/rotation = Quaternion(-0.380129, -0.335346, -0.632811, 0.585317)
+bones/5/rotation = Quaternion(-0.0375578, 6.12753e-09, -2.52898e-07, 0.999294)
 bones/6/rotation = Quaternion(0.508429, -9.20481e-08, -1.95349e-07, 0.861104)
 bones/7/rotation = Quaternion(0.190234, -5.60127e-06, -1.97151e-06, 0.981739)
 bones/8/position = Vector3(3.21829e-08, 0.587239, 0.20697)
-bones/8/rotation = Quaternion(-0.0352754, 3.07332e-08, 5.09014e-09, 0.999378)
-bones/8/scale = Vector3(1, 1, 1)
-bones/9/rotation = Quaternion(0.352735, 0.364283, 0.612845, 0.606051)
-bones/9/scale = Vector3(1, 1, 1)
+bones/8/rotation = Quaternion(-0.0352755, 3.07332e-08, 5.09015e-09, 0.999378)
+bones/9/rotation = Quaternion(0.352735, 0.364283, 0.612844, 0.606051)
 bones/10/rotation = Quaternion(-0.395356, 0.321059, 0.62341, 0.593274)
-bones/11/rotation = Quaternion(-0.0375579, 5.17911e-08, 2.98878e-07, 0.999294)
-bones/12/rotation = Quaternion(0.508429, 9.20481e-08, 1.95348e-07, 0.861104)
+bones/10/scale = Vector3(1, 1, 1)
+bones/11/rotation = Quaternion(-0.0375579, -7.21187e-09, 2.81749e-07, 0.999294)
+bones/12/rotation = Quaternion(0.508429, 9.20481e-08, 1.95349e-07, 0.861104)
 bones/13/rotation = Quaternion(0.190234, 5.60127e-06, 1.97151e-06, 0.981739)
 
 [node name="AnimationTree" type="AnimationTree" parent="book_gnome_01_sk"]
-tree_root = SubResource("AnimationNodeBlendTree_6rjv8")
+tree_root = SubResource("AnimationNodeStateMachine_l055f")
 anim_player = NodePath("../AnimationPlayer")
-parameters/attack/active = false
-parameters/attack/internal_active = false
-parameters/attack/request = 0
-parameters/died/active = false
-parameters/died/internal_active = false
-parameters/died/request = 0
-parameters/walk_blend/blend_amount = 0
+parameters/conditions/dead = false
+parameters/BlendTree/attack/active = false
+parameters/BlendTree/attack/internal_active = false
+parameters/BlendTree/attack/request = 0
+parameters/BlendTree/walk_blend/blend_amount = 0.0
 
 [node name="HealthArea3D" parent="book_gnome_01_sk" node_paths=PackedStringArray("health_node") instance=ExtResource("3_ap0dj")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.030045)
@@ -202,12 +133,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.55, -0.5)
 shape = SubResource("BoxShape3D_xk6ae")
 disabled = true
 
-[node name="AnimationPlayerSpawn" type="AnimationPlayer" parent="book_gnome_01_sk"]
-libraries = {
-"": SubResource("AnimationLibrary_lxmpl")
-}
-autoplay = "spawn"
-
 [node name="Health" type="Node" parent="."]
 script = ExtResource("4_ejrbm")
 max_health = 10.0
@@ -218,8 +143,7 @@ texture = SubResource("ViewportTexture_cuy2h")
 
 [node name="BookGnomeTree" type="Node" parent="." node_paths=PackedStringArray("blackboard", "actor")]
 script = ExtResource("10_fgdmq")
-enabled = false
-blackboard = NodePath("@Node@39042")
+blackboard = NodePath("@Node@218003")
 actor = NodePath("..")
 
 [node name="SelectorComposite" type="Node" parent="BookGnomeTree"]
