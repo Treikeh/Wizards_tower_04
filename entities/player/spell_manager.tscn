@@ -30,3 +30,16 @@ monitorable = false
 [node name="CollisionShape3D" type="CollisionShape3D" parent="WindBlastArea"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, -2)
 shape = SubResource("CapsuleShape3D_00kph")
+
+[node name="FireballRechargeTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="RockWallRechargeTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="WindBlastRechargeTimer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="timeout" from="FireballRechargeTimer" to="." method="_on_fireball_recharge_timer_timeout"]
+[connection signal="timeout" from="RockWallRechargeTimer" to="." method="_on_rock_wall_recharge_timer_timeout"]
+[connection signal="timeout" from="WindBlastRechargeTimer" to="." method="_on_wind_blast_recharge_timer_timeout"]

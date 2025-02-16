@@ -22,7 +22,13 @@ signal health_bar_updated(health: float)
 signal spell_unlocked(spell: int)
 
 @warning_ignore("unused_signal")
-signal player_casted_spell(id: int, spell_cooldown: float)
+signal spell_recharge_started(id: int, spell_cooldown: float)
+
+@warning_ignore("unused_signal")
+signal spell_recharge_ended(spell: int)
+
+@warning_ignore("unused_signal")
+signal player_casted_spell(id: int,)
 
 @warning_ignore("unused_signal")
 signal notification_message_sent(message: String)

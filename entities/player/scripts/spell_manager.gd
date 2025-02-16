@@ -5,6 +5,12 @@ extends Node3D
 @export var orientation: Node3D
 
 
+func _ready() -> void:
+	$FireballRechargeTimer.wait_time = fireball_cooldown
+	$RockWallRechargeTimer.wait_time = rock_wall_cooldown
+	$WindBlastRechargeTimer.wait_time = wind_blast_cooldown
+
+
 @warning_ignore("unused_parameter")
 func _physics_process(delta: float) -> void:
 	if rock_wall_preview != null:
@@ -21,23 +27,39 @@ func _physics_process(delta: float) -> void:
 #region Fireball
 
 @export_group("Fireball")
-@export var fireball_cooldown: float = 0.3
+@export var fireball_cooldown: float = 2.0
+@export var fireball_firerate: float = 0.3
 @export var fireball_ray: RayCast3D
+@export var fireball_max_casts: int = 3
 var can_fireball: bool = true
-var fireball_scene: PackedScene = preload("res://entities/player/spells/fireball/fireball.tscn")
+var fireball_remaning_casts: int = fireball_max_casts
+var fireball_scene: PackedScene = preload("uid://cndpdurb3rxia")
 
 
 func cast_fireball() -> void:
-	if can_fireball:
+	if can_fireball and fireball_remaning_casts > 0:
 		var fireball: RigidBody3D = fireball_scene.instantiate()
 		add_child(fireball)
 		fireball.top_level = true
+		fireball_remaning_casts -= 1
+		if $FireballRechargeTimer.is_stopped():
+			$FireballRechargeTimer.start(0.0)
+			Globals.spell_recharge_started.emit(0, fireball_cooldown)
 		
 		# Cooldown
+		Globals.player_casted_spell.emit(0)
 		can_fireball = false
-		Globals.player_casted_spell.emit(0, fireball_cooldown)
-		await get_tree().create_timer(fireball_cooldown).timeout
+		await get_tree().create_timer(fireball_firerate).timeout
 		can_fireball = true
+
+
+func _on_fireball_recharge_timer_timeout() -> void:
+	Globals.spell_recharge_ended.emit(0)
+	fireball_remaning_casts += 1
+	if fireball_remaning_casts < fireball_max_casts:
+		await get_tree().process_frame
+		$FireballRechargeTimer.start(0.0)
+		Globals.spell_recharge_started.emit(0, fireball_cooldown)
 
 #endregion
 
@@ -52,16 +74,19 @@ func cast_fireball() -> void:
 # - floating rigidbody or maybe i could manually move a node3d.
 
 @export_group("Rock wall")
-@export var rock_wall_cooldown: float = 1.75
+@export var rock_wall_cooldown: float = 3.0
+@export var rock_wall_firerate: float = 1.5
+@export var rock_wall_max_casts: int = 2
 ## How far away from the player the rock wall can be spawned
 @export var rock_wall_range: float = 5.0
 @export var rock_wall_ray: RayCast3D
 ## If the palyer can cast the rock wall
 var can_rock_wall: bool = true
-var rock_wall_scene: PackedScene = preload("res://entities/player/spells/rock_wall/rock_wall.tscn")
+var rock_wall_remaning_casts: int = rock_wall_max_casts
+var rock_wall_scene: PackedScene = preload("uid://b2n0kf0vd4u8n")
 # Preview
 var rock_wall_preview: Node3D
-var rock_wall_preview_scene: PackedScene = preload("res://entities/player/spells/rock_wall/rock_wall_preview.tscn")
+var rock_wall_preview_scene: PackedScene = preload("uid://vsehaldttdcr")
 
 
 func spawn_rock_wall_preview() -> void:
@@ -87,15 +112,28 @@ func spawn_rock_wall() -> void:
 	add_child(rock_wall)
 	rock_wall.top_level = true
 	rock_wall.global_transform = rock_wall_preview.global_transform
+	rock_wall_remaning_casts -= 1
+	if $RockWallRechargeTimer.is_stopped():
+		$RockWallRechargeTimer.start(0.0)
+		Globals.spell_recharge_started.emit(1, rock_wall_cooldown)
 	
 	# Cooldown
 	can_rock_wall = false
-	Globals.player_casted_spell.emit(1, rock_wall_cooldown)
+	Globals.player_casted_spell.emit(1)
 	# Despawn rock wall preview
 	rock_wall_preview.queue_free()
 	# Wait for duration before spell can be cast again
-	await get_tree().create_timer(rock_wall_cooldown).timeout
+	await get_tree().create_timer(rock_wall_firerate).timeout
 	can_rock_wall = true
+
+
+func _on_rock_wall_recharge_timer_timeout() -> void:
+	Globals.spell_recharge_ended.emit(1)
+	rock_wall_remaning_casts += 1
+	if rock_wall_remaning_casts < rock_wall_max_casts:
+		await get_tree().process_frame
+		$RockWallRechargeTimer.start(0.0)
+		Globals.spell_recharge_started.emit(1, rock_wall_cooldown)
 
 #endregion
 
@@ -104,10 +142,13 @@ func spawn_rock_wall() -> void:
 
 @export_group("Wind blast")
 @export var wind_blast_force: float = 15.0
-@export var wind_blast_cooldown: float = 1.25
+@export var wind_blast_cooldown: float = 3
+@export var wind_blast_firerate: float = 1.25
+@export var wind_blast_max_casts: int = 5
 @export var wind_blast_area: Area3D
 var can_wind_blast: bool = true
-var wind_blast_effect_scene: PackedScene = preload("res://entities/player/spells/wind_blast/wind_blast_effect.tscn")
+var wind_blast_remaning_casts: int = wind_blast_max_casts
+var wind_blast_effect_scene: PackedScene = preload("uid://dh3oppj1mqo0b")
 
 
 func cast_wind_blast() -> void:
@@ -132,11 +173,24 @@ func cast_wind_blast() -> void:
 		# Spawn wind blast effect
 		var wind_blast_effect: Node3D = wind_blast_effect_scene.instantiate()
 		add_child(wind_blast_effect)
+		wind_blast_remaning_casts -= 1
+		if $WindBlastRechargeTimer.is_stopped():
+			$WindBlastRechargeTimer.start(0.0)
+			Globals.spell_recharge_started.emit(2, wind_blast_cooldown)
 		
 		# Cooldown
 		can_wind_blast = false
-		Globals.player_casted_spell.emit(2, wind_blast_cooldown)
-		await get_tree().create_timer(wind_blast_cooldown).timeout
+		Globals.player_casted_spell.emit(2)
+		await get_tree().create_timer(wind_blast_firerate).timeout
 		can_wind_blast = true
+
+
+func _on_wind_blast_recharge_timer_timeout() -> void:
+	Globals.spell_recharge_ended.emit(2)
+	wind_blast_remaning_casts += 1
+	if wind_blast_remaning_casts < wind_blast_max_casts:
+		await get_tree().process_frame
+		$WindBlastRechargeTimer.start(0.0)
+		Globals.spell_recharge_started.emit(2, wind_blast_cooldown)
 
 #endregion
