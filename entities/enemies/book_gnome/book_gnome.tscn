@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://uvws4xru1kpl"]
+[gd_scene load_steps=32 format=3 uid="uid://uvws4xru1kpl"]
 
 [ext_resource type="Script" path="res://entities/enemies/book_gnome/book_gnome.gd" id="1_ucrke"]
 [ext_resource type="PackedScene" uid="uid://dnn2p6cuwx2e7" path="res://entities/enemies/book_gnome/mesh/book_gnome_01_sk.glb" id="2_1d5g8"]
@@ -43,9 +43,6 @@ advance_mode = 2
 advance_mode = 2
 advance_condition = &"dead"
 
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_hsm2r"]
-advance_mode = 2
-
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_l055f"]
 states/BlendTree/node = ExtResource("4_be21s")
 states/BlendTree/position = Vector2(333, 200)
@@ -54,7 +51,7 @@ states/died_001/node = SubResource("AnimationNodeAnimation_twpae")
 states/died_001/position = Vector2(333, 280)
 states/spawn_001/node = SubResource("AnimationNodeAnimation_40ltg")
 states/spawn_001/position = Vector2(333, 100)
-transitions = ["Start", "spawn_001", SubResource("AnimationNodeStateMachineTransition_fjnbt"), "spawn_001", "BlendTree", SubResource("AnimationNodeStateMachineTransition_pejk8"), "BlendTree", "died_001", SubResource("AnimationNodeStateMachineTransition_jr5ac"), "died_001", "End", SubResource("AnimationNodeStateMachineTransition_hsm2r")]
+transitions = ["Start", "spawn_001", SubResource("AnimationNodeStateMachineTransition_fjnbt"), "spawn_001", "BlendTree", SubResource("AnimationNodeStateMachineTransition_pejk8"), "BlendTree", "died_001", SubResource("AnimationNodeStateMachineTransition_jr5ac")]
 graph_offset = Vector2(-170, 22)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_cf1hn"]
@@ -143,7 +140,7 @@ texture = SubResource("ViewportTexture_cuy2h")
 
 [node name="BookGnomeTree" type="Node" parent="." node_paths=PackedStringArray("blackboard", "actor")]
 script = ExtResource("10_fgdmq")
-blackboard = NodePath("@Node@218003")
+blackboard = NodePath("@Node@268298")
 actor = NodePath("..")
 
 [node name="SelectorComposite" type="Node" parent="BookGnomeTree"]

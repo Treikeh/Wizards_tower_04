@@ -19,10 +19,13 @@ signal interact_prompt_updated(prompt: String)
 signal health_bar_updated(health: float)
 
 @warning_ignore("unused_signal")
+signal spell_casts_updated(spell: int)
+
+@warning_ignore("unused_signal")
 signal spell_unlocked(spell: int)
 
 @warning_ignore("unused_signal")
-signal spell_recharge_started(id: int, spell_cooldown: float)
+signal spell_recharge_started(id: int)
 
 @warning_ignore("unused_signal")
 signal spell_recharge_ended(spell: int)

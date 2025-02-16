@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://n1x6gqci2ata"]
+[gd_scene load_steps=26 format=3 uid="uid://n1x6gqci2ata"]
 
 [ext_resource type="Script" path="res://levels/level_3d.gd" id="1_3v48a"]
 [ext_resource type="PackedScene" uid="uid://dh8dcfqs8vv8p" path="res://entities/player/player_controller.tscn" id="2_5jbd1"]
@@ -39,9 +39,6 @@ geometry_source_geometry_mode = 1
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_biprn"]
 size = Vector3(4, 5, 1)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_8d7kk"]
-size = Vector3(56.8, 3.7, 3)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_r7fh5"]
 size = Vector3(14.8, 1.5, 0.3)
@@ -123,18 +120,6 @@ transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -9.4, 
 polygon = PackedVector2Array(0, 0, 0, 6, 40, -40, 40, -50)
 depth = 3.0
 material = ExtResource("3_8ftr8")
-
-[node name="Area3D" type="Area3D" parent="CSGCombiner3D/Rooms/01/CSGPolygon3D"]
-transform = Transform3D(0.642788, 0.766044, 0, -0.766044, 0.642788, 0, 0, 0, 1, 2.2, 0, -1.5)
-collision_layer = 0
-collision_mask = 4
-monitorable = false
-gravity_space_override = 3
-gravity = 20.0
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="CSGCombiner3D/Rooms/01/CSGPolygon3D/Area3D"]
-transform = Transform3D(1, 0, -3.55271e-15, 0, 1, -3.55271e-15, 1.88294e-13, 3.76588e-13, 1, 27.3, 0, 0)
-shape = SubResource("BoxShape3D_8d7kk")
 
 [node name="Node3D" type="Node3D" parent="CSGCombiner3D/Rooms/01"]
 
