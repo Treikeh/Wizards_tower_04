@@ -1,6 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://cavgwqcbmxw3w"]
+[gd_scene load_steps=6 format=3 uid="uid://cavgwqcbmxw3w"]
 
 [ext_resource type="Script" path="res://entities/player/scripts/spell_manager.gd" id="1_1c27g"]
+[ext_resource type="Resource" uid="uid://d1r6ctrc8mci7" path="res://entities/player/spells/fireball/fireball_info.tres" id="2_adkwt"]
+[ext_resource type="Resource" uid="uid://cxsh88wj6jeia" path="res://entities/player/spells/rock_wall/rock_wall_info.tres" id="3_fr4ex"]
+[ext_resource type="Resource" uid="uid://n1tjwg3nqlck" path="res://entities/player/spells/wind_blast/wind_blast_info.tres" id="4_swni5"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_00kph"]
 radius = 0.75
@@ -8,8 +11,11 @@ height = 4.0
 
 [node name="SpellManager" type="Node3D" node_paths=PackedStringArray("fireball_ray", "rock_wall_ray", "wind_blast_area")]
 script = ExtResource("1_1c27g")
+fireball_info = ExtResource("2_adkwt")
 fireball_ray = NodePath("FireballRay")
+rock_wall_info = ExtResource("3_fr4ex")
 rock_wall_ray = NodePath("RockWallRay")
+wind_blast_info = ExtResource("4_swni5")
 wind_blast_area = NodePath("WindBlastArea")
 
 [node name="FireballRay" type="RayCast3D" parent="."]

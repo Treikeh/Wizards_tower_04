@@ -6,9 +6,9 @@ extends Node3D
 
 
 func _ready() -> void:
-	$FireballRechargeTimer.wait_time = fireball_cooldown
-	$RockWallRechargeTimer.wait_time = rock_wall_cooldown
-	$WindBlastRechargeTimer.wait_time = wind_blast_cooldown
+	$FireballRechargeTimer.wait_time = fireball_info.recharge_duration
+	$RockWallRechargeTimer.wait_time = rock_wall_info.recharge_duration
+	$WindBlastRechargeTimer.wait_time = wind_blast_info.recharge_duration
 
 
 @warning_ignore("unused_parameter")
@@ -27,39 +27,37 @@ func _physics_process(delta: float) -> void:
 #region Fireball
 
 @export_group("Fireball")
-@export var fireball_cooldown: float = 2.0
-@export var fireball_firerate: float = 0.3
+@export var fireball_info: SpellInfo
 @export var fireball_ray: RayCast3D
-@export var fireball_max_casts: int = 3
 var can_fireball: bool = true
-var fireball_remaning_casts: int = fireball_max_casts
 var fireball_scene: PackedScene = preload("uid://cndpdurb3rxia")
 
 
 func cast_fireball() -> void:
-	if can_fireball and fireball_remaning_casts > 0:
+	if can_fireball and fireball_info.remaning_casts > 0:
 		var fireball: RigidBody3D = fireball_scene.instantiate()
 		add_child(fireball)
 		fireball.top_level = true
-		fireball_remaning_casts -= 1
+		
+		fireball_info.remaning_casts -= 1
 		if $FireballRechargeTimer.is_stopped():
 			$FireballRechargeTimer.start(0.0)
-			Globals.spell_recharge_started.emit(0, fireball_cooldown)
+			Globals.spell_recharge_started.emit(0)
 		
 		# Cooldown
-		Globals.player_casted_spell.emit(0)
+		Globals.spell_casts_updated.emit(0)
 		can_fireball = false
-		await get_tree().create_timer(fireball_firerate).timeout
+		await get_tree().create_timer(fireball_info.firerate).timeout
 		can_fireball = true
 
 
 func _on_fireball_recharge_timer_timeout() -> void:
-	Globals.spell_recharge_ended.emit(0)
-	fireball_remaning_casts += 1
-	if fireball_remaning_casts < fireball_max_casts:
+	fireball_info.remaning_casts += 1
+	Globals.spell_casts_updated.emit(0)
+	if fireball_info.remaning_casts < fireball_info.max_casts:
 		await get_tree().process_frame
 		$FireballRechargeTimer.start(0.0)
-		Globals.spell_recharge_started.emit(0, fireball_cooldown)
+		Globals.spell_recharge_started.emit(0)
 
 #endregion
 
@@ -74,15 +72,12 @@ func _on_fireball_recharge_timer_timeout() -> void:
 # - floating rigidbody or maybe i could manually move a node3d.
 
 @export_group("Rock wall")
-@export var rock_wall_cooldown: float = 3.0
-@export var rock_wall_firerate: float = 1.5
-@export var rock_wall_max_casts: int = 2
+@export var rock_wall_info: SpellInfo
 ## How far away from the player the rock wall can be spawned
 @export var rock_wall_range: float = 5.0
 @export var rock_wall_ray: RayCast3D
 ## If the palyer can cast the rock wall
 var can_rock_wall: bool = true
-var rock_wall_remaning_casts: int = rock_wall_max_casts
 var rock_wall_scene: PackedScene = preload("uid://b2n0kf0vd4u8n")
 # Preview
 var rock_wall_preview: Node3D
@@ -90,7 +85,7 @@ var rock_wall_preview_scene: PackedScene = preload("uid://vsehaldttdcr")
 
 
 func spawn_rock_wall_preview() -> void:
-	if can_rock_wall:
+	if can_rock_wall and rock_wall_info.remaning_casts > 0:
 		rock_wall_preview = rock_wall_preview_scene.instantiate()
 		add_child(rock_wall_preview)
 		rock_wall_preview.top_level = true
@@ -112,28 +107,28 @@ func spawn_rock_wall() -> void:
 	add_child(rock_wall)
 	rock_wall.top_level = true
 	rock_wall.global_transform = rock_wall_preview.global_transform
-	rock_wall_remaning_casts -= 1
+	rock_wall_info.remaning_casts -= 1
 	if $RockWallRechargeTimer.is_stopped():
 		$RockWallRechargeTimer.start(0.0)
-		Globals.spell_recharge_started.emit(1, rock_wall_cooldown)
+		Globals.spell_recharge_started.emit(1)
 	
 	# Cooldown
 	can_rock_wall = false
-	Globals.player_casted_spell.emit(1)
+	Globals.spell_casts_updated.emit(1)
 	# Despawn rock wall preview
 	rock_wall_preview.queue_free()
 	# Wait for duration before spell can be cast again
-	await get_tree().create_timer(rock_wall_firerate).timeout
+	await get_tree().create_timer(rock_wall_info.firerate).timeout
 	can_rock_wall = true
 
 
 func _on_rock_wall_recharge_timer_timeout() -> void:
-	Globals.spell_recharge_ended.emit(1)
-	rock_wall_remaning_casts += 1
-	if rock_wall_remaning_casts < rock_wall_max_casts:
+	rock_wall_info.remaning_casts += 1
+	Globals.spell_casts_updated.emit(1)
+	if rock_wall_info.remaning_casts < rock_wall_info.max_casts:
 		await get_tree().process_frame
 		$RockWallRechargeTimer.start(0.0)
-		Globals.spell_recharge_started.emit(1, rock_wall_cooldown)
+		Globals.spell_recharge_started.emit(1)
 
 #endregion
 
@@ -141,18 +136,15 @@ func _on_rock_wall_recharge_timer_timeout() -> void:
 #region Wind blast
 
 @export_group("Wind blast")
+@export var wind_blast_info: SpellInfo
 @export var wind_blast_force: float = 15.0
-@export var wind_blast_cooldown: float = 3
-@export var wind_blast_firerate: float = 1.25
-@export var wind_blast_max_casts: int = 5
 @export var wind_blast_area: Area3D
 var can_wind_blast: bool = true
-var wind_blast_remaning_casts: int = wind_blast_max_casts
 var wind_blast_effect_scene: PackedScene = preload("uid://dh3oppj1mqo0b")
 
 
 func cast_wind_blast() -> void:
-	if can_wind_blast:
+	if can_wind_blast and wind_blast_info.remaning_casts > 0:
 		# Check for bodies in wind_blast area
 		for body in wind_blast_area.get_overlapping_bodies():
 			var dir: Vector3 = -global_basis.z
@@ -173,24 +165,24 @@ func cast_wind_blast() -> void:
 		# Spawn wind blast effect
 		var wind_blast_effect: Node3D = wind_blast_effect_scene.instantiate()
 		add_child(wind_blast_effect)
-		wind_blast_remaning_casts -= 1
+		wind_blast_info.remaning_casts -= 1
 		if $WindBlastRechargeTimer.is_stopped():
 			$WindBlastRechargeTimer.start(0.0)
-			Globals.spell_recharge_started.emit(2, wind_blast_cooldown)
+			Globals.spell_recharge_started.emit(2)
 		
 		# Cooldown
 		can_wind_blast = false
-		Globals.player_casted_spell.emit(2)
-		await get_tree().create_timer(wind_blast_firerate).timeout
+		Globals.spell_casts_updated.emit(2)
+		await get_tree().create_timer(wind_blast_info.firerate).timeout
 		can_wind_blast = true
 
 
 func _on_wind_blast_recharge_timer_timeout() -> void:
-	Globals.spell_recharge_ended.emit(2)
-	wind_blast_remaning_casts += 1
-	if wind_blast_remaning_casts < wind_blast_max_casts:
+	wind_blast_info.remaning_casts += 1
+	Globals.spell_casts_updated.emit(2)
+	if wind_blast_info.remaning_casts < wind_blast_info.max_casts:
 		await get_tree().process_frame
 		$WindBlastRechargeTimer.start(0.0)
-		Globals.spell_recharge_started.emit(2, wind_blast_cooldown)
+		Globals.spell_recharge_started.emit(2)
 
 #endregion
