@@ -12,6 +12,7 @@ var fade_tween: Tween
 func _ready() -> void:
 	progress_bar.value = progress_bar.max_value
 	fade_delay.start(0.0)
+	modulate = Color.TRANSPARENT
 
 
 func _on_health_changed(current_health: float, max_health: float) -> void:
@@ -27,7 +28,7 @@ func show_health_bar() -> void:
 
 
 func hide_health_bar() -> void:
-	fade_tween = get_tree().create_tween()
+	fade_tween = create_tween()
 	fade_tween.tween_property(self, "modulate", Color.TRANSPARENT, fade_duration)
 
 

@@ -152,7 +152,7 @@ texture = SubResource("ViewportTexture_arqjo")
 
 [node name="BeehaveTree" type="Node" parent="." node_paths=PackedStringArray("blackboard", "actor")]
 script = ExtResource("8_yln8x")
-blackboard = NodePath("@Node@26831")
+blackboard = NodePath("@Node@228746")
 actor = NodePath("..")
 
 [node name="SelectorComposite" type="Node" parent="BeehaveTree"]
@@ -183,6 +183,7 @@ script = ExtResource("10_s4ho7")
 [node name="NodeInRangeCondition" type="Node" parent="BeehaveTree/SelectorComposite/AttackPlayer/CanAttack/AttackCooldown/AttackSequence"]
 script = ExtResource("14_mw7c2")
 node_key = &"player"
+max_range = 30.0
 
 [node name="DebugPrintAction" type="Node" parent="BeehaveTree/SelectorComposite/AttackPlayer/CanAttack/AttackCooldown/AttackSequence"]
 script = ExtResource("15_rqhs8")
