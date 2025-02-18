@@ -14,7 +14,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_ilwoj")
-first_level_scene = "res://levels/level_00/level_00.tscn"
 settings_menu_scene = "res://interface/settings_menu/settings_menu.tscn"
 credits_scene = "res://interface/credits/credits.tscn"
 

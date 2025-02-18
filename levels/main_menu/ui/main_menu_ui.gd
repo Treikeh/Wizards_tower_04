@@ -1,8 +1,6 @@
 extends Control
 
 
-@export_file("*.tscn") var first_level_scene: String
-
 @export_file("*.tscn") var settings_menu_scene: String
 @export_file("*.tscn") var credits_scene: String
 
@@ -12,7 +10,7 @@ func _ready() -> void:
 
 
 func _on_play_button_pressed() -> void:
-	LevelManager.change_level(first_level_scene)
+	LevelManager.change_level("uid://bcqlh303l8l7r")
 
 
 func _on_settings_button_pressed() -> void:

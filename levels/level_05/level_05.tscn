@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://levels/level_3d.gd" id="1_vxy0i"]
 [ext_resource type="PackedScene" uid="uid://dh8dcfqs8vv8p" path="res://entities/player/player_controller.tscn" id="2_635gf"]
 [ext_resource type="Material" uid="uid://pwjimh5imhjl" path="res://common/materials/stone_brick_wall_01_m.tres" id="3_cc4fl"]
-[ext_resource type="Material" uid="uid://uwtl3uvytx4g" path="res://common/materials/dev_grid_green.tres" id="4_ver3i"]
+[ext_resource type="Material" uid="uid://dguni1g81umya" path="res://common/materials/dev_grid_yellow.tres" id="4_6hhul"]
 [ext_resource type="PackedScene" uid="uid://cj0ckw6b4kq8l" path="res://common/scenes/level_transtion_area_3d.tscn" id="5_oob2s"]
 [ext_resource type="Material" uid="uid://8qm7nxt6hftu" path="res://common/materials/wood_floor_01_m.tres" id="6_8gvn8"]
 
@@ -59,13 +59,13 @@ material = ExtResource("3_cc4fl")
 [node name="ExitDoorway" type="CSGBox3D" parent="CSGCombiner3D/Rooms/MainChallenge"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4, -12.9)
 size = Vector3(4, 5, 3)
-material = ExtResource("4_ver3i")
+material = ExtResource("4_6hhul")
 
 [node name="OmniLight3D" type="OmniLight3D" parent="CSGCombiner3D/Rooms/MainChallenge/ExitDoorway"]
 
 [node name="LevelTranstionArea3D" parent="CSGCombiner3D/Rooms/MainChallenge/ExitDoorway" instance=ExtResource("5_oob2s")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)
-level_path = "res://levels/main_menu/main_menu.tscn"
+level_path = "res://levels/level_credits/level_credits.tscn"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="CSGCombiner3D/Rooms/MainChallenge/ExitDoorway/LevelTranstionArea3D"]
 shape = SubResource("BoxShape3D_clcag")

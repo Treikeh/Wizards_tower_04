@@ -78,7 +78,7 @@ layout_mode = 2
 [node name="BackButton" type="Button" parent="PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 0
-text = "Back"
+text = "Main menu"
 
 [connection signal="meta_clicked" from="PanelContainer/MarginContainer/VBoxContainer/ScrollContainer/Control/RichTextLabel" to="." method="_on_rich_text_label_meta_clicked"]
 [connection signal="pressed" from="PanelContainer/MarginContainer/VBoxContainer/BackButton" to="." method="_on_back_button_pressed"]
