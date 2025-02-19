@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://bbc3cusxgyev0"]
+[gd_scene load_steps=15 format=3 uid="uid://bbc3cusxgyev0"]
 
 [ext_resource type="Script" path="res://levels/level_3d.gd" id="1_k5ipd"]
 [ext_resource type="PackedScene" uid="uid://dh8dcfqs8vv8p" path="res://entities/player/player_controller.tscn" id="2_3mkup"]
@@ -6,6 +6,9 @@
 [ext_resource type="Material" uid="uid://uwtl3uvytx4g" path="res://common/materials/dev_grid_green.tres" id="4_ymyty"]
 [ext_resource type="PackedScene" uid="uid://cj0ckw6b4kq8l" path="res://common/scenes/level_transtion_area_3d.tscn" id="5_yqvtf"]
 [ext_resource type="Material" uid="uid://8qm7nxt6hftu" path="res://common/materials/wood_floor_01_m.tres" id="6_ghjbs"]
+[ext_resource type="PackedScene" uid="uid://xxhxvfmbcxdw" path="res://entities/props/wooden_props/table/wooden_table.tscn" id="7_od2qm"]
+[ext_resource type="PackedScene" uid="uid://bdoipkh1hfkmm" path="res://entities/props/lights/candle/candle.tscn" id="8_73fqc"]
+[ext_resource type="PackedScene" uid="uid://cxi6v661g084x" path="res://entities/pickups/spellbook/spellbook_pickup.tscn" id="9_4mwfx"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ap1ce"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -29,6 +32,7 @@ size = Vector3(4, 5, 1)
 
 [node name="Level_03_WindBlast" type="Node3D"]
 script = ExtResource("1_k5ipd")
+wind_blast_unlocked = false
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_dtso7")
@@ -49,31 +53,41 @@ size = Vector3(50, 50, 50)
 [node name="Rooms" type="CSGCombiner3D" parent="CSGCombiner3D"]
 operation = 2
 
-[node name="MainChallenge" type="CSGCombiner3D" parent="CSGCombiner3D/Rooms"]
+[node name="01" type="CSGCombiner3D" parent="CSGCombiner3D/Rooms"]
 
-[node name="CSGBox3D" type="CSGBox3D" parent="CSGCombiner3D/Rooms/MainChallenge"]
+[node name="CSGBox3D" type="CSGBox3D" parent="CSGCombiner3D/Rooms/01"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.85, 0)
 size = Vector3(6, 6, 22.8)
 material = ExtResource("3_g3o7y")
 
-[node name="ExitDoorway" type="CSGBox3D" parent="CSGCombiner3D/Rooms/MainChallenge"]
+[node name="ExitDoorway" type="CSGBox3D" parent="CSGCombiner3D/Rooms/01"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4, -12.9)
 size = Vector3(4, 5, 3)
 material = ExtResource("4_ymyty")
 
-[node name="OmniLight3D" type="OmniLight3D" parent="CSGCombiner3D/Rooms/MainChallenge/ExitDoorway"]
+[node name="OmniLight3D" type="OmniLight3D" parent="CSGCombiner3D/Rooms/01/ExitDoorway"]
 
-[node name="LevelTranstionArea3D" parent="CSGCombiner3D/Rooms/MainChallenge/ExitDoorway" instance=ExtResource("5_yqvtf")]
+[node name="LevelTranstionArea3D" parent="CSGCombiner3D/Rooms/01/ExitDoorway" instance=ExtResource("5_yqvtf")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)
 level_path = "res://levels/level_04/level_04.tscn"
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="CSGCombiner3D/Rooms/MainChallenge/ExitDoorway/LevelTranstionArea3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CSGCombiner3D/Rooms/01/ExitDoorway/LevelTranstionArea3D"]
 shape = SubResource("BoxShape3D_clcag")
 
-[node name="Node3D" type="Node3D" parent="CSGCombiner3D/Rooms/MainChallenge"]
+[node name="Node3D" type="Node3D" parent="CSGCombiner3D/Rooms/01"]
 
-[node name="WoodFloor" type="CSGBox3D" parent="CSGCombiner3D/Rooms/MainChallenge/Node3D"]
+[node name="WoodFloor" type="CSGBox3D" parent="CSGCombiner3D/Rooms/01/Node3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.15, 0)
 use_collision = true
 size = Vector3(6, 0.1, 22.8)
 material = ExtResource("6_ghjbs")
+
+[node name="WoodenTable" parent="CSGCombiner3D/Rooms/01" instance=ExtResource("7_od2qm")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.1, 0)
+
+[node name="Candle" parent="CSGCombiner3D/Rooms/01/WoodenTable" instance=ExtResource("8_73fqc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.8, 0.9, -0.3)
+
+[node name="SpellbookPickup" parent="CSGCombiner3D/Rooms/01/WoodenTable" instance=ExtResource("9_4mwfx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9458, 0)
+spell_to_unlock = 2

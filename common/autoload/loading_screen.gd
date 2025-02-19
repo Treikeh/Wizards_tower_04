@@ -2,6 +2,7 @@ extends CanvasLayer
 
 
 signal transition_finished
+signal reload_finished
 
 
 func _ready() -> void:
@@ -21,6 +22,13 @@ func transition_out() -> void:
 	%AnimationPlayer.play("out")
 	await %AnimationPlayer.animation_finished
 	transition_finished.emit()
+
+
+func fade_inn_out() -> void:
+	%AnimationPlayer.play("reload")
+
+func reload_event() -> void:
+	reload_finished.emit()
 
 
 func update_progress(value: float) -> void:

@@ -4,6 +4,6 @@
 
 [resource]
 script = ExtResource("1_i7iod")
-firerate = 1.0
+firerate = 0.5
 recharge_duration = 2.0
 max_casts = 2

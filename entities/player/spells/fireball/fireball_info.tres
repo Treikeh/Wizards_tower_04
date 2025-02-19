@@ -5,5 +5,5 @@
 [resource]
 script = ExtResource("1_xwnhe")
 firerate = 0.3
-recharge_duration = 2.0
-max_casts = 3
+recharge_duration = 1.5
+max_casts = 4

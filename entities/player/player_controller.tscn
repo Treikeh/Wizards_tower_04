@@ -89,7 +89,6 @@ continuous_cd = true
 contact_monitor = true
 max_contacts_reported = 1
 script = ExtResource("1_ck1rn")
-hud_scene = "res://interface/hud/hud.tscn"
 max_speed = 9.0
 air_accel = 175.0
 footsteps_audio_player = NodePath("FootstepsAudio")

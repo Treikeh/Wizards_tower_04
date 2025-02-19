@@ -9,10 +9,5 @@ extends Resource
 var remaning_casts: int
 
 
-func _init() -> void:
-	#NOTE: THIS IS STUPID
-	_ready.call_deferred()
-
-
-func _ready() -> void:
+func reset() -> void:
 	remaning_casts = max_casts

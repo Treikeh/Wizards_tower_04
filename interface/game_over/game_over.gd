@@ -5,15 +5,11 @@ extends Control
 
 
 func _on_checkpoint_button_pressed() -> void:
-	if Globals.is_checkpoint_active:
-		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-		Globals.checkpoint_loaded.emit()
-		UiManager.change_ui_scene("res://interface/hud/hud.tscn")
-	else:
-		_on_restart_button_pressed()
+	LevelManager.reload_level()
 
 
 func _on_restart_button_pressed() -> void:
+	Globals.checkpoint_id = 0
 	LevelManager.reload_level()
 
 

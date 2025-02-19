@@ -44,8 +44,8 @@ signal checkpoint_saved
 @warning_ignore("unused_signal")
 signal checkpoint_loaded
 
-var is_checkpoint_active: bool = false
-var checkpoint_transform: Transform3D
+
+var checkpoint_id: int = 0
 
 
 func quit_game() -> void:

@@ -6,6 +6,9 @@ extends Node3D
 
 
 func _ready() -> void:
+	fireball_info.reset()
+	rock_wall_info.reset()
+	wind_blast_info.reset()
 	$FireballRechargeTimer.wait_time = fireball_info.recharge_duration
 	$RockWallRechargeTimer.wait_time = rock_wall_info.recharge_duration
 	$WindBlastRechargeTimer.wait_time = wind_blast_info.recharge_duration

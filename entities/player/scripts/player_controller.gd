@@ -1,13 +1,6 @@
 extends RigidBody3D
 
 
-#TODO: Add coyote time
-#TODO: Add a shape_cast on top of the ray_cast to check for ground. Use ray_cast to check angle ->
-#<- and shape cast for collision. Might work if ray_cast x,y position is set to shape_cast collision point
-
-
-@export_file("*.tscn") var hud_scene: String
-
 @export_group("Input")
 var camera_sensitivity: float = 0.1
 var move_input: Vector2 = Vector2.ZERO
@@ -47,6 +40,8 @@ var check_for_ground: bool = true
 @export var spell_manager: Node3D
 @export var animation_tree: AnimationTree
 
+var hud_scene: String = "uid://bsrvl85f7jxdv"
+
 
 func _ready() -> void:
 	# Load config settings
@@ -63,7 +58,6 @@ func _ready() -> void:
 	
 	# Spawn hud
 	UiManager.change_ui_scene(hud_scene)
-	#Globals.main_scene.change_ui_scene(hud_scene)
 
 
 func _input(event: InputEvent) -> void:

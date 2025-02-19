@@ -1,0 +1,266 @@
+[gd_scene load_steps=31 format=3 uid="uid://cyrn3f3g0y8en"]
+
+[ext_resource type="Script" path="res://entities/enemies/flying_skull/flying_skull.gd" id="1_8jevj"]
+[ext_resource type="Script" path="res://common/scripts/match_y_rotation.gd" id="2_cmvb8"]
+[ext_resource type="Material" uid="uid://c4eykp21shtlp" path="res://common/materials/dev_grid_red.tres" id="3_p2xjs"]
+[ext_resource type="Material" uid="uid://botmm8kkk1h67" path="res://common/materials/dev_grid_gray.tres" id="4_255ch"]
+[ext_resource type="PackedScene" uid="uid://ddufakdkmxhwr" path="res://common/scenes/health_area_3d.tscn" id="5_xj77p"]
+[ext_resource type="Script" path="res://common/scripts/health.gd" id="6_ajsho"]
+[ext_resource type="PackedScene" uid="uid://cs53wyj8yt4s4" path="res://entities/enemies/floating_health_bar.tscn" id="7_lnvey"]
+[ext_resource type="Script" path="res://addons/beehave/nodes/beehave_tree.gd" id="8_7d4xa"]
+[ext_resource type="Script" path="res://addons/beehave/nodes/composites/selector.gd" id="9_lnlq2"]
+[ext_resource type="Script" path="res://addons/beehave/nodes/composites/sequence.gd" id="10_mvjef"]
+[ext_resource type="Script" path="res://common/scripts/beehave/is_value_valid_condition.gd" id="11_5gwvg"]
+[ext_resource type="Script" path="res://common/scripts/beehave/node_look_at_node_action.gd" id="12_8rv76"]
+[ext_resource type="Script" path="res://addons/beehave/nodes/decorators/cooldown.gd" id="13_jgi6t"]
+[ext_resource type="Script" path="res://common/scripts/beehave/node_in_range_condition.gd" id="14_aq7kn"]
+[ext_resource type="Script" path="res://common/scripts/beehave/debug_print_action.gd" id="15_12i82"]
+[ext_resource type="Script" path="res://common/scripts/beehave/call_method_action.gd" id="16_8qunh"]
+[ext_resource type="Script" path="res://common/scripts/beehave/stop_movement_action.gd" id="17_5x0v6"]
+[ext_resource type="Script" path="res://common/scripts/beehave/wait_action.gd" id="18_ksjcc"]
+[ext_resource type="Script" path="res://common/scripts/beehave/get_position_away_from_node_action.gd" id="19_q4x1y"]
+[ext_resource type="Script" path="res://common/scripts/beehave/navigate_to_position_action.gd" id="20_ce4gi"]
+[ext_resource type="Script" path="res://common/scripts/beehave/get_first_node_in_group_action.gd" id="21_yvnng"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_7ua38"]
+radius = 0.2
+height = 5.0
+
+[sub_resource type="SphereMesh" id="SphereMesh_d0s0q"]
+radius = 0.25
+height = 0.5
+
+[sub_resource type="BoxMesh" id="BoxMesh_6chr5"]
+size = Vector3(0.46, 0.165, 0.28)
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_xfolp"]
+radius = 0.25
+
+[sub_resource type="Animation" id="Animation_obki4"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("%Mesh:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 4.8, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../BeehaveTree:enabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_va3kr"]
+resource_name = "died"
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("..")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(1),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"queue_free"
+}]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("%Mesh:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 4.8, 0), Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_kv1dk"]
+resource_name = "spawn"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("%Mesh:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, -1, 0), Vector3(0, 4.8, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../BeehaveTree:enabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_847wy"]
+_data = {
+"RESET": SubResource("Animation_obki4"),
+"died": SubResource("Animation_va3kr"),
+"spawn": SubResource("Animation_kv1dk")
+}
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_arqjo"]
+viewport_path = NodePath("SubViewport")
+
+[node name="FlyingSkull" type="CharacterBody3D" node_paths=PackedStringArray("target_direction", "nav_agent", "beehave_tree") groups=["enemy"]]
+collision_layer = 0
+collision_mask = 3
+script = ExtResource("1_8jevj")
+target_direction = NodePath("TargetDirection")
+nav_agent = NodePath("NavigationAgent3D")
+beehave_tree = NodePath("BeehaveTree")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0)
+shape = SubResource("CapsuleShape3D_7ua38")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+debug_enabled = true
+
+[node name="TargetDirection" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.8, 0)
+
+[node name="Mesh" type="Node3D" parent="." node_paths=PackedStringArray("target_node")]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.8, 0)
+script = ExtResource("2_cmvb8")
+target_node = NodePath("../TargetDirection")
+
+[node name="Body" type="MeshInstance3D" parent="Mesh"]
+transform = Transform3D(1, 0, 0, 0, 0.984808, 0.173648, 0, -0.173648, 0.984808, 0, 4.76837e-07, 0)
+material_override = ExtResource("3_p2xjs")
+mesh = SubResource("SphereMesh_d0s0q")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Mesh/Body"]
+transform = Transform3D(1, 0, 0, 0, 0.173648, 0.984808, 0, -0.984808, 0.173648, 0, 0.221923, -0.150576)
+material_override = ExtResource("4_255ch")
+mesh = SubResource("BoxMesh_6chr5")
+
+[node name="HealthArea3D" parent="Mesh" node_paths=PackedStringArray("health_node") instance=ExtResource("5_xj77p")]
+health_node = NodePath("../../Health")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Mesh/HealthArea3D"]
+transform = Transform3D(1, 0, 0, 0, 0.984808, 0.173648, 0, -0.173648, 0.984808, 0, 0, 0)
+shape = SubResource("SphereShape3D_xfolp")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Mesh"]
+unique_name_in_owner = true
+root_node = NodePath("../../NavigationAgent3D")
+libraries = {
+"": SubResource("AnimationLibrary_847wy")
+}
+autoplay = "spawn"
+
+[node name="Health" type="Node" parent="."]
+script = ExtResource("6_ajsho")
+max_health = 10.0
+
+[node name="FloatingHealthBar" parent="." instance=ExtResource("7_lnvey")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.3, 0)
+texture = SubResource("ViewportTexture_arqjo")
+
+[node name="BeehaveTree" type="Node" parent="." node_paths=PackedStringArray("blackboard", "actor")]
+script = ExtResource("8_7d4xa")
+blackboard = NodePath("@Node@17443")
+actor = NodePath("..")
+
+[node name="SelectorComposite" type="Node" parent="BeehaveTree"]
+script = ExtResource("9_lnlq2")
+
+[node name="AttackPlayer" type="Node" parent="BeehaveTree/SelectorComposite"]
+script = ExtResource("10_mvjef")
+
+[node name="HasPlayerNode" type="Node" parent="BeehaveTree/SelectorComposite/AttackPlayer"]
+script = ExtResource("11_5gwvg")
+key = &"player"
+
+[node name="NodeLookAtNodeAction" type="Node" parent="BeehaveTree/SelectorComposite/AttackPlayer" node_paths=PackedStringArray("node")]
+script = ExtResource("12_8rv76")
+node_key = &"player"
+node = NodePath("../../../../TargetDirection")
+
+[node name="CanAttack" type="Node" parent="BeehaveTree/SelectorComposite/AttackPlayer"]
+script = ExtResource("9_lnlq2")
+
+[node name="AttackCooldown" type="Node" parent="BeehaveTree/SelectorComposite/AttackPlayer/CanAttack"]
+script = ExtResource("13_jgi6t")
+wait_time = 1.0
+
+[node name="AttackSequence" type="Node" parent="BeehaveTree/SelectorComposite/AttackPlayer/CanAttack/AttackCooldown"]
+script = ExtResource("10_mvjef")
+
+[node name="NodeInRangeCondition" type="Node" parent="BeehaveTree/SelectorComposite/AttackPlayer/CanAttack/AttackCooldown/AttackSequence"]
+script = ExtResource("14_aq7kn")
+node_key = &"player"
+max_range = 30.0
+
+[node name="DebugPrintAction" type="Node" parent="BeehaveTree/SelectorComposite/AttackPlayer/CanAttack/AttackCooldown/AttackSequence"]
+script = ExtResource("15_12i82")
+text = "Attack"
+
+[node name="CallMethodAction" type="Node" parent="BeehaveTree/SelectorComposite/AttackPlayer/CanAttack/AttackCooldown/AttackSequence"]
+script = ExtResource("16_8qunh")
+method_name = "_attack"
+
+[node name="StopMovementAction" type="Node" parent="BeehaveTree/SelectorComposite/AttackPlayer/CanAttack/AttackCooldown/AttackSequence"]
+script = ExtResource("17_5x0v6")
+
+[node name="WaitAction" type="Node" parent="BeehaveTree/SelectorComposite/AttackPlayer/CanAttack/AttackCooldown/AttackSequence"]
+script = ExtResource("18_ksjcc")
+wait_time = 0.5
+
+[node name="MoveAwayFromPlayer" type="Node" parent="BeehaveTree/SelectorComposite/AttackPlayer/CanAttack"]
+script = ExtResource("10_mvjef")
+
+[node name="WaitToAttackPrint" type="Node" parent="BeehaveTree/SelectorComposite/AttackPlayer/CanAttack/MoveAwayFromPlayer"]
+script = ExtResource("15_12i82")
+text = "Waiting to attack"
+
+[node name="GetPositionAwayFromNodeAction" type="Node" parent="BeehaveTree/SelectorComposite/AttackPlayer/CanAttack/MoveAwayFromPlayer"]
+script = ExtResource("19_q4x1y")
+node_key = &"player"
+save_key = &"away_position"
+distance = 10.0
+
+[node name="NavigateToPositionAction" type="Node" parent="BeehaveTree/SelectorComposite/AttackPlayer/CanAttack/MoveAwayFromPlayer"]
+script = ExtResource("20_ce4gi")
+position_key = &"away_position"
+
+[node name="TryToGetPlayerCooldown" type="Node" parent="BeehaveTree/SelectorComposite"]
+script = ExtResource("13_jgi6t")
+wait_time = 1.0
+
+[node name="GetPlayerNode" type="Node" parent="BeehaveTree/SelectorComposite/TryToGetPlayerCooldown"]
+script = ExtResource("21_yvnng")
+group = "player"
+save_key = &"player"
+
+[connection signal="health_changed" from="Health" to="FloatingHealthBar" method="_on_health_changed"]
+[connection signal="health_depleted" from="Health" to="." method="_on_health_depleted"]

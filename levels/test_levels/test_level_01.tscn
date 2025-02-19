@@ -103,9 +103,6 @@ size = Vector3(2, 2, 2)
 
 [node name="TestLevel01" type="Node3D"]
 script = ExtResource("1_5hjb2")
-fireball_unlocked = false
-rock_wall_unlocked = false
-wind_blast_unlocked = false
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_4v6j6")
@@ -179,9 +176,13 @@ scene_to_spawn = "res://entities/enemies/golem/golem.tscn"
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 9.5, 0, -4)
 prompt = "Spawn golem"
 
-[node name="EnemySpawnerButton3" parent="Enemies" instance=ExtResource("3_5yhwb")]
+[node name="FlyingSkullSpawner" parent="Enemies" instance=ExtResource("2_4xdsy")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 17, 4, -7)
+scene_to_spawn = "res://entities/enemies/flying_skull/flying_skull.tscn"
+
+[node name="FlyingSkullSpawnerButton" parent="Enemies" instance=ExtResource("3_5yhwb")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 9.5, 0, -1)
-prompt = "Spawn <null>"
+prompt = "Spawn flying skull"
 
 [node name="Interactable" type="Node3D" parent="."]
 
@@ -327,4 +328,5 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.8, 0, -4.9)
 [connection signal="interacted" from="Enemies/LivingArmorSpawnerButton" to="Enemies/LivingArmorSpawner" method="spawn_scene"]
 [connection signal="interacted" from="Enemies/PotionThrowerSpawnerButton" to="Enemies/PotionThrowerSpawner" method="spawn_scene"]
 [connection signal="interacted" from="Enemies/GolemSpawnerButton" to="Enemies/GolemSpawner" method="spawn_scene"]
+[connection signal="interacted" from="Enemies/FlyingSkullSpawnerButton" to="Enemies/FlyingSkullSpawner" method="spawn_scene"]
 [connection signal="interacted" from="Interactable/HealthPotionSpawnButton" to="Interactable/HealtHPoitionSpawner" method="spawn_scene"]
