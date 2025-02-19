@@ -30,6 +30,5 @@ func _on_health_depleted() -> void:
 	# Play death animation and sound
 	animation_tree.set("parameters/conditions/dead", true)
 	#TODO: Audio
-	
 
 #endregion

@@ -1,10 +1,13 @@
-[gd_scene load_steps=13 format=3 uid="uid://dtoewhbmg012w"]
+[gd_scene load_steps=17 format=3 uid="uid://dtoewhbmg012w"]
 
 [ext_resource type="Script" path="res://entities/enemies/book_gnome_shelf/book_gnome_shelf.gd" id="1_xkhhr"]
+[ext_resource type="Script" path="res://common/scripts/match_y_rotation.gd" id="2_ce7hw"]
 [ext_resource type="Material" uid="uid://c4eykp21shtlp" path="res://common/materials/dev_grid_red.tres" id="2_m0doj"]
 [ext_resource type="PackedScene" uid="uid://ddufakdkmxhwr" path="res://common/scenes/health_area_3d.tscn" id="3_eivbp"]
 [ext_resource type="PackedScene" uid="uid://cs53wyj8yt4s4" path="res://entities/enemies/floating_health_bar.tscn" id="4_knj5g"]
 [ext_resource type="Script" path="res://common/scripts/health.gd" id="5_0ck78"]
+[ext_resource type="Script" path="res://addons/beehave/nodes/beehave_tree.gd" id="6_iava8"]
+[ext_resource type="Script" path="res://common/scripts/beehave/get_first_node_in_group_action.gd" id="7_18ky2"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_wqowl"]
 radius = 0.6
@@ -21,25 +24,37 @@ size = Vector3(1.2, 2, 0.5)
 [sub_resource type="Animation" id="Animation_5yeac"]
 resource_name = "died"
 
+[sub_resource type="Animation" id="Animation_usgge"]
+resource_name = "spawn"
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_cpk5r"]
 _data = {
-"died": SubResource("Animation_5yeac")
+"died": SubResource("Animation_5yeac"),
+"spawn": SubResource("Animation_usgge")
 }
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_f0xr0"]
 viewport_path = NodePath("SubViewport")
 
-[node name="BookGnomeShelf" type="CharacterBody3D" node_paths=PackedStringArray("nav_agent") groups=["enemy"]]
+[node name="BookGnomeShelf" type="CharacterBody3D" node_paths=PackedStringArray("nav_agent", "beehave_tree") groups=["enemy"]]
 collision_layer = 8
 collision_mask = 15
 script = ExtResource("1_xkhhr")
 nav_agent = NodePath("NavigationAgent3D")
+beehave_tree = NodePath("BeehaveTree")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("CapsuleShape3D_wqowl")
 
-[node name="Mesh" type="Node3D" parent="."]
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+path_height_offset = 0.5
+
+[node name="TargetDirection" type="Node3D" parent="."]
+
+[node name="Mesh" type="Node3D" parent="." node_paths=PackedStringArray("target_node")]
+script = ExtResource("2_ce7hw")
+target_node = NodePath("../TargetDirection")
 
 [node name="Body" type="MeshInstance3D" parent="Mesh"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
@@ -58,9 +73,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("BoxShape3D_pkqmf")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Mesh"]
+unique_name_in_owner = true
 libraries = {
 "": SubResource("AnimationLibrary_cpk5r")
 }
+autoplay = "spawn"
 
 [node name="FloatingHealthBar" parent="." instance=ExtResource("4_knj5g")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.2, 0)
@@ -69,15 +86,14 @@ texture = SubResource("ViewportTexture_f0xr0")
 [node name="Health" type="Node" parent="."]
 script = ExtResource("5_0ck78")
 
-[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
-path_height_offset = 0.5
+[node name="BeehaveTree" type="Node" parent="." node_paths=PackedStringArray("blackboard", "actor")]
+script = ExtResource("6_iava8")
+blackboard = NodePath("@Node@45529")
+actor = NodePath("..")
 
-[node name="Debug" type="Node3D" parent="."]
-
-[node name="AiStateLabel" type="Label3D" parent="Debug"]
-unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.4, 0)
-billboard = 1
-text = "idle"
+[node name="GetFirstNodeInGroupAction" type="Node" parent="BeehaveTree"]
+script = ExtResource("7_18ky2")
+group = "player"
+save_key = &"player"
 
 [connection signal="health_changed" from="Health" to="FloatingHealthBar" method="_on_health_changed"]

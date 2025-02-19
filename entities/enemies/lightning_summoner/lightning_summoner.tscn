@@ -1,0 +1,118 @@
+[gd_scene load_steps=22 format=3 uid="uid://bir8q5f287gno"]
+
+[ext_resource type="Script" path="res://entities/enemies/lightning_summoner/lightning_summoner.gd" id="1_03afg"]
+[ext_resource type="Script" path="res://addons/beehave/nodes/beehave_tree.gd" id="2_3ajoc"]
+[ext_resource type="Script" path="res://common/scripts/match_y_rotation.gd" id="2_cmqvb"]
+[ext_resource type="Script" path="res://common/scripts/health.gd" id="3_2h4um"]
+[ext_resource type="Material" uid="uid://c4eykp21shtlp" path="res://common/materials/dev_grid_red.tres" id="3_rmstm"]
+[ext_resource type="PackedScene" uid="uid://cs53wyj8yt4s4" path="res://entities/enemies/floating_health_bar.tscn" id="4_6cwe1"]
+[ext_resource type="PackedScene" uid="uid://ddufakdkmxhwr" path="res://common/scenes/health_area_3d.tscn" id="4_i1nwr"]
+[ext_resource type="Script" path="res://common/scripts/beehave/get_first_node_in_group_action.gd" id="5_18mil"]
+[ext_resource type="Script" path="res://addons/beehave/nodes/composites/selector.gd" id="8_aelt5"]
+[ext_resource type="Script" path="res://addons/beehave/nodes/composites/sequence.gd" id="9_s1kl2"]
+[ext_resource type="Script" path="res://common/scripts/beehave/is_value_valid_condition.gd" id="10_6c5qy"]
+[ext_resource type="Script" path="res://addons/beehave/nodes/decorators/cooldown.gd" id="11_gkfye"]
+[ext_resource type="Script" path="res://common/scripts/beehave/call_method_action.gd" id="12_74ai3"]
+[ext_resource type="Script" path="res://common/scripts/beehave/debug_print_action.gd" id="13_rsa2w"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_of1yw"]
+height = 1.6
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_j6m75"]
+height = 1.6
+
+[sub_resource type="Animation" id="Animation_addt8"]
+resource_name = "spawn"
+
+[sub_resource type="Animation" id="Animation_l1gt0"]
+resource_name = "died"
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_w8x0p"]
+_data = {
+"died": SubResource("Animation_l1gt0"),
+"spawn": SubResource("Animation_addt8")
+}
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_e8xnh"]
+height = 1.6
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_u7gnh"]
+viewport_path = NodePath("SubViewport")
+
+[node name="LightningSummoner" type="CharacterBody3D" node_paths=PackedStringArray("nav_agent", "beehave_tree") groups=["enemy"]]
+script = ExtResource("1_03afg")
+nav_agent = NodePath("NavigationAgent3D")
+beehave_tree = NodePath("BeehaveTree")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, 0)
+shape = SubResource("CapsuleShape3D_of1yw")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+
+[node name="TargetDirection" type="Node3D" parent="."]
+
+[node name="Mesh" type="Node3D" parent="." node_paths=PackedStringArray("target_node")]
+script = ExtResource("2_cmqvb")
+target_node = NodePath("../TargetDirection")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Mesh"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, 0)
+material_override = ExtResource("3_rmstm")
+mesh = SubResource("CapsuleMesh_j6m75")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Mesh"]
+libraries = {
+"": SubResource("AnimationLibrary_w8x0p")
+}
+
+[node name="HealthArea3D" parent="Mesh" node_paths=PackedStringArray("health_node") instance=ExtResource("4_i1nwr")]
+health_node = NodePath("../../Health")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Mesh/HealthArea3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, 0)
+shape = SubResource("CapsuleShape3D_e8xnh")
+
+[node name="Health" type="Node" parent="."]
+script = ExtResource("3_2h4um")
+
+[node name="FloatingHealthBar" parent="." instance=ExtResource("4_6cwe1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8, 0)
+texture = SubResource("ViewportTexture_u7gnh")
+
+[node name="BeehaveTree" type="Node" parent="." node_paths=PackedStringArray("blackboard", "actor")]
+script = ExtResource("2_3ajoc")
+blackboard = NodePath("@Node@36834")
+actor = NodePath("..")
+
+[node name="SelectorComposite" type="Node" parent="BeehaveTree"]
+script = ExtResource("8_aelt5")
+
+[node name="AttackPlayer" type="Node" parent="BeehaveTree/SelectorComposite"]
+script = ExtResource("9_s1kl2")
+
+[node name="HasPlayer" type="Node" parent="BeehaveTree/SelectorComposite/AttackPlayer"]
+script = ExtResource("10_6c5qy")
+key = &"player"
+
+[node name="CooldownDecorator" type="Node" parent="BeehaveTree/SelectorComposite/AttackPlayer"]
+script = ExtResource("11_gkfye")
+wait_time = 5.0
+
+[node name="CallMethodAction" type="Node" parent="BeehaveTree/SelectorComposite/AttackPlayer/CooldownDecorator"]
+script = ExtResource("12_74ai3")
+method_name = "attack"
+
+[node name="SequenceComposite" type="Node" parent="BeehaveTree/SelectorComposite"]
+script = ExtResource("9_s1kl2")
+
+[node name="DebugPrintAction" type="Node" parent="BeehaveTree/SelectorComposite/SequenceComposite"]
+script = ExtResource("13_rsa2w")
+text = "Get player"
+
+[node name="GetPlayer" type="Node" parent="BeehaveTree/SelectorComposite/SequenceComposite"]
+script = ExtResource("5_18mil")
+group = "player"
+save_key = &"player"
+
+[connection signal="health_changed" from="Health" to="FloatingHealthBar" method="_on_health_changed"]

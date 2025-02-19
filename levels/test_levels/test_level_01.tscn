@@ -5,7 +5,6 @@
 [ext_resource type="Material" uid="uid://pqlkm5aadfhn" path="res://common/materials/dev_grid_orange.tres" id="2_atc4e"]
 [ext_resource type="PackedScene" uid="uid://cbhabq5j0vtnr" path="res://entities/props/wooden_props/barrel/wooden_barrel.tscn" id="2_bv8w7"]
 [ext_resource type="Material" uid="uid://botmm8kkk1h67" path="res://common/materials/dev_grid_gray.tres" id="2_m12yk"]
-[ext_resource type="PackedScene" uid="uid://dh8dcfqs8vv8p" path="res://entities/player/player_controller.tscn" id="2_vbosa"]
 [ext_resource type="PackedScene" uid="uid://c21l6816x4oka" path="res://entities/interactables/button/standing_button.tscn" id="3_5yhwb"]
 [ext_resource type="PackedScene" uid="uid://862q5145e3uy" path="res://entities/props/wooden_props/chair/wooden_chair.tscn" id="3_ofj0x"]
 [ext_resource type="Material" uid="uid://c4eykp21shtlp" path="res://common/materials/dev_grid_red.tres" id="3_wbdl3"]
@@ -24,6 +23,7 @@
 [ext_resource type="PackedScene" uid="uid://exjnmfqooik7" path="res://entities/hazards/explosive_barrel/explosive_barrel.tscn" id="19_imr74"]
 [ext_resource type="Material" uid="uid://b4576fxo40ync" path="res://common/materials/dev_grid_pink.tres" id="21_3nqud"]
 [ext_resource type="PackedScene" uid="uid://clqs24y75lbd5" path="res://entities/pickups/mana_potion/mana_potion.tscn" id="22_i3q2h"]
+[ext_resource type="PackedScene" uid="uid://i0u75nytwgqr" path="res://entities/player/spawner/player_spawner.tscn" id="24_ro6yv"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_8ksd3"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -111,8 +111,11 @@ environment = SubResource("Environment_4v6j6")
 transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 10, 0)
 shadow_enabled = true
 
-[node name="RigidbodyPlayer" parent="." instance=ExtResource("2_vbosa")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+[node name="PlayerSpawner" parent="." instance=ExtResource("24_ro6yv")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
+fireball_unlocked = false
+rock_wall_unlocked = false
+wind_blast_unlocked = false
 
 [node name="MainFloor" type="CSGBox3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2500, -4)
@@ -157,7 +160,7 @@ transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 17, 4,
 scene_to_spawn = "res://entities/enemies/living_armor/living_armor.tscn"
 
 [node name="LivingArmorSpawnerButton" parent="Enemies" instance=ExtResource("3_5yhwb")]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 9.5, 0, -10)
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 9.5, 0, -11)
 prompt = "Spawn living armor"
 
 [node name="PotionThrowerSpawner" parent="Enemies" instance=ExtResource("2_4xdsy")]
@@ -165,24 +168,40 @@ transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 17, 4,
 scene_to_spawn = "res://entities/enemies/potion_thrower/potion_thrower.tscn"
 
 [node name="PotionThrowerSpawnerButton" parent="Enemies" instance=ExtResource("3_5yhwb")]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 9.5, 0, -7)
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 9.5, 0, -9)
 prompt = "Spawn potion thrower"
 
-[node name="GolemSpawner" parent="Enemies" instance=ExtResource("2_4xdsy")]
+[node name="LightningSummonerSpawner" parent="Enemies" instance=ExtResource("2_4xdsy")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 17, 4, -7)
-scene_to_spawn = "res://entities/enemies/golem/golem.tscn"
+scene_to_spawn = "res://entities/enemies/lightning_summoner/lightning_summoner.tscn"
 
-[node name="GolemSpawnerButton" parent="Enemies" instance=ExtResource("3_5yhwb")]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 9.5, 0, -4)
-prompt = "Spawn golem"
+[node name="LightningSpawnerButton" parent="Enemies" instance=ExtResource("3_5yhwb")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 9.5, 0, -7)
+prompt = "Spawn Lightning summoner"
 
 [node name="FlyingSkullSpawner" parent="Enemies" instance=ExtResource("2_4xdsy")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 17, 4, -7)
 scene_to_spawn = "res://entities/enemies/flying_skull/flying_skull.tscn"
 
 [node name="FlyingSkullSpawnerButton" parent="Enemies" instance=ExtResource("3_5yhwb")]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 9.5, 0, -1)
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 9.5, 0, -5)
 prompt = "Spawn flying skull"
+
+[node name="BookShelfSpawner" parent="Enemies" instance=ExtResource("2_4xdsy")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 17, 4, -7)
+scene_to_spawn = "res://entities/enemies/book_gnome_shelf/book_gnome_shelf.tscn"
+
+[node name="BookShelfSpawnerButton" parent="Enemies" instance=ExtResource("3_5yhwb")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 9.5, 0, -3)
+prompt = "Spawn Book gnome shelf"
+
+[node name="GolemSpawner" parent="Enemies" instance=ExtResource("2_4xdsy")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 17, 4, -7)
+scene_to_spawn = "res://entities/enemies/golem/golem.tscn"
+
+[node name="GolemSpawnerButton" parent="Enemies" instance=ExtResource("3_5yhwb")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 9.5, 0, -1)
+prompt = "Spawn golem"
 
 [node name="Interactable" type="Node3D" parent="."]
 
@@ -327,6 +346,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.8, 0, -4.9)
 [connection signal="interacted" from="Enemies/BookGnomeSpawnerButton" to="Enemies/BookGnomeSpawner" method="spawn_scene"]
 [connection signal="interacted" from="Enemies/LivingArmorSpawnerButton" to="Enemies/LivingArmorSpawner" method="spawn_scene"]
 [connection signal="interacted" from="Enemies/PotionThrowerSpawnerButton" to="Enemies/PotionThrowerSpawner" method="spawn_scene"]
-[connection signal="interacted" from="Enemies/GolemSpawnerButton" to="Enemies/GolemSpawner" method="spawn_scene"]
+[connection signal="interacted" from="Enemies/LightningSpawnerButton" to="Enemies/LightningSummonerSpawner" method="spawn_scene"]
 [connection signal="interacted" from="Enemies/FlyingSkullSpawnerButton" to="Enemies/FlyingSkullSpawner" method="spawn_scene"]
+[connection signal="interacted" from="Enemies/BookShelfSpawnerButton" to="Enemies/BookShelfSpawner" method="spawn_scene"]
+[connection signal="interacted" from="Enemies/GolemSpawnerButton" to="Enemies/GolemSpawner" method="spawn_scene"]
 [connection signal="interacted" from="Interactable/HealthPotionSpawnButton" to="Interactable/HealtHPoitionSpawner" method="spawn_scene"]

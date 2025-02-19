@@ -1,0 +1,39 @@
+[gd_scene load_steps=5 format=3 uid="uid://xo3qqq1d6oq8"]
+
+[ext_resource type="Script" path="res://entities/enemies/lightning_summoner/lightning_strike/lightning_strike.gd" id="1_u0c2i"]
+[ext_resource type="Shader" uid="uid://b5spjy835fc4b" path="res://entities/player/spells/wind_blast/wind_blast_effect_vs.tres" id="2_82nw3"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_v6y0i"]
+render_priority = 0
+shader = ExtResource("2_82nw3")
+shader_parameter/displacement_speed = 1.0
+shader_parameter/displacement_scale = 0.4
+shader_parameter/normal_offset = 0.2
+shader_parameter/base_color = Color(0.757934, 0.930209, 1, 1)
+shader_parameter/alpha = 0.2
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_1a8kf"]
+material = SubResource("ShaderMaterial_v6y0i")
+flip_faces = true
+top_radius = 0.1
+bottom_radius = 0.1
+height = 4.0
+cap_top = false
+cap_bottom = false
+
+[node name="LightningStrike" type="Node3D"]
+script = ExtResource("1_u0c2i")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+mesh = SubResource("CylinderMesh_1a8kf")
+
+[node name="GroundPosition" type="RayCast3D" parent="."]
+target_position = Vector3(0, -10, 0)
+collision_mask = 3
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 5.0
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
