@@ -7,8 +7,9 @@ signal video_settings_changed
 
 
 #TODO: Change to proper path when shipping
-# <PATH>
-const CONFIG_PATH: String = "res://configs/.settings.ini"
+# user://settings.ini
+# res://configs/.settings.ini
+const CONFIG_PATH: String = "res://configs/settings.ini"
 
 var config_file: ConfigFile = ConfigFile.new()
 
@@ -26,7 +27,7 @@ func _ready() -> void:
 		config_file.set_value("KEYBINDINGS", "jump", "space")
 		config_file.set_value("KEYBINDINGS", "interact", "E")
 		
-		config_file.set_value("VIDEO", "display_mode", "WINDOWED")
+		config_file.set_value("VIDEO", "display_mode", "FULLSCREEN")
 		config_file.set_value("VIDEO", "resolution", Vector2i(960, 540))
 		config_file.set_value("VIDEO", "field_of_view", 90.0)
 		
