@@ -22,12 +22,10 @@ radius = 0.444625
 [sub_resource type="SphereShape3D" id="SphereShape3D_gmg3x"]
 radius = 3.5
 
-[node name="ExplosiveBarrel" type="StaticBody3D" node_paths=PackedStringArray("explosion_cast", "health_area", "camera_shake_source", "explosion_delay")]
+[node name="ExplosiveBarrel" type="StaticBody3D" node_paths=PackedStringArray("explosion_cast", "camera_shake_source")]
 script = ExtResource("1_1mcf7")
 explosion_cast = NodePath("ExplosionArea3D")
-health_area = NodePath("HealthArea3D")
 camera_shake_source = NodePath("CameraShakeSource")
-explosion_delay = NodePath("ExplosionDelay")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("ConcavePolygonShape3D_2pqm0")
@@ -62,11 +60,6 @@ shake_amount = 10.0
 [node name="CollisionShape3D" type="CollisionShape3D" parent="CameraShakeSource"]
 shape = SubResource("SphereShape3D_gmg3x")
 
-[node name="ExplosionDelay" type="Timer" parent="."]
-wait_time = 0.25
-one_shot = true
-
-[connection signal="health_depleted" from="HealthArea3D/Health" to="." method="_on_health_health_depleted"]
-[connection signal="timeout" from="ExplosionDelay" to="." method="_on_explosion_delay_timeout"]
+[connection signal="health_depleted" from="HealthArea3D/Health" to="." method="_on_health_depleted"]
 
 [editable path="wooden_barrel_01_sm"]
