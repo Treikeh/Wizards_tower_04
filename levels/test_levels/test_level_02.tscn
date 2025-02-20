@@ -1,52 +1,11 @@
-[gd_scene load_steps=14 format=3 uid="uid://cu062dawunb5i"]
+[gd_scene load_steps=9 format=3 uid="uid://cu062dawunb5i"]
 
 [ext_resource type="PackedScene" uid="uid://cj0ckw6b4kq8l" path="res://common/scenes/level_transtion_area_3d.tscn" id="1_2vthh"]
 [ext_resource type="Script" path="res://levels/level_3d.gd" id="1_5l2ew"]
 [ext_resource type="Material" uid="uid://botmm8kkk1h67" path="res://common/materials/dev_grid_gray.tres" id="1_lik6l"]
-[ext_resource type="PackedScene" uid="uid://dh8dcfqs8vv8p" path="res://entities/player/player_controller.tscn" id="2_7yhon"]
-[ext_resource type="Script" path="res://levels/test_levels/hell_environment.gd" id="2_42ekn"]
+[ext_resource type="Environment" uid="uid://ofo0k16f1wgv" path="res://levels/test_levels/test_levels_environments.tres" id="2_b74oj"]
+[ext_resource type="PackedScene" uid="uid://i0u75nytwgqr" path="res://entities/player/spawner/player_spawner.tscn" id="3_3tmm6"]
 [ext_resource type="Material" uid="uid://do2qv4y2sei0e" path="res://common/materials/dev_grid_black.tres" id="3_gknln"]
-
-[sub_resource type="FastNoiseLite" id="FastNoiseLite_aw788"]
-frequency = 0.0033
-fractal_type = 3
-fractal_lacunarity = 10.35
-fractal_weighted_strength = 1.0
-fractal_ping_pong_strength = 4.825
-domain_warp_enabled = true
-domain_warp_type = 2
-
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_hb7hm"]
-width = 1080
-height = 1080
-seamless = true
-as_normal_map = true
-noise = SubResource("FastNoiseLite_aw788")
-
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_e7a2h"]
-sky_horizon_color = Color(0.397875, 0.76199, 0, 1)
-sky_cover = SubResource("NoiseTexture2D_hb7hm")
-sky_cover_modulate = Color(6.54578e-06, 0.74215, 0.873519, 1)
-ground_bottom_color = Color(0.509397, 3.08999e-05, 0.407419, 1)
-ground_horizon_color = Color(0, 0.749728, 0.741064, 1)
-ground_curve = 0.165642
-sun_angle_max = 10.83
-sun_curve = 1.69705
-
-[sub_resource type="Sky" id="Sky_o2f5q"]
-sky_material = SubResource("ProceduralSkyMaterial_e7a2h")
-
-[sub_resource type="Environment" id="Environment_tui0g"]
-background_mode = 2
-sky = SubResource("Sky_o2f5q")
-sky_custom_fov = 32.5
-tonemap_mode = 2
-glow_enabled = true
-fog_enabled = true
-fog_mode = 1
-fog_light_color = Color(0.436147, 0.618971, 0, 1)
-fog_density = 1.0
-fog_sky_affect = 0.0
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ctpex"]
 size = Vector3(1, 4, 2.5)
@@ -56,17 +15,19 @@ size = Vector3(1, 4, 2.5)
 
 [node name="TestLevel02" type="Node3D"]
 script = ExtResource("1_5l2ew")
-fireball_unlocked = false
-rock_wall_unlocked = false
-wind_blast_unlocked = false
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_tui0g")
-script = ExtResource("2_42ekn")
+environment = ExtResource("2_b74oj")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 10, 0)
 shadow_enabled = true
+
+[node name="PlayerSpawner" parent="." instance=ExtResource("3_3tmm6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
+fireball_unlocked = false
+rock_wall_unlocked = false
+wind_blast_unlocked = false
 
 [node name="Floor" type="CSGBox3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, -2.5)
@@ -86,6 +47,3 @@ shape = SubResource("BoxShape3D_ctpex")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
 material_override = ExtResource("3_gknln")
 mesh = SubResource("BoxMesh_0x2f3")
-
-[node name="RigidbodyPlayer" parent="." instance=ExtResource("2_7yhon")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1, 0)
