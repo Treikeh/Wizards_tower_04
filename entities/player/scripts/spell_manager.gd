@@ -32,6 +32,7 @@ func _physics_process(delta: float) -> void:
 @export_group("Fireball")
 @export var fireball_info: SpellInfo
 @export var fireball_ray: RayCast3D
+
 var can_fireball: bool = true
 var fireball_scene: PackedScene = preload("uid://cndpdurb3rxia")
 
@@ -79,6 +80,7 @@ func _on_fireball_recharge_timer_timeout() -> void:
 ## How far away from the player the rock wall can be spawned
 @export var rock_wall_range: float = 5.0
 @export var rock_wall_ray: RayCast3D
+
 ## If the palyer can cast the rock wall
 var can_rock_wall: bool = true
 var rock_wall_scene: PackedScene = preload("uid://b2n0kf0vd4u8n")
@@ -141,29 +143,31 @@ func _on_rock_wall_recharge_timer_timeout() -> void:
 @export_group("Wind blast")
 @export var wind_blast_info: SpellInfo
 @export var wind_blast_force: float = 15.0
-@export var wind_blast_area: Area3D
+@export var wind_blast_cast: ShapeCast3D
+
 var can_wind_blast: bool = true
 var wind_blast_effect_scene: PackedScene = preload("uid://dh3oppj1mqo0b")
 
 
 func cast_wind_blast() -> void:
 	if can_wind_blast and wind_blast_info.remaning_casts > 0:
-		# Check for bodies in wind_blast area
-		for body in wind_blast_area.get_overlapping_bodies():
+		# Check bodies wind_blast_cast collides with
+		for i: int in wind_blast_cast.get_collision_count():
+			var collider: Object = wind_blast_cast.get_collider(i)
 			var dir: Vector3 = -global_basis.z
 			# Reflect projectile
-			if body is Projectile:
+			if collider is Projectile:
 				if fireball_ray.is_colliding():
 					var hit_position = fireball_ray.get_collision_point()
-					dir = body.global_position.direction_to(hit_position)
-				body.reflected.emit()
-				body.linear_velocity = dir * body.initial_velocity * body.mass
+					dir = collider.global_position.direction_to(hit_position)
+				collider.reflected.emit()
+				collider.linear_velocity = dir * collider.initial_velocity * collider.mass
 			# Add force to rigidbodies
-			elif body is RigidBody3D:
-				body.apply_central_impulse(dir * wind_blast_force * body.mass)
+			elif collider is RigidBody3D:
+				collider.apply_central_impulse(dir * wind_blast_force * collider.mass)
 			# Apply knockback
-			elif body.has_method("recive_knockback"):
-				body.recive_knockback(dir)
+			elif collider.has_method("recive_knockback"):
+				collider.recive_knockback(dir)
 		
 		# Spawn wind blast effect
 		var wind_blast_effect: Node3D = wind_blast_effect_scene.instantiate()

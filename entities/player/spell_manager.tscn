@@ -5,18 +5,18 @@
 [ext_resource type="Resource" uid="uid://cxsh88wj6jeia" path="res://entities/player/spells/rock_wall/rock_wall_info.tres" id="3_fr4ex"]
 [ext_resource type="Resource" uid="uid://n1tjwg3nqlck" path="res://entities/player/spells/wind_blast/wind_blast_info.tres" id="4_swni5"]
 
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_00kph"]
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_lkiib"]
 radius = 0.75
 height = 4.0
 
-[node name="SpellManager" type="Node3D" node_paths=PackedStringArray("fireball_ray", "rock_wall_ray", "wind_blast_area")]
+[node name="SpellManager" type="Node3D" node_paths=PackedStringArray("fireball_ray", "rock_wall_ray", "wind_blast_cast")]
 script = ExtResource("1_1c27g")
 fireball_info = ExtResource("2_adkwt")
 fireball_ray = NodePath("FireballRay")
 rock_wall_info = ExtResource("3_fr4ex")
 rock_wall_ray = NodePath("RockWallRay")
 wind_blast_info = ExtResource("4_swni5")
-wind_blast_area = NodePath("WindBlastArea")
+wind_blast_cast = NodePath("WindBlastCast")
 
 [node name="FireballRay" type="RayCast3D" parent="."]
 target_position = Vector3(0, 0, -50)
@@ -27,15 +27,11 @@ target_position = Vector3(0, 0, -10)
 debug_shape_custom_color = Color(0.124067, 0.314735, 0, 1)
 debug_shape_thickness = 3
 
-[node name="WindBlastArea" type="Area3D" parent="."]
-unique_name_in_owner = true
-collision_layer = 0
+[node name="WindBlastCast" type="ShapeCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
+shape = SubResource("CapsuleShape3D_lkiib")
+target_position = Vector3(0, -2, 0)
 collision_mask = 42
-monitorable = false
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="WindBlastArea"]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, -2)
-shape = SubResource("CapsuleShape3D_00kph")
 
 [node name="FireballRechargeTimer" type="Timer" parent="."]
 one_shot = true
