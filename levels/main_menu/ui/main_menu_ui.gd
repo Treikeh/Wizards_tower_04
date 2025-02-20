@@ -35,3 +35,7 @@ func _on_credits_menu_closed() -> void:
 
 func _on_quit_button_pressed() -> void:
 	Globals.quit_game()
+
+
+func _on_test_level_button_pressed() -> void:
+	LevelManager.change_level("uid://cscm07iintxhd")
