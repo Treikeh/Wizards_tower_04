@@ -1,4 +1,6 @@
+class_name CameraShakeSource
 extends Area3D
+#NOTE: Could also be a ShapeCast3D
 
 
 @export var shake_amount: float = 0.1

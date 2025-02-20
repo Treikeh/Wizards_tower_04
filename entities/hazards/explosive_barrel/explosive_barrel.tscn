@@ -55,7 +55,7 @@ healing_resistance = 100.0
 
 [node name="CameraShakeSource" parent="." instance=ExtResource("4_hildl")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
-shake_amount = 10.0
+shake_amount = 0.75
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="CameraShakeSource"]
 shape = SubResource("SphereShape3D_gmg3x")
