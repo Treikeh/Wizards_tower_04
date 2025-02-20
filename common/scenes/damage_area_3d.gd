@@ -13,13 +13,14 @@ signal hit_health_area(health_area: HealthArea3D)
 
 
 func _process(delta: float) -> void:
-	#NOTE: This works, but it probably isn't performant
+	#NOTE: This works, but it probably isn't performant, A fix could be to change to a tick system
 	if apply_over_time:
 		var overlapping_areas: Array[Area3D] = get_overlapping_areas()
 		for area in overlapping_areas:
 			if area is HealthArea3D:
 				var scaled_damage: Damage = damage.duplicate()
 				scaled_damage.amount *= delta
+				hit_health_area.emit(area)
 				area.recive_damage(scaled_damage, false)
 
 

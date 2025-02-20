@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://cndpdurb3rxia"]
+[gd_scene load_steps=17 format=3 uid="uid://cndpdurb3rxia"]
 
 [ext_resource type="Script" path="res://entities/player/spells/fireball/fireball.gd" id="1_jy2c8"]
 [ext_resource type="Shader" uid="uid://0q3k72lo6vkv" path="res://entities/player/spells/fireball/fireball_vs.tres" id="2_mix4r"]
@@ -7,6 +7,8 @@
 [ext_resource type="Material" uid="uid://b5ehaqk85imur" path="res://entities/player/spells/fireball/fireball_ppm.tres" id="4_1andq"]
 [ext_resource type="QuadMesh" uid="uid://bs74iy86w3241" path="res://common/meshes/simple_particle_mesh.tres" id="5_m0uif"]
 [ext_resource type="AudioStream" uid="uid://csxgakr508rnx" path="res://entities/player/spells/fireball/Small Fireball Trail Loop.wav" id="6_0brwb"]
+[ext_resource type="PackedScene" uid="uid://xl1x86mw45ri" path="res://common/scenes/explosion_cast_3d.tscn" id="8_ygp88"]
+[ext_resource type="Resource" uid="uid://pmw5hwt4t7ri" path="res://entities/player/spells/fireball/fireball_explosion_damage.tres" id="9_pgmvs"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_hqxag"]
 radius = 0.1
@@ -19,36 +21,40 @@ noise = SubResource("FastNoiseLite_nk52b")
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_pr0c7"]
 render_priority = 0
 shader = ExtResource("2_mix4r")
-shader_parameter/noise_speed = 0.0
+shader_parameter/noise_speed = 0.5
 shader_parameter/noise_map = SubResource("NoiseTexture2D_i4bfv")
 
 [sub_resource type="SphereMesh" id="SphereMesh_4ec31"]
-material = SubResource("ShaderMaterial_pr0c7")
 radius = 0.1
 height = 0.2
-radial_segments = 32
-rings = 16
+radial_segments = 8
+rings = 8
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_gq4pq"]
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_p8pfx"]
 radius = 0.15
+height = 1.0
 
-[sub_resource type="CylinderMesh" id="CylinderMesh_1u87u"]
-top_radius = 0.9
-bottom_radius = 0.0
+[sub_resource type="SphereShape3D" id="SphereShape3D_0yrhn"]
+radius = 3.0
 
-[node name="Fireball" type="RigidBody3D" groups=["fireball"]]
+[node name="Fireball" type="RigidBody3D" node_paths=PackedStringArray("explosion", "damage_area", "mesh") groups=["fireball"]]
 collision_layer = 32
 collision_mask = 3
 gravity_scale = 0.0
+continuous_cd = true
 contact_monitor = true
 max_contacts_reported = 1
 script = ExtResource("1_jy2c8")
+explosion = NodePath("ExplosionCast3D")
+damage_area = NodePath("DamageArea")
+mesh = NodePath("MeshInstance3D")
 initial_velocity = 25.0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("SphereShape3D_hqxag")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+material_override = SubResource("ShaderMaterial_pr0c7")
 mesh = SubResource("SphereMesh_4ec31")
 
 [node name="DamageArea" parent="." instance=ExtResource("3_d2eq5")]
@@ -56,8 +62,8 @@ collision_mask = 128
 damage = ExtResource("3_8owbw")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="DamageArea"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.00406343)
-shape = SubResource("SphereShape3D_gq4pq")
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, -0.00406343)
+shape = SubResource("CapsuleShape3D_p8pfx")
 
 [node name="GPUParticles3D" type="GPUParticles3D" parent="."]
 lifetime = 0.15
@@ -70,15 +76,14 @@ stream = ExtResource("6_0brwb")
 volume_db = -5.0
 autoplay = true
 
+[node name="ExplosionCast3D" parent="." instance=ExtResource("8_ygp88")]
+shape = SubResource("SphereShape3D_0yrhn")
+damage = ExtResource("9_pgmvs")
+
 [node name="Timer" type="Timer" parent="."]
 wait_time = 10.0
 one_shot = true
 autostart = true
-
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, -0.9)
-visible = false
-mesh = SubResource("CylinderMesh_1u87u")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="reflected" from="." to="." method="_on_reflected"]
