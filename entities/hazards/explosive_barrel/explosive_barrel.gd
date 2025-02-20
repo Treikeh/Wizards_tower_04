@@ -2,7 +2,7 @@ extends Node3D
 
 
 @export_group("Nodes")
-@export var explosion_area: Area3D
+@export var explosion_cast: ShapeCast3D
 @export var health_area: HealthArea3D
 @export var camera_shake_source: Area3D
 @export var explosion_delay: Timer
@@ -15,6 +15,6 @@ func _on_health_health_depleted() -> void:
 
 
 func _on_explosion_delay_timeout() -> void:
-	explosion_area.trigger()
+	explosion_cast.trigger()
 	camera_shake_source.shake_camera()
 	queue_free()

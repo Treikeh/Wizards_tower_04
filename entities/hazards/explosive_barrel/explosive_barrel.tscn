@@ -7,12 +7,12 @@
 [ext_resource type="PackedScene" uid="uid://0m38n8mm2vo1" path="res://common/scenes/camera_shake_source.tscn" id="4_hildl"]
 [ext_resource type="Script" path="res://common/scripts/health.gd" id="5_4nupu"]
 [ext_resource type="Resource" uid="uid://bjo5hgv6bn8ly" path="res://entities/hazards/explosive_barrel/explosive_barrel_damage.tres" id="5_i6ro4"]
-[ext_resource type="PackedScene" uid="uid://xl1x86mw45ri" path="res://common/scenes/explosion_area_3d.tscn" id="6_q2a43"]
+[ext_resource type="PackedScene" uid="uid://xl1x86mw45ri" path="res://common/scenes/explosion_cast_3d.tscn" id="6_q2a43"]
 
 [sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_2pqm0"]
 data = PackedVector3Array(0, 0.5, -0.4548, 0.261, 1, -0.261, 0, 1, -0.3691, 0, 0.5, -0.4548, 0.3216, 0.5, -0.3216, 0.261, 1, -0.261, 0.3216, 0.5, -0.3216, 0.3691, 1, 0, 0.261, 1, -0.261, 0.3216, 0.5, -0.3216, 0.4548, 0.5, 0, 0.3691, 1, 0, 0.4548, 0.5, 0, 0.261, 1, 0.261, 0.3691, 1, 0, 0.4548, 0.5, 0, 0.3216, 0.5, 0.3216, 0.261, 1, 0.261, 0.3216, 0.5, 0.3216, 0, 1, 0.3691, 0.261, 1, 0.261, 0.3216, 0.5, 0.3216, 0, 0.5, 0.4548, 0, 1, 0.3691, 0, 0.5, 0.4548, -0.261, 1, 0.261, 0, 1, 0.3691, 0, 0.5, 0.4548, -0.3216, 0.5, 0.3216, -0.261, 1, 0.261, -0.3216, 0.5, 0.3216, -0.3691, 1, 0, -0.261, 1, 0.261, -0.3216, 0.5, 0.3216, -0.4548, 0.5, 0, -0.3691, 1, 0, 0.3691, 1, 0, 0, 1, -0.3691, 0.261, 1, -0.261, 0, 1, -0.3691, -0.3691, 1, 0, -0.261, 1, -0.261, -0.3691, 1, 0, 0, 1, 0.3691, -0.261, 1, 0.261, 0, 1, 0.3691, 0.3691, 1, 0, 0.261, 1, 0.261, 0.3691, 1, 0, -0.3691, 1, 0, 0, 1, -0.3691, -0.3691, 1, 0, 0.3691, 1, 0, 0, 1, 0.3691, -0.4548, 0.5, 0, -0.261, 1, -0.261, -0.3691, 1, 0, -0.4548, 0.5, 0, -0.3216, 0.5, -0.3216, -0.261, 1, -0.261, -0.3216, 0.5, -0.3216, 0, 1, -0.3691, -0.261, 1, -0.261, -0.3216, 0.5, -0.3216, 0, 0.5, -0.4548, 0, 1, -0.3691, -0.261, 0, -0.261, 0.261, 0, -0.261, 0, 0, -0.3691, 0.261, 0, -0.261, 0.261, 0, 0.261, 0.3691, 0, 0, 0.261, 0, 0.261, -0.261, 0, 0.261, 0, 0, 0.3691, -0.261, 0, 0.261, -0.261, 0, -0.261, -0.3691, 0, 0, -0.261, 0, -0.261, 0.261, 0, 0.261, 0.261, 0, -0.261, 0.261, 0, 0.261, -0.261, 0, -0.261, -0.261, 0, 0.261, -0.261, 0, -0.261, 0, 0.5, -0.4548, -0.3216, 0.5, -0.3216, -0.261, 0, -0.261, 0, 0, -0.3691, 0, 0.5, -0.4548, -0.3691, 0, 0, -0.3216, 0.5, -0.3216, -0.4548, 0.5, 0, -0.3691, 0, 0, -0.261, 0, -0.261, -0.3216, 0.5, -0.3216, -0.261, 0, 0.261, -0.4548, 0.5, 0, -0.3216, 0.5, 0.3216, -0.261, 0, 0.261, -0.3691, 0, 0, -0.4548, 0.5, 0, 0, 0, 0.3691, -0.3216, 0.5, 0.3216, 0, 0.5, 0.4548, 0, 0, 0.3691, -0.261, 0, 0.261, -0.3216, 0.5, 0.3216, 0.261, 0, 0.261, 0, 0.5, 0.4548, 0.3216, 0.5, 0.3216, 0.261, 0, 0.261, 0, 0, 0.3691, 0, 0.5, 0.4548, 0.3691, 0, 0, 0.3216, 0.5, 0.3216, 0.4548, 0.5, 0, 0.3691, 0, 0, 0.261, 0, 0.261, 0.3216, 0.5, 0.3216, 0.261, 0, -0.261, 0.4548, 0.5, 0, 0.3216, 0.5, -0.3216, 0.261, 0, -0.261, 0.3691, 0, 0, 0.4548, 0.5, 0, 0, 0, -0.3691, 0.3216, 0.5, -0.3216, 0, 0.5, -0.4548, 0, 0, -0.3691, 0.261, 0, -0.261, 0.3216, 0.5, -0.3216)
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_5u3vp"]
+[sub_resource type="SphereShape3D" id="SphereShape3D_pei0p"]
 radius = 3.5
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_n8ylb"]
@@ -22,9 +22,9 @@ radius = 0.444625
 [sub_resource type="SphereShape3D" id="SphereShape3D_gmg3x"]
 radius = 3.5
 
-[node name="ExplosiveBarrel" type="StaticBody3D" node_paths=PackedStringArray("explosion_area", "health_area", "camera_shake_source", "explosion_delay")]
+[node name="ExplosiveBarrel" type="StaticBody3D" node_paths=PackedStringArray("explosion_cast", "health_area", "camera_shake_source", "explosion_delay")]
 script = ExtResource("1_1mcf7")
-explosion_area = NodePath("ExplosionArea3D")
+explosion_cast = NodePath("ExplosionArea3D")
 health_area = NodePath("HealthArea3D")
 camera_shake_source = NodePath("CameraShakeSource")
 explosion_delay = NodePath("ExplosionDelay")
@@ -39,10 +39,8 @@ material_override = ExtResource("2_kme22")
 
 [node name="ExplosionArea3D" parent="." instance=ExtResource("6_q2a43")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+shape = SubResource("SphereShape3D_pei0p")
 damage = ExtResource("5_i6ro4")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="ExplosionArea3D"]
-shape = SubResource("SphereShape3D_5u3vp")
 
 [node name="HealthArea3D" parent="." node_paths=PackedStringArray("health_node") instance=ExtResource("3_ljiqa")]
 health_node = NodePath("Health")

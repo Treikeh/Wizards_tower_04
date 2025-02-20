@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://ddufakdkmxhwr" path="res://common/scenes/health_area_3d.tscn" id="2_imdi2"]
 [ext_resource type="Script" path="res://common/scripts/health.gd" id="3_5nyv3"]
 [ext_resource type="Resource" uid="uid://ddwge00ixpgh1" path="res://entities/player/spells/rock_wall/resources/rock_wall_explosion_damage.tres" id="4_1d6k7"]
-[ext_resource type="PackedScene" uid="uid://xl1x86mw45ri" path="res://common/scenes/explosion_area_3d.tscn" id="5_34713"]
+[ext_resource type="PackedScene" uid="uid://xl1x86mw45ri" path="res://common/scenes/explosion_cast_3d.tscn" id="5_34713"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_uv1ks"]
 radius = 0.1
@@ -28,7 +28,7 @@ size = Vector3(2, 2, 1)
 [sub_resource type="BoxShape3D" id="BoxShape3D_s7pmr"]
 size = Vector3(2, 0.5, 1)
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_08y1q"]
+[sub_resource type="SphereShape3D" id="SphereShape3D_rclog"]
 radius = 3.75
 
 [sub_resource type="Animation" id="Animation_4wp80"]
@@ -232,14 +232,14 @@ _data = {
 "spawn": SubResource("Animation_7onb7")
 }
 
-[node name="RockWall" type="CharacterBody3D" node_paths=PackedStringArray("enemy_launch_area", "explosion_area", "duration_timer", "animation_player")]
+[node name="RockWall" type="CharacterBody3D" node_paths=PackedStringArray("enemy_launch_area", "explosion_cast", "duration_timer", "animation_player")]
 collision_layer = 32
 collision_mask = 9
 floor_max_angle = 0.261799
 floor_snap_length = 0.5
 script = ExtResource("1_3mufw")
 enemy_launch_area = NodePath("LaunchBody/EnemyLaunchArea")
-explosion_area = NodePath("ExplosionArea")
+explosion_cast = NodePath("ExplosionCast")
 duration_timer = NodePath("Timer")
 animation_player = NodePath("AnimationPlayer")
 
@@ -290,13 +290,14 @@ monitorable = false
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0)
 shape = SubResource("BoxShape3D_s7pmr")
 
-[node name="ExplosionArea" parent="." instance=ExtResource("5_34713")]
+[node name="ExplosionCast" parent="." instance=ExtResource("5_34713")]
+shape = SubResource("SphereShape3D_rclog")
 collision_mask = 196
 damage = ExtResource("4_1d6k7")
 
-[node name="ExplosionCollision" type="CollisionShape3D" parent="ExplosionArea"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-shape = SubResource("SphereShape3D_08y1q")
+[node name="LineOfSight" parent="ExplosionCast" index="0"]
+collision_mask = 3
+hit_back_faces = false
 
 [node name="Timer" type="Timer" parent="."]
 process_callback = 0
@@ -314,3 +315,5 @@ autoplay = "spawn"
 [connection signal="body_entered" from="LaunchBodyTransform/HealthArea" to="." method="_on_health_area_body_entered"]
 [connection signal="health_depleted" from="LaunchBodyTransform/HealthArea/Health" to="." method="_on_health_depleted"]
 [connection signal="timeout" from="Timer" to="." method="_on_duration_timer_timeout"]
+
+[editable path="ExplosionCast"]

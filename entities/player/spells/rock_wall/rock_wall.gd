@@ -6,7 +6,7 @@ extends CharacterBody3D
 
 @export_group("Nodes")
 @export var enemy_launch_area: Area3D
-@export var explosion_area: Area3D
+@export var explosion_cast: ShapeCast3D
 ## Timer to manage how long the spell will remain in the scene
 @export var duration_timer: Timer
 @export var animation_player: AnimationPlayer
@@ -37,7 +37,7 @@ func recive_knockback(direction: Vector3) -> void:
 
 
 func _explode() -> void:
-	explosion_area.trigger()
+	explosion_cast.trigger()
 	_on_health_depleted()
 
 
