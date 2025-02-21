@@ -1,7 +1,23 @@
-[gd_scene load_steps=5 format=3 uid="uid://xo3qqq1d6oq8"]
+[gd_scene load_steps=25 format=3 uid="uid://xo3qqq1d6oq8"]
 
 [ext_resource type="Script" path="res://entities/enemies/lightning_summoner/lightning_strike/lightning_strike.gd" id="1_u0c2i"]
+[ext_resource type="Shader" uid="uid://br4aigmfqn33m" path="res://entities/enemies/lightning_summoner/lightning_strike/lightning_strike_warning_vs.tres" id="2_1oxgd"]
 [ext_resource type="Shader" uid="uid://b5spjy835fc4b" path="res://entities/player/spells/wind_blast/wind_blast_effect_vs.tres" id="2_82nw3"]
+[ext_resource type="PackedScene" uid="uid://di7vp8irr7xdl" path="res://common/scenes/damage_area_3d.tscn" id="3_4sm3s"]
+[ext_resource type="Script" path="res://common/scripts/damage.gd" id="4_52mbw"]
+[ext_resource type="PackedScene" uid="uid://0m38n8mm2vo1" path="res://common/scenes/camera_shake_source.tscn" id="6_8peit"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_43tux"]
+render_priority = 0
+shader = ExtResource("2_1oxgd")
+shader_parameter/main_color = Color(0.411719, 0.732006, 1, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_rqbie"]
+flip_faces = true
+radius = 2.5
+height = 5.0
+radial_segments = 32
+rings = 16
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_v6y0i"]
 render_priority = 0
@@ -21,19 +37,252 @@ height = 4.0
 cap_top = false
 cap_bottom = false
 
-[node name="LightningStrike" type="Node3D"]
-script = ExtResource("1_u0c2i")
+[sub_resource type="Resource" id="Resource_vkflb"]
+script = ExtResource("4_52mbw")
+amount = 15.0
+type = 0
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+[sub_resource type="SphereShape3D" id="SphereShape3D_dh5kf"]
+radius = 2.5
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_pm4tw"]
+radius = 2.5
+
+[sub_resource type="Curve" id="Curve_ctbvw"]
+max_value = 3.0
+_data = [Vector2(0, 3), 0.0, -0.163368, 0, 0, Vector2(1, 0), -7.05758, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_6mgpl"]
+curve = SubResource("Curve_ctbvw")
+
+[sub_resource type="Curve" id="Curve_ps3sb"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -1.82366, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_532vy"]
+curve = SubResource("Curve_ps3sb")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_acnse"]
+direction = Vector3(0, 1, 0)
+initial_velocity_min = 7.5
+initial_velocity_max = 7.5
+scale_min = 0.1
+scale_max = 0.3
+scale_curve = SubResource("CurveTexture_532vy")
+color = Color(0.45, 0.789167, 1, 1)
+emission_curve = SubResource("CurveTexture_6mgpl")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_w7k5h"]
+shading_mode = 0
+vertex_color_use_as_albedo = true
+billboard_keep_scale = true
+
+[sub_resource type="QuadMesh" id="QuadMesh_dnifu"]
+material = SubResource("StandardMaterial3D_w7k5h")
+size = Vector2(0.2, 1)
+
+[sub_resource type="Animation" id="Animation_s3sn5"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("DamageArea3D/CollisionShape3D:disabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("LightningMesh:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("WarningMesh:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Sparks:emitting")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_14cvj"]
+resource_name = "spawn"
+length = 0.1
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.0333333),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"snap_to_ground"
+}]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("WarningMesh:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.0333333),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+
+[sub_resource type="Animation" id="Animation_exof8"]
+resource_name = "strike"
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(1),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"queue_free"
+}]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("DamageArea3D/CollisionShape3D:disabled")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("LightningMesh:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("WarningMesh:visible")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Sparks:emitting")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_42rba"]
+_data = {
+"RESET": SubResource("Animation_s3sn5"),
+"spawn": SubResource("Animation_14cvj"),
+"strike": SubResource("Animation_exof8")
+}
+
+[node name="LightningStrike" type="Node3D" node_paths=PackedStringArray("ground_snap_ray", "camera_shake_source", "anim_player")]
+script = ExtResource("1_u0c2i")
+ground_snap_ray = NodePath("GroundPosition")
+camera_shake_source = NodePath("CameraShakeSource")
+anim_player = NodePath("AnimationPlayer")
+
+[node name="WarningMesh" type="MeshInstance3D" parent="."]
+material_override = SubResource("ShaderMaterial_43tux")
+mesh = SubResource("SphereMesh_rqbie")
+
+[node name="LightningMesh" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+visible = false
 mesh = SubResource("CylinderMesh_1a8kf")
 
 [node name="GroundPosition" type="RayCast3D" parent="."]
 target_position = Vector3(0, -10, 0)
 collision_mask = 3
 
-[node name="Timer" type="Timer" parent="."]
-wait_time = 5.0
+[node name="DamageArea3D" parent="." instance=ExtResource("3_4sm3s")]
+damage = SubResource("Resource_vkflb")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DamageArea3D"]
+shape = SubResource("SphereShape3D_dh5kf")
+disabled = true
+
+[node name="CameraShakeSource" parent="." instance=ExtResource("6_8peit")]
+shake_amount = 0.5
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CameraShakeSource"]
+shape = SubResource("SphereShape3D_pm4tw")
+
+[node name="Sparks" type="GPUParticles3D" parent="."]
+emitting = false
+amount = 16
+explosiveness = 0.9
+transform_align = 3
+process_material = SubResource("ParticleProcessMaterial_acnse")
+draw_pass_1 = SubResource("QuadMesh_dnifu")
+
+[node name="StrikeTimer" type="Timer" parent="."]
+wait_time = 1.5
 autostart = true
 
-[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_42rba")
+}
+autoplay = "spawn"
+
+[connection signal="timeout" from="StrikeTimer" to="." method="_on_timer_timeout"]

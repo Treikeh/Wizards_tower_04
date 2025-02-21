@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://bir8q5f287gno"]
+[gd_scene load_steps=23 format=3 uid="uid://bir8q5f287gno"]
 
 [ext_resource type="Script" path="res://entities/enemies/lightning_summoner/lightning_summoner.gd" id="1_03afg"]
 [ext_resource type="Script" path="res://addons/beehave/nodes/beehave_tree.gd" id="2_3ajoc"]
@@ -21,26 +21,71 @@ height = 1.6
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_j6m75"]
 height = 1.6
 
-[sub_resource type="Animation" id="Animation_addt8"]
-resource_name = "spawn"
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_e8xnh"]
+height = 1.6
+
+[sub_resource type="Animation" id="Animation_dj4dx"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("..:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
 
 [sub_resource type="Animation" id="Animation_l1gt0"]
 resource_name = "died"
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("..")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(1),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"queue_free"
+}]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("..:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(1.5708, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_addt8"]
+resource_name = "spawn"
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_w8x0p"]
 _data = {
+"RESET": SubResource("Animation_dj4dx"),
 "died": SubResource("Animation_l1gt0"),
 "spawn": SubResource("Animation_addt8")
 }
 
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_e8xnh"]
-height = 1.6
-
 [sub_resource type="ViewportTexture" id="ViewportTexture_u7gnh"]
 viewport_path = NodePath("SubViewport")
 
-[node name="LightningSummoner" type="CharacterBody3D" node_paths=PackedStringArray("nav_agent", "beehave_tree") groups=["enemy"]]
+[node name="LightningSummoner" type="CharacterBody3D" node_paths=PackedStringArray("anim_player", "nav_agent", "beehave_tree") groups=["enemy"]]
+collision_layer = 8
+collision_mask = 271
 script = ExtResource("1_03afg")
+anim_player = NodePath("Mesh/AnimationPlayer")
 nav_agent = NodePath("NavigationAgent3D")
 beehave_tree = NodePath("BeehaveTree")
 
@@ -61,17 +106,17 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, 0)
 material_override = ExtResource("3_rmstm")
 mesh = SubResource("CapsuleMesh_j6m75")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Mesh"]
-libraries = {
-"": SubResource("AnimationLibrary_w8x0p")
-}
-
 [node name="HealthArea3D" parent="Mesh" node_paths=PackedStringArray("health_node") instance=ExtResource("4_i1nwr")]
 health_node = NodePath("../../Health")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Mesh/HealthArea3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, 0)
 shape = SubResource("CapsuleShape3D_e8xnh")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Mesh"]
+libraries = {
+"": SubResource("AnimationLibrary_w8x0p")
+}
 
 [node name="Health" type="Node" parent="."]
 script = ExtResource("3_2h4um")
@@ -82,7 +127,7 @@ texture = SubResource("ViewportTexture_u7gnh")
 
 [node name="BeehaveTree" type="Node" parent="." node_paths=PackedStringArray("blackboard", "actor")]
 script = ExtResource("2_3ajoc")
-blackboard = NodePath("@Node@36834")
+blackboard = NodePath("@Node@17444")
 actor = NodePath("..")
 
 [node name="SelectorComposite" type="Node" parent="BeehaveTree"]
@@ -116,3 +161,4 @@ group = "player"
 save_key = &"player"
 
 [connection signal="health_changed" from="Health" to="FloatingHealthBar" method="_on_health_changed"]
+[connection signal="health_depleted" from="Health" to="." method="_on_health_depleted"]

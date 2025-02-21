@@ -1,11 +1,17 @@
 extends Node3D
 
 
-func _ready() -> void:
-	await  get_tree().process_frame
-	if $GroundPosition.is_colliding():
-		global_position = $GroundPosition.get_collision_point()
+@export_group(" ")
+@export var ground_snap_ray: RayCast3D
+@export var camera_shake_source: CameraShakeSource
+@export var anim_player: AnimationPlayer
+
+
+func snap_to_ground() -> void:
+	if ground_snap_ray.is_colliding():
+		global_position = ground_snap_ray.get_collision_point()
 
 
 func _on_timer_timeout() -> void:
-	queue_free()
+	anim_player.play("strike")
+	camera_shake_source.shake_camera()

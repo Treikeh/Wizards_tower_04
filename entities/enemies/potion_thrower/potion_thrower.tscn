@@ -145,11 +145,10 @@ _data = {
 [sub_resource type="ViewportTexture" id="ViewportTexture_arqjo"]
 viewport_path = NodePath("SubViewport")
 
-[node name="PotionThrower" type="CharacterBody3D" node_paths=PackedStringArray("animation_player", "target_direction", "nav_agent", "beehave_tree") groups=["enemy"]]
+[node name="PotionThrower" type="CharacterBody3D" node_paths=PackedStringArray("target_direction", "nav_agent", "beehave_tree") groups=["enemy"]]
 collision_layer = 8
 collision_mask = 271
 script = ExtResource("1_awttq")
-animation_player = NodePath("Mesh/AnimationPlayer")
 target_direction = NodePath("TargetDirection")
 nav_agent = NodePath("NavigationAgent3D")
 beehave_tree = NodePath("BeehaveTree")
@@ -205,7 +204,7 @@ texture = SubResource("ViewportTexture_arqjo")
 
 [node name="BeehaveTree" type="Node" parent="." node_paths=PackedStringArray("blackboard", "actor")]
 script = ExtResource("8_yln8x")
-blackboard = NodePath("@Node@37592")
+blackboard = NodePath("@Node@24243")
 actor = NodePath("..")
 
 [node name="SelectorComposite" type="Node" parent="BeehaveTree"]

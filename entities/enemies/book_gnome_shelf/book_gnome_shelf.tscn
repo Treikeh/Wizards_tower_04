@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://dtoewhbmg012w"]
+[gd_scene load_steps=22 format=3 uid="uid://dtoewhbmg012w"]
 
 [ext_resource type="Script" path="res://entities/enemies/book_gnome_shelf/book_gnome_shelf.gd" id="1_xkhhr"]
 [ext_resource type="Script" path="res://common/scripts/match_y_rotation.gd" id="2_ce7hw"]
@@ -7,7 +7,11 @@
 [ext_resource type="PackedScene" uid="uid://cs53wyj8yt4s4" path="res://entities/enemies/floating_health_bar.tscn" id="4_knj5g"]
 [ext_resource type="Script" path="res://common/scripts/health.gd" id="5_0ck78"]
 [ext_resource type="Script" path="res://addons/beehave/nodes/beehave_tree.gd" id="6_iava8"]
-[ext_resource type="Script" path="res://common/scripts/beehave/get_first_node_in_group_action.gd" id="7_18ky2"]
+[ext_resource type="Script" path="res://addons/beehave/nodes/composites/sequence.gd" id="9_1mxg0"]
+[ext_resource type="Script" path="res://common/scripts/beehave/call_method_action.gd" id="9_7cdr2"]
+[ext_resource type="Script" path="res://common/scripts/beehave/wait_action.gd" id="12_5x6cv"]
+[ext_resource type="Script" path="res://common/scripts/beehave/get_random_position_in_range.gd" id="13_n3nhu"]
+[ext_resource type="Script" path="res://common/scripts/beehave/navigate_to_position_action.gd" id="14_s5txi"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_wqowl"]
 radius = 0.6
@@ -21,14 +25,56 @@ size = Vector3(1, 0.255, 0.21)
 [sub_resource type="BoxShape3D" id="BoxShape3D_pkqmf"]
 size = Vector3(1.2, 2, 0.5)
 
+[sub_resource type="Animation" id="Animation_xjw8d"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("..:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+
 [sub_resource type="Animation" id="Animation_5yeac"]
 resource_name = "died"
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("..")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(1),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"queue_free"
+}]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("..:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(1.39626, 0, 0)]
+}
 
 [sub_resource type="Animation" id="Animation_usgge"]
 resource_name = "spawn"
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_cpk5r"]
 _data = {
+"RESET": SubResource("Animation_xjw8d"),
 "died": SubResource("Animation_5yeac"),
 "spawn": SubResource("Animation_usgge")
 }
@@ -36,12 +82,16 @@ _data = {
 [sub_resource type="ViewportTexture" id="ViewportTexture_f0xr0"]
 viewport_path = NodePath("SubViewport")
 
-[node name="BookGnomeShelf" type="CharacterBody3D" node_paths=PackedStringArray("nav_agent", "beehave_tree") groups=["enemy"]]
+[node name="BookGnomeShelf" type="CharacterBody3D" node_paths=PackedStringArray("target_direction", "spawn_position", "anim_player", "nav_agent", "beehave_tree") groups=["enemy"]]
 collision_layer = 8
-collision_mask = 15
+collision_mask = 271
 script = ExtResource("1_xkhhr")
+target_direction = NodePath("TargetDirection")
+spawn_position = NodePath("Mesh/SpawnPosition")
+anim_player = NodePath("Mesh/AnimationPlayer")
+move_speed = 3.0
 nav_agent = NodePath("NavigationAgent3D")
-beehave_tree = NodePath("BeehaveTree")
+beehave_tree = NodePath("BookGnomeShelf")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
@@ -49,6 +99,7 @@ shape = SubResource("CapsuleShape3D_wqowl")
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
 path_height_offset = 0.5
+debug_enabled = true
 
 [node name="TargetDirection" type="Node3D" parent="."]
 
@@ -72,6 +123,9 @@ health_node = NodePath("../../Health")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("BoxShape3D_pkqmf")
 
+[node name="SpawnPosition" type="Marker3D" parent="Mesh"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, -0.8)
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Mesh"]
 unique_name_in_owner = true
 libraries = {
@@ -85,15 +139,30 @@ texture = SubResource("ViewportTexture_f0xr0")
 
 [node name="Health" type="Node" parent="."]
 script = ExtResource("5_0ck78")
+max_health = 30.0
 
-[node name="BeehaveTree" type="Node" parent="." node_paths=PackedStringArray("blackboard", "actor")]
+[node name="BookGnomeShelf" type="Node" parent="." node_paths=PackedStringArray("blackboard", "actor")]
 script = ExtResource("6_iava8")
-blackboard = NodePath("@Node@45529")
+blackboard = NodePath("@Node@17442")
 actor = NodePath("..")
 
-[node name="GetFirstNodeInGroupAction" type="Node" parent="BeehaveTree"]
-script = ExtResource("7_18ky2")
-group = "player"
-save_key = &"player"
+[node name="Sequence" type="Node" parent="BookGnomeShelf"]
+script = ExtResource("9_1mxg0")
+
+[node name="CallMethodAction" type="Node" parent="BookGnomeShelf/Sequence"]
+script = ExtResource("9_7cdr2")
+method_name = "attack"
+
+[node name="WaitAction" type="Node" parent="BookGnomeShelf/Sequence"]
+script = ExtResource("12_5x6cv")
+wait_time = 5.0
+
+[node name="GetRandomPositionInRange" type="Node" parent="BookGnomeShelf/Sequence"]
+script = ExtResource("13_n3nhu")
+
+[node name="NavigateToPositionAction" type="Node" parent="BookGnomeShelf/Sequence"]
+script = ExtResource("14_s5txi")
+wait_until_reached = true
 
 [connection signal="health_changed" from="Health" to="FloatingHealthBar" method="_on_health_changed"]
+[connection signal="health_depleted" from="Health" to="." method="_on_health_depleted"]
