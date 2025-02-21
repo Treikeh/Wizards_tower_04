@@ -1,4 +1,9 @@
-[gd_resource type="ORMMaterial3D" format=3 uid="uid://cocw5lpeix570"]
+[gd_resource type="ORMMaterial3D" load_steps=3 format=3 uid="uid://cocw5lpeix570"]
+
+[ext_resource type="Texture2D" uid="uid://xpnwui8uvht" path="res://entities/enemies/book_gnome_shelf/mesh/book_gnome_shelf_01_bc.png" id="1_6tmot"]
+[ext_resource type="Texture2D" uid="uid://bpyvurniskcid" path="res://entities/enemies/book_gnome_shelf/mesh/book_gnome_shelf_01_orm.png" id="2_x1qfr"]
 
 [resource]
-albedo_color = Color(0.58932, 0.306754, 0, 1)
+albedo_texture = ExtResource("1_6tmot")
+orm_texture = ExtResource("2_x1qfr")
+texture_filter = 2
