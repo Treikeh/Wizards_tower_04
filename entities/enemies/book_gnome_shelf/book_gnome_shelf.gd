@@ -36,6 +36,6 @@ func _on_health_depleted() -> void:
 	movement_enabled = false
 	
 	# Play death animation
-	anim_player.play("died")
+	anim_player.play("died_001")
 
 #endregion
