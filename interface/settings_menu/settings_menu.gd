@@ -29,6 +29,14 @@ func _ready() -> void:
 	%FovSlider.value = video_settings.field_of_view
 	%FovValue.value = video_settings.field_of_view
 	
+	
+	# Load audio settings
+	#var audio_settings: Dictionary = ConfigHandler.load_audio_settings()
+	var master_volume: float = db_to_linear(AudioServer.get_bus_volume_db(0))
+	%MasterVoumeSlider.value = master_volume * 100
+	%MasterVolumeValue.value = master_volume * 100
+	
+	
 	# Load input settings
 	var input_settings: Dictionary = ConfigHandler.load_input_settings()
 	%SensitivitySlider.value = input_settings.camera_sensitivity
@@ -79,6 +87,22 @@ func _on_fov_slider_drag_ended(_value_changed: bool) -> void:
 func _on_fov_value_value_changed(_value: float) -> void:
 	%FovSlider.value = %FovValue.value
 	ConfigHandler.save_video_settings("field_of_view", %FovValue.value)
+
+#endregion
+
+
+#region Audio
+
+func _on_master_voume_slider_drag_ended(_value_changed: bool) -> void:
+	%MasterVolumeValue.value = %MasterVoumeSlider.value
+	ConfigHandler.save_audio_settings("master_volume", %MasterVoumeSlider.value * 0.01)
+	ConfigHandler.apply_audio_settings()
+
+
+func _on_master_volume_value_value_changed(_value: float) -> void:
+	%MasterVoumeSlider.value = %MasterVolumeValue.value
+	ConfigHandler.save_audio_settings("master_volume", %MasterVolumeValue.value * 0.01)
+	ConfigHandler.apply_audio_settings()
 
 #endregion
 

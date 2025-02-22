@@ -1,11 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://c3h1xadci48by"]
+[gd_scene load_steps=4 format=3 uid="uid://c3h1xadci48by"]
 
 [ext_resource type="Script" path="res://interface/settings_menu/settings_menu.gd" id="1_smsaw"]
 [ext_resource type="StyleBox" uid="uid://b6384he3uakmw" path="res://common/style_boxes/style_box_empty.tres" id="3_iieoi"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_pyy7o"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_knh2t"]
 
 [node name="SettingsMenu" type="MarginContainer"]
 anchors_preset = 15
@@ -74,6 +72,7 @@ layout_mode = 2
 
 [node name="Label" type="Label" parent="VBoxContainer/PanelContainer/MarginContainer/ScrollContainer/VBoxContainer/DisplayMode"]
 layout_mode = 2
+size_flags_horizontal = 3
 text = "Display Mode"
 
 [node name="VSeparator" type="VSeparator" parent="VBoxContainer/PanelContainer/MarginContainer/ScrollContainer/VBoxContainer/DisplayMode"]
@@ -96,6 +95,7 @@ popup/item_3/text = "Borderless windowed"
 popup/item_3/id = 3
 
 [node name="Resolution" type="HBoxContainer" parent="VBoxContainer/PanelContainer/MarginContainer/ScrollContainer/VBoxContainer"]
+visible = false
 layout_mode = 2
 
 [node name="Label" type="Label" parent="VBoxContainer/PanelContainer/MarginContainer/ScrollContainer/VBoxContainer/Resolution"]
@@ -123,12 +123,8 @@ layout_mode = 2
 
 [node name="Label" type="Label" parent="VBoxContainer/PanelContainer/MarginContainer/ScrollContainer/VBoxContainer/FieldOfView"]
 layout_mode = 2
-text = "Field of view"
-
-[node name="VSeparator" type="VSeparator" parent="VBoxContainer/PanelContainer/MarginContainer/ScrollContainer/VBoxContainer/FieldOfView"]
-layout_mode = 2
 size_flags_horizontal = 3
-theme_override_styles/separator = ExtResource("3_iieoi")
+text = "Field of view"
 
 [node name="FovSlider" type="HSlider" parent="VBoxContainer/PanelContainer/MarginContainer/ScrollContainer/VBoxContainer/FieldOfView"]
 unique_name_in_owner = true
@@ -147,7 +143,50 @@ max_value = 105.0
 value = 90.0
 alignment = 2
 
-[node name="VideoInputSeperator" type="HSeparator" parent="VBoxContainer/PanelContainer/MarginContainer/ScrollContainer/VBoxContainer"]
+[node name="VideoAudioSeperator" type="HSeparator" parent="VBoxContainer/PanelContainer/MarginContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 25
+theme_override_styles/separator = SubResource("StyleBoxEmpty_pyy7o")
+
+[node name="AudioSettings" type="HBoxContainer" parent="VBoxContainer/PanelContainer/MarginContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 6
+
+[node name="HSeparator" type="HSeparator" parent="VBoxContainer/PanelContainer/MarginContainer/ScrollContainer/VBoxContainer/AudioSettings"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="VBoxContainer/PanelContainer/MarginContainer/ScrollContainer/VBoxContainer/AudioSettings"]
+layout_mode = 2
+text = "Audio"
+
+[node name="HSeparator2" type="HSeparator" parent="VBoxContainer/PanelContainer/MarginContainer/ScrollContainer/VBoxContainer/AudioSettings"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="MasterVolume" type="HBoxContainer" parent="VBoxContainer/PanelContainer/MarginContainer/ScrollContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/PanelContainer/MarginContainer/ScrollContainer/VBoxContainer/MasterVolume"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Master Volume"
+
+[node name="MasterVoumeSlider" type="HSlider" parent="VBoxContainer/PanelContainer/MarginContainer/ScrollContainer/VBoxContainer/MasterVolume"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 1
+value = 100.0
+
+[node name="MasterVolumeValue" type="SpinBox" parent="VBoxContainer/PanelContainer/MarginContainer/ScrollContainer/VBoxContainer/MasterVolume"]
+unique_name_in_owner = true
+layout_mode = 2
+value = 100.0
+alignment = 2
+
+[node name="AudioInputSeperator" type="HSeparator" parent="VBoxContainer/PanelContainer/MarginContainer/ScrollContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_constants/separation = 25
 theme_override_styles/separator = SubResource("StyleBoxEmpty_pyy7o")
@@ -173,12 +212,8 @@ layout_mode = 2
 
 [node name="Label" type="Label" parent="VBoxContainer/PanelContainer/MarginContainer/ScrollContainer/VBoxContainer/Sensitivity"]
 layout_mode = 2
-text = "Sensitivity: "
-
-[node name="VSeparator" type="VSeparator" parent="VBoxContainer/PanelContainer/MarginContainer/ScrollContainer/VBoxContainer/Sensitivity"]
-layout_mode = 2
 size_flags_horizontal = 3
-theme_override_styles/separator = SubResource("StyleBoxEmpty_knh2t")
+text = "Sensitivity: "
 
 [node name="SensitivitySlider" type="HSlider" parent="VBoxContainer/PanelContainer/MarginContainer/ScrollContainer/VBoxContainer/Sensitivity"]
 unique_name_in_owner = true
@@ -216,6 +251,8 @@ text = "Back"
 [connection signal="item_selected" from="VBoxContainer/PanelContainer/MarginContainer/ScrollContainer/VBoxContainer/Resolution/ResolutionOptions" to="." method="_on_resolution_options_item_selected"]
 [connection signal="drag_ended" from="VBoxContainer/PanelContainer/MarginContainer/ScrollContainer/VBoxContainer/FieldOfView/FovSlider" to="." method="_on_fov_slider_drag_ended"]
 [connection signal="value_changed" from="VBoxContainer/PanelContainer/MarginContainer/ScrollContainer/VBoxContainer/FieldOfView/FovValue" to="." method="_on_fov_value_value_changed"]
+[connection signal="drag_ended" from="VBoxContainer/PanelContainer/MarginContainer/ScrollContainer/VBoxContainer/MasterVolume/MasterVoumeSlider" to="." method="_on_master_voume_slider_drag_ended"]
+[connection signal="value_changed" from="VBoxContainer/PanelContainer/MarginContainer/ScrollContainer/VBoxContainer/MasterVolume/MasterVolumeValue" to="." method="_on_master_volume_value_value_changed"]
 [connection signal="drag_ended" from="VBoxContainer/PanelContainer/MarginContainer/ScrollContainer/VBoxContainer/Sensitivity/SensitivitySlider" to="." method="_on_sensitivity_slider_drag_ended"]
 [connection signal="value_changed" from="VBoxContainer/PanelContainer/MarginContainer/ScrollContainer/VBoxContainer/Sensitivity/SensitivityValue" to="." method="_on_sensitivity_value_value_changed"]
 [connection signal="pressed" from="VBoxContainer/BackButton" to="." method="_on_back_button_pressed"]

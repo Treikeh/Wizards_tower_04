@@ -31,7 +31,7 @@ func _ready() -> void:
 		config_file.set_value("VIDEO", "resolution", Vector2i(960, 540))
 		config_file.set_value("VIDEO", "field_of_view", 90.0)
 		
-		config_file.set_value("AUDIO", "master_volume", 100.0)
+		config_file.set_value("AUDIO", "master_volume", 1.0)
 		
 		config_file.save(CONFIG_PATH)
 	else:
@@ -39,40 +39,7 @@ func _ready() -> void:
 		config_file.load(CONFIG_PATH)
 	
 	apply_video_settings()
-
-
-#region Inputs
-
-func save_input_setting(key: String, value) -> void:
-	config_file.set_value("INPUT", key, value)
-	config_file.save(CONFIG_PATH)
-	input_settings_changed.emit()
-
-
-func load_input_settings() -> Dictionary:
-	var input_settings: Dictionary = {}
-	for key in config_file.get_section_keys("INPUT"):
-		input_settings[key] = config_file.get_value("INPUT", key)
-	return input_settings
-
-#endregion
-
-
-#region keybindings
-
-func save_keybindings(key: String, value) -> void:
-	config_file.set_value("KEYBINDINGS", key, value)
-	config_file.save(CONFIG_PATH)
-	keybindings_changed.emit()
-
-
-func load_keybindings() -> Dictionary:
-	var keybindings: Dictionary = {}
-	for key in config_file.get_section_keys("KEYBINDINGS"):
-		keybindings[key] = config_file.get_value("KEYBINDINGS", key)
-	return keybindings
-
-#endregion
+	apply_audio_settings()
 
 
 #region Video
@@ -139,5 +106,48 @@ func load_audio_settings() -> Dictionary:
 	for key in config_file.get_section_keys("AUDIO"):
 		audio_settings[key] = config_file.get_value("AUDIO", key)
 	return audio_settings
+
+
+func apply_audio_settings() -> void:
+	var audio_settings: Dictionary = load_audio_settings()
+	if audio_settings.is_empty():
+		return
+	
+	print(audio_settings.master_volume)
+	AudioServer.set_bus_volume_db(0, linear_to_db(audio_settings.master_volume))
+
+#endregion
+
+
+#region Inputs
+
+func save_input_setting(key: String, value) -> void:
+	config_file.set_value("INPUT", key, value)
+	config_file.save(CONFIG_PATH)
+	input_settings_changed.emit()
+
+
+func load_input_settings() -> Dictionary:
+	var input_settings: Dictionary = {}
+	for key in config_file.get_section_keys("INPUT"):
+		input_settings[key] = config_file.get_value("INPUT", key)
+	return input_settings
+
+#endregion
+
+
+#region keybindings
+
+func save_keybindings(key: String, value) -> void:
+	config_file.set_value("KEYBINDINGS", key, value)
+	config_file.save(CONFIG_PATH)
+	keybindings_changed.emit()
+
+
+func load_keybindings() -> Dictionary:
+	var keybindings: Dictionary = {}
+	for key in config_file.get_section_keys("KEYBINDINGS"):
+		keybindings[key] = config_file.get_value("KEYBINDINGS", key)
+	return keybindings
 
 #endregion
