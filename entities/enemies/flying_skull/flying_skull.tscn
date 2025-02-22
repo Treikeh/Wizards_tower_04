@@ -1,9 +1,8 @@
-[gd_scene load_steps=31 format=3 uid="uid://cyrn3f3g0y8en"]
+[gd_scene load_steps=33 format=3 uid="uid://cyrn3f3g0y8en"]
 
 [ext_resource type="Script" path="res://entities/enemies/flying_skull/flying_skull.gd" id="1_8jevj"]
 [ext_resource type="Script" path="res://common/scripts/match_y_rotation.gd" id="2_cmvb8"]
-[ext_resource type="Material" uid="uid://c4eykp21shtlp" path="res://common/materials/dev_grid_red.tres" id="3_p2xjs"]
-[ext_resource type="Material" uid="uid://botmm8kkk1h67" path="res://common/materials/dev_grid_gray.tres" id="4_255ch"]
+[ext_resource type="PackedScene" uid="uid://dm3htgnnsyvih" path="res://entities/enemies/flying_skull/mesh/flying_skull_01_sk.glb" id="3_rf2pp"]
 [ext_resource type="PackedScene" uid="uid://ddufakdkmxhwr" path="res://common/scenes/health_area_3d.tscn" id="5_xj77p"]
 [ext_resource type="Script" path="res://common/scripts/health.gd" id="6_ajsho"]
 [ext_resource type="PackedScene" uid="uid://cs53wyj8yt4s4" path="res://entities/enemies/floating_health_bar.tscn" id="7_lnvey"]
@@ -26,15 +25,32 @@
 radius = 0.2
 height = 5.0
 
-[sub_resource type="SphereMesh" id="SphereMesh_d0s0q"]
-radius = 0.25
-height = 0.5
-
-[sub_resource type="BoxMesh" id="BoxMesh_6chr5"]
-size = Vector3(0.46, 0.165, 0.28)
-
 [sub_resource type="SphereShape3D" id="SphereShape3D_xfolp"]
 radius = 0.25
+
+[sub_resource type="Curve" id="Curve_jrpid"]
+_data = [Vector2(0, 1), 0.0, -1.37843, 0, 0, Vector2(1, 0), -0.81685, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_imo6n"]
+curve = SubResource("Curve_jrpid")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_l6ld6"]
+gravity = Vector3(0, 9.8, 0)
+scale_min = 0.75
+scale_max = 1.25
+scale_curve = SubResource("CurveTexture_imo6n")
+color = Color(1, 0.641312, 0.302845, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_og8e0"]
+shading_mode = 0
+vertex_color_use_as_albedo = true
+
+[sub_resource type="SphereMesh" id="SphereMesh_ysydc"]
+material = SubResource("StandardMaterial3D_og8e0")
+flip_faces = true
+radial_segments = 16
+rings = 8
 
 [sub_resource type="Animation" id="Animation_obki4"]
 length = 0.001
@@ -153,15 +169,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.8, 0)
 script = ExtResource("2_cmvb8")
 target_node = NodePath("../TargetDirection")
 
-[node name="Body" type="MeshInstance3D" parent="Mesh"]
-transform = Transform3D(1, 0, 0, 0, 0.984808, 0.173648, 0, -0.173648, 0.984808, 0, 4.76837e-07, 0)
-material_override = ExtResource("3_p2xjs")
-mesh = SubResource("SphereMesh_d0s0q")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Mesh/Body"]
-transform = Transform3D(1, 0, 0, 0, 0.173648, 0.984808, 0, -0.984808, 0.173648, 0, 0.221923, -0.150576)
-material_override = ExtResource("4_255ch")
-mesh = SubResource("BoxMesh_6chr5")
+[node name="flying_skull_01_sk" parent="Mesh" instance=ExtResource("3_rf2pp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.2, 0)
 
 [node name="HealthArea3D" parent="Mesh" node_paths=PackedStringArray("health_node") instance=ExtResource("5_xj77p")]
 health_node = NodePath("../../Health")
@@ -169,6 +178,11 @@ health_node = NodePath("../../Health")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Mesh/HealthArea3D"]
 transform = Transform3D(1, 0, 0, 0, 0.984808, 0.173648, 0, -0.173648, 0.984808, 0, 0, 0)
 shape = SubResource("SphereShape3D_xfolp")
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="Mesh"]
+cast_shadow = 0
+process_material = SubResource("ParticleProcessMaterial_l6ld6")
+draw_pass_1 = SubResource("SphereMesh_ysydc")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Mesh"]
 unique_name_in_owner = true
@@ -188,7 +202,7 @@ texture = SubResource("ViewportTexture_arqjo")
 
 [node name="BeehaveTree" type="Node" parent="." node_paths=PackedStringArray("blackboard", "actor")]
 script = ExtResource("8_7d4xa")
-blackboard = NodePath("@Node@32463")
+blackboard = NodePath("@Node@17445")
 actor = NodePath("..")
 
 [node name="SelectorComposite" type="Node" parent="BeehaveTree"]
