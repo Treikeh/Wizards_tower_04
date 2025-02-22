@@ -7,6 +7,7 @@ _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.3), 0.0, 0.0, 0, 0]
 point_count = 2
 
 [node name="ExplosionCast3D" type="ShapeCast3D" node_paths=PackedStringArray("line_of_sight")]
+enabled = false
 target_position = Vector3(0, 0, 0)
 collision_mask = 192
 collide_with_areas = true

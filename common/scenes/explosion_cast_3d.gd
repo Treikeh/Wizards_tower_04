@@ -13,6 +13,7 @@ func trigger() -> void:
 	# Deal damage
 	#var overlapping_areas: Array[Area3D] = get_overlapping_areas()
 	var damaged_health_nodes: Array[Health] = []
+	force_shapecast_update()
 	for i: int in get_collision_count():
 		var collider: Object = get_collider(i)
 		

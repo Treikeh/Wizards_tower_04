@@ -4,8 +4,9 @@ extends Node3D
 signal sign_closed
 
 
-@export_file("*.tscn") var text_popup_scene: String
 @export_multiline var text: String
+
+var text_popup_scene: String = "uid://qhdu2ae7fbx7"
 
 
 func _on_interact_area_3d_interacted() -> void:
