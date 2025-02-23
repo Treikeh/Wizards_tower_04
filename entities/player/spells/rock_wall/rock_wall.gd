@@ -4,9 +4,10 @@ extends CharacterBody3D
 ## How fast the wall will move when hit by the wind blast spell
 @export var wind_blast_force: float = 7.5
 
-@export_group("Nodes")
+@export_group(" ")
 @export var enemy_launch_area: Area3D
 @export var explosion_cast: ShapeCast3D
+@export var camera_shake_source: CameraShakeSource
 ## Timer to manage how long the spell will remain in the scene
 @export var duration_timer: Timer
 @export var animation_player: AnimationPlayer
@@ -38,6 +39,7 @@ func recive_knockback(direction: Vector3) -> void:
 
 func _explode() -> void:
 	explosion_cast.trigger()
+	camera_shake_source.shake_camera()
 	_on_health_depleted()
 
 

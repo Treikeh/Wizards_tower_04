@@ -4,6 +4,9 @@ extends Node3D
 ## Players orientation node. Used to orient Rock wall spell
 @export var orientation: Node3D
 
+@export_group(" ")
+@export var main_spell_ray: RayCast3D
+
 
 func _ready() -> void:
 	fireball_info.reset()
@@ -14,7 +17,6 @@ func _ready() -> void:
 	$WindBlastRechargeTimer.wait_time = wind_blast_info.recharge_duration
 
 
-@warning_ignore("unused_parameter")
 func _physics_process(delta: float) -> void:
 	if rock_wall_preview != null:
 		# Set rock wall preview transform
@@ -25,13 +27,26 @@ func _physics_process(delta: float) -> void:
 				rock_wall_preview.global_position = rock_wall_ray.get_collision_point()
 			else:
 				rock_wall_preview.global_position = global_position
+	
+	# Lightning ray
+	if lightning_ray_active and current_lightning_charge > 0.0:
+		current_lightning_charge -= lightning_charge_drain * delta
+		print("Lightning charge: " + str(current_lightning_charge))
+		if main_spell_ray.is_colliding():
+			var collider: Object = main_spell_ray.get_collider()
+			if collider is HealthArea3D:
+				var damage: Damage = lightning_ray_damage.duplicate()
+				damage.amount *= delta
+				collider.recive_damage(damage)
+	elif current_lightning_charge < max_lightning_charge:
+		current_lightning_charge += lightning_charge_refill * delta
+		print("Lightning charge: " + str(current_lightning_charge))
 
 
 #region Fireball
 
 @export_group("Fireball")
 @export var fireball_info: SpellInfo
-@export var fireball_ray: RayCast3D
 
 var can_fireball: bool = true
 var fireball_scene: PackedScene = preload("uid://cndpdurb3rxia")
@@ -62,6 +77,33 @@ func _on_fireball_recharge_timer_timeout() -> void:
 		await get_tree().process_frame
 		$FireballRechargeTimer.start(0.0)
 		Globals.spell_recharge_started.emit(0)
+
+#endregion
+
+
+#region Lightning ray
+
+@export_group("Lightning ray")
+@export var lightning_ray_damage: Damage
+@export var max_lightning_charge: float = 100.0
+@export var lightning_charge_drain: float = 20.0
+@export var lightning_charge_refill: float = 10.0
+
+var lightning_ray_active: bool = false
+var can_lightning_ray: bool = true
+var current_lightning_charge: float = max_lightning_charge
+
+
+func cast_lightning_ray() -> void:
+	if can_lightning_ray:
+		lightning_ray_active = true
+		%MeshInstance3D.show()
+
+
+func release_lightning_ray() -> void:
+	if lightning_ray_active:
+		lightning_ray_active = false
+		%MeshInstance3D.hide()
 
 #endregion
 
@@ -152,13 +194,14 @@ var wind_blast_effect_scene: PackedScene = preload("uid://dh3oppj1mqo0b")
 func cast_wind_blast() -> void:
 	if can_wind_blast and wind_blast_info.remaning_casts > 0:
 		# Check bodies wind_blast_cast collides with
+		wind_blast_cast.force_shapecast_update()
 		for i: int in wind_blast_cast.get_collision_count():
 			var collider: Object = wind_blast_cast.get_collider(i)
 			var dir: Vector3 = -global_basis.z
 			# Reflect projectile
 			if collider is Projectile:
-				if fireball_ray.is_colliding():
-					var hit_position = fireball_ray.get_collision_point()
+				if main_spell_ray.is_colliding():
+					var hit_position = main_spell_ray.get_collision_point()
 					dir = collider.global_position.direction_to(hit_position)
 				collider.reflected.emit()
 				collider.linear_velocity = dir * collider.initial_velocity * collider.mass

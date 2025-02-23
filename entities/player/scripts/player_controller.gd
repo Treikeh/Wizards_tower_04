@@ -83,6 +83,11 @@ func _input(event: InputEvent) -> void:
 			spell_manager.cast_fireball()
 			animation_tree.set("parameters/fireball_oneshot/request", AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE)
 		
+		if event.is_action_pressed("lightning_ray"):
+			spell_manager.cast_lightning_ray()
+		elif event.is_action_released("lightning_ray"):
+			spell_manager.release_lightning_ray()
+		
 		if event.is_action_pressed("rock_wall") and Globals.rock_wall_unlocked:
 			# Spawn rock wall preview
 			spell_manager.spawn_rock_wall_preview()
