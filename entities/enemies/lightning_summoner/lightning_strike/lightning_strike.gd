@@ -12,6 +12,6 @@ func snap_to_ground() -> void:
 		global_position = ground_snap_ray.get_collision_point()
 
 
-func _on_timer_timeout() -> void:
+func _on_strike_delay_timeout() -> void:
 	anim_player.play("strike")
 	camera_shake_source.shake_camera()

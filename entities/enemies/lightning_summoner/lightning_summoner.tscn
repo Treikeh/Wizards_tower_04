@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://bir8q5f287gno"]
+[gd_scene load_steps=25 format=3 uid="uid://bir8q5f287gno"]
 
 [ext_resource type="Script" path="res://entities/enemies/lightning_summoner/lightning_summoner.gd" id="1_03afg"]
 [ext_resource type="Script" path="res://addons/beehave/nodes/beehave_tree.gd" id="2_3ajoc"]
@@ -12,6 +12,7 @@
 [ext_resource type="Script" path="res://addons/beehave/nodes/composites/sequence.gd" id="9_s1kl2"]
 [ext_resource type="Script" path="res://common/scripts/beehave/is_value_valid_condition.gd" id="10_6c5qy"]
 [ext_resource type="Script" path="res://addons/beehave/nodes/decorators/cooldown.gd" id="11_gkfye"]
+[ext_resource type="Script" path="res://common/scripts/beehave/node_look_at_node_action.gd" id="11_w3n1j"]
 [ext_resource type="Script" path="res://common/scripts/beehave/call_method_action.gd" id="12_74ai3"]
 [ext_resource type="Script" path="res://common/scripts/beehave/debug_print_action.gd" id="13_rsa2w"]
 
@@ -78,6 +79,9 @@ _data = {
 "spawn": SubResource("Animation_addt8")
 }
 
+[sub_resource type="BoxMesh" id="BoxMesh_oghx6"]
+size = Vector3(0.57, 0.27, 0.21)
+
 [sub_resource type="ViewportTexture" id="ViewportTexture_u7gnh"]
 viewport_path = NodePath("SubViewport")
 
@@ -118,6 +122,10 @@ libraries = {
 "": SubResource("AnimationLibrary_w8x0p")
 }
 
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Mesh"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1, -0.4)
+mesh = SubResource("BoxMesh_oghx6")
+
 [node name="Health" type="Node" parent="."]
 script = ExtResource("3_2h4um")
 
@@ -127,7 +135,7 @@ texture = SubResource("ViewportTexture_u7gnh")
 
 [node name="BeehaveTree" type="Node" parent="." node_paths=PackedStringArray("blackboard", "actor")]
 script = ExtResource("2_3ajoc")
-blackboard = NodePath("@Node@17444")
+blackboard = NodePath("@Node@17445")
 actor = NodePath("..")
 
 [node name="SelectorComposite" type="Node" parent="BeehaveTree"]
@@ -140,6 +148,11 @@ script = ExtResource("9_s1kl2")
 script = ExtResource("10_6c5qy")
 key = &"player"
 
+[node name="NodeLookAtNodeAction" type="Node" parent="BeehaveTree/SelectorComposite/AttackPlayer" node_paths=PackedStringArray("node")]
+script = ExtResource("11_w3n1j")
+node_key = &"player"
+node = NodePath("../../../../TargetDirection")
+
 [node name="CooldownDecorator" type="Node" parent="BeehaveTree/SelectorComposite/AttackPlayer"]
 script = ExtResource("11_gkfye")
 wait_time = 5.0
@@ -148,14 +161,18 @@ wait_time = 5.0
 script = ExtResource("12_74ai3")
 method_name = "attack"
 
-[node name="SequenceComposite" type="Node" parent="BeehaveTree/SelectorComposite"]
+[node name="CooldownDecorator" type="Node" parent="BeehaveTree/SelectorComposite"]
+script = ExtResource("11_gkfye")
+wait_time = 1.0
+
+[node name="SequenceComposite" type="Node" parent="BeehaveTree/SelectorComposite/CooldownDecorator"]
 script = ExtResource("9_s1kl2")
 
-[node name="DebugPrintAction" type="Node" parent="BeehaveTree/SelectorComposite/SequenceComposite"]
+[node name="DebugPrintAction" type="Node" parent="BeehaveTree/SelectorComposite/CooldownDecorator/SequenceComposite"]
 script = ExtResource("13_rsa2w")
 text = "Get player"
 
-[node name="GetPlayer" type="Node" parent="BeehaveTree/SelectorComposite/SequenceComposite"]
+[node name="GetPlayer" type="Node" parent="BeehaveTree/SelectorComposite/CooldownDecorator/SequenceComposite"]
 script = ExtResource("5_18mil")
 group = "player"
 save_key = &"player"

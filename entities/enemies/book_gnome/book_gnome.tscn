@@ -1,7 +1,7 @@
 [gd_scene load_steps=32 format=3 uid="uid://uvws4xru1kpl"]
 
 [ext_resource type="Script" path="res://entities/enemies/book_gnome/book_gnome.gd" id="1_ucrke"]
-[ext_resource type="PackedScene" uid="uid://dnn2p6cuwx2e7" path="res://entities/enemies/book_gnome/mesh/book_gnome_01_sk.glb" id="2_1d5g8"]
+[ext_resource type="PackedScene" path="res://entities/enemies/book_gnome/mesh/book_gnome_01_sk.glb" id="2_1d5g8"]
 [ext_resource type="Script" path="res://common/scripts/match_y_rotation.gd" id="3_0tnmg"]
 [ext_resource type="PackedScene" uid="uid://ddufakdkmxhwr" path="res://common/scenes/health_area_3d.tscn" id="3_ap0dj"]
 [ext_resource type="PackedScene" uid="uid://cs53wyj8yt4s4" path="res://entities/enemies/floating_health_bar.tscn" id="4_010fi"]

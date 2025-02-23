@@ -1,6 +1,7 @@
 extends Enemy
 
 
+@export_group(" ")
 @export var anim_player: AnimationPlayer
 
 var lightning_srike_scene: String = "uid://xo3qqq1d6oq8"

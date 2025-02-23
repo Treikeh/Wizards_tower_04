@@ -204,7 +204,7 @@ texture = SubResource("ViewportTexture_arqjo")
 
 [node name="BeehaveTree" type="Node" parent="." node_paths=PackedStringArray("blackboard", "actor")]
 script = ExtResource("8_yln8x")
-blackboard = NodePath("@Node@24243")
+blackboard = NodePath("@Node@17446")
 actor = NodePath("..")
 
 [node name="SelectorComposite" type="Node" parent="BeehaveTree"]

@@ -10,7 +10,8 @@
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_43tux"]
 render_priority = 0
 shader = ExtResource("2_1oxgd")
-shader_parameter/main_color = Color(0.411719, 0.732006, 1, 1)
+shader_parameter/base_color = Color(0.34829, 0.707146, 1, 1)
+shader_parameter/fade_distance = 0.75
 
 [sub_resource type="SphereMesh" id="SphereMesh_rqbie"]
 flip_faces = true
@@ -87,7 +88,7 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("DamageArea3D/CollisionShape3D:disabled")
+tracks/0/path = NodePath("DamageArea3D/DamageCollision:disabled")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -182,14 +183,14 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("DamageArea3D/CollisionShape3D:disabled")
+tracks/1/path = NodePath("DamageArea3D/DamageCollision:disabled")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(0, 0.0333333),
+"transitions": PackedFloat32Array(1, 1),
 "update": 1,
-"values": [false]
+"values": [false, true]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
@@ -237,7 +238,7 @@ _data = {
 
 [node name="LightningStrike" type="Node3D" node_paths=PackedStringArray("ground_snap_ray", "camera_shake_source", "anim_player")]
 script = ExtResource("1_u0c2i")
-ground_snap_ray = NodePath("GroundPosition")
+ground_snap_ray = NodePath("GroundSnapRay")
 camera_shake_source = NodePath("CameraShakeSource")
 anim_player = NodePath("AnimationPlayer")
 
@@ -250,14 +251,14 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
 visible = false
 mesh = SubResource("CylinderMesh_1a8kf")
 
-[node name="GroundPosition" type="RayCast3D" parent="."]
+[node name="GroundSnapRay" type="RayCast3D" parent="."]
 target_position = Vector3(0, -10, 0)
 collision_mask = 3
 
 [node name="DamageArea3D" parent="." instance=ExtResource("3_4sm3s")]
 damage = SubResource("Resource_vkflb")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="DamageArea3D"]
+[node name="DamageCollision" type="CollisionShape3D" parent="DamageArea3D"]
 shape = SubResource("SphereShape3D_dh5kf")
 disabled = true
 
@@ -275,7 +276,7 @@ transform_align = 3
 process_material = SubResource("ParticleProcessMaterial_acnse")
 draw_pass_1 = SubResource("QuadMesh_dnifu")
 
-[node name="StrikeTimer" type="Timer" parent="."]
+[node name="StrikeDelay" type="Timer" parent="."]
 wait_time = 1.5
 autostart = true
 
@@ -285,4 +286,4 @@ libraries = {
 }
 autoplay = "spawn"
 
-[connection signal="timeout" from="StrikeTimer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="StrikeDelay" to="." method="_on_strike_delay_timeout"]
