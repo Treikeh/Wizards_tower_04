@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://co645fg3hplrm"]
 
 [ext_resource type="Script" path="res://boot_scene.gd" id="1_cglpj"]
-[ext_resource type="Texture2D" uid="uid://ck3f27vm5hwt5" path="res://common/textures/Made_in_godot.png" id="2_iy12p"]
+[ext_resource type="Texture2D" uid="uid://ck3f27vm5hwt5" path="res://common/textures/Made_with_godot.png" id="2_iy12p"]
 
 [sub_resource type="Animation" id="Animation_ipyeu"]
 length = 0.001

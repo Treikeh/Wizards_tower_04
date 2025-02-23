@@ -113,7 +113,6 @@ func apply_audio_settings() -> void:
 	if audio_settings.is_empty():
 		return
 	
-	print(audio_settings.master_volume)
 	AudioServer.set_bus_volume_db(0, linear_to_db(audio_settings.master_volume))
 
 #endregion

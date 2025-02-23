@@ -45,6 +45,7 @@ text = "Resume"
 
 [node name="RestartLevelButton" type="Button" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
+size_flags_vertical = 3
 text = "Restart Level"
 
 [node name="SettingsButton" type="Button" parent="MarginContainer/VBoxContainer"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=3 uid="uid://cscm07iintxhd"]
+[gd_scene load_steps=41 format=3 uid="uid://cscm07iintxhd"]
 
 [ext_resource type="Script" path="res://levels/level_3d.gd" id="1_5hjb2"]
 [ext_resource type="PackedScene" uid="uid://chw0vev703cjt" path="res://common/scenes/scene_spawner.tscn" id="2_4xdsy"]
@@ -25,6 +25,7 @@
 [ext_resource type="Material" uid="uid://b4576fxo40ync" path="res://common/materials/dev_grid_pink.tres" id="21_3nqud"]
 [ext_resource type="PackedScene" uid="uid://clqs24y75lbd5" path="res://entities/pickups/mana_potion/mana_potion.tscn" id="22_i3q2h"]
 [ext_resource type="PackedScene" uid="uid://i0u75nytwgqr" path="res://entities/player/spawner/player_spawner.tscn" id="24_ro6yv"]
+[ext_resource type="PackedScene" uid="uid://c8u24wonyvfic" path="res://entities/interactables/door/interactable_door.tscn" id="26_3l1n8"]
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_ni132"]
 vertices = PackedVector3Array(-6.5, 1, -6.5, -6.5, 1, 6.5, 6.5, 1, 6.5, 6.5, 1, -6.5)
@@ -106,10 +107,10 @@ use_collision = true
 size = Vector3(250, 5000, 250)
 
 [node name="CSGBox3D2" type="CSGBox3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.5, 3.49558, 13.4956)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14, 3.49558, 13.4956)
 material_override = ExtResource("3_wbdl3")
 use_collision = true
-size = Vector3(3, 7, 7)
+size = Vector3(4, 7, 7)
 
 [node name="CSGPolygon3D" type="CSGPolygon3D" parent="."]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -9, -0.00442004, 16.9956)
@@ -323,6 +324,9 @@ text = "This sign is obsolete"
 
 [node name="ManaPotion" parent="." instance=ExtResource("22_i3q2h")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.8, 0, -4.9)
+
+[node name="InteractableDoor" parent="." instance=ExtResource("26_3l1n8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.5, 0, 11)
 
 [connection signal="interacted" from="Enemies/BookGnomeSpawnerButton" to="Enemies/BookGnomeSpawner" method="spawn_scene"]
 [connection signal="interacted" from="Enemies/LivingArmorSpawnerButton" to="Enemies/LivingArmorSpawner" method="spawn_scene"]
