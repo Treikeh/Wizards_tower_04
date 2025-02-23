@@ -1,8 +1,9 @@
-[gd_scene load_steps=33 format=3 uid="uid://cyrn3f3g0y8en"]
+[gd_scene load_steps=34 format=3 uid="uid://cyrn3f3g0y8en"]
 
 [ext_resource type="Script" path="res://entities/enemies/flying_skull/flying_skull.gd" id="1_8jevj"]
 [ext_resource type="Script" path="res://common/scripts/match_y_rotation.gd" id="2_cmvb8"]
 [ext_resource type="PackedScene" uid="uid://dm3htgnnsyvih" path="res://entities/enemies/flying_skull/art/flying_skull_01_sk.glb" id="3_rf2pp"]
+[ext_resource type="AnimationLibrary" uid="uid://41xq5t736kbr" path="res://entities/enemies/flying_skull/art/flying_skull_01_alib.glb" id="4_qj4ug"]
 [ext_resource type="PackedScene" uid="uid://ddufakdkmxhwr" path="res://utility/damage/health_area_3d.tscn" id="5_xj77p"]
 [ext_resource type="Script" path="res://common/scripts/health.gd" id="6_ajsho"]
 [ext_resource type="PackedScene" uid="uid://cs53wyj8yt4s4" path="res://entities/enemies/floating_health_bar.tscn" id="7_lnvey"]
@@ -172,6 +173,11 @@ target_node = NodePath("../TargetDirection")
 [node name="flying_skull_01_sk" parent="Mesh" instance=ExtResource("3_rf2pp")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.2, 0)
 
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Mesh/flying_skull_01_sk"]
+libraries = {
+"": ExtResource("4_qj4ug")
+}
+
 [node name="HealthArea3D" parent="Mesh" node_paths=PackedStringArray("health_node") instance=ExtResource("5_xj77p")]
 health_node = NodePath("../../Health")
 
@@ -202,7 +208,7 @@ texture = SubResource("ViewportTexture_arqjo")
 
 [node name="BeehaveTree" type="Node" parent="." node_paths=PackedStringArray("blackboard", "actor")]
 script = ExtResource("8_7d4xa")
-blackboard = NodePath("@Node@17446")
+blackboard = NodePath("@Node@17443")
 actor = NodePath("..")
 
 [node name="SelectorComposite" type="Node" parent="BeehaveTree"]

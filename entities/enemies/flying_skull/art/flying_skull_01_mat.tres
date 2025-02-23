@@ -1,3 +1,9 @@
-[gd_resource type="ORMMaterial3D" format=3 uid="uid://cqtvrl6iap5gs"]
+[gd_resource type="ORMMaterial3D" load_steps=3 format=3 uid="uid://cqtvrl6iap5gs"]
+
+[ext_resource type="Texture2D" uid="uid://cgt6ffxqoae8g" path="res://entities/enemies/flying_skull/art/flying_skull_01_bc.png" id="1_vcqu3"]
+[ext_resource type="Texture2D" uid="uid://bmxwnkujoa7xx" path="res://entities/enemies/flying_skull/art/flying_skull_01_e.png" id="2_akf2x"]
 
 [resource]
+albedo_texture = ExtResource("1_vcqu3")
+emission_enabled = true
+emission_texture = ExtResource("2_akf2x")

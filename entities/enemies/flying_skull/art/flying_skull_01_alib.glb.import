@@ -1,15 +1,15 @@
 [remap]
 
-importer="scene"
+importer="animation_library"
 importer_version=1
-type="PackedScene"
-uid="uid://dm3htgnnsyvih"
-path="res://.godot/imported/flying_skull_01_sk.glb-ef7a4462a34273a7c51464db896b6a9f.scn"
+type="AnimationLibrary"
+uid="uid://41xq5t736kbr"
+path="res://.godot/imported/flying_skull_01_alib.glb-a4da847f6f3e8b4f9a28751388ce061b.res"
 
 [deps]
 
-source_file="res://entities/enemies/flying_skull/art/flying_skull_01_sk.glb"
-dest_files=["res://.godot/imported/flying_skull_01_sk.glb-ef7a4462a34273a7c51464db896b6a9f.scn"]
+source_file="res://entities/enemies/flying_skull/art/flying_skull_01_alib.glb"
+dest_files=["res://.godot/imported/flying_skull_01_alib.glb-a4da847f6f3e8b4f9a28751388ce061b.res"]
 
 [params]
 
@@ -31,13 +31,6 @@ animation/trimming=false
 animation/remove_immutable_tracks=true
 animation/import_rest_as_RESET=false
 import_script/path=""
-_subresources={
-"materials": {
-"flying_skull_mat.001": {
-"use_external/enabled": true,
-"use_external/path": "res://entities/enemies/flying_skull/art/flying_skull_01_mat.tres"
-}
-}
-}
+_subresources={}
 gltf/naming_version=1
 gltf/embedded_image_handling=1
