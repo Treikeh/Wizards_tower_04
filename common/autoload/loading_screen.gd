@@ -5,31 +5,36 @@ signal transition_finished
 signal reload_finished
 
 
+@export_group(" ")
+@export var progress_bar: ProgressBar
+@export var anim_player: AnimationPlayer
+
+
 func _ready() -> void:
 	hide()
 
 
 func transition_inn() -> void:
 	# Reset progress bar
-	%ProgressBar.value = 0.0
+	progress_bar.value = 0.0
 	# Play transition animation
-	%AnimationPlayer.play("inn")
-	await %AnimationPlayer.animation_finished
+	anim_player.play("inn")
+	await anim_player.animation_finished
 	transition_finished.emit()
 
 
 func transition_out() -> void:
-	%AnimationPlayer.play("out")
-	await %AnimationPlayer.animation_finished
+	anim_player.play("out")
+	await anim_player.animation_finished
 	transition_finished.emit()
 
 
 func fade_inn_out() -> void:
-	%AnimationPlayer.play("reload")
+	anim_player.play("reload")
 
 func reload_event() -> void:
 	reload_finished.emit()
 
 
 func update_progress(value: float) -> void:
-	%ProgressBar.value = value
+	progress_bar.value = value

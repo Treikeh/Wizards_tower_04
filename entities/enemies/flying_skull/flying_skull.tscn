@@ -1,7 +1,6 @@
-[gd_scene load_steps=34 format=3 uid="uid://cyrn3f3g0y8en"]
+[gd_scene load_steps=33 format=3 uid="uid://cyrn3f3g0y8en"]
 
 [ext_resource type="Script" path="res://entities/enemies/flying_skull/flying_skull.gd" id="1_8jevj"]
-[ext_resource type="Script" path="res://common/scripts/match_y_rotation.gd" id="2_cmvb8"]
 [ext_resource type="PackedScene" uid="uid://dm3htgnnsyvih" path="res://entities/enemies/flying_skull/art/flying_skull_01_sk.glb" id="3_rf2pp"]
 [ext_resource type="AnimationLibrary" uid="uid://41xq5t736kbr" path="res://entities/enemies/flying_skull/art/flying_skull_01_alib.glb" id="4_qj4ug"]
 [ext_resource type="PackedScene" uid="uid://ddufakdkmxhwr" path="res://utility/damage/health_area_3d.tscn" id="5_xj77p"]
@@ -146,11 +145,12 @@ _data = {
 [sub_resource type="ViewportTexture" id="ViewportTexture_arqjo"]
 viewport_path = NodePath("SubViewport")
 
-[node name="FlyingSkull" type="CharacterBody3D" node_paths=PackedStringArray("target_direction", "nav_agent", "beehave_tree") groups=["enemy"]]
+[node name="FlyingSkull" type="CharacterBody3D" node_paths=PackedStringArray("projectile_spawn_transform", "anim_player", "nav_agent", "beehave_tree") groups=["enemy"]]
 collision_layer = 0
 collision_mask = 3
 script = ExtResource("1_8jevj")
-target_direction = NodePath("TargetDirection")
+projectile_spawn_transform = NodePath("Mesh/flying_skull_01_sk")
+anim_player = NodePath("Mesh/AnimationPlayer")
 nav_agent = NodePath("NavigationAgent3D")
 beehave_tree = NodePath("BeehaveTree")
 
@@ -161,14 +161,9 @@ shape = SubResource("CapsuleShape3D_7ua38")
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
 debug_enabled = true
 
-[node name="TargetDirection" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.8, 0)
-
-[node name="Mesh" type="Node3D" parent="." node_paths=PackedStringArray("target_node")]
+[node name="Mesh" type="Node3D" parent="."]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.8, 0)
-script = ExtResource("2_cmvb8")
-target_node = NodePath("../TargetDirection")
 
 [node name="flying_skull_01_sk" parent="Mesh" instance=ExtResource("3_rf2pp")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.2, 0)
@@ -191,7 +186,6 @@ process_material = SubResource("ParticleProcessMaterial_l6ld6")
 draw_pass_1 = SubResource("SphereMesh_ysydc")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Mesh"]
-unique_name_in_owner = true
 root_node = NodePath("../../NavigationAgent3D")
 libraries = {
 "": SubResource("AnimationLibrary_847wy")
@@ -224,7 +218,7 @@ key = &"player"
 [node name="NodeLookAtNodeAction" type="Node" parent="BeehaveTree/SelectorComposite/AttackPlayer" node_paths=PackedStringArray("node")]
 script = ExtResource("12_8rv76")
 node_key = &"player"
-node = NodePath("../../../../TargetDirection")
+node = NodePath("../../../../Mesh/flying_skull_01_sk")
 
 [node name="CanAttack" type="Node" parent="BeehaveTree/SelectorComposite/AttackPlayer"]
 script = ExtResource("9_lnlq2")
