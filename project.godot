@@ -15,7 +15,7 @@ config/description="Wizards tower is a retro inspired first-person shooter where
 SIKE. This is no longer true"
 config/version="dev 5"
 config/tags=PackedStringArray("proper_project")
-run/main_scene="res://boot_scene.tscn"
+run/main_scene="res://levels/boot_scene/boot_scene.tscn"
 config/features=PackedStringArray("4.3")
 boot_splash/bg_color=Color(0, 0, 0, 1)
 boot_splash/show_image=false
@@ -54,7 +54,8 @@ folder_colors={
 "res://common/": "gray",
 "res://entities/": "blue",
 "res://interface/": "green",
-"res://levels/": "orange"
+"res://levels/": "orange",
+"res://utility/": "purple"
 }
 
 [global_group]

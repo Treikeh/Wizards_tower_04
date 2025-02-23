@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://di7vp8irr7xdl"]
+
+[ext_resource type="Script" path="res://utility/damage/damage_area_3d.gd" id="1_mvwig"]
+
+[node name="DamageArea3D" type="Area3D"]
+collision_layer = 0
+collision_mask = 64
+monitorable = false
+script = ExtResource("1_mvwig")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]

@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://c8u24wonyvfic"]
 
-[ext_resource type="PackedScene" uid="uid://d0lld0115r5yv" path="res://common/scenes/interact_area_3d.tscn" id="1_16wup"]
+[ext_resource type="PackedScene" uid="uid://d0lld0115r5yv" path="res://utility/interact_area_3d.tscn" id="1_16wup"]
 [ext_resource type="Script" path="res://entities/interactables/door/interactable_door.gd" id="1_if5o4"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_nbtts"]

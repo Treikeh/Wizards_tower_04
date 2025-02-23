@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://entities/pickups/godot_plushie/godot_plushine_pickup.gd" id="1_xgteb"]
 [ext_resource type="Script" path="res://entities/pickups/pickup_hover.gd" id="2_2ryo7"]
-[ext_resource type="PackedScene" uid="uid://rifpuji04xkg" path="res://entities/pickups/godot_plushie/mesh/godot_plush_V2_FR3NKD_sm.glb" id="3_adb1a"]
+[ext_resource type="PackedScene" uid="uid://rifpuji04xkg" path="res://entities/pickups/godot_plushie/art/godot_plush_V2_FR3NKD_sm.glb" id="3_adb1a"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_5fmfn"]
 size = Vector3(0.6, 1.4, 0.6)

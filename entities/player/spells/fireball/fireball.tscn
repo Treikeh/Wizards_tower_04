@@ -2,13 +2,13 @@
 
 [ext_resource type="Script" path="res://entities/player/spells/fireball/fireball.gd" id="1_jy2c8"]
 [ext_resource type="Shader" uid="uid://0q3k72lo6vkv" path="res://entities/player/spells/fireball/fireball_vs.tres" id="2_mix4r"]
-[ext_resource type="Resource" uid="uid://bpafmjg70eeb4" path="res://entities/player/spells/fireball/fireball_damage.tres" id="3_8owbw"]
-[ext_resource type="PackedScene" uid="uid://di7vp8irr7xdl" path="res://common/scenes/damage_area_3d.tscn" id="3_d2eq5"]
+[ext_resource type="Resource" uid="uid://bpafmjg70eeb4" path="res://entities/player/spells/fireball/data/fireball_damage.tres" id="3_8owbw"]
+[ext_resource type="PackedScene" uid="uid://di7vp8irr7xdl" path="res://utility/damage/damage_area_3d.tscn" id="3_d2eq5"]
 [ext_resource type="Material" uid="uid://b5ehaqk85imur" path="res://entities/player/spells/fireball/fireball_ppm.tres" id="4_1andq"]
-[ext_resource type="QuadMesh" uid="uid://bs74iy86w3241" path="res://common/meshes/simple_particle_mesh.tres" id="5_m0uif"]
+[ext_resource type="QuadMesh" uid="uid://bs74iy86w3241" path="res://common/vfx/simple_particle_mesh.tres" id="5_m0uif"]
 [ext_resource type="AudioStream" uid="uid://csxgakr508rnx" path="res://entities/player/spells/fireball/Small Fireball Trail Loop.wav" id="6_0brwb"]
-[ext_resource type="PackedScene" uid="uid://xl1x86mw45ri" path="res://common/scenes/explosion_cast_3d.tscn" id="8_ygp88"]
-[ext_resource type="Resource" uid="uid://pmw5hwt4t7ri" path="res://entities/player/spells/fireball/fireball_explosion_damage.tres" id="9_pgmvs"]
+[ext_resource type="PackedScene" uid="uid://xl1x86mw45ri" path="res://utility/damage/explosion_cast_3d.tscn" id="8_ygp88"]
+[ext_resource type="Resource" uid="uid://pmw5hwt4t7ri" path="res://entities/player/spells/fireball/data/fireball_explosion_damage.tres" id="9_pgmvs"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_hqxag"]
 radius = 0.1

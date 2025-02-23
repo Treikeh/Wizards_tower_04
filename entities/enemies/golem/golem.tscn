@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://entities/enemies/golem/golem.gd" id="1_a17k3"]
 [ext_resource type="Script" path="res://addons/beehave/nodes/beehave_tree.gd" id="2_hgr05"]
 [ext_resource type="Material" uid="uid://c4eykp21shtlp" path="res://common/materials/dev_grid_red.tres" id="2_t8jme"]
-[ext_resource type="PackedScene" uid="uid://ddufakdkmxhwr" path="res://common/scenes/health_area_3d.tscn" id="3_voo51"]
+[ext_resource type="PackedScene" uid="uid://ddufakdkmxhwr" path="res://utility/damage/health_area_3d.tscn" id="3_voo51"]
 [ext_resource type="Script" path="res://common/scripts/health.gd" id="4_hsrnx"]
 [ext_resource type="PackedScene" uid="uid://cs53wyj8yt4s4" path="res://entities/enemies/floating_health_bar.tscn" id="4_noquw"]
 [ext_resource type="Script" path="res://addons/beehave/nodes/composites/selector.gd" id="7_ukkac"]

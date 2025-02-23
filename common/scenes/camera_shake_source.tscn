@@ -1,9 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://0m38n8mm2vo1"]
-
-[ext_resource type="Script" path="res://common/scenes/camera_shake_source.gd" id="1_s0nyy"]
-
-[node name="CameraShakeSource" type="Area3D"]
-collision_layer = 0
-collision_mask = 512
-monitorable = false
-script = ExtResource("1_s0nyy")

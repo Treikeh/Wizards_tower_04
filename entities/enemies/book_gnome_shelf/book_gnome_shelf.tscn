@@ -2,15 +2,15 @@
 
 [ext_resource type="Script" path="res://entities/enemies/book_gnome_shelf/book_gnome_shelf.gd" id="1_xkhhr"]
 [ext_resource type="Script" path="res://common/scripts/match_y_rotation.gd" id="3_7isb5"]
-[ext_resource type="PackedScene" uid="uid://ddufakdkmxhwr" path="res://common/scenes/health_area_3d.tscn" id="3_eivbp"]
-[ext_resource type="PackedScene" uid="uid://hurlhofcnefh" path="res://entities/pickups/spellbook/mesh/book_pickup_01_sm.glb" id="4_ckud7"]
+[ext_resource type="PackedScene" uid="uid://ddufakdkmxhwr" path="res://utility/damage/health_area_3d.tscn" id="3_eivbp"]
+[ext_resource type="PackedScene" uid="uid://hurlhofcnefh" path="res://entities/interactables/spellbook/book_pickup_01_sm.glb" id="4_ckud7"]
 [ext_resource type="PackedScene" uid="uid://cs53wyj8yt4s4" path="res://entities/enemies/floating_health_bar.tscn" id="4_knj5g"]
 [ext_resource type="Script" path="res://common/scripts/health.gd" id="5_0ck78"]
 [ext_resource type="Script" path="res://addons/beehave/nodes/beehave_tree.gd" id="6_iava8"]
 [ext_resource type="Script" path="res://addons/beehave/nodes/composites/sequence.gd" id="9_1mxg0"]
 [ext_resource type="Script" path="res://common/scripts/beehave/call_method_action.gd" id="9_7cdr2"]
 [ext_resource type="Script" path="res://common/scripts/beehave/wait_action.gd" id="12_5x6cv"]
-[ext_resource type="PackedScene" uid="uid://c0jrj7pjuv1wh" path="res://entities/enemies/book_gnome_shelf/mesh/book_gnome_shelf_01_sk.glb" id="13_81ec4"]
+[ext_resource type="PackedScene" uid="uid://bvvyi603sw4lq" path="res://entities/enemies/book_gnome_shelf/art/book_gnome_shelf_01_sk.glb" id="13_81ec4"]
 [ext_resource type="Script" path="res://common/scripts/beehave/get_random_position_in_range.gd" id="13_n3nhu"]
 [ext_resource type="Script" path="res://common/scripts/beehave/navigate_to_position_action.gd" id="14_s5txi"]
 
@@ -48,18 +48,6 @@ debug_enabled = true
 script = ExtResource("3_7isb5")
 target_node = NodePath("../TargetDirection")
 
-[node name="book_pickup_01_sm" parent="book_gnome_shelf_01_sk/Skeleton3D/book_gnome_shelf_mesh_001" index="0" instance=ExtResource("4_ckud7")]
-transform = Transform3D(-4.37114e-08, 0.965926, -0.258819, 4.37114e-08, -0.258819, -0.965926, -1, -5.35353e-08, -3.09086e-08, 0.440965, 1, 2.62268e-08)
-
-[node name="book_pickup_01_sm2" parent="book_gnome_shelf_01_sk/Skeleton3D/book_gnome_shelf_mesh_001" index="1" instance=ExtResource("4_ckud7")]
-transform = Transform3D(-4.37114e-08, 0.965926, -0.258819, 4.37114e-08, -0.258819, -0.965926, -1, -5.35353e-08, -3.09086e-08, 0.340965, 1, 3.49691e-08)
-
-[node name="book_pickup_01_sm3" parent="book_gnome_shelf_01_sk/Skeleton3D/book_gnome_shelf_mesh_001" index="2" instance=ExtResource("4_ckud7")]
-transform = Transform3D(-5.97109e-08, 0.965926, 0.258819, 1.59995e-08, 0.258819, -0.965926, -1, -5.35353e-08, -3.09086e-08, -0.5, 1.6399, 3.49691e-08)
-
-[node name="book_pickup_01_sm4" parent="book_gnome_shelf_01_sk/Skeleton3D/book_gnome_shelf_mesh_001" index="3" instance=ExtResource("4_ckud7")]
-transform = Transform3D(-5.97109e-08, 0.707107, 0.707107, -1.59995e-08, 0.707107, -0.707107, -1, -5.35353e-08, -3.09086e-08, -0.277904, 1.56823, 3.49691e-08)
-
 [node name="AnimationPlayer" parent="book_gnome_shelf_01_sk" index="1"]
 autoplay = "spawn_001"
 
@@ -73,6 +61,18 @@ shape = SubResource("BoxShape3D_pkqmf")
 [node name="SpawnPosition" type="Marker3D" parent="book_gnome_shelf_01_sk"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, -0.8)
 
+[node name="book_pickup_01_sm" parent="book_gnome_shelf_01_sk" instance=ExtResource("4_ckud7")]
+transform = Transform3D(-4.37114e-08, 0.965926, -0.258819, 4.37114e-08, -0.258819, -0.965926, -1, -5.35353e-08, -3.09086e-08, 0.440965, 1, 2.62268e-08)
+
+[node name="book_pickup_01_sm2" parent="book_gnome_shelf_01_sk" instance=ExtResource("4_ckud7")]
+transform = Transform3D(-4.37114e-08, 0.965926, -0.258819, 4.37114e-08, -0.258819, -0.965926, -1, -5.35353e-08, -3.09086e-08, 0.340965, 1, 3.49691e-08)
+
+[node name="book_pickup_01_sm3" parent="book_gnome_shelf_01_sk" instance=ExtResource("4_ckud7")]
+transform = Transform3D(-5.97109e-08, 0.965926, 0.258819, 1.59995e-08, 0.258819, -0.965926, -1, -5.35353e-08, -3.09086e-08, -0.5, 1.6399, 3.49691e-08)
+
+[node name="book_pickup_01_sm4" parent="book_gnome_shelf_01_sk" instance=ExtResource("4_ckud7")]
+transform = Transform3D(-5.97109e-08, 0.707107, 0.707107, -1.59995e-08, 0.707107, -0.707107, -1, -5.35353e-08, -3.09086e-08, -0.277904, 1.56823, 3.49691e-08)
+
 [node name="FloatingHealthBar" parent="." instance=ExtResource("4_knj5g")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.2, 0)
 texture = SubResource("ViewportTexture_f0xr0")
@@ -83,7 +83,7 @@ max_health = 30.0
 
 [node name="BookGnomeShelf" type="Node" parent="." node_paths=PackedStringArray("blackboard", "actor")]
 script = ExtResource("6_iava8")
-blackboard = NodePath("@Node@17443")
+blackboard = NodePath("@Node@32135")
 actor = NodePath("..")
 
 [node name="Sequence" type="Node" parent="BookGnomeShelf"]

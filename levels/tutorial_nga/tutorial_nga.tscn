@@ -6,7 +6,7 @@
 [ext_resource type="Material" uid="uid://pqlkm5aadfhn" path="res://common/materials/dev_grid_orange.tres" id="4_ib65m"]
 [ext_resource type="PackedScene" uid="uid://c8u24wonyvfic" path="res://entities/interactables/door/interactable_door.tscn" id="5_0o1sj"]
 [ext_resource type="PackedScene" uid="uid://xxhxvfmbcxdw" path="res://entities/props/wooden_props/table/wooden_table.tscn" id="6_8biy8"]
-[ext_resource type="PackedScene" uid="uid://cxi6v661g084x" path="res://entities/pickups/spellbook/spellbook_pickup.tscn" id="7_t3520"]
+[ext_resource type="PackedScene" uid="uid://cxi6v661g084x" path="res://entities/interactables/spellbook/spellbook_pickup.tscn" id="7_t3520"]
 [ext_resource type="PackedScene" uid="uid://dksnuasja7g8f" path="res://entities/enemies/target_dummy/target_dummy.tscn" id="8_tbd0i"]
 [ext_resource type="PackedScene" uid="uid://bdan64bohs08a" path="res://entities/interactables/sign/wooden_sign.tscn" id="9_5u50k"]
 [ext_resource type="Material" uid="uid://dafw6yvwuk1bj" path="res://common/materials/dev_grid_brown.tres" id="9_hobcq"]

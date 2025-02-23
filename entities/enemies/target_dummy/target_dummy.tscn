@@ -1,8 +1,8 @@
 [gd_scene load_steps=9 format=3 uid="uid://dksnuasja7g8f"]
 
 [ext_resource type="Material" uid="uid://dafw6yvwuk1bj" path="res://common/materials/dev_grid_brown.tres" id="2_o2rrs"]
-[ext_resource type="PackedScene" uid="uid://chglbc4d0q6tp" path="res://entities/enemies/living_armor/mesh/living_armor_01_sk.glb" id="3_vh1cs"]
-[ext_resource type="PackedScene" uid="uid://ddufakdkmxhwr" path="res://common/scenes/health_area_3d.tscn" id="4_ttlu7"]
+[ext_resource type="PackedScene" uid="uid://hbbw4ewamxu8" path="res://entities/enemies/living_armor/art/living_armor_01_sk.glb" id="3_vh1cs"]
+[ext_resource type="PackedScene" uid="uid://ddufakdkmxhwr" path="res://utility/damage/health_area_3d.tscn" id="4_ttlu7"]
 [ext_resource type="Script" path="res://common/scripts/health.gd" id="5_jxnsv"]
 [ext_resource type="PackedScene" uid="uid://cs53wyj8yt4s4" path="res://entities/enemies/floating_health_bar.tscn" id="6_xw767"]
 

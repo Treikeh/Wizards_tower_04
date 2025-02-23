@@ -4,7 +4,7 @@
 [ext_resource type="Script" path="res://common/scripts/match_y_rotation.gd" id="2_dc5ws"]
 [ext_resource type="Material" uid="uid://c4eykp21shtlp" path="res://common/materials/dev_grid_red.tres" id="3_u515e"]
 [ext_resource type="Material" uid="uid://botmm8kkk1h67" path="res://common/materials/dev_grid_gray.tres" id="4_ts3sr"]
-[ext_resource type="PackedScene" uid="uid://ddufakdkmxhwr" path="res://common/scenes/health_area_3d.tscn" id="5_k1vbv"]
+[ext_resource type="PackedScene" uid="uid://ddufakdkmxhwr" path="res://utility/damage/health_area_3d.tscn" id="5_k1vbv"]
 [ext_resource type="Script" path="res://common/scripts/health.gd" id="6_kn1ih"]
 [ext_resource type="PackedScene" uid="uid://cs53wyj8yt4s4" path="res://entities/enemies/floating_health_bar.tscn" id="7_wccmv"]
 [ext_resource type="Script" path="res://addons/beehave/nodes/beehave_tree.gd" id="8_yln8x"]

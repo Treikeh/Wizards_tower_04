@@ -2,8 +2,8 @@
 
 [ext_resource type="Script" path="res://levels/main_menu/main_menu.gd" id="1_xi5eq"]
 [ext_resource type="Material" uid="uid://botmm8kkk1h67" path="res://common/materials/dev_grid_gray.tres" id="2_pnq4k"]
-[ext_resource type="PackedScene" uid="uid://0faiuoyx1auv" path="res://entities/player/spellbook/spellbook_01_sm.glb" id="3_6kwbp"]
-[ext_resource type="PackedScene" uid="uid://cxi6v661g084x" path="res://entities/pickups/spellbook/spellbook_pickup.tscn" id="3_dretu"]
+[ext_resource type="PackedScene" uid="uid://0faiuoyx1auv" path="res://entities/player/art/spellbook/spellbook_01_sm.glb" id="3_6kwbp"]
+[ext_resource type="PackedScene" uid="uid://cxi6v661g084x" path="res://entities/interactables/spellbook/spellbook_pickup.tscn" id="3_dretu"]
 [ext_resource type="PackedScene" uid="uid://bdoipkh1hfkmm" path="res://entities/props/lights/candle/candle.tscn" id="4_ckygi"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_2u3w3"]

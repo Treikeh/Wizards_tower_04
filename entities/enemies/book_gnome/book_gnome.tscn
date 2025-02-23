@@ -1,13 +1,13 @@
 [gd_scene load_steps=32 format=3 uid="uid://uvws4xru1kpl"]
 
 [ext_resource type="Script" path="res://entities/enemies/book_gnome/book_gnome.gd" id="1_ucrke"]
-[ext_resource type="PackedScene" path="res://entities/enemies/book_gnome/mesh/book_gnome_01_sk.glb" id="2_1d5g8"]
+[ext_resource type="PackedScene" uid="uid://dyhhclqsyjeu3" path="res://entities/enemies/book_gnome/art/book_gnome_01_sk.glb" id="2_1d5g8"]
 [ext_resource type="Script" path="res://common/scripts/match_y_rotation.gd" id="3_0tnmg"]
-[ext_resource type="PackedScene" uid="uid://ddufakdkmxhwr" path="res://common/scenes/health_area_3d.tscn" id="3_ap0dj"]
+[ext_resource type="PackedScene" uid="uid://ddufakdkmxhwr" path="res://utility/damage/health_area_3d.tscn" id="3_ap0dj"]
 [ext_resource type="PackedScene" uid="uid://cs53wyj8yt4s4" path="res://entities/enemies/floating_health_bar.tscn" id="4_010fi"]
-[ext_resource type="AnimationNodeBlendTree" uid="uid://bawe0qi3y1ca2" path="res://entities/enemies/book_gnome/book_gnome_blend_tree.tres" id="4_be21s"]
+[ext_resource type="AnimationNodeBlendTree" uid="uid://bawe0qi3y1ca2" path="res://entities/enemies/book_gnome/art/book_gnome_blend_tree.tres" id="4_be21s"]
 [ext_resource type="Script" path="res://common/scripts/health.gd" id="4_ejrbm"]
-[ext_resource type="PackedScene" uid="uid://di7vp8irr7xdl" path="res://common/scenes/damage_area_3d.tscn" id="4_pe1ou"]
+[ext_resource type="PackedScene" uid="uid://di7vp8irr7xdl" path="res://utility/damage/damage_area_3d.tscn" id="4_pe1ou"]
 [ext_resource type="Resource" uid="uid://dc7hcuasftdvh" path="res://entities/enemies/book_gnome/book_gnome_damage.tres" id="5_rq5px"]
 [ext_resource type="Script" path="res://addons/beehave/nodes/beehave_tree.gd" id="10_fgdmq"]
 [ext_resource type="Script" path="res://addons/beehave/nodes/composites/selector.gd" id="11_qb3q8"]
@@ -140,7 +140,7 @@ texture = SubResource("ViewportTexture_cuy2h")
 
 [node name="BookGnomeTree" type="Node" parent="." node_paths=PackedStringArray("blackboard", "actor")]
 script = ExtResource("10_fgdmq")
-blackboard = NodePath("@Node@17447")
+blackboard = NodePath("@Node@34220")
 actor = NodePath("..")
 
 [node name="SelectorComposite" type="Node" parent="BookGnomeTree"]

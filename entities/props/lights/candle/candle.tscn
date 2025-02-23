@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://bdoipkh1hfkmm"]
 
 [ext_resource type="Material" uid="uid://6v1if8tdqk6m" path="res://entities/props/lights/candle/candle_ppm.tres" id="1_vdlpl"]
-[ext_resource type="QuadMesh" uid="uid://bs74iy86w3241" path="res://common/meshes/simple_particle_mesh.tres" id="2_xjh0i"]
+[ext_resource type="QuadMesh" uid="uid://bs74iy86w3241" path="res://common/vfx/simple_particle_mesh.tres" id="2_xjh0i"]
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_nl7su"]
 top_radius = 0.06

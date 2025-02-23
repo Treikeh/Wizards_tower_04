@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://cj0ckw6b4kq8l"]
+
+[ext_resource type="Script" path="res://utility/triggers/level_transtion_area_3d.gd" id="1_wslfv"]
+
+[node name="LevelTranstionArea3D" type="Area3D"]
+collision_layer = 0
+collision_mask = 4
+monitorable = false
+script = ExtResource("1_wslfv")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

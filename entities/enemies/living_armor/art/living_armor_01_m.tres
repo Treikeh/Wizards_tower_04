@@ -1,0 +1,10 @@
+[gd_resource type="ORMMaterial3D" load_steps=3 format=3 uid="uid://cjg011qh556bg"]
+
+[ext_resource type="Texture2D" uid="uid://usnsfh8h6yc4" path="res://entities/enemies/living_armor/art/living_armor_01_bc.png" id="1_y3l6m"]
+[ext_resource type="Texture2D" uid="uid://dcwg74acaaaac" path="res://entities/enemies/living_armor/art/living_armor_01_orm.png" id="2_2ufjl"]
+
+[resource]
+cull_mode = 2
+albedo_texture = ExtResource("1_y3l6m")
+orm_texture = ExtResource("2_2ufjl")
+texture_filter = 2

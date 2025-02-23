@@ -1,0 +1,6 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://c57jkcqgvm2hi"]
+
+[ext_resource type="Texture2D" uid="uid://cpnhu3fges6rt" path="res://entities/enemies/book_gnome/art/book_gnome_01_bc.png" id="1_4688o"]
+
+[resource]
+albedo_texture = ExtResource("1_4688o")
