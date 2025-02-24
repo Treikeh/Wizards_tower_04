@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://bsrvl85f7jxdv"]
+[gd_scene load_steps=23 format=3 uid="uid://bsrvl85f7jxdv"]
 
 [ext_resource type="Script" path="res://interface/hud/hud.gd" id="1_t53q1"]
 [ext_resource type="Resource" uid="uid://d1r6ctrc8mci7" path="res://entities/player/spells/fireball/data/fireball_info.tres" id="2_ijv6m"]
@@ -17,24 +17,6 @@ width = 32
 height = 32
 fill = 1
 fill_from = Vector2(0.5, 0.5)
-
-[sub_resource type="Gradient" id="Gradient_2wv3n"]
-offsets = PackedFloat32Array(0)
-colors = PackedColorArray(0, 0, 0, 1)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_hckoy"]
-gradient = SubResource("Gradient_2wv3n")
-width = 40
-height = 40
-
-[sub_resource type="Gradient" id="Gradient_1tnd5"]
-offsets = PackedFloat32Array(0)
-colors = PackedColorArray(0.902833, 0.432556, 1.92523e-07, 1)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_nrf1f"]
-gradient = SubResource("Gradient_1tnd5")
-width = 40
-height = 40
 
 [sub_resource type="Gradient" id="Gradient_jywmb"]
 offsets = PackedFloat32Array(0)
@@ -69,6 +51,33 @@ colors = PackedColorArray(9.62615e-07, 0.458528, 0.595095, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_2xb85"]
 gradient = SubResource("Gradient_i42fa")
+width = 40
+height = 40
+
+[sub_resource type="Gradient" id="Gradient_2wv3n"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_hckoy"]
+gradient = SubResource("Gradient_2wv3n")
+width = 40
+height = 40
+
+[sub_resource type="Gradient" id="Gradient_1tnd5"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(0.902833, 0.432556, 1.92523e-07, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_nrf1f"]
+gradient = SubResource("Gradient_1tnd5")
+width = 40
+height = 40
+
+[sub_resource type="Gradient" id="Gradient_dpuws"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(0, 0.537399, 0.862369, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_xwvpy"]
+gradient = SubResource("Gradient_dpuws")
 width = 40
 height = 40
 
@@ -114,8 +123,6 @@ offset_bottom = 74.5
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
-theme_override_constants/shadow_offset_x = -1
-theme_override_constants/shadow_offset_y = 1
 text = "Interact
 [E]"
 horizontal_alignment = 1
@@ -141,12 +148,16 @@ texture = SubResource("GradientTexture2D_nfjs5")
 unique_name_in_owner = true
 custom_minimum_size = Vector2(100, 15)
 layout_mode = 1
-anchors_preset = -1
+anchors_preset = 7
+anchor_left = 0.5
 anchor_top = 1.0
+anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = 15.0
-offset_right = 415.0
-offset_bottom = -15.0
+offset_left = -200.0
+offset_top = -40.0
+offset_right = 200.0
+offset_bottom = -25.0
+grow_horizontal = 2
 grow_vertical = 0
 theme_override_styles/background = ExtResource("2_ww7ko")
 theme_override_styles/fill = ExtResource("3_ghl2y")
@@ -169,56 +180,34 @@ offset_right = 68.5
 offset_bottom = -77.0
 grow_horizontal = 2
 grow_vertical = 0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 text = "Checkpoint saved"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="SpellIcons" type="HBoxContainer" parent="."]
+[node name="SpellIconsLeft" type="HBoxContainer" parent="."]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 1.0
 anchor_top = 1.0
-anchor_right = 1.0
 anchor_bottom = 1.0
-offset_right = -15.0
-offset_bottom = -15.0
-grow_horizontal = 0
+offset_left = 30.0
+offset_bottom = -25.0
 grow_vertical = 0
 theme_override_constants/separation = 25
 alignment = 2
 
-[node name="Fireball" type="VBoxContainer" parent="SpellIcons"]
+[node name="RockWall" type="VBoxContainer" parent="SpellIconsLeft"]
 layout_mode = 2
 
-[node name="FireballCastsLabel" type="Label" parent="SpellIcons/Fireball"]
+[node name="RockWallCastsLabel" type="Label" parent="SpellIconsLeft/RockWall"]
 unique_name_in_owner = true
 layout_mode = 2
-text = "3"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="FireBallIcon" type="TextureProgressBar" parent="SpellIcons/Fireball"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(40, 40)
-layout_mode = 2
-max_value = 1.0
-step = 0.01
-value = 0.5
-fill_mode = 3
-texture_under = SubResource("GradientTexture2D_hckoy")
-texture_progress = SubResource("GradientTexture2D_nrf1f")
-
-[node name="RockWall" type="VBoxContainer" parent="SpellIcons"]
-layout_mode = 2
-
-[node name="RockWallCastsLabel" type="Label" parent="SpellIcons/RockWall"]
-unique_name_in_owner = true
-layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 text = "2"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="RockWallIcon" type="TextureProgressBar" parent="SpellIcons/RockWall"]
+[node name="RockWallIcon" type="TextureProgressBar" parent="SpellIconsLeft/RockWall"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
@@ -229,17 +218,18 @@ fill_mode = 3
 texture_under = SubResource("GradientTexture2D_aglvt")
 texture_progress = SubResource("GradientTexture2D_f5aab")
 
-[node name="WindBlast" type="VBoxContainer" parent="SpellIcons"]
+[node name="WindBlast" type="VBoxContainer" parent="SpellIconsLeft"]
 layout_mode = 2
 
-[node name="WindBlastCastsLabel" type="Label" parent="SpellIcons/WindBlast"]
+[node name="WindBlastCastsLabel" type="Label" parent="SpellIconsLeft/WindBlast"]
 unique_name_in_owner = true
 layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 text = "5"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="WindBlastIcon" type="TextureProgressBar" parent="SpellIcons/WindBlast"]
+[node name="WindBlastIcon" type="TextureProgressBar" parent="SpellIconsLeft/WindBlast"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
@@ -249,6 +239,57 @@ value = 0.5
 fill_mode = 3
 texture_under = SubResource("GradientTexture2D_57ay6")
 texture_progress = SubResource("GradientTexture2D_2xb85")
+
+[node name="SpellIconsRight" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -30.0
+offset_bottom = -25.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_constants/separation = 25
+alignment = 2
+
+[node name="Fireball" type="VBoxContainer" parent="SpellIconsRight"]
+layout_mode = 2
+
+[node name="FireballCastsLabel" type="Label" parent="SpellIconsRight/Fireball"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+text = "3"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="FireBallIcon" type="TextureProgressBar" parent="SpellIconsRight/Fireball"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+max_value = 1.0
+step = 0.01
+value = 0.5
+fill_mode = 3
+texture_under = SubResource("GradientTexture2D_hckoy")
+texture_progress = SubResource("GradientTexture2D_nrf1f")
+
+[node name="LightningRay" type="VBoxContainer" parent="SpellIconsRight"]
+layout_mode = 2
+alignment = 2
+
+[node name="LightningRayIcon" type="TextureProgressBar" parent="SpellIconsRight/LightningRay"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+max_value = 1.0
+step = 0.01
+value = 0.5
+fill_mode = 3
+texture_under = SubResource("GradientTexture2D_hckoy")
+texture_progress = SubResource("GradientTexture2D_xwvpy")
 
 [node name="NotificationTimer" type="Timer" parent="."]
 unique_name_in_owner = true

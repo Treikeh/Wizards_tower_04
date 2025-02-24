@@ -32,6 +32,9 @@ signal spell_recharge_started(id: int)
 signal spell_recharge_ended(spell: int)
 
 @warning_ignore("unused_signal")
+signal update_lightning_ray_icon(value: float)
+
+@warning_ignore("unused_signal")
 signal player_casted_spell(id: int,)
 
 @warning_ignore("unused_signal")

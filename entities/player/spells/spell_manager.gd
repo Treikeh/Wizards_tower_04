@@ -31,7 +31,7 @@ func _physics_process(delta: float) -> void:
 	# Lightning ray
 	if lightning_ray_active and current_lightning_charge > 0.0:
 		current_lightning_charge -= lightning_charge_drain * delta
-		print("Lightning charge: " + str(current_lightning_charge))
+		Globals.update_lightning_ray_icon.emit(current_lightning_charge / max_lightning_charge)
 		if main_spell_ray.is_colliding():
 			var collider: Object = main_spell_ray.get_collider()
 			if collider is HealthArea3D:
@@ -40,7 +40,7 @@ func _physics_process(delta: float) -> void:
 				collider.recive_damage(damage)
 	elif current_lightning_charge < max_lightning_charge:
 		current_lightning_charge += lightning_charge_refill * delta
-		print("Lightning charge: " + str(current_lightning_charge))
+		Globals.update_lightning_ray_icon.emit(current_lightning_charge / max_lightning_charge)
 
 
 #region Fireball

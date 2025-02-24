@@ -17,6 +17,7 @@ func _ready() -> void:
 	Globals.spell_casts_updated.connect(_on_spell_casts_updated)
 	Globals.spell_recharge_started.connect(_on_spell_recharge_started)
 	Globals.spell_unlocked.connect(_on_spell_unlocked)
+	Globals.update_lightning_ray_icon.connect(_on_update_lightning_ray_icon)
 	Globals.notification_message_sent.connect(_on_notification_message_sent)
 	
 	%NotificationTimer.wait_time = notification_duration
@@ -45,6 +46,10 @@ func _ready() -> void:
 	if Globals.wind_blast_unlocked:
 		%WindBlastIcon.value = 1.0
 		%WindBlastCastsLabel.text = str(wind_blast_info.max_casts)
+	
+	%LightningRayIcon.value = 0.0
+	if Globals.lightning_ray_unlocked:
+		%LightningRayIcon.value = 1.0
 
 
 func _process(_delta: float) -> void:
@@ -94,6 +99,9 @@ func _on_spell_unlocked(spell: int) -> void:
 		2:
 			%WindBlastIcon.value = 1.0
 			_on_notification_message_sent("Wind blast learned")
+		3:
+			%LightningRayIcon.value = 1.0
+			_on_notification_message_sent("Lightning ray learned")
 
 
 func _on_spell_recharge_started(spell: int) -> void:
@@ -108,6 +116,10 @@ func _on_spell_recharge_started(spell: int) -> void:
 		2: # Wind blast
 			%WindBlastIcon.value = 0.0
 			color_tween.tween_property(%WindBlastIcon, "value", 1.0, wind_blast_info.recharge_duration)
+
+
+func _on_update_lightning_ray_icon(value: float) -> void:
+	%LightningRayIcon.value = value
 
 
 func _on_notification_message_sent(message: String) -> void:

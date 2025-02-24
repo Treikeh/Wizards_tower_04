@@ -312,7 +312,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.8, 0.9, -0.3)
 
 [node name="WoodenSign" parent="CSGCombiner3D/Rooms/02_5/WoodenTable" instance=ExtResource("14_wxfeb")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.4, 0)
-text = "[Right Mouse button]
+text = "[Left CTRL]
 
 Cast Rock Wall"
 
