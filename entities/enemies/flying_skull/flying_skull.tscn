@@ -1,8 +1,9 @@
-[gd_scene load_steps=33 format=3 uid="uid://cyrn3f3g0y8en"]
+[gd_scene load_steps=34 format=3 uid="uid://cyrn3f3g0y8en"]
 
 [ext_resource type="Script" path="res://entities/enemies/flying_skull/flying_skull.gd" id="1_8jevj"]
 [ext_resource type="PackedScene" uid="uid://dm3htgnnsyvih" path="res://entities/enemies/flying_skull/art/flying_skull_01_sk.glb" id="3_rf2pp"]
 [ext_resource type="AnimationLibrary" uid="uid://41xq5t736kbr" path="res://entities/enemies/flying_skull/art/flying_skull_01_alib.glb" id="4_qj4ug"]
+[ext_resource type="QuadMesh" uid="uid://bs74iy86w3241" path="res://common/vfx/simple_particle_mesh.tres" id="5_ons45"]
 [ext_resource type="PackedScene" uid="uid://ddufakdkmxhwr" path="res://utility/damage/health_area_3d.tscn" id="5_xj77p"]
 [ext_resource type="Script" path="res://common/scripts/health.gd" id="6_ajsho"]
 [ext_resource type="PackedScene" uid="uid://cs53wyj8yt4s4" path="res://entities/enemies/floating_health_bar.tscn" id="7_lnvey"]
@@ -28,6 +29,12 @@ height = 5.0
 [sub_resource type="SphereShape3D" id="SphereShape3D_xfolp"]
 radius = 0.25
 
+[sub_resource type="Gradient" id="Gradient_arsun"]
+colors = PackedColorArray(0.989062, 0.0934496, 0, 1, 0.847893, 0.545066, 3.85046e-07, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_xg23u"]
+gradient = SubResource("Gradient_arsun")
+
 [sub_resource type="Curve" id="Curve_jrpid"]
 _data = [Vector2(0, 1), 0.0, -1.37843, 0, 0, Vector2(1, 0), -0.81685, 0.0, 0, 0]
 point_count = 2
@@ -36,21 +43,13 @@ point_count = 2
 curve = SubResource("Curve_jrpid")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_l6ld6"]
+angle_min = -180.0
+angle_max = 180.0
 gravity = Vector3(0, 9.8, 0)
 scale_min = 0.75
 scale_max = 1.25
 scale_curve = SubResource("CurveTexture_imo6n")
-color = Color(1, 0.641312, 0.302845, 1)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_og8e0"]
-shading_mode = 0
-vertex_color_use_as_albedo = true
-
-[sub_resource type="SphereMesh" id="SphereMesh_ysydc"]
-material = SubResource("StandardMaterial3D_og8e0")
-flip_faces = true
-radial_segments = 16
-rings = 8
+color_ramp = SubResource("GradientTexture1D_xg23u")
 
 [sub_resource type="Animation" id="Animation_obki4"]
 length = 0.001
@@ -182,8 +181,10 @@ shape = SubResource("SphereShape3D_xfolp")
 
 [node name="GPUParticles3D" type="GPUParticles3D" parent="Mesh"]
 cast_shadow = 0
+visibility_aabb = AABB(-1, -1, -1, 2, 4, 2)
+local_coords = true
 process_material = SubResource("ParticleProcessMaterial_l6ld6")
-draw_pass_1 = SubResource("SphereMesh_ysydc")
+draw_pass_1 = ExtResource("5_ons45")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Mesh"]
 root_node = NodePath("../../NavigationAgent3D")
@@ -202,7 +203,7 @@ texture = SubResource("ViewportTexture_arqjo")
 
 [node name="BeehaveTree" type="Node" parent="." node_paths=PackedStringArray("blackboard", "actor")]
 script = ExtResource("8_7d4xa")
-blackboard = NodePath("@Node@17443")
+blackboard = NodePath("@Node@19930")
 actor = NodePath("..")
 
 [node name="SelectorComposite" type="Node" parent="BeehaveTree"]
