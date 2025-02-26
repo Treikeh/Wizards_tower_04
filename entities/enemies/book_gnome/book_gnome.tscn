@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://uvws4xru1kpl"]
+[gd_scene load_steps=33 format=3 uid="uid://uvws4xru1kpl"]
 
 [ext_resource type="Script" path="res://entities/enemies/book_gnome/book_gnome.gd" id="1_ucrke"]
 [ext_resource type="PackedScene" uid="uid://dyhhclqsyjeu3" path="res://entities/enemies/book_gnome/art/book_gnome_01_sk.glb" id="2_1d5g8"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://cs53wyj8yt4s4" path="res://entities/enemies/floating_health_bar.tscn" id="4_010fi"]
 [ext_resource type="AnimationNodeBlendTree" uid="uid://bawe0qi3y1ca2" path="res://entities/enemies/book_gnome/art/book_gnome_blend_tree.tres" id="4_be21s"]
 [ext_resource type="Script" path="res://common/scripts/health.gd" id="4_ejrbm"]
+[ext_resource type="AnimationLibrary" uid="uid://bxapqju53wqlg" path="res://entities/enemies/book_gnome/art/book_gnome_01_alib.glb" id="4_gyyhc"]
 [ext_resource type="PackedScene" uid="uid://di7vp8irr7xdl" path="res://utility/damage/damage_area_3d.tscn" id="4_pe1ou"]
 [ext_resource type="Resource" uid="uid://dc7hcuasftdvh" path="res://entities/enemies/book_gnome/book_gnome_damage.tres" id="5_rq5px"]
 [ext_resource type="Script" path="res://addons/beehave/nodes/beehave_tree.gd" id="10_fgdmq"]
@@ -86,23 +87,30 @@ debug_enabled = true
 script = ExtResource("3_0tnmg")
 target_node = NodePath("../TargetDirection")
 
-[node name="Skeleton3D" parent="book_gnome_01_sk" index="0"]
-bones/2/position = Vector3(1.89477e-15, 0.178967, 0.245117)
-bones/2/rotation = Quaternion(5.82686e-09, 0.997017, 0.0771791, 7.52727e-08)
+[node name="Skeleton3D" parent="book_gnome_01_sk/book_gnome_rig_001" index="0"]
+bones/1/position = Vector3(3.70116e-08, 0.178967, -0.245117)
+bones/1/rotation = Quaternion(-0.0771791, -1.50545e-07, -6.01468e-15, 0.997017)
+bones/1/scale = Vector3(1, 1, 1)
+bones/2/rotation = Quaternion(0.351989, -0.365019, -0.613273, 0.605608)
 bones/2/scale = Vector3(1, 1, 1)
-bones/3/rotation = Quaternion(0.367487, -0.349485, -0.604114, 0.614704)
-bones/4/rotation = Quaternion(-0.380129, -0.335346, -0.632811, 0.585317)
-bones/5/rotation = Quaternion(-0.0375578, 6.12753e-09, -2.52898e-07, 0.999294)
-bones/6/rotation = Quaternion(0.508429, -9.20481e-08, -1.95349e-07, 0.861104)
-bones/7/rotation = Quaternion(0.190234, -5.60127e-06, -1.97151e-06, 0.981739)
-bones/8/position = Vector3(3.21829e-08, 0.587239, 0.20697)
-bones/8/rotation = Quaternion(-0.0352755, 3.07332e-08, 5.09015e-09, 0.999378)
-bones/9/rotation = Quaternion(0.352735, 0.364283, 0.612844, 0.606051)
-bones/10/rotation = Quaternion(-0.395356, 0.321059, 0.62341, 0.593274)
-bones/10/scale = Vector3(1, 1, 1)
-bones/11/rotation = Quaternion(-0.0375579, -7.21187e-09, 2.81749e-07, 0.999294)
-bones/12/rotation = Quaternion(0.508429, 9.20481e-08, 1.95349e-07, 0.861104)
-bones/13/rotation = Quaternion(0.190234, 5.60127e-06, 1.97151e-06, 0.981739)
+bones/3/rotation = Quaternion(-0.396114, -0.320338, -0.62293, 0.593663)
+bones/3/scale = Vector3(1, 1, 1)
+bones/4/rotation = Quaternion(-0.0375579, -3.80197e-08, -2.68537e-07, 0.999294)
+bones/5/rotation = Quaternion(0.508429, -8.19498e-08, -1.89386e-07, 0.861104)
+bones/6/rotation = Quaternion(0.190234, -5.60985e-06, -1.96871e-06, 0.981739)
+bones/7/position = Vector3(3.21829e-08, 0.587239, 0.20697)
+bones/7/rotation = Quaternion(-0.0352755, 3.07332e-08, 5.09015e-09, 0.999378)
+bones/8/rotation = Quaternion(0.35199, 0.365019, 0.613273, 0.605608)
+bones/9/rotation = Quaternion(-0.396114, 0.320338, 0.622929, 0.593663)
+bones/9/scale = Vector3(1, 1, 1)
+bones/10/rotation = Quaternion(-0.0375578, -7.98139e-09, 3.02224e-07, 0.999294)
+bones/11/rotation = Quaternion(0.508429, 8.19498e-08, 1.89386e-07, 0.861104)
+bones/12/rotation = Quaternion(0.190234, 5.60985e-06, 1.96871e-06, 0.981739)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="book_gnome_01_sk"]
+libraries = {
+"": ExtResource("4_gyyhc")
+}
 
 [node name="AnimationTree" type="AnimationTree" parent="book_gnome_01_sk"]
 tree_root = SubResource("AnimationNodeStateMachine_l055f")
@@ -114,12 +122,12 @@ parameters/BlendTree/attack/request = 0
 parameters/BlendTree/walk_blend/blend_amount = 0.0
 
 [node name="HealthArea3D" parent="book_gnome_01_sk" node_paths=PackedStringArray("health_node") instance=ExtResource("3_ap0dj")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.030045)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -0.030045)
 health_node = NodePath("../../Health")
 damage_multiplier = 0.5
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="book_gnome_01_sk/HealthArea3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.508789, 0.0285645)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.00878899, 0.0285645)
 shape = SubResource("BoxShape3D_cf1hn")
 
 [node name="DamageArea3D" parent="book_gnome_01_sk" instance=ExtResource("4_pe1ou")]
@@ -140,7 +148,7 @@ texture = SubResource("ViewportTexture_cuy2h")
 
 [node name="BookGnomeTree" type="Node" parent="." node_paths=PackedStringArray("blackboard", "actor")]
 script = ExtResource("10_fgdmq")
-blackboard = NodePath("@Node@34220")
+blackboard = NodePath("@Node@37151")
 actor = NodePath("..")
 
 [node name="SelectorComposite" type="Node" parent="BookGnomeTree"]

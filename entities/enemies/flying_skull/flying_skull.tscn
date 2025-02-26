@@ -27,7 +27,7 @@ radius = 0.2
 height = 5.0
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_xfolp"]
-radius = 0.25
+radius = 0.3
 
 [sub_resource type="Gradient" id="Gradient_arsun"]
 colors = PackedColorArray(0.989062, 0.0934496, 0, 1, 0.847893, 0.545066, 3.85046e-07, 1)
@@ -173,10 +173,11 @@ libraries = {
 }
 
 [node name="HealthArea3D" parent="Mesh" node_paths=PackedStringArray("health_node") instance=ExtResource("5_xj77p")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
 health_node = NodePath("../../Health")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Mesh/HealthArea3D"]
-transform = Transform3D(1, 0, 0, 0, 0.984808, 0.173648, 0, -0.173648, 0.984808, 0, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 shape = SubResource("SphereShape3D_xfolp")
 
 [node name="GPUParticles3D" type="GPUParticles3D" parent="Mesh"]

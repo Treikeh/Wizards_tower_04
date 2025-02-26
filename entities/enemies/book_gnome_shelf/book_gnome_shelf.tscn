@@ -52,10 +52,11 @@ target_node = NodePath("../TargetDirection")
 autoplay = "spawn_001"
 
 [node name="HealthArea3D" parent="book_gnome_shelf_01_sk" node_paths=PackedStringArray("health_node") instance=ExtResource("3_eivbp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 health_node = NodePath("../../Health")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="book_gnome_shelf_01_sk/HealthArea3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 2.98023e-08)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.78814e-07, 2.98023e-08)
 shape = SubResource("BoxShape3D_pkqmf")
 
 [node name="SpawnPosition" type="Marker3D" parent="book_gnome_shelf_01_sk"]
@@ -83,7 +84,7 @@ max_health = 30.0
 
 [node name="BookGnomeShelf" type="Node" parent="." node_paths=PackedStringArray("blackboard", "actor")]
 script = ExtResource("6_iava8")
-blackboard = NodePath("@Node@32135")
+blackboard = NodePath("@Node@32072")
 actor = NodePath("..")
 
 [node name="Sequence" type="Node" parent="BookGnomeShelf"]
