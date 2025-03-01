@@ -1,0 +1,21 @@
+[gd_resource type="ShaderMaterial" load_steps=5 format=3 uid="uid://ccx4saav1ar0s"]
+
+[ext_resource type="Shader" uid="uid://chcbxy6b4h7kx" path="res://common/shaders/texture_with_fresnel_outline_vs.tres" id="1_b3ok0"]
+[ext_resource type="Texture2D" uid="uid://cgt6ffxqoae8g" path="res://entities/enemies/flying_skull/art/flying_skull_01_bc.png" id="2_2xujw"]
+
+[sub_resource type="Gradient" id="Gradient_asp7e"]
+offsets = PackedFloat32Array(0.6625, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_llt2n"]
+gradient = SubResource("Gradient_asp7e")
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_b3ok0")
+shader_parameter/base_color = Color(1, 1, 1, 1)
+shader_parameter/metalic = 0.0
+shader_parameter/roughness = 1.0
+shader_parameter/frensel_color = Color(0.84, 0, 0.0139998, 1)
+shader_parameter/fresnel_power = 3.0
+shader_parameter/base_color_map = ExtResource("2_2xujw")
+shader_parameter/frensel_gradient = SubResource("GradientTexture1D_llt2n")

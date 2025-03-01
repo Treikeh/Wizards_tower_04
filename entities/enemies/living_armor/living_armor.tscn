@@ -56,7 +56,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("CapsuleShape3D_7ua38")
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
-debug_enabled = true
 
 [node name="TargetDirection" type="Node3D" parent="."]
 
@@ -89,7 +88,7 @@ bones/14/scale = Vector3(1, 1, 1)
 bones/15/scale = Vector3(1, 1, 1)
 
 [node name="HandEqR" type="BoneAttachment3D" parent="living_armor_01_sk/Skeleton3D" index="1"]
-transform = Transform3D(0.83938, 0.223223, -0.495593, 0.0713847, 0.85861, 0.507635, 0.538837, -0.461477, 0.704765, 0.572377, 1.13406, -0.271901)
+transform = Transform3D(0.83938, 0.223226, -0.495592, 0.0713827, 0.85861, 0.507636, 0.538838, -0.461476, 0.704765, 0.572376, 1.13406, -0.271901)
 bone_name = "hand_eq_R.002"
 bone_idx = 15
 

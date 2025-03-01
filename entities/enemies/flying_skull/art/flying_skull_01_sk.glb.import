@@ -35,7 +35,7 @@ _subresources={
 "materials": {
 "flying_skull_mat.001": {
 "use_external/enabled": true,
-"use_external/path": "res://entities/enemies/flying_skull/art/flying_skull_01_mat.tres"
+"use_external/path": "res://entities/enemies/flying_skull/art/new_shader_material.tres"
 }
 }
 }

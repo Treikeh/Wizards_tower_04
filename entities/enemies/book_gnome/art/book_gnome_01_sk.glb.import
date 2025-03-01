@@ -35,7 +35,7 @@ _subresources={
 "materials": {
 "book_gnome_mat.001": {
 "use_external/enabled": true,
-"use_external/path": "res://entities/enemies/book_gnome/art/book_gnome_01_m.tres"
+"use_external/path": "res://entities/enemies/book_gnome/art/new_shader_material.tres"
 }
 }
 }

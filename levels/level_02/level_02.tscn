@@ -211,6 +211,12 @@ apply_over_time = true
 [node name="CollisionShape3D" type="CollisionShape3D" parent="CSGCombiner3D/Rooms/01/Node3D/Lava/LavaDamage"]
 shape = SubResource("BoxShape3D_wnedf")
 
+[node name="PlayerSpawner" parent="CSGCombiner3D/Rooms/01" instance=ExtResource("17_7gy15")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -4.2, 12.4, 25.8)
+rock_wall_unlocked = false
+wind_blast_unlocked = false
+lightning_ray_unlocked = false
+
 [node name="02" type="CSGCombiner3D" parent="CSGCombiner3D/Rooms"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.4, -38.1, -32.6)
 
@@ -440,6 +446,9 @@ shape = SubResource("BoxShape3D_l7gj2")
 
 [node name="PlayerSpawner2" parent="CSGCombiner3D/Rooms/03/Checkpoint" instance=ExtResource("17_7gy15")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.4)
+id = 1
+fireball_unlocked = false
+lightning_ray_unlocked = false
 
 [node name="SceneSpawner" parent="CSGCombiner3D/Rooms/03" instance=ExtResource("13_rs042")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 4.2, 5.8, 9.5)

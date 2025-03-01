@@ -22,7 +22,7 @@ func _on_health_depleted() -> void:
 	# Disable AI tree and stop movement
 	beehave_tree.disable()
 	movement_enabled = false
-	
+	$Mesh/GPUParticles3D.emitting = false
 	# Play death animation
 	anim_player.play("died")
 

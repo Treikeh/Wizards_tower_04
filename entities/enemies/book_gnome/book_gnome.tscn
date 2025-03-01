@@ -79,7 +79,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.55, 0)
 shape = SubResource("CapsuleShape3D_kgyn0")
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
-debug_enabled = true
 
 [node name="TargetDirection" type="Node3D" parent="."]
 
@@ -148,7 +147,7 @@ texture = SubResource("ViewportTexture_cuy2h")
 
 [node name="BookGnomeTree" type="Node" parent="." node_paths=PackedStringArray("blackboard", "actor")]
 script = ExtResource("10_fgdmq")
-blackboard = NodePath("@Node@37151")
+blackboard = NodePath("@Node@17443")
 actor = NodePath("..")
 
 [node name="SelectorComposite" type="Node" parent="BookGnomeTree"]

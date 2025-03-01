@@ -95,6 +95,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -4.75, 26.218)
 fireball_unlocked = false
 rock_wall_unlocked = false
 wind_blast_unlocked = false
+lightning_ray_unlocked = false
 
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.1, 0.1, 0)
@@ -334,6 +335,7 @@ shape = SubResource("BoxShape3D_w8lmr")
 id = 1
 rock_wall_unlocked = false
 wind_blast_unlocked = false
+lightning_ray_unlocked = false
 
 [node name="WoodenSign" parent="CSGCombiner3D/Rooms/02" instance=ExtResource("11_yh464")]
 transform = Transform3D(2.98023e-08, 0, 1, 0, 1, 0, -1, 0, 2.98023e-08, 0.1, -4.15, -0.1)
@@ -738,6 +740,7 @@ shape = SubResource("BoxShape3D_w8lmr")
 id = 2
 rock_wall_unlocked = false
 wind_blast_unlocked = false
+lightning_ray_unlocked = false
 
 [node name="HealthPotion" parent="CSGCombiner3D/Rooms/05" instance=ExtResource("17_riak2")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, -3.8, -29.8)

@@ -9032,7 +9032,7 @@ _subresources={
 "materials": {
 "living_armor_material.001": {
 "use_external/enabled": true,
-"use_external/path": "res://entities/enemies/living_armor/art/living_armor_01_m.tres"
+"use_external/path": "res://entities/enemies/living_armor/art/new_shader_material.tres"
 }
 }
 }

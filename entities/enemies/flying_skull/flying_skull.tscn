@@ -158,7 +158,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0)
 shape = SubResource("CapsuleShape3D_7ua38")
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
-debug_enabled = true
 
 [node name="Mesh" type="Node3D" parent="."]
 unique_name_in_owner = true
@@ -177,7 +176,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
 health_node = NodePath("../../Health")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Mesh/HealthArea3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 shape = SubResource("SphereShape3D_xfolp")
 
 [node name="GPUParticles3D" type="GPUParticles3D" parent="Mesh"]
@@ -204,7 +202,7 @@ texture = SubResource("ViewportTexture_arqjo")
 
 [node name="BeehaveTree" type="Node" parent="." node_paths=PackedStringArray("blackboard", "actor")]
 script = ExtResource("8_7d4xa")
-blackboard = NodePath("@Node@17443")
+blackboard = NodePath("@Node@17449")
 actor = NodePath("..")
 
 [node name="SelectorComposite" type="Node" parent="BeehaveTree"]

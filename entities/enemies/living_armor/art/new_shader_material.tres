@@ -1,0 +1,21 @@
+[gd_resource type="ShaderMaterial" load_steps=5 format=3 uid="uid://b6fic2tk7542x"]
+
+[ext_resource type="Shader" uid="uid://chcbxy6b4h7kx" path="res://common/shaders/texture_with_fresnel_outline_vs.tres" id="1_msjnx"]
+[ext_resource type="Texture2D" uid="uid://usnsfh8h6yc4" path="res://entities/enemies/living_armor/art/living_armor_01_bc.png" id="2_ot7wk"]
+
+[sub_resource type="Gradient" id="Gradient_2xhec"]
+offsets = PackedFloat32Array(0.516667, 0.8)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_e5s5r"]
+gradient = SubResource("Gradient_2xhec")
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_msjnx")
+shader_parameter/base_color = Color(1, 1, 1, 1)
+shader_parameter/metalic = 0.0
+shader_parameter/roughness = 1.0
+shader_parameter/frensel_color = Color(0.411765, 0.188235, 0.203922, 1)
+shader_parameter/fresnel_power = 3.0
+shader_parameter/base_color_map = ExtResource("2_ot7wk")
+shader_parameter/frensel_gradient = SubResource("GradientTexture1D_e5s5r")
