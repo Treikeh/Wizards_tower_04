@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://d2tj1vsg1g6a7"]
+[gd_scene load_steps=21 format=3 uid="uid://d2tj1vsg1g6a7"]
 
 [ext_resource type="Script" path="res://entities/spells/rockwall/rockwall_wall.gd" id="1_x4ekf"]
 [ext_resource type="PackedScene" uid="uid://xl1x86mw45ri" path="res://utility/damage/explosion_cast_3d.tscn" id="2_2c2d0"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://ddufakdkmxhwr" path="res://utility/damage/health_area_3d.tscn" id="2_fqbxw"]
 [ext_resource type="Script" path="res://common/scripts/damage.gd" id="3_27q10"]
 [ext_resource type="Script" path="res://common/scripts/health.gd" id="3_xf41y"]
+[ext_resource type="AudioStream" uid="uid://bhpvfluclmid6" path="res://entities/spells/rockwall/Stone Armor.wav" id="7_vo1n7"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_2mllo"]
 friction = 0.0
@@ -233,6 +234,12 @@ damage = SubResource("Resource_h2cpc")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 material_override = SubResource("StandardMaterial3D_jpb6w")
 mesh = SubResource("BoxMesh_k2qjq")
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("7_vo1n7")
+volume_db = -10.0
+autoplay = true
+bus = &"SFX"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

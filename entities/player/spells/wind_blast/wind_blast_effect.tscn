@@ -1,6 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://dh3oppj1mqo0b"]
+[gd_scene load_steps=8 format=3 uid="uid://dh3oppj1mqo0b"]
 
 [ext_resource type="Shader" uid="uid://b5spjy835fc4b" path="res://entities/player/spells/wind_blast/wind_blast_effect_vs.tres" id="1_rnh7l"]
+[ext_resource type="AudioStream" uid="uid://2ea4f8of8p63" path="res://entities/spells/windblast/Aero Blade Cast B.wav" id="2_s768j"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_013mu"]
 render_priority = 0
@@ -18,6 +19,33 @@ radial_segments = 32
 rings = 16
 cap_top = false
 cap_bottom = false
+
+[sub_resource type="Animation" id="Animation_3ei1y"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MeshInstance3D:material_override:shader_parameter/alpha")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.2]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("MeshInstance3D:material_override:shader_parameter/normal_offset")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
 
 [sub_resource type="Animation" id="Animation_r55k6"]
 resource_name = "spawn"
@@ -60,33 +88,6 @@ tracks/2/keys = {
 "values": [-0.45, 1.5]
 }
 
-[sub_resource type="Animation" id="Animation_3ei1y"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("MeshInstance3D:material_override:shader_parameter/alpha")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0.2]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("MeshInstance3D:material_override:shader_parameter/normal_offset")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0.0]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_5ail1"]
 _data = {
 "RESET": SubResource("Animation_3ei1y"),
@@ -105,3 +106,9 @@ libraries = {
 "": SubResource("AnimationLibrary_5ail1")
 }
 autoplay = "spawn"
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("2_s768j")
+volume_db = -10.0
+autoplay = true
+bus = &"SFX"
