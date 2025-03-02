@@ -79,26 +79,20 @@ func _input(event: InputEvent) -> void:
 			interact_ray.interact_with_target()
 		
 		# Spell inputs
-		if event.is_action_pressed("fireball") and Globals.fireball_unlocked:
-			spell_manager.cast_fireball()
-			animation_tree.set("parameters/fireball_oneshot/request", AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE)
+		if event.is_action_pressed("primary_fire"):
+			pass
+		elif event.is_action_released("primary_fire"):
+			pass
 		
-		if event.is_action_pressed("lightning_ray") and Globals.lightning_ray_unlocked:
-			spell_manager.cast_lightning_ray()
-		elif event.is_action_released("lightning_ray"):
-			spell_manager.release_lightning_ray()
+		if event.is_action_pressed("secondary_fire"):
+			pass
+		elif event.is_action_released("secondary_fire"):
+			pass
 		
-		if event.is_action_pressed("rock_wall") and Globals.rock_wall_unlocked:
-			# Spawn rock wall preview
-			spell_manager.spawn_rock_wall_preview()
-		elif event.is_action_released("rock_wall") and Globals.rock_wall_unlocked:
-			# Spawn rock wall
-			spell_manager.spawn_rock_wall()
-			animation_tree.set("parameters/rock_wall_oneshot/request", AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE)
-		
-		if event.is_action_pressed("wind_blast") and Globals.wind_blast_unlocked:
-			spell_manager.cast_wind_blast()
-			animation_tree.set("parameters/wind_blast_oneshot/request", AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE)
+		if event.is_action_pressed("tertiary_fire"):
+			pass
+		elif event.is_action_released("tertiary_fire"):
+			pass
 		
 		# Get move_input
 		move_input = Input.get_vector("move_l", "move_r", "move_f", "move_b")

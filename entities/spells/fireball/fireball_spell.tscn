@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://b67g7lxmkqiym"]
+
+[ext_resource type="Script" path="res://entities/spells/fireball/fireball_spell.gd" id="1_e5icn"]
+
+[node name="FireballSpell" type="Node3D"]
+script = ExtResource("1_e5icn")
