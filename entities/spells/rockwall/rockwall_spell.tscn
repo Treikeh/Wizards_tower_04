@@ -1,0 +1,30 @@
+[gd_scene load_steps=5 format=3 uid="uid://di11tekkwb3jv"]
+
+[ext_resource type="Script" path="res://entities/spells/rockwall/rockwall_spell.gd" id="1_1gmdj"]
+[ext_resource type="Material" uid="uid://butaeuol8riqi" path="res://entities/player/spells/rock_wall/art/rock_wall_preview_can_spawn_mat.tres" id="2_tvw3u"]
+[ext_resource type="Material" uid="uid://dusegx7j0olth" path="res://entities/player/spells/rock_wall/art/rock_wall_preview_cannot_spawn_mat.tres" id="3_3kcx6"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_8a5ej"]
+size = Vector3(2, 2, 1)
+
+[node name="RockwallSpell" type="RayCast3D" node_paths=PackedStringArray("preview", "preview_ray", "preview_mesh")]
+target_position = Vector3(0, 0, -15)
+script = ExtResource("1_1gmdj")
+preview = NodePath("Preview")
+preview_ray = NodePath("Preview/PreviewRay")
+preview_mesh = NodePath("Preview/PreviewMesh")
+can_spawn_mat = ExtResource("2_tvw3u")
+cannot_spawn_mat = ExtResource("3_3kcx6")
+casting_animation = "parameters/rock_wall_oneshot/request"
+
+[node name="Preview" type="Marker3D" parent="."]
+top_level = true
+
+[node name="PreviewRay" type="RayCast3D" parent="Preview"]
+target_position = Vector3(0, 2, 0)
+
+[node name="PreviewMesh" type="MeshInstance3D" parent="Preview"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+mesh = SubResource("BoxMesh_8a5ej")
+skeleton = NodePath("../PreviewRay")
+surface_material_override/0 = ExtResource("2_tvw3u")

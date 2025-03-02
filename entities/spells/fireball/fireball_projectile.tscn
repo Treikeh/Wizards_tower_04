@@ -1,0 +1,110 @@
+[gd_scene load_steps=21 format=3 uid="uid://b4vf857hw3whd"]
+
+[ext_resource type="Script" path="res://entities/spells/fireball/fireball_projectile.gd" id="1_82nky"]
+[ext_resource type="Shader" uid="uid://0q3k72lo6vkv" path="res://entities/player/spells/fireball/fireball_vs.tres" id="2_v53ej"]
+[ext_resource type="PackedScene" uid="uid://di7vp8irr7xdl" path="res://utility/damage/damage_area_3d.tscn" id="3_f85p8"]
+[ext_resource type="Resource" uid="uid://bt5lwvmku38ux" path="res://entities/spells/fireball/fireball_projectile_damage.tres" id="3_trphl"]
+[ext_resource type="Script" path="res://common/scripts/damage.gd" id="4_om2i5"]
+[ext_resource type="Material" uid="uid://b5ehaqk85imur" path="res://entities/player/spells/fireball/fireball_ppm.tres" id="5_2mhuv"]
+[ext_resource type="QuadMesh" uid="uid://bs74iy86w3241" path="res://common/vfx/simple_particle_mesh.tres" id="6_urwj4"]
+[ext_resource type="AudioStream" uid="uid://csxgakr508rnx" path="res://entities/player/spells/fireball/Small Fireball Trail Loop.wav" id="7_egc1u"]
+[ext_resource type="PackedScene" uid="uid://ddufakdkmxhwr" path="res://utility/damage/health_area_3d.tscn" id="8_qu6o3"]
+[ext_resource type="Script" path="res://common/scripts/health.gd" id="9_vi3hs"]
+[ext_resource type="PackedScene" uid="uid://xl1x86mw45ri" path="res://utility/damage/explosion_cast_3d.tscn" id="10_o3122"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_6s0f0"]
+radius = 0.2
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_pvvlp"]
+radius = 0.2
+height = 0.6
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_t6gup"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_ievgh"]
+radius = 3.0
+
+[sub_resource type="Resource" id="Resource_vftwg"]
+script = ExtResource("4_om2i5")
+amount = 25.0
+type = 2
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_jt0sv"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_bka0t"]
+noise = SubResource("FastNoiseLite_jt0sv")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_5paa2"]
+render_priority = 0
+shader = ExtResource("2_v53ej")
+shader_parameter/noise_speed = 0.5
+shader_parameter/noise_map = SubResource("NoiseTexture2D_bka0t")
+
+[sub_resource type="SphereMesh" id="SphereMesh_6he68"]
+radius = 0.2
+height = 0.4
+radial_segments = 16
+rings = 8
+
+[node name="FireballProjectile" type="RigidBody3D" node_paths=PackedStringArray("explosion_cast") groups=["fireball"]]
+collision_layer = 32
+collision_mask = 3
+gravity_scale = 0.1
+continuous_cd = true
+contact_monitor = true
+max_contacts_reported = 1
+script = ExtResource("1_82nky")
+explosion_cast = NodePath("ExplosionCast3D")
+initial_velocity = 20.0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_6s0f0")
+
+[node name="DamageArea3D" parent="." instance=ExtResource("3_f85p8")]
+collision_mask = 128
+damage = ExtResource("3_trphl")
+
+[node name="DamageCollision" type="CollisionShape3D" parent="DamageArea3D"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
+shape = SubResource("CapsuleShape3D_pvvlp")
+
+[node name="HealthArea3D" parent="." node_paths=PackedStringArray("health_node") instance=ExtResource("8_qu6o3")]
+collision_layer = 4096
+health_node = NodePath("Health")
+
+[node name="HealthCollision" type="CollisionShape3D" parent="HealthArea3D"]
+shape = SubResource("SphereShape3D_t6gup")
+
+[node name="Health" type="Node" parent="HealthArea3D"]
+script = ExtResource("9_vi3hs")
+max_health = 1.0
+fire_resistance = 100.0
+explosive_resistance = 100.0
+healing_resistance = 100.0
+
+[node name="ExplosionCast3D" parent="." instance=ExtResource("10_o3122")]
+shape = SubResource("SphereShape3D_ievgh")
+damage = SubResource("Resource_vftwg")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+material_override = SubResource("ShaderMaterial_5paa2")
+mesh = SubResource("SphereMesh_6he68")
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="."]
+lifetime = 0.15
+visibility_aabb = AABB(-0.25, -0.25, -0.25, 0.5, 0.5, 1)
+process_material = ExtResource("5_2mhuv")
+draw_pass_1 = ExtResource("6_urwj4")
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("7_egc1u")
+volume_db = -5.0
+autoplay = true
+
+[node name="Timer" type="Timer" parent="."]
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="reflected" from="." to="." method="_on_reflected"]
+[connection signal="hit_health_area" from="DamageArea3D" to="." method="_on_damage_area_3d_hit_health_area"]
+[connection signal="health_depleted" from="HealthArea3D/Health" to="." method="_on_health_health_depleted"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

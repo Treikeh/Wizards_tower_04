@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://qko6nfg0jk3x"]
+
+[ext_resource type="Script" path="res://entities/spells/windblast/windblast_spell.gd" id="1_xjulx"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_sl5id"]
+radius = 1.0
+height = 4.0
+
+[node name="WindblastSpell" type="RayCast3D" node_paths=PackedStringArray("shape_cast")]
+enabled = false
+script = ExtResource("1_xjulx")
+shape_cast = NodePath("ShapeCast3D")
+casting_animation = "parameters/wind_blast_oneshot/request"
+
+[node name="ShapeCast3D" type="ShapeCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
+enabled = false
+shape = SubResource("CapsuleShape3D_sl5id")
+target_position = Vector3(0, -2, 0)
+collision_mask = 42

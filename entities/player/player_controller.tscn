@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://dh8dcfqs8vv8p"]
+[gd_scene load_steps=34 format=3 uid="uid://dh8dcfqs8vv8p"]
 
 [ext_resource type="Script" path="res://entities/player/player_controller.gd" id="1_ck1rn"]
 [ext_resource type="Material" uid="uid://uwtl3uvytx4g" path="res://common/materials/dev_grid_green.tres" id="2_7yv5a"]
@@ -10,9 +10,13 @@
 [ext_resource type="PackedScene" uid="uid://rs6tjh0gjpje" path="res://utility/camera/shakeable_camera.tscn" id="5_c70jp"]
 [ext_resource type="PackedScene" uid="uid://cavgwqcbmxw3w" path="res://entities/player/spells/spell_manager.tscn" id="6_urw7v"]
 [ext_resource type="Script" path="res://common/scripts/health.gd" id="7_s4lvk"]
+[ext_resource type="PackedScene" uid="uid://b67g7lxmkqiym" path="res://entities/spells/fireball/fireball_spell.tscn" id="10_g4lud"]
 [ext_resource type="AudioStream" uid="uid://biiiimggl568l" path="res://entities/player/audio/Shoe Step Stone Hard A.wav" id="11_g0yi8"]
+[ext_resource type="PackedScene" uid="uid://ctwjw43o46ull" path="res://entities/spells/lightning_beam/lightning_beam_spell.tscn" id="11_i8ebm"]
+[ext_resource type="PackedScene" uid="uid://qko6nfg0jk3x" path="res://entities/spells/windblast/windblast_spell.tscn" id="12_wqrg2"]
 [ext_resource type="AudioStream" uid="uid://ctxgj877nt7wd" path="res://entities/player/audio/Land Step Stone A.wav" id="13_2bxrp"]
 [ext_resource type="AudioStream" uid="uid://b7wj5uswteyr3" path="res://entities/player/audio/Jump Step Stone A.wav" id="13_5agqx"]
+[ext_resource type="PackedScene" uid="uid://di11tekkwb3jv" path="res://entities/spells/rockwall/rockwall_spell.tscn" id="13_hmf27"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_ebie1"]
 friction = 0.0
@@ -55,6 +59,7 @@ animation = &"wind_blast_001"
 [sub_resource type="AnimationNodeOneShot" id="AnimationNodeOneShot_2ywnk"]
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_vy1x0"]
+graph_offset = Vector2(-857.939, -33.3306)
 nodes/Fireball/node = SubResource("AnimationNodeAnimation_dr8i2")
 nodes/Fireball/position = Vector2(-120, 340)
 nodes/Idle/node = SubResource("AnimationNodeAnimation_7jca0")
@@ -80,7 +85,7 @@ radius = 0.25
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_g6ee0"]
 
-[node name="RigidbodyPlayer" type="RigidBody3D" node_paths=PackedStringArray("footsteps_audio_player", "jump_audio_player", "land_audio_player", "orientation", "head", "camera", "ground_ray", "interact_ray", "spell_manager", "animation_tree") groups=["player"]]
+[node name="RigidbodyPlayer" type="RigidBody3D" node_paths=PackedStringArray("footsteps_audio_player", "jump_audio_player", "land_audio_player", "orientation", "head", "camera", "ground_ray", "interact_ray", "spell_manager", "primary_spell", "secondary_spell", "tertiary_spell", "animation_tree") groups=["player"]]
 collision_layer = 4
 collision_mask = 271
 physics_material_override = SubResource("PhysicsMaterial_ebie1")
@@ -100,6 +105,9 @@ camera = NodePath("Orientation/Head/ShakeableCamera/Camera")
 ground_ray = NodePath("GroundRay")
 interact_ray = NodePath("Orientation/Head/InteractRay")
 spell_manager = NodePath("Orientation/Head/SpellManager")
+primary_spell = NodePath("Orientation/Head/FireballSpell")
+secondary_spell = NodePath("Orientation/Head/RockwallSpell")
+tertiary_spell = NodePath("Orientation/Head/WindblastSpell")
 animation_tree = NodePath("Orientation/Head/viewmodel_01_sk/AnimationTree")
 
 [node name="StandingCollision" type="CollisionShape3D" parent="."]
@@ -189,14 +197,14 @@ bones/42/rotation = Quaternion(0.08328, -0.0281259, 0.0514934, 0.994797)
 bones/42/scale = Vector3(1, 1, 1)
 
 [node name="EqL" type="BoneAttachment3D" parent="Orientation/Head/viewmodel_01_sk/Skeleton3D" index="1"]
-transform = Transform3D(0.908661, 0.115969, 0.401106, -0.417534, 0.252379, 0.872909, -2.468e-07, -0.960654, 0.277749, -0.42337, -0.897886, -0.00812744)
+transform = Transform3D(-0.865852, 0.498946, 0.0367732, 0.47081, 0.787751, 0.397222, 0.169224, 0.361249, -0.916985, -0.411377, -0.35407, -0.418708)
 bone_name = "hand_eq_L.001"
 bone_idx = 6
 
 [node name="spellbook_01_sm" parent="Orientation/Head/viewmodel_01_sk/Skeleton3D/EqL" instance=ExtResource("5_afj3v")]
 
 [node name="EqR" type="BoneAttachment3D" parent="Orientation/Head/viewmodel_01_sk/Skeleton3D" index="2"]
-transform = Transform3D(0.908661, -0.11597, -0.401106, 0.417535, 0.252379, 0.872909, -7.24569e-07, -0.960654, 0.277749, 0.423369, -0.897886, -0.00812744)
+transform = Transform3D(0.209839, -0.977138, 0.0341829, 0.827769, 0.158939, -0.538087, 0.520352, 0.141207, 0.842196, 0.412684, -0.364055, -0.437651)
 bone_name = "hand_eq_R.001"
 bone_idx = 27
 
@@ -206,7 +214,7 @@ anim_player = NodePath("../AnimationPlayer")
 parameters/fireball_oneshot/active = false
 parameters/fireball_oneshot/internal_active = false
 parameters/fireball_oneshot/request = 0
-parameters/reset_idle_blend/blend_amount = 0.0
+parameters/reset_idle_blend/blend_amount = 1.0
 parameters/rock_wall_oneshot/active = false
 parameters/rock_wall_oneshot/internal_active = false
 parameters/rock_wall_oneshot/request = 0
@@ -236,6 +244,14 @@ script = ExtResource("3_6mksv")
 [node name="SpellManager" parent="Orientation/Head" node_paths=PackedStringArray("orientation") instance=ExtResource("6_urw7v")]
 orientation = NodePath("../..")
 rock_wall_range = 7.5
+
+[node name="FireballSpell" parent="Orientation/Head" instance=ExtResource("10_g4lud")]
+
+[node name="LightningBeam" parent="Orientation/Head" instance=ExtResource("11_i8ebm")]
+
+[node name="WindblastSpell" parent="Orientation/Head" instance=ExtResource("12_wqrg2")]
+
+[node name="RockwallSpell" parent="Orientation/Head" instance=ExtResource("13_hmf27")]
 
 [node name="GroundRay" type="RayCast3D" parent="."]
 target_position = Vector3(0, -1.5, 0)
