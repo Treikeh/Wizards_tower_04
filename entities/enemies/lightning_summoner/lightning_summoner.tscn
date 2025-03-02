@@ -128,6 +128,7 @@ mesh = SubResource("BoxMesh_oghx6")
 
 [node name="Health" type="Node" parent="."]
 script = ExtResource("3_2h4um")
+max_health = 15.0
 
 [node name="FloatingHealthBar" parent="." instance=ExtResource("4_6cwe1")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8, 0)
@@ -135,7 +136,7 @@ texture = SubResource("ViewportTexture_u7gnh")
 
 [node name="BeehaveTree" type="Node" parent="." node_paths=PackedStringArray("blackboard", "actor")]
 script = ExtResource("2_3ajoc")
-blackboard = NodePath("@Node@17445")
+blackboard = NodePath("@Node@101505")
 actor = NodePath("..")
 
 [node name="SelectorComposite" type="Node" parent="BeehaveTree"]

@@ -1,7 +1,7 @@
 [gd_scene load_steps=9 format=3 uid="uid://x8vosrq0tkhx"]
 
 [ext_resource type="Script" path="res://entities/enemies/potion_thrower/projectile/potion_projectile.gd" id="1_tfk2o"]
-[ext_resource type="Material" uid="uid://c4eykp21shtlp" path="res://common/materials/dev_grid_red.tres" id="2_q3v3e"]
+[ext_resource type="Material" uid="uid://8l62gr1442y8" path="res://common/materials/red_emissive.tres" id="2_l64un"]
 [ext_resource type="PackedScene" uid="uid://di7vp8irr7xdl" path="res://utility/damage/damage_area_3d.tscn" id="3_ak3dk"]
 [ext_resource type="Script" path="res://common/scripts/damage.gd" id="4_1ncqm"]
 
@@ -36,7 +36,7 @@ initial_velocity = 15.0
 shape = SubResource("SphereShape3D_f4pxa")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-material_override = ExtResource("2_q3v3e")
+material_override = ExtResource("2_l64un")
 mesh = SubResource("SphereMesh_u3yno")
 
 [node name="DamageArea3D" parent="." instance=ExtResource("3_ak3dk")]
