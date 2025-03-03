@@ -4,13 +4,9 @@ extends Control
 @export_file("*.tscn") var main_menu_scene: String
 
 
-func _on_checkpoint_button_pressed() -> void:
-	LevelManager.reload_level()
-
-
-func _on_restart_button_pressed() -> void:
+func _on_continue_button_pressed() -> void:
 	Globals.checkpoint_id = 0
-	LevelManager.reload_level()
+	LevelManager.change_level("uid://duxdyc4s7a4ii")
 
 
 func _on_main_menu_button_pressed() -> void:

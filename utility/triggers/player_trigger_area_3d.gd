@@ -11,8 +11,8 @@ signal player_entered()
 var triggered: bool = false
 
 
-func _on_body_entered(body: Node3D) -> void:
-	if body.is_in_group("player") and (not triggered):
+func _on_body_entered(_body: Node3D) -> void:
+	if not triggered:
 		player_entered.emit()
 		if not repeat_trigger:
 			triggered = true

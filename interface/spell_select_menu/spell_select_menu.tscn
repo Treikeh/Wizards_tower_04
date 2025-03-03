@@ -10,6 +10,50 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_qvpro")
+spell_list = Array[String](["Fireball", "Rockwall", "Windblast", "Lightning Beam", "Gravity Well", "Oil spray", "Water bubble"])
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 432.0
+offset_top = 133.0
+offset_right = 503.0
+offset_bottom = 156.0
+text = "Choose 2"
+
+[node name="SpellButtonsContainer" type="HBoxContainer" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SpellButton" type="Button" parent="SpellButtonsContainer"]
+layout_mode = 2
+text = "SpellName"
+
+[node name="SpellButton2" type="Button" parent="SpellButtonsContainer"]
+layout_mode = 2
+text = "SpellName"
+
+[node name="SpellButton3" type="Button" parent="SpellButtonsContainer"]
+layout_mode = 2
+text = "SpellName"
+
+[node name="RerollButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 441.0
+offset_top = 323.0
+offset_right = 495.0
+offset_bottom = 354.0
+text = "Reroll"
 
 [node name="CloseButton" type="Button" parent="."]
 layout_mode = 1
@@ -18,12 +62,29 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -4.0
-offset_top = -4.0
-offset_right = 4.0
-offset_bottom = 4.0
+offset_left = -34.0
+offset_top = 112.0
+offset_right = 16.0
+offset_bottom = 143.0
 grow_horizontal = 2
 grow_vertical = 2
 text = "Close"
 
+[node name="SpellLabel1" type="Label" parent="."]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 363.0
+offset_top = 187.0
+offset_right = 414.0
+offset_bottom = 210.0
+
+[node name="SpellLabel2" type="Label" parent="."]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 506.0
+offset_top = 186.0
+offset_right = 557.0
+offset_bottom = 209.0
+
+[connection signal="pressed" from="RerollButton" to="." method="_on_reroll_button_pressed"]
 [connection signal="pressed" from="CloseButton" to="." method="_on_close_button_pressed"]
