@@ -1,10 +1,10 @@
 [gd_scene load_steps=12 format=3 uid="uid://ivqogohs83mj"]
 
 [ext_resource type="Script" path="res://levels/level_3d.gd" id="1_h63rt"]
-[ext_resource type="PackedScene" uid="uid://dh8dcfqs8vv8p" path="res://entities/player/player_controller.tscn" id="2_4ftkd"]
 [ext_resource type="Material" uid="uid://pwjimh5imhjl" path="res://common/materials/stone_brick_wall_01_m.tres" id="3_ygso3"]
 [ext_resource type="Material" uid="uid://uwtl3uvytx4g" path="res://common/materials/dev_grid_green.tres" id="4_8duko"]
 [ext_resource type="PackedScene" uid="uid://cj0ckw6b4kq8l" path="res://utility/triggers/level_transtion_area_3d.tscn" id="5_pp5nv"]
+[ext_resource type="PackedScene" uid="uid://i0u75nytwgqr" path="res://utility/spawners/player_spawner.tscn" id="6_c5wkh"]
 [ext_resource type="Material" uid="uid://8qm7nxt6hftu" path="res://common/materials/wood_floor_01_m.tres" id="6_cjsw6"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ap1ce"]
@@ -32,9 +32,6 @@ script = ExtResource("1_h63rt")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_dtso7")
-
-[node name="RigidbodyPlayer" parent="." instance=ExtResource("2_4ftkd")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.15, 10.618)
 
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
 navigation_mesh = SubResource("NavigationMesh_2l26b")
@@ -77,3 +74,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.15, 0)
 use_collision = true
 size = Vector3(6, 0.1, 22.8)
 material = ExtResource("6_cjsw6")
+
+[node name="PlayerSpawner" parent="." instance=ExtResource("6_c5wkh")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 8.3)
