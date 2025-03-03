@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://cj0ckw6b4kq8l"]
 
-[ext_resource type="Script" path="res://utility/triggers/level_transtion_area_3d.gd" id="1_wslfv"]
+[ext_resource type="Script" uid="uid://8f3bs02pelix" path="res://utility/triggers/level_transtion_area_3d.gd" id="1_wslfv"]
 
 [node name="LevelTranstionArea3D" type="Area3D"]
 collision_layer = 0

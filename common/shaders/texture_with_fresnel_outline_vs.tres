@@ -65,10 +65,10 @@ render_mode blend_mix, depth_draw_opaque, cull_disabled, diffuse_toon, specular_
 
 uniform vec4 base_color : source_color = vec4(1.000000, 1.000000, 1.000000, 1.000000);
 uniform sampler2D base_color_map : source_color;
-uniform float metalic : hint_range(0, 1) = 0;
-uniform float roughness : hint_range(0, 1) = 1;
+uniform float metalic : hint_range(0.0, 1.0) = 0.0;
+uniform float roughness : hint_range(0.0, 1.0) = 1.0;
 uniform vec4 frensel_color : source_color = vec4(1.000000, 1.000000, 1.000000, 1.000000);
-uniform float fresnel_power = 3;
+uniform float fresnel_power = 3.0;
 uniform sampler2D frensel_gradient;
 
 

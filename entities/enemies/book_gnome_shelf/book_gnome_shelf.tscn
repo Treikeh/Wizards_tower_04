@@ -1,18 +1,18 @@
 [gd_scene load_steps=17 format=3 uid="uid://dtoewhbmg012w"]
 
-[ext_resource type="Script" path="res://entities/enemies/book_gnome_shelf/book_gnome_shelf.gd" id="1_xkhhr"]
-[ext_resource type="Script" path="res://common/scripts/match_y_rotation.gd" id="3_7isb5"]
+[ext_resource type="Script" uid="uid://d32qoagktcfto" path="res://entities/enemies/book_gnome_shelf/book_gnome_shelf.gd" id="1_xkhhr"]
+[ext_resource type="Script" uid="uid://d0vwvl4q3kf66" path="res://common/scripts/match_y_rotation.gd" id="3_7isb5"]
 [ext_resource type="PackedScene" uid="uid://ddufakdkmxhwr" path="res://utility/damage/health_area_3d.tscn" id="3_eivbp"]
 [ext_resource type="PackedScene" uid="uid://hurlhofcnefh" path="res://entities/interactables/spellbook/book_pickup_01_sm.glb" id="4_ckud7"]
 [ext_resource type="PackedScene" uid="uid://cs53wyj8yt4s4" path="res://entities/enemies/floating_health_bar.tscn" id="4_knj5g"]
-[ext_resource type="Script" path="res://common/scripts/health.gd" id="5_0ck78"]
-[ext_resource type="Script" path="res://addons/beehave/nodes/beehave_tree.gd" id="6_iava8"]
-[ext_resource type="Script" path="res://addons/beehave/nodes/composites/sequence.gd" id="9_1mxg0"]
-[ext_resource type="Script" path="res://common/scripts/beehave/call_method_action.gd" id="9_7cdr2"]
-[ext_resource type="Script" path="res://common/scripts/beehave/wait_action.gd" id="12_5x6cv"]
+[ext_resource type="Script" uid="uid://qrcafxbvr5tg" path="res://common/scripts/health.gd" id="5_0ck78"]
+[ext_resource type="Script" uid="uid://bidgm07p5cbkv" path="res://addons/beehave/nodes/beehave_tree.gd" id="6_iava8"]
+[ext_resource type="Script" uid="uid://c4bcucm80qf6y" path="res://addons/beehave/nodes/composites/sequence.gd" id="9_1mxg0"]
+[ext_resource type="Script" uid="uid://deh2dswietdai" path="res://common/scripts/beehave/call_method_action.gd" id="9_7cdr2"]
+[ext_resource type="Script" uid="uid://lnurwx55irrs" path="res://common/scripts/beehave/wait_action.gd" id="12_5x6cv"]
 [ext_resource type="PackedScene" uid="uid://bvvyi603sw4lq" path="res://entities/enemies/book_gnome_shelf/art/book_gnome_shelf_01_sk.glb" id="13_81ec4"]
-[ext_resource type="Script" path="res://common/scripts/beehave/get_random_position_in_range.gd" id="13_n3nhu"]
-[ext_resource type="Script" path="res://common/scripts/beehave/navigate_to_position_action.gd" id="14_s5txi"]
+[ext_resource type="Script" uid="uid://dc2dt7wqsr7s4" path="res://common/scripts/beehave/get_random_position_in_range.gd" id="13_n3nhu"]
+[ext_resource type="Script" uid="uid://qh7mow72bd0a" path="res://common/scripts/beehave/navigate_to_position_action.gd" id="14_s5txi"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_wqowl"]
 radius = 0.6
@@ -84,7 +84,7 @@ max_health = 30.0
 
 [node name="BookGnomeShelf" type="Node" parent="." node_paths=PackedStringArray("blackboard", "actor")]
 script = ExtResource("6_iava8")
-blackboard = NodePath("@Node@32072")
+blackboard = NodePath("@Node@35313")
 actor = NodePath("..")
 
 [node name="Sequence" type="Node" parent="BookGnomeShelf"]

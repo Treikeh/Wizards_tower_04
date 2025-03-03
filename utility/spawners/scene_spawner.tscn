@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://chw0vev703cjt"]
 
-[ext_resource type="Script" path="res://utility/spawners/scene_spawner.gd" id="1_x3uc6"]
+[ext_resource type="Script" uid="uid://blfqkcwik57xg" path="res://utility/spawners/scene_spawner.gd" id="1_x3uc6"]
 [ext_resource type="Material" uid="uid://c4eykp21shtlp" path="res://common/materials/dev_grid_red.tres" id="2_8da0c"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_fwbjh"]

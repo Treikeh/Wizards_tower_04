@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://dh8msa1h40vqf"]
 
-[ext_resource type="Script" path="res://interface/spell_select_menu/spell_select_menu.gd" id="1_qvpro"]
+[ext_resource type="Script" uid="uid://bi2dquc4tfb4p" path="res://interface/spell_select_menu/spell_select_menu.gd" id="1_qvpro"]
 
 [node name="SpellSelectMenu" type="Control"]
 layout_mode = 3

@@ -1,11 +1,11 @@
 [gd_scene load_steps=21 format=3 uid="uid://d2tj1vsg1g6a7"]
 
-[ext_resource type="Script" path="res://entities/spells/rockwall/rockwall_wall.gd" id="1_x4ekf"]
+[ext_resource type="Script" uid="uid://dev4l38iccsju" path="res://entities/spells/rockwall/rockwall_wall.gd" id="1_x4ekf"]
 [ext_resource type="PackedScene" uid="uid://xl1x86mw45ri" path="res://utility/damage/explosion_cast_3d.tscn" id="2_2c2d0"]
 [ext_resource type="PackedScene" uid="uid://di7vp8irr7xdl" path="res://utility/damage/damage_area_3d.tscn" id="2_bnv7y"]
 [ext_resource type="PackedScene" uid="uid://ddufakdkmxhwr" path="res://utility/damage/health_area_3d.tscn" id="2_fqbxw"]
-[ext_resource type="Script" path="res://common/scripts/damage.gd" id="3_27q10"]
-[ext_resource type="Script" path="res://common/scripts/health.gd" id="3_xf41y"]
+[ext_resource type="Script" uid="uid://crwvko40r6yto" path="res://common/scripts/damage.gd" id="3_27q10"]
+[ext_resource type="Script" uid="uid://qrcafxbvr5tg" path="res://common/scripts/health.gd" id="3_xf41y"]
 [ext_resource type="AudioStream" uid="uid://bhpvfluclmid6" path="res://entities/spells/rockwall/Stone Armor.wav" id="7_vo1n7"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_2mllo"]
@@ -103,6 +103,21 @@ tracks/4/keys = {
 "values": [Vector3(0, 1, 0)]
 }
 
+[sub_resource type="Animation" id="Animation_18ixq"]
+resource_name = "reflected"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("DamageArea3D/DamageCollision:disabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.0333333),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
 [sub_resource type="Animation" id="Animation_6qbxy"]
 resource_name = "spawn"
 tracks/0/type = "value"
@@ -154,26 +169,11 @@ tracks/3/keys = {
 "values": [Vector3(0, -1, 0), Vector3(0, 1, 0)]
 }
 
-[sub_resource type="Animation" id="Animation_18ixq"]
-resource_name = "reflected"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("DamageArea3D/DamageCollision:disabled")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0.0333333),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_k8pmq"]
 _data = {
-"RESET": SubResource("Animation_p3wud"),
-"reflected": SubResource("Animation_18ixq"),
-"spawn": SubResource("Animation_6qbxy")
+&"RESET": SubResource("Animation_p3wud"),
+&"reflected": SubResource("Animation_18ixq"),
+&"spawn": SubResource("Animation_6qbxy")
 }
 
 [node name="RockwallWall" type="RigidBody3D" node_paths=PackedStringArray("explosion_cast", "anim_player")]

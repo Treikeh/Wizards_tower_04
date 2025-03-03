@@ -1,6 +1,6 @@
 [gd_scene load_steps=45 format=3 uid="uid://0ojdxwerkcvd"]
 
-[ext_resource type="Script" path="res://levels/level_3d.gd" id="1_xrm32"]
+[ext_resource type="Script" uid="uid://cu2peb35x88qt" path="res://levels/level_3d.gd" id="1_xrm32"]
 [ext_resource type="PackedScene" uid="uid://dh8dcfqs8vv8p" path="res://entities/player/player_controller.tscn" id="2_8qj3e"]
 [ext_resource type="PackedScene" uid="uid://bdoipkh1hfkmm" path="res://entities/props/lights/candle/candle.tscn" id="3_xceou"]
 [ext_resource type="PackedScene" uid="uid://xxhxvfmbcxdw" path="res://entities/props/wooden_props/table/wooden_table.tscn" id="4_ifj4y"]
@@ -86,8 +86,8 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_uhs65"]
 _data = {
-"RESET": SubResource("Animation_t8306"),
-"fall": SubResource("Animation_61v47")
+&"RESET": SubResource("Animation_t8306"),
+&"fall": SubResource("Animation_61v47")
 }
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_6uaqt"]
@@ -165,8 +165,8 @@ tracks/1/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_bltht"]
 _data = {
-"RESET": SubResource("Animation_n43a0"),
-"lower": SubResource("Animation_k26o4")
+&"RESET": SubResource("Animation_n43a0"),
+&"lower": SubResource("Animation_k26o4")
 }
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_8dttj"]
@@ -213,8 +213,8 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_wcr6f"]
 _data = {
-"RESET": SubResource("Animation_11g11"),
-"open": SubResource("Animation_l2vi6")
+&"RESET": SubResource("Animation_11g11"),
+&"open": SubResource("Animation_l2vi6")
 }
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_2nvl6"]

@@ -1,15 +1,15 @@
 [gd_scene load_steps=21 format=3 uid="uid://b4vf857hw3whd"]
 
-[ext_resource type="Script" path="res://entities/spells/fireball/fireball_projectile.gd" id="1_82nky"]
+[ext_resource type="Script" uid="uid://bnwxlhftpwrof" path="res://entities/spells/fireball/fireball_projectile.gd" id="1_82nky"]
 [ext_resource type="Shader" uid="uid://0q3k72lo6vkv" path="res://entities/player/spells/fireball/fireball_vs.tres" id="2_v53ej"]
 [ext_resource type="PackedScene" uid="uid://di7vp8irr7xdl" path="res://utility/damage/damage_area_3d.tscn" id="3_f85p8"]
 [ext_resource type="Resource" uid="uid://bt5lwvmku38ux" path="res://entities/spells/fireball/fireball_projectile_damage.tres" id="3_trphl"]
-[ext_resource type="Script" path="res://common/scripts/damage.gd" id="4_om2i5"]
+[ext_resource type="Script" uid="uid://crwvko40r6yto" path="res://common/scripts/damage.gd" id="4_om2i5"]
 [ext_resource type="Material" uid="uid://b5ehaqk85imur" path="res://entities/player/spells/fireball/fireball_ppm.tres" id="5_2mhuv"]
 [ext_resource type="QuadMesh" uid="uid://bs74iy86w3241" path="res://common/vfx/simple_particle_mesh.tres" id="6_urwj4"]
 [ext_resource type="AudioStream" uid="uid://csxgakr508rnx" path="res://entities/player/spells/fireball/Small Fireball Trail Loop.wav" id="7_egc1u"]
 [ext_resource type="PackedScene" uid="uid://ddufakdkmxhwr" path="res://utility/damage/health_area_3d.tscn" id="8_qu6o3"]
-[ext_resource type="Script" path="res://common/scripts/health.gd" id="9_vi3hs"]
+[ext_resource type="Script" uid="uid://qrcafxbvr5tg" path="res://common/scripts/health.gd" id="9_vi3hs"]
 [ext_resource type="PackedScene" uid="uid://xl1x86mw45ri" path="res://utility/damage/explosion_cast_3d.tscn" id="10_o3122"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_6s0f0"]

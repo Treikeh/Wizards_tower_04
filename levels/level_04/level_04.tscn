@@ -1,6 +1,6 @@
 [gd_scene load_steps=12 format=3 uid="uid://ivqogohs83mj"]
 
-[ext_resource type="Script" path="res://levels/level_3d.gd" id="1_h63rt"]
+[ext_resource type="Script" uid="uid://cu2peb35x88qt" path="res://levels/level_3d.gd" id="1_h63rt"]
 [ext_resource type="Material" uid="uid://pwjimh5imhjl" path="res://common/materials/stone_brick_wall_01_m.tres" id="3_ygso3"]
 [ext_resource type="Material" uid="uid://uwtl3uvytx4g" path="res://common/materials/dev_grid_green.tres" id="4_8duko"]
 [ext_resource type="PackedScene" uid="uid://cj0ckw6b4kq8l" path="res://utility/triggers/level_transtion_area_3d.tscn" id="5_pp5nv"]

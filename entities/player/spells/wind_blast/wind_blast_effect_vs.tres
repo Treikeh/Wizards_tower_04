@@ -62,10 +62,10 @@ operator = 2
 code = "shader_type spatial;
 render_mode blend_mix, depth_draw_opaque, cull_back, diffuse_lambert, specular_schlick_ggx;
 
-uniform float displacement_speed = 1;
+uniform float displacement_speed = 1.0;
 uniform sampler2D tex_vtx_2;
 uniform float displacement_scale = 0.40000000596046;
-uniform float normal_offset = 0;
+uniform float normal_offset = 0.0;
 uniform vec4 base_color : source_color = vec4(0.757934, 0.930209, 1.000000, 1.000000);
 uniform float alpha = 0.20000000298023;
 

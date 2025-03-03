@@ -1,9 +1,9 @@
 [gd_scene load_steps=9 format=3 uid="uid://cavgwqcbmxw3w"]
 
-[ext_resource type="Script" path="res://entities/player/spells/spell_manager.gd" id="1_1c27g"]
+[ext_resource type="Script" uid="uid://8i6ail62l8pi" path="res://entities/player/spells/spell_manager.gd" id="1_1c27g"]
 [ext_resource type="Resource" uid="uid://d1r6ctrc8mci7" path="res://entities/player/spells/fireball/data/fireball_info.tres" id="2_adkwt"]
 [ext_resource type="Resource" uid="uid://cxsh88wj6jeia" path="res://entities/player/spells/rock_wall/data/rock_wall_info.tres" id="3_fr4ex"]
-[ext_resource type="Script" path="res://common/scripts/damage.gd" id="3_thnfu"]
+[ext_resource type="Script" uid="uid://crwvko40r6yto" path="res://common/scripts/damage.gd" id="3_thnfu"]
 [ext_resource type="Resource" uid="uid://n1tjwg3nqlck" path="res://entities/player/spells/wind_blast/wind_blast_info.tres" id="4_swni5"]
 
 [sub_resource type="Resource" id="Resource_ciqrj"]

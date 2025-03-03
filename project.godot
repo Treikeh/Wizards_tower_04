@@ -16,7 +16,7 @@ SIKE. This is no longer true"
 config/version="dev 7"
 config/tags=PackedStringArray("proper_project")
 run/main_scene="res://levels/boot_scene/boot_scene.tscn"
-config/features=PackedStringArray("4.3")
+config/features=PackedStringArray("4.4")
 boot_splash/bg_color=Color(0, 0, 0, 1)
 boot_splash/show_image=false
 config/icon="res://icon.png"
@@ -144,7 +144,7 @@ behavior_tree/user_task_dir_1="res://common/scripts/ai_tasks"
 
 [physics]
 
-3d/physics_engine="GodotPhysics3D"
+3d/physics_engine="Jolt Physics"
 3d/default_gravity=12.5
 
 [rendering]

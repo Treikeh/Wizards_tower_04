@@ -1,26 +1,26 @@
 [gd_scene load_steps=34 format=3 uid="uid://cyrn3f3g0y8en"]
 
-[ext_resource type="Script" path="res://entities/enemies/flying_skull/flying_skull.gd" id="1_8jevj"]
+[ext_resource type="Script" uid="uid://bbnka3o5ruweg" path="res://entities/enemies/flying_skull/flying_skull.gd" id="1_8jevj"]
 [ext_resource type="PackedScene" uid="uid://dm3htgnnsyvih" path="res://entities/enemies/flying_skull/art/flying_skull_01_sk.glb" id="3_rf2pp"]
 [ext_resource type="AnimationLibrary" uid="uid://41xq5t736kbr" path="res://entities/enemies/flying_skull/art/flying_skull_01_alib.glb" id="4_qj4ug"]
 [ext_resource type="QuadMesh" uid="uid://bs74iy86w3241" path="res://common/vfx/simple_particle_mesh.tres" id="5_ons45"]
 [ext_resource type="PackedScene" uid="uid://ddufakdkmxhwr" path="res://utility/damage/health_area_3d.tscn" id="5_xj77p"]
-[ext_resource type="Script" path="res://common/scripts/health.gd" id="6_ajsho"]
+[ext_resource type="Script" uid="uid://qrcafxbvr5tg" path="res://common/scripts/health.gd" id="6_ajsho"]
 [ext_resource type="PackedScene" uid="uid://cs53wyj8yt4s4" path="res://entities/enemies/floating_health_bar.tscn" id="7_lnvey"]
-[ext_resource type="Script" path="res://addons/beehave/nodes/beehave_tree.gd" id="8_7d4xa"]
-[ext_resource type="Script" path="res://addons/beehave/nodes/composites/selector.gd" id="9_lnlq2"]
-[ext_resource type="Script" path="res://addons/beehave/nodes/composites/sequence.gd" id="10_mvjef"]
-[ext_resource type="Script" path="res://common/scripts/beehave/is_value_valid_condition.gd" id="11_5gwvg"]
-[ext_resource type="Script" path="res://common/scripts/beehave/node_look_at_node_action.gd" id="12_8rv76"]
-[ext_resource type="Script" path="res://addons/beehave/nodes/decorators/cooldown.gd" id="13_jgi6t"]
-[ext_resource type="Script" path="res://common/scripts/beehave/node_in_range_condition.gd" id="14_aq7kn"]
-[ext_resource type="Script" path="res://common/scripts/beehave/debug_print_action.gd" id="15_12i82"]
-[ext_resource type="Script" path="res://common/scripts/beehave/call_method_action.gd" id="16_8qunh"]
-[ext_resource type="Script" path="res://common/scripts/beehave/stop_movement_action.gd" id="17_5x0v6"]
-[ext_resource type="Script" path="res://common/scripts/beehave/wait_action.gd" id="18_ksjcc"]
-[ext_resource type="Script" path="res://common/scripts/beehave/get_position_away_from_node_action.gd" id="19_q4x1y"]
-[ext_resource type="Script" path="res://common/scripts/beehave/navigate_to_position_action.gd" id="20_ce4gi"]
-[ext_resource type="Script" path="res://common/scripts/beehave/get_first_node_in_group_action.gd" id="21_yvnng"]
+[ext_resource type="Script" uid="uid://bidgm07p5cbkv" path="res://addons/beehave/nodes/beehave_tree.gd" id="8_7d4xa"]
+[ext_resource type="Script" uid="uid://8ceib6pry7j6" path="res://addons/beehave/nodes/composites/selector.gd" id="9_lnlq2"]
+[ext_resource type="Script" uid="uid://c4bcucm80qf6y" path="res://addons/beehave/nodes/composites/sequence.gd" id="10_mvjef"]
+[ext_resource type="Script" uid="uid://codt6vplffl3h" path="res://common/scripts/beehave/is_value_valid_condition.gd" id="11_5gwvg"]
+[ext_resource type="Script" uid="uid://btjjclsx6y202" path="res://common/scripts/beehave/node_look_at_node_action.gd" id="12_8rv76"]
+[ext_resource type="Script" uid="uid://dtar8n8ucastr" path="res://addons/beehave/nodes/decorators/cooldown.gd" id="13_jgi6t"]
+[ext_resource type="Script" uid="uid://c0121n4lqyq4g" path="res://common/scripts/beehave/node_in_range_condition.gd" id="14_aq7kn"]
+[ext_resource type="Script" uid="uid://cuvy4p2im1oa5" path="res://common/scripts/beehave/debug_print_action.gd" id="15_12i82"]
+[ext_resource type="Script" uid="uid://deh2dswietdai" path="res://common/scripts/beehave/call_method_action.gd" id="16_8qunh"]
+[ext_resource type="Script" uid="uid://b3stvxbjaoiij" path="res://common/scripts/beehave/stop_movement_action.gd" id="17_5x0v6"]
+[ext_resource type="Script" uid="uid://lnurwx55irrs" path="res://common/scripts/beehave/wait_action.gd" id="18_ksjcc"]
+[ext_resource type="Script" uid="uid://dvl6u0qdrs5d8" path="res://common/scripts/beehave/get_position_away_from_node_action.gd" id="19_q4x1y"]
+[ext_resource type="Script" uid="uid://qh7mow72bd0a" path="res://common/scripts/beehave/navigate_to_position_action.gd" id="20_ce4gi"]
+[ext_resource type="Script" uid="uid://glf5bkmjbagi" path="res://common/scripts/beehave/get_first_node_in_group_action.gd" id="21_yvnng"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_7ua38"]
 radius = 0.2
@@ -136,9 +136,9 @@ tracks/1/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_847wy"]
 _data = {
-"RESET": SubResource("Animation_obki4"),
-"died": SubResource("Animation_va3kr"),
-"spawn": SubResource("Animation_kv1dk")
+&"RESET": SubResource("Animation_obki4"),
+&"died": SubResource("Animation_va3kr"),
+&"spawn": SubResource("Animation_kv1dk")
 }
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_arqjo"]

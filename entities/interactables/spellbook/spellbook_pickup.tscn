@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://cxi6v661g084x"]
 
-[ext_resource type="Script" path="res://entities/interactables/spellbook/spellbook_pickup.gd" id="1_m0ogd"]
+[ext_resource type="Script" uid="uid://bryk8rwr5ftxi" path="res://entities/interactables/spellbook/spellbook_pickup.gd" id="1_m0ogd"]
 [ext_resource type="PackedScene" uid="uid://hurlhofcnefh" path="res://entities/interactables/spellbook/book_pickup_01_sm.glb" id="2_jw3nu"]
 [ext_resource type="PackedScene" uid="uid://d0lld0115r5yv" path="res://utility/interact_area_3d.tscn" id="3_uktar"]
 

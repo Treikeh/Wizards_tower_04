@@ -1,7 +1,7 @@
 [gd_scene load_steps=12 format=3 uid="uid://duxdyc4s7a4ii"]
 
 [ext_resource type="PackedScene" uid="uid://i0u75nytwgqr" path="res://utility/spawners/player_spawner.tscn" id="1_gnowi"]
-[ext_resource type="Script" path="res://levels/level_hub/level_hub.gd" id="1_ne6st"]
+[ext_resource type="Script" uid="uid://slm8gfk05uub" path="res://levels/level_hub/level_hub.gd" id="1_ne6st"]
 [ext_resource type="Material" uid="uid://botmm8kkk1h67" path="res://common/materials/dev_grid_gray.tres" id="2_8slif"]
 [ext_resource type="Material" uid="uid://pwjimh5imhjl" path="res://common/materials/stone_brick_wall_01_m.tres" id="3_01ep6"]
 [ext_resource type="Material" uid="uid://8qm7nxt6hftu" path="res://common/materials/wood_floor_01_m.tres" id="4_kl737"]

@@ -1,6 +1,6 @@
 [gd_scene load_steps=17 format=3 uid="uid://cndpdurb3rxia"]
 
-[ext_resource type="Script" path="res://entities/player/spells/fireball/fireball.gd" id="1_jy2c8"]
+[ext_resource type="Script" uid="uid://d0s300pcl1q5k" path="res://entities/player/spells/fireball/fireball.gd" id="1_jy2c8"]
 [ext_resource type="Shader" uid="uid://0q3k72lo6vkv" path="res://entities/player/spells/fireball/fireball_vs.tres" id="2_mix4r"]
 [ext_resource type="Resource" uid="uid://bpafmjg70eeb4" path="res://entities/player/spells/fireball/data/fireball_damage.tres" id="3_8owbw"]
 [ext_resource type="PackedScene" uid="uid://di7vp8irr7xdl" path="res://utility/damage/damage_area_3d.tscn" id="3_d2eq5"]

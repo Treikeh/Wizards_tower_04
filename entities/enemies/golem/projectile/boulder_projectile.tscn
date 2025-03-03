@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://lu3s013qsvut"]
 
-[ext_resource type="Script" path="res://entities/enemies/golem/projectile/boulder_projectile.gd" id="1_jf8xh"]
+[ext_resource type="Script" uid="uid://dv1qutnyhd6jl" path="res://entities/enemies/golem/projectile/boulder_projectile.gd" id="1_jf8xh"]
 [ext_resource type="Material" uid="uid://dafw6yvwuk1bj" path="res://common/materials/dev_grid_brown.tres" id="2_sc4um"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_ky475"]

@@ -76,7 +76,7 @@ uniform sampler2D displacement_texture;
 uniform float displacement_scale = 0.30000001192093;
 uniform vec4 base_color : source_color = vec4(0.901961, 0.396078, 0.000000, 1.000000);
 uniform float alpha = 0.25;
-uniform float emission_strength = 1;
+uniform float emission_strength = 1.0;
 
 
 

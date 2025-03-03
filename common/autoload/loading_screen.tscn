@@ -1,6 +1,6 @@
 [gd_scene load_steps=10 format=3 uid="uid://utne161qc8a6"]
 
-[ext_resource type="Script" path="res://common/autoload/loading_screen.gd" id="1_24jvn"]
+[ext_resource type="Script" uid="uid://bx43rma1xkbqs" path="res://common/autoload/loading_screen.gd" id="1_24jvn"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_17ry5"]
 bg_color = Color(0, 0, 0, 1)
@@ -158,10 +158,10 @@ tracks/2/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_qgl7r"]
 _data = {
-"RESET": SubResource("Animation_b38w0"),
-"inn": SubResource("Animation_xq280"),
-"out": SubResource("Animation_052gd"),
-"reload": SubResource("Animation_dueov")
+&"RESET": SubResource("Animation_b38w0"),
+&"inn": SubResource("Animation_xq280"),
+&"out": SubResource("Animation_052gd"),
+&"reload": SubResource("Animation_dueov")
 }
 
 [node name="LoadingScreen" type="CanvasLayer" node_paths=PackedStringArray("progress_bar", "anim_player")]

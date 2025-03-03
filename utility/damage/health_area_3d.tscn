@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://ddufakdkmxhwr"]
 
-[ext_resource type="Script" path="res://utility/damage/health_area_3d.gd" id="1_wjrov"]
+[ext_resource type="Script" uid="uid://dg1afkgpl3xw1" path="res://utility/damage/health_area_3d.gd" id="1_wjrov"]
 
 [node name="HealthArea3D" type="Area3D"]
 collision_layer = 128

@@ -1,8 +1,8 @@
 [gd_scene load_steps=20 format=3 uid="uid://b2n0kf0vd4u8n"]
 
-[ext_resource type="Script" path="res://entities/player/spells/rock_wall/rock_wall.gd" id="1_3mufw"]
+[ext_resource type="Script" uid="uid://cutgt5oujn60s" path="res://entities/player/spells/rock_wall/rock_wall.gd" id="1_3mufw"]
 [ext_resource type="PackedScene" uid="uid://ddufakdkmxhwr" path="res://utility/damage/health_area_3d.tscn" id="2_imdi2"]
-[ext_resource type="Script" path="res://common/scripts/health.gd" id="3_5nyv3"]
+[ext_resource type="Script" uid="uid://qrcafxbvr5tg" path="res://common/scripts/health.gd" id="3_5nyv3"]
 [ext_resource type="Resource" uid="uid://ddwge00ixpgh1" path="res://entities/player/spells/rock_wall/data/rock_wall_explosion_damage.tres" id="4_1d6k7"]
 [ext_resource type="PackedScene" uid="uid://xl1x86mw45ri" path="res://utility/damage/explosion_cast_3d.tscn" id="5_34713"]
 [ext_resource type="PackedScene" uid="uid://0m38n8mm2vo1" path="res://utility/camera/camera_shake_source.tscn" id="6_txsfs"]
@@ -231,9 +231,9 @@ tracks/4/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_hck4l"]
 _data = {
-"RESET": SubResource("Animation_4wp80"),
-"destroyed": SubResource("Animation_vxmtp"),
-"spawn": SubResource("Animation_7onb7")
+&"RESET": SubResource("Animation_4wp80"),
+&"destroyed": SubResource("Animation_vxmtp"),
+&"spawn": SubResource("Animation_7onb7")
 }
 
 [node name="RockWall" type="CharacterBody3D" node_paths=PackedStringArray("enemy_launch_area", "explosion_cast", "camera_shake_source", "duration_timer", "animation_player")]

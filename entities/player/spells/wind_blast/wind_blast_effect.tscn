@@ -90,8 +90,8 @@ tracks/2/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_5ail1"]
 _data = {
-"RESET": SubResource("Animation_3ei1y"),
-"spawn": SubResource("Animation_r55k6")
+&"RESET": SubResource("Animation_3ei1y"),
+&"spawn": SubResource("Animation_r55k6")
 }
 
 [node name="WindBlastEffect" type="Node3D"]

@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://bdan64bohs08a"]
 
-[ext_resource type="Script" path="res://entities/interactables/sign/wooden_sign.gd" id="1_ownhk"]
+[ext_resource type="Script" uid="uid://b3ubb5lvc7uiy" path="res://entities/interactables/sign/wooden_sign.gd" id="1_ownhk"]
 [ext_resource type="PackedScene" uid="uid://d0lld0115r5yv" path="res://utility/interact_area_3d.tscn" id="2_h41qo"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_b8ppi"]

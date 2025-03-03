@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://co645fg3hplrm"]
 
-[ext_resource type="Script" path="res://levels/boot_scene/boot_scene.gd" id="1_cglpj"]
+[ext_resource type="Script" uid="uid://7gqsxyoc3nyd" path="res://levels/boot_scene/boot_scene.gd" id="1_cglpj"]
 [ext_resource type="Texture2D" uid="uid://ck3f27vm5hwt5" path="res://levels/boot_scene/Made_with_godot.png" id="2_iy12p"]
 
 [sub_resource type="Animation" id="Animation_ipyeu"]
@@ -74,8 +74,8 @@ tracks/2/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_bsgay"]
 _data = {
-"RESET": SubResource("Animation_ipyeu"),
-"spawn": SubResource("Animation_323sb")
+&"RESET": SubResource("Animation_ipyeu"),
+&"spawn": SubResource("Animation_323sb")
 }
 
 [node name="BootScene" type="Node"]

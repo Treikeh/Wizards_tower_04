@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://dgqvbvg6txlno"]
 
-[ext_resource type="Script" path="res://entities/pickups/health_potion/health_potion.gd" id="1_oi4jq"]
-[ext_resource type="Script" path="res://entities/pickups/pickup_hover.gd" id="2_f0pam"]
+[ext_resource type="Script" uid="uid://cmgadpaiy5img" path="res://entities/pickups/health_potion/health_potion.gd" id="1_oi4jq"]
+[ext_resource type="Script" uid="uid://dsyg8twkfv5q7" path="res://entities/pickups/pickup_hover.gd" id="2_f0pam"]
 [ext_resource type="PackedScene" uid="uid://di7vp8irr7xdl" path="res://utility/damage/damage_area_3d.tscn" id="2_kntei"]
 [ext_resource type="PackedScene" uid="uid://b5fln2hyrrnsj" path="res://entities/pickups/health_potion/health_potion_01_sm.glb" id="2_scm8u"]
 [ext_resource type="Resource" uid="uid://dfbq1thl85mmk" path="res://entities/pickups/health_potion/health_potion_damage.tres" id="3_megh8"]

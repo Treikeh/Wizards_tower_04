@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://di7vp8irr7xdl"]
 
-[ext_resource type="Script" path="res://utility/damage/damage_area_3d.gd" id="1_mvwig"]
+[ext_resource type="Script" uid="uid://c4vcmo4tqhcnh" path="res://utility/damage/damage_area_3d.gd" id="1_mvwig"]
 
 [node name="DamageArea3D" type="Area3D"]
 collision_layer = 0

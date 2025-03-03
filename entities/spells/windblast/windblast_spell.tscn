@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://qko6nfg0jk3x"]
 
-[ext_resource type="Script" path="res://entities/spells/windblast/windblast_spell.gd" id="1_xjulx"]
+[ext_resource type="Script" uid="uid://15w56q05fv3t" path="res://entities/spells/windblast/windblast_spell.gd" id="1_xjulx"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_sl5id"]
 radius = 1.0

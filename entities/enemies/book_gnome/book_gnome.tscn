@@ -1,27 +1,27 @@
 [gd_scene load_steps=33 format=3 uid="uid://uvws4xru1kpl"]
 
-[ext_resource type="Script" path="res://entities/enemies/book_gnome/book_gnome.gd" id="1_ucrke"]
+[ext_resource type="Script" uid="uid://bqvnsk3mi6vnn" path="res://entities/enemies/book_gnome/book_gnome.gd" id="1_ucrke"]
 [ext_resource type="PackedScene" uid="uid://dyhhclqsyjeu3" path="res://entities/enemies/book_gnome/art/book_gnome_01_sk.glb" id="2_1d5g8"]
-[ext_resource type="Script" path="res://common/scripts/match_y_rotation.gd" id="3_0tnmg"]
+[ext_resource type="Script" uid="uid://d0vwvl4q3kf66" path="res://common/scripts/match_y_rotation.gd" id="3_0tnmg"]
 [ext_resource type="PackedScene" uid="uid://ddufakdkmxhwr" path="res://utility/damage/health_area_3d.tscn" id="3_ap0dj"]
 [ext_resource type="PackedScene" uid="uid://cs53wyj8yt4s4" path="res://entities/enemies/floating_health_bar.tscn" id="4_010fi"]
 [ext_resource type="AnimationNodeBlendTree" uid="uid://bawe0qi3y1ca2" path="res://entities/enemies/book_gnome/art/book_gnome_blend_tree.tres" id="4_be21s"]
-[ext_resource type="Script" path="res://common/scripts/health.gd" id="4_ejrbm"]
+[ext_resource type="Script" uid="uid://qrcafxbvr5tg" path="res://common/scripts/health.gd" id="4_ejrbm"]
 [ext_resource type="AnimationLibrary" uid="uid://bxapqju53wqlg" path="res://entities/enemies/book_gnome/art/book_gnome_01_alib.glb" id="4_gyyhc"]
 [ext_resource type="PackedScene" uid="uid://di7vp8irr7xdl" path="res://utility/damage/damage_area_3d.tscn" id="4_pe1ou"]
 [ext_resource type="Resource" uid="uid://dc7hcuasftdvh" path="res://entities/enemies/book_gnome/book_gnome_damage.tres" id="5_rq5px"]
-[ext_resource type="Script" path="res://addons/beehave/nodes/beehave_tree.gd" id="10_fgdmq"]
-[ext_resource type="Script" path="res://addons/beehave/nodes/composites/selector.gd" id="11_qb3q8"]
-[ext_resource type="Script" path="res://common/scripts/beehave/get_first_node_in_group_action.gd" id="11_qu1or"]
-[ext_resource type="Script" path="res://addons/beehave/nodes/composites/sequence.gd" id="12_74elj"]
-[ext_resource type="Script" path="res://common/scripts/beehave/navigate_to_node_action.gd" id="13_26kjk"]
-[ext_resource type="Script" path="res://addons/beehave/nodes/decorators/cooldown.gd" id="14_p8jne"]
-[ext_resource type="Script" path="res://common/scripts/beehave/call_method_action.gd" id="14_uoxnv"]
-[ext_resource type="Script" path="res://common/scripts/beehave/is_value_valid_condition.gd" id="15_13axp"]
-[ext_resource type="Script" path="res://common/scripts/beehave/node_look_at_node_action.gd" id="16_fwfny"]
-[ext_resource type="Script" path="res://common/scripts/beehave/node_in_range_condition.gd" id="16_vu0he"]
-[ext_resource type="Script" path="res://common/scripts/beehave/wait_action.gd" id="17_f62x3"]
-[ext_resource type="Script" path="res://common/scripts/beehave/debug_print_action.gd" id="18_x15na"]
+[ext_resource type="Script" uid="uid://bidgm07p5cbkv" path="res://addons/beehave/nodes/beehave_tree.gd" id="10_fgdmq"]
+[ext_resource type="Script" uid="uid://8ceib6pry7j6" path="res://addons/beehave/nodes/composites/selector.gd" id="11_qb3q8"]
+[ext_resource type="Script" uid="uid://glf5bkmjbagi" path="res://common/scripts/beehave/get_first_node_in_group_action.gd" id="11_qu1or"]
+[ext_resource type="Script" uid="uid://c4bcucm80qf6y" path="res://addons/beehave/nodes/composites/sequence.gd" id="12_74elj"]
+[ext_resource type="Script" uid="uid://ctm6tnit7iy3k" path="res://common/scripts/beehave/navigate_to_node_action.gd" id="13_26kjk"]
+[ext_resource type="Script" uid="uid://dtar8n8ucastr" path="res://addons/beehave/nodes/decorators/cooldown.gd" id="14_p8jne"]
+[ext_resource type="Script" uid="uid://deh2dswietdai" path="res://common/scripts/beehave/call_method_action.gd" id="14_uoxnv"]
+[ext_resource type="Script" uid="uid://codt6vplffl3h" path="res://common/scripts/beehave/is_value_valid_condition.gd" id="15_13axp"]
+[ext_resource type="Script" uid="uid://btjjclsx6y202" path="res://common/scripts/beehave/node_look_at_node_action.gd" id="16_fwfny"]
+[ext_resource type="Script" uid="uid://c0121n4lqyq4g" path="res://common/scripts/beehave/node_in_range_condition.gd" id="16_vu0he"]
+[ext_resource type="Script" uid="uid://lnurwx55irrs" path="res://common/scripts/beehave/wait_action.gd" id="17_f62x3"]
+[ext_resource type="Script" uid="uid://cuvy4p2im1oa5" path="res://common/scripts/beehave/debug_print_action.gd" id="18_x15na"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_kgyn0"]
 radius = 0.4
@@ -53,7 +53,7 @@ states/died_001/position = Vector2(333, 280)
 states/spawn_001/node = SubResource("AnimationNodeAnimation_40ltg")
 states/spawn_001/position = Vector2(333, 100)
 transitions = ["Start", "spawn_001", SubResource("AnimationNodeStateMachineTransition_fjnbt"), "spawn_001", "BlendTree", SubResource("AnimationNodeStateMachineTransition_pejk8"), "BlendTree", "died_001", SubResource("AnimationNodeStateMachineTransition_jr5ac")]
-graph_offset = Vector2(-170, 22)
+graph_offset = Vector2(-173, 49)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_cf1hn"]
 size = Vector3(0.705078, 0.906494, 0.575684)
@@ -77,6 +77,7 @@ beehave_tree = NodePath("BookGnomeTree")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.55, 0)
 shape = SubResource("CapsuleShape3D_kgyn0")
+debug_color = Color(0, 0.6, 0.701961, 0.729412)
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
 
@@ -90,25 +91,23 @@ target_node = NodePath("../TargetDirection")
 bones/1/position = Vector3(3.70116e-08, 0.178967, -0.245117)
 bones/1/rotation = Quaternion(-0.0771791, -1.50545e-07, -6.01468e-15, 0.997017)
 bones/1/scale = Vector3(1, 1, 1)
-bones/2/rotation = Quaternion(0.351989, -0.365019, -0.613273, 0.605608)
+bones/2/rotation = Quaternion(0.35199, -0.365019, -0.613273, 0.605608)
 bones/2/scale = Vector3(1, 1, 1)
-bones/3/rotation = Quaternion(-0.396114, -0.320338, -0.62293, 0.593663)
 bones/3/scale = Vector3(1, 1, 1)
 bones/4/rotation = Quaternion(-0.0375579, -3.80197e-08, -2.68537e-07, 0.999294)
 bones/5/rotation = Quaternion(0.508429, -8.19498e-08, -1.89386e-07, 0.861104)
 bones/6/rotation = Quaternion(0.190234, -5.60985e-06, -1.96871e-06, 0.981739)
 bones/7/position = Vector3(3.21829e-08, 0.587239, 0.20697)
 bones/7/rotation = Quaternion(-0.0352755, 3.07332e-08, 5.09015e-09, 0.999378)
-bones/8/rotation = Quaternion(0.35199, 0.365019, 0.613273, 0.605608)
-bones/9/rotation = Quaternion(-0.396114, 0.320338, 0.622929, 0.593663)
+bones/9/rotation = Quaternion(-0.396114, 0.320338, 0.622929, 0.593664)
 bones/9/scale = Vector3(1, 1, 1)
-bones/10/rotation = Quaternion(-0.0375578, -7.98139e-09, 3.02224e-07, 0.999294)
+bones/10/rotation = Quaternion(-0.0375578, -7.9814e-09, 3.02224e-07, 0.999294)
 bones/11/rotation = Quaternion(0.508429, 8.19498e-08, 1.89386e-07, 0.861104)
 bones/12/rotation = Quaternion(0.190234, 5.60985e-06, 1.96871e-06, 0.981739)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="book_gnome_01_sk"]
 libraries = {
-"": ExtResource("4_gyyhc")
+&"": ExtResource("4_gyyhc")
 }
 
 [node name="AnimationTree" type="AnimationTree" parent="book_gnome_01_sk"]
@@ -128,6 +127,7 @@ damage_multiplier = 0.5
 [node name="CollisionShape3D" type="CollisionShape3D" parent="book_gnome_01_sk/HealthArea3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.00878899, 0.0285645)
 shape = SubResource("BoxShape3D_cf1hn")
+debug_color = Color(0, 1, 0, 0.419608)
 
 [node name="DamageArea3D" parent="book_gnome_01_sk" instance=ExtResource("4_pe1ou")]
 damage = ExtResource("5_rq5px")
@@ -136,6 +136,7 @@ damage = ExtResource("5_rq5px")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.55, -0.5)
 shape = SubResource("BoxShape3D_xk6ae")
 disabled = true
+debug_color = Color(1, 0, 0, 0.419608)
 
 [node name="Health" type="Node" parent="."]
 script = ExtResource("4_ejrbm")
@@ -147,7 +148,7 @@ texture = SubResource("ViewportTexture_cuy2h")
 
 [node name="BookGnomeTree" type="Node" parent="." node_paths=PackedStringArray("blackboard", "actor")]
 script = ExtResource("10_fgdmq")
-blackboard = NodePath("@Node@17443")
+blackboard = NodePath("@Node@36172")
 actor = NodePath("..")
 
 [node name="SelectorComposite" type="Node" parent="BookGnomeTree"]
