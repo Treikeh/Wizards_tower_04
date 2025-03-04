@@ -1,6 +1,7 @@
 extends Control
 
 
+@export_file("*.tscn") var hub_level: String
 @export_file("*.tscn") var settings_menu_scene: String
 @export_file("*.tscn") var credits_scene: String
 
@@ -11,7 +12,7 @@ func _ready() -> void:
 
 
 func _on_play_button_pressed() -> void:
-	LevelManager.change_level("uid://bcqlh303l8l7r")
+	LevelManager.change_level(hub_level)
 
 
 func _on_settings_button_pressed() -> void:

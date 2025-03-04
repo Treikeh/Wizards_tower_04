@@ -2,12 +2,16 @@ extends Control
 
 
 @export_file("*.tscn") var main_menu_scene: String
+@export_file("*.tscn") var level_hub_scene: String
+
+
+func _ready() -> void:
+	%RunDurationLabel.text = "Run duration: " + str(floorf(Globals.run_duration))
+	%RoomsClearedLabel.text = "Rooms cleared: " + str(Globals.rooms_cleared)
 
 
 func _on_continue_button_pressed() -> void:
-	Globals.checkpoint_id = 0
-	Globals.selected_spells = ["", ""]
-	LevelManager.change_level("uid://duxdyc4s7a4ii")
+	LevelManager.change_level(level_hub_scene)
 
 
 func _on_main_menu_button_pressed() -> void:

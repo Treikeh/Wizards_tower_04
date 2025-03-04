@@ -5,4 +5,5 @@ extends Area3D
 
 
 func _on_body_entered(_body: Node3D) -> void:
-	LevelManager.change_level(level_path)
+	Globals.rooms_cleared += 1
+	Globals.load_random_level()

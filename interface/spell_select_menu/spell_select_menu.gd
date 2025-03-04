@@ -34,4 +34,5 @@ func _on_reroll_button_pressed() -> void:
 
 
 func _on_close_button_pressed() -> void:
+	Globals.start_run()
 	queue_free()

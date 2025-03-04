@@ -6,8 +6,8 @@ var secondary_spell: Spell
 
 
 func _ready() -> void:
+	#TODO: Redo this entire function, but in a better way
 	for spell: String in Globals.selected_spells:
-		print(spell)
 		match spell:
 			"Fireball":
 				# Spawn spell
@@ -45,8 +45,7 @@ func _ready() -> void:
 					primary_spell = lightning_beam_spell
 				else:
 					secondary_spell = lightning_beam_spell
-			_:
-				print("empty spell")
+			_: # Any other spell
 				# Spawn spell
 				var empty_spell: Spell = Spell.new()
 				add_child(empty_spell)
