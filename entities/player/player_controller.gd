@@ -51,11 +51,6 @@ func _ready() -> void:
 	# Capture mouse when game begins
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	
-	# Connect signals
-	Globals.checkpoint_saved.connect(_on_checkpoint_saved)
-	Globals.checkpoint_loaded.connect(_on_checkpoint_loaded)
-	Globals.spell_unlocked.connect(_on_spell_unlocked)
-	
 	# Spawn hud
 	UiManager.change_ui_scene(hud_scene)
 
@@ -167,24 +162,6 @@ func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
 func _load_input_settings() -> void:
 	var input_settings: Dictionary = ConfigHandler.load_input_settings()
 	camera_sensitivity = input_settings.camera_sensitivity
-
-
-func _on_checkpoint_saved() -> void:
-	Globals.notification_message_sent.emit("Checkpoint saved")
-	print("Checkpoint saved")
-
-
-func _on_checkpoint_loaded() -> void:
-	orientation.rotation.y = 0.0
-	head.rotation.x = 0.0
-	$Health.current_health = $Health.max_health
-	$Health.is_dead = false
-	checkpoint_loaded = true
-
-
-func _on_spell_unlocked(_spell: int) -> void:
-	# Animations
-	animation_tree.set("parameters/reset_idle_blend/blend_amount", 1.0)
 
 
 #region Movement

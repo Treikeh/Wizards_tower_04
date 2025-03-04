@@ -1,11 +1,11 @@
 [gd_scene load_steps=8 format=3 uid="uid://dh3oppj1mqo0b"]
 
-[ext_resource type="Shader" uid="uid://b5spjy835fc4b" path="res://entities/player/spells/wind_blast/wind_blast_effect_vs.tres" id="1_rnh7l"]
-[ext_resource type="AudioStream" uid="uid://2ea4f8of8p63" path="res://entities/spells/windblast/Aero Blade Cast B.wav" id="2_s768j"]
+[ext_resource type="Shader" uid="uid://b5spjy835fc4b" path="res://entities/spells/windblast/effect/windblast_effect_vs.tres" id="1_y34dl"]
+[ext_resource type="AudioStream" uid="uid://2ea4f8of8p63" path="res://entities/spells/windblast/effect/Aero Blade Cast B.wav" id="2_01rs6"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_013mu"]
 render_priority = 0
-shader = ExtResource("1_rnh7l")
+shader = ExtResource("1_y34dl")
 shader_parameter/displacement_speed = 1.0
 shader_parameter/displacement_scale = 0.4
 shader_parameter/normal_offset = 0.0
@@ -94,21 +94,21 @@ _data = {
 &"spawn": SubResource("Animation_r55k6")
 }
 
-[node name="WindBlastEffect" type="Node3D"]
+[node name="WindblastEffect" type="Node3D"]
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, -1)
 material_override = SubResource("ShaderMaterial_013mu")
 mesh = SubResource("CylinderMesh_ul7jr")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-"": SubResource("AnimationLibrary_5ail1")
-}
-autoplay = "spawn"
-
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
-stream = ExtResource("2_s768j")
+stream = ExtResource("2_01rs6")
 volume_db = -10.0
 autoplay = true
 bus = &"SFX"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_5ail1")
+}
+autoplay = "spawn"

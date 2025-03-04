@@ -13,13 +13,13 @@
 [ext_resource type="PackedScene" uid="uid://bdoipkh1hfkmm" path="res://entities/props/lights/candle/candle.tscn" id="5_qpv1q"]
 [ext_resource type="Material" uid="uid://uwtl3uvytx4g" path="res://common/materials/dev_grid_green.tres" id="6_sx1ik"]
 [ext_resource type="PackedScene" uid="uid://cxi6v661g084x" path="res://entities/interactables/spellbook/spellbook_pickup.tscn" id="6_tsqfk"]
-[ext_resource type="PackedScene" uid="uid://cj0ckw6b4kq8l" path="res://utility/triggers/level_transtion_area_3d.tscn" id="12_5pukf"]
+[ext_resource type="PackedScene" uid="uid://cj0ckw6b4kq8l" path="res://utility/triggers/level_transtion_trigger.tscn" id="12_5pukf"]
 [ext_resource type="Material" uid="uid://do2qv4y2sei0e" path="res://common/materials/dev_grid_black.tres" id="12_le4xk"]
 [ext_resource type="PackedScene" uid="uid://bdan64bohs08a" path="res://entities/interactables/sign/wooden_sign.tscn" id="14_u1ybs"]
 [ext_resource type="PackedScene" uid="uid://dwtlgghlk0gtn" path="res://common/vfx/explosion/explosion_vfx.tscn" id="16_8ugd5"]
 [ext_resource type="PackedScene" uid="uid://di7vp8irr7xdl" path="res://utility/damage/damage_area_3d.tscn" id="17_b7e50"]
 [ext_resource type="Shader" uid="uid://18h33qoa5xhi" path="res://common/vfx/explosion/explosion_vfx_vs.tres" id="18_1hpn1"]
-[ext_resource type="Material" uid="uid://dusegx7j0olth" path="res://entities/player/spells/rock_wall/art/rock_wall_preview_cannot_spawn_mat.tres" id="18_3tha2"]
+[ext_resource type="Material" uid="uid://dusegx7j0olth" path="res://entities/spells/rockwall/wall/rockwall_wall_cannot_spawn_mat.tres" id="18_3tha2"]
 [ext_resource type="Script" uid="uid://crwvko40r6yto" path="res://common/scripts/damage.gd" id="18_f8c2g"]
 [ext_resource type="PackedScene" uid="uid://exjnmfqooik7" path="res://entities/hazards/explosive_barrel/explosive_barrel.tscn" id="19_imr74"]
 [ext_resource type="Material" uid="uid://b4576fxo40ync" path="res://common/materials/dev_grid_pink.tres" id="21_3nqud"]
@@ -97,10 +97,6 @@ shadow_enabled = true
 
 [node name="PlayerSpawner" parent="." instance=ExtResource("24_ro6yv")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
-fireball_unlocked = false
-rock_wall_unlocked = false
-wind_blast_unlocked = false
-lightning_ray_unlocked = false
 
 [node name="MainFloor" type="CSGBox3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2500, -4)
@@ -199,15 +195,12 @@ transform = Transform3D(1, 0, 7.10543e-15, 0, 1, 0, -7.10543e-15, 0, 1, 0.740001
 
 [node name="RockWallPickup" parent="Interactable/SpellBookTable" instance=ExtResource("6_tsqfk")]
 transform = Transform3D(1, 0, 7.10543e-15, 0, 1, 0, -7.10543e-15, 0, 1, 0.24, 0.9458, 0)
-spell_to_unlock = 1
 
 [node name="WindBlastPickup" parent="Interactable/SpellBookTable" instance=ExtResource("6_tsqfk")]
 transform = Transform3D(1, 0, 7.10543e-15, 0, 1, 0, -7.10543e-15, 0, 1, -0.26, 0.9458, 0)
-spell_to_unlock = 2
 
 [node name="LightningRayPickup" parent="Interactable/SpellBookTable" instance=ExtResource("6_tsqfk")]
 transform = Transform3D(1, 0, 7.10543e-15, 0, 1, 0, -7.10543e-15, 0, 1, -0.76, 0.9458, 0)
-spell_to_unlock = 3
 
 [node name="HealtHPoitionSpawner" parent="Interactable" instance=ExtResource("2_4xdsy")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -8, 0, -7.5)

@@ -1,9 +1,9 @@
-[gd_scene load_steps=38 format=3 uid="uid://bcqlh303l8l7r"]
+[gd_scene load_steps=36 format=3 uid="uid://bcqlh303l8l7r"]
 
 [ext_resource type="Script" uid="uid://cu2peb35x88qt" path="res://levels/level_3d.gd" id="1_flrxo"]
 [ext_resource type="Material" uid="uid://pwjimh5imhjl" path="res://common/materials/stone_brick_wall_01_m.tres" id="3_llu5a"]
 [ext_resource type="Material" uid="uid://uwtl3uvytx4g" path="res://common/materials/dev_grid_green.tres" id="4_xa5gr"]
-[ext_resource type="PackedScene" uid="uid://cj0ckw6b4kq8l" path="res://utility/triggers/level_transtion_area_3d.tscn" id="5_1dgb1"]
+[ext_resource type="PackedScene" uid="uid://cj0ckw6b4kq8l" path="res://utility/triggers/level_transtion_trigger.tscn" id="5_1dgb1"]
 [ext_resource type="PackedScene" uid="uid://di7vp8irr7xdl" path="res://utility/damage/damage_area_3d.tscn" id="5_h23kw"]
 [ext_resource type="Resource" uid="uid://dwjunb6snuhfa" path="res://common/data/lava_damage.tres" id="6_n73dt"]
 [ext_resource type="Material" uid="uid://8qm7nxt6hftu" path="res://common/materials/wood_floor_01_m.tres" id="6_nf8px"]
@@ -13,10 +13,9 @@
 [ext_resource type="PackedScene" uid="uid://cxi6v661g084x" path="res://entities/interactables/spellbook/spellbook_pickup.tscn" id="10_u7w7g"]
 [ext_resource type="PackedScene" uid="uid://chw0vev703cjt" path="res://utility/spawners/scene_spawner.tscn" id="11_wrktf"]
 [ext_resource type="PackedScene" uid="uid://bdan64bohs08a" path="res://entities/interactables/sign/wooden_sign.tscn" id="11_yh464"]
-[ext_resource type="PackedScene" uid="uid://cmrekqfwpfc4l" path="res://utility/triggers/checkpoint.tscn" id="12_fpgrb"]
 [ext_resource type="PackedScene" uid="uid://bdoipkh1hfkmm" path="res://entities/props/lights/candle/candle.tscn" id="15_d85s3"]
 [ext_resource type="PackedScene" uid="uid://exjnmfqooik7" path="res://entities/hazards/explosive_barrel/explosive_barrel.tscn" id="16_e0qsp"]
-[ext_resource type="PackedScene" uid="uid://bpkvnw0vkcjlr" path="res://utility/triggers/player_trigger_area_3d.tscn" id="16_e7dlv"]
+[ext_resource type="PackedScene" uid="uid://bpkvnw0vkcjlr" path="res://utility/triggers/player_area_trigger.tscn" id="16_e7dlv"]
 [ext_resource type="PackedScene" uid="uid://i0u75nytwgqr" path="res://utility/spawners/player_spawner.tscn" id="16_sdjp6"]
 [ext_resource type="PackedScene" uid="uid://dgqvbvg6txlno" path="res://entities/pickups/health_potion/health_potion.tscn" id="17_riak2"]
 [ext_resource type="PackedScene" uid="uid://bwwaepikf83yi" path="res://entities/pickups/godot_plushie/godot_plushine_pickup.tscn" id="19_7nuq8"]
@@ -68,9 +67,6 @@ size = Vector3(5, 4.1, 0.4)
 [sub_resource type="BoxMesh" id="BoxMesh_5fxes"]
 size = Vector3(5, 4, 0.4)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_w8lmr"]
-size = Vector3(5, 1, 1)
-
 [sub_resource type="BoxShape3D" id="BoxShape3D_e5yah"]
 size = Vector3(18.8, 1, 11.1)
 
@@ -92,10 +88,6 @@ camera_attributes = SubResource("CameraAttributesPractical_nbncx")
 
 [node name="PlayerSpawner" parent="." instance=ExtResource("16_sdjp6")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -4.75, 26.218)
-fireball_unlocked = false
-rock_wall_unlocked = false
-wind_blast_unlocked = false
-lightning_ray_unlocked = false
 
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.1, 0.1, 0)
@@ -323,19 +315,6 @@ scene_to_spawn = "res://entities/enemies/book_gnome/book_gnome.tscn"
 [node name="SceneSpawner2" parent="CSGCombiner3D/Rooms/02" instance=ExtResource("11_wrktf")]
 transform = Transform3D(-0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, -0.707107, 6.32082, -2.75, -8.62426)
 scene_to_spawn = "res://entities/enemies/book_gnome/book_gnome.tscn"
-
-[node name="Checkpoint" parent="CSGCombiner3D/Rooms/02" instance=ExtResource("12_fpgrb")]
-transform = Transform3D(1, 0, -7.35137e-08, 0, 1, 0, 7.35137e-08, 0, 1, 1.25508e-06, -1.15, -16.4)
-new_checkpoint_id = 1
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="CSGCombiner3D/Rooms/02/Checkpoint"]
-shape = SubResource("BoxShape3D_w8lmr")
-
-[node name="PlayerSpawner" parent="CSGCombiner3D/Rooms/02/Checkpoint" instance=ExtResource("16_sdjp6")]
-id = 1
-rock_wall_unlocked = false
-wind_blast_unlocked = false
-lightning_ray_unlocked = false
 
 [node name="WoodenSign" parent="CSGCombiner3D/Rooms/02" instance=ExtResource("11_yh464")]
 transform = Transform3D(2.98023e-08, 0, 1, 0, 1, 0, -1, 0, 2.98023e-08, 0.1, -4.15, -0.1)
@@ -728,19 +707,6 @@ material = ExtResource("3_llu5a")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.2, 0.3, -1.7)
 size = Vector3(2.2, 5, 4)
 material = ExtResource("3_llu5a")
-
-[node name="Checkpoint" parent="CSGCombiner3D/Rooms/05" instance=ExtResource("12_fpgrb")]
-transform = Transform3D(2.04648e-07, 0, 1, 0, 1, 0, -1, 0, 2.04648e-07, 16.3, 1.65, 2)
-new_checkpoint_id = 2
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="CSGCombiner3D/Rooms/05/Checkpoint"]
-shape = SubResource("BoxShape3D_w8lmr")
-
-[node name="PlayerSpawner" parent="CSGCombiner3D/Rooms/05/Checkpoint" instance=ExtResource("16_sdjp6")]
-id = 2
-rock_wall_unlocked = false
-wind_blast_unlocked = false
-lightning_ray_unlocked = false
 
 [node name="HealthPotion" parent="CSGCombiner3D/Rooms/05" instance=ExtResource("17_riak2")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, -3.8, -29.8)

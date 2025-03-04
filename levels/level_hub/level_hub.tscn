@@ -5,7 +5,7 @@
 [ext_resource type="Material" uid="uid://botmm8kkk1h67" path="res://common/materials/dev_grid_gray.tres" id="2_8slif"]
 [ext_resource type="Material" uid="uid://pwjimh5imhjl" path="res://common/materials/stone_brick_wall_01_m.tres" id="3_01ep6"]
 [ext_resource type="Material" uid="uid://8qm7nxt6hftu" path="res://common/materials/wood_floor_01_m.tres" id="4_kl737"]
-[ext_resource type="PackedScene" uid="uid://bpkvnw0vkcjlr" path="res://utility/triggers/player_trigger_area_3d.tscn" id="5_tjv0e"]
+[ext_resource type="PackedScene" uid="uid://bpkvnw0vkcjlr" path="res://utility/triggers/player_area_trigger.tscn" id="5_tjv0e"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_lq28c"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)

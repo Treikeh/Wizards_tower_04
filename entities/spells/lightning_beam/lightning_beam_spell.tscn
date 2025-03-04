@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://i1ofo0wesnp6" path="res://entities/spells/lightning_beam/lightning_beam_spell.gd" id="1_hgacv"]
 [ext_resource type="Resource" uid="uid://6ut21drcluar" path="res://entities/spells/lightning_beam/lightning_beam_spell_damage.tres" id="2_pb85q"]
-[ext_resource type="Shader" uid="uid://b5spjy835fc4b" path="res://entities/player/spells/wind_blast/wind_blast_effect_vs.tres" id="4_qvylk"]
+[ext_resource type="Shader" uid="uid://b5spjy835fc4b" path="res://entities/spells/windblast/effect/windblast_effect_vs.tres" id="4_qvylk"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_nbglg"]
 render_priority = 0

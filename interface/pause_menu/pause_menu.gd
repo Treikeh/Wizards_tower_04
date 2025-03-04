@@ -24,9 +24,7 @@ func _on_resume_button_pressed() -> void:
 func _on_return_to_hub_button_pressed() -> void:
 	get_tree().paused = false
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-	Globals.checkpoint_id = 0
 	LevelManager.change_level("uid://duxdyc4s7a4ii")
-	#LevelManager.reload_level()
 
 
 func _on_settings_button_pressed() -> void:

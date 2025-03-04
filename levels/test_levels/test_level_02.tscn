@@ -1,6 +1,6 @@
 [gd_scene load_steps=9 format=3 uid="uid://cu062dawunb5i"]
 
-[ext_resource type="PackedScene" uid="uid://cj0ckw6b4kq8l" path="res://utility/triggers/level_transtion_area_3d.tscn" id="1_2vthh"]
+[ext_resource type="PackedScene" uid="uid://cj0ckw6b4kq8l" path="res://utility/triggers/level_transtion_trigger.tscn" id="1_2vthh"]
 [ext_resource type="Script" uid="uid://cu2peb35x88qt" path="res://levels/level_3d.gd" id="1_5l2ew"]
 [ext_resource type="Material" uid="uid://botmm8kkk1h67" path="res://common/materials/dev_grid_gray.tres" id="1_lik6l"]
 [ext_resource type="Environment" uid="uid://ofo0k16f1wgv" path="res://levels/test_levels/test_levels_environments.tres" id="2_b74oj"]

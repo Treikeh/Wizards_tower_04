@@ -42,9 +42,6 @@ func change_level(level_path: String) -> void:
 		print("ERROR!: Level not found. Invalid path")
 		return
 	
-	# Reset checkpoint
-	Globals.checkpoint_id = 0
-	
 	# Show loading screen
 	LoadingScreen.transition_inn()
 	await LoadingScreen.transition_finished

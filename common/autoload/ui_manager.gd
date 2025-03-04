@@ -17,14 +17,18 @@ func change_ui_scene(scene_path: String) -> void:
 		return
 	
 	# Remove old scene
-	for child in get_children():
-		remove_child(child)
-		child.queue_free()
+	remove_ui_scenes()
 	
 	# Add new scene
 	var new_scene: Control = load(scene_path).instantiate()
 	add_child(new_scene)
 	current_ui_scene = new_scene
+
+
+func remove_ui_scenes() -> void:
+	for child in get_children():
+		remove_child(child)
+		child.queue_free()
 
 
 # Should only be used when a new ui scene is needed, but you still want to keep the old one active

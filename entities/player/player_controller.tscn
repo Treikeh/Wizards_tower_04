@@ -9,7 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://0faiuoyx1auv" path="res://entities/player/art/spellbook/spellbook_01_sm.glb" id="5_afj3v"]
 [ext_resource type="PackedScene" uid="uid://rs6tjh0gjpje" path="res://utility/camera/shakeable_camera.tscn" id="5_c70jp"]
 [ext_resource type="Script" uid="uid://qrcafxbvr5tg" path="res://common/scripts/health.gd" id="7_s4lvk"]
-[ext_resource type="Script" uid="uid://8i6ail62l8pi" path="res://entities/player/spells/spell_manager.gd" id="9_raijs"]
+[ext_resource type="Script" uid="uid://8i6ail62l8pi" path="res://entities/spells/spell_manager.gd" id="9_raijs"]
 [ext_resource type="AudioStream" uid="uid://biiiimggl568l" path="res://entities/player/audio/Shoe Step Stone Hard A.wav" id="11_g0yi8"]
 [ext_resource type="AudioStream" uid="uid://ctxgj877nt7wd" path="res://entities/player/audio/Land Step Stone A.wav" id="13_2bxrp"]
 [ext_resource type="AudioStream" uid="uid://b7wj5uswteyr3" path="res://entities/player/audio/Jump Step Stone A.wav" id="13_5agqx"]

@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://cavgwqcbmxw3w"]
 
-[ext_resource type="Script" uid="uid://8i6ail62l8pi" path="res://entities/player/spells/spell_manager.gd" id="1_1c27g"]
+[ext_resource type="Script" uid="uid://8i6ail62l8pi" path="res://entities/spells/spell_manager.gd" id="1_1c27g"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_lkiib"]
 radius = 0.75
