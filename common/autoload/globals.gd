@@ -12,12 +12,26 @@ var wind_blast_unlocked: bool = true
 var lightning_ray_unlocked: bool = true
 
 
-## Hud
-@warning_ignore("unused_signal")
-signal interact_prompt_updated(prompt: String)
+#region HUD
 
-@warning_ignore("unused_signal")
+signal interact_prompt_updated(prompt: String)
+func update_interact_prompt(prompt: String) -> void:
+	interact_prompt_updated.emit(prompt)
+
 signal health_bar_updated(health: float)
+func update_health_bar(health: float) -> void:
+	health_bar_updated.emit(health)
+
+
+signal notification_message_sent(message: String)
+func update_notification_message(message: String) -> void:
+	notification_message_sent.emit(message)
+
+#endregion
+
+
+var selected_spells: Array[String] = ["", ""]
+
 
 @warning_ignore("unused_signal")
 signal spell_casts_updated(spell: int)
@@ -36,9 +50,6 @@ signal update_lightning_ray_icon(value: float)
 
 @warning_ignore("unused_signal")
 signal player_casted_spell(id: int,)
-
-@warning_ignore("unused_signal")
-signal notification_message_sent(message: String)
 
 
 ## System

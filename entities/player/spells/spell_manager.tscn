@@ -1,15 +1,6 @@
-[gd_scene load_steps=9 format=3 uid="uid://cavgwqcbmxw3w"]
+[gd_scene load_steps=4 format=3 uid="uid://cavgwqcbmxw3w"]
 
 [ext_resource type="Script" uid="uid://8i6ail62l8pi" path="res://entities/player/spells/spell_manager.gd" id="1_1c27g"]
-[ext_resource type="Resource" uid="uid://d1r6ctrc8mci7" path="res://entities/player/spells/fireball/data/fireball_info.tres" id="2_adkwt"]
-[ext_resource type="Resource" uid="uid://cxsh88wj6jeia" path="res://entities/player/spells/rock_wall/data/rock_wall_info.tres" id="3_fr4ex"]
-[ext_resource type="Script" uid="uid://crwvko40r6yto" path="res://common/scripts/damage.gd" id="3_thnfu"]
-[ext_resource type="Resource" uid="uid://n1tjwg3nqlck" path="res://entities/player/spells/wind_blast/wind_blast_info.tres" id="4_swni5"]
-
-[sub_resource type="Resource" id="Resource_ciqrj"]
-script = ExtResource("3_thnfu")
-amount = 25.0
-type = 0
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_lkiib"]
 radius = 0.75
@@ -19,15 +10,8 @@ height = 4.0
 radius = 0.1
 height = 0.2
 
-[node name="SpellManager" type="Node3D" node_paths=PackedStringArray("main_spell_ray", "rock_wall_ray", "wind_blast_cast")]
+[node name="SpellManager" type="Node3D"]
 script = ExtResource("1_1c27g")
-main_spell_ray = NodePath("MainSpellRay")
-fireball_info = ExtResource("2_adkwt")
-lightning_ray_damage = SubResource("Resource_ciqrj")
-rock_wall_info = ExtResource("3_fr4ex")
-rock_wall_ray = NodePath("RockWallRay")
-wind_blast_info = ExtResource("4_swni5")
-wind_blast_cast = NodePath("WindBlastCast")
 
 [node name="MainSpellRay" type="RayCast3D" parent="."]
 target_position = Vector3(0, 0, -50)

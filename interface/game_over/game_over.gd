@@ -6,6 +6,7 @@ extends Control
 
 func _on_continue_button_pressed() -> void:
 	Globals.checkpoint_id = 0
+	Globals.selected_spells = ["", ""]
 	LevelManager.change_level("uid://duxdyc4s7a4ii")
 
 

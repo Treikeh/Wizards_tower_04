@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=3 uid="uid://dh8dcfqs8vv8p"]
+[gd_scene load_steps=30 format=3 uid="uid://dh8dcfqs8vv8p"]
 
 [ext_resource type="Script" uid="uid://1mmt43auxwkw" path="res://entities/player/player_controller.gd" id="1_ck1rn"]
 [ext_resource type="Material" uid="uid://uwtl3uvytx4g" path="res://common/materials/dev_grid_green.tres" id="2_7yv5a"]
@@ -8,15 +8,11 @@
 [ext_resource type="PackedScene" uid="uid://bayq5bliqy12n" path="res://entities/player/art/viewmodel/viewmodel_01_sk.glb" id="4_t6a4j"]
 [ext_resource type="PackedScene" uid="uid://0faiuoyx1auv" path="res://entities/player/art/spellbook/spellbook_01_sm.glb" id="5_afj3v"]
 [ext_resource type="PackedScene" uid="uid://rs6tjh0gjpje" path="res://utility/camera/shakeable_camera.tscn" id="5_c70jp"]
-[ext_resource type="PackedScene" uid="uid://cavgwqcbmxw3w" path="res://entities/player/spells/spell_manager.tscn" id="6_urw7v"]
 [ext_resource type="Script" uid="uid://qrcafxbvr5tg" path="res://common/scripts/health.gd" id="7_s4lvk"]
-[ext_resource type="PackedScene" uid="uid://b67g7lxmkqiym" path="res://entities/spells/fireball/fireball_spell.tscn" id="10_g4lud"]
+[ext_resource type="Script" uid="uid://8i6ail62l8pi" path="res://entities/player/spells/spell_manager.gd" id="9_raijs"]
 [ext_resource type="AudioStream" uid="uid://biiiimggl568l" path="res://entities/player/audio/Shoe Step Stone Hard A.wav" id="11_g0yi8"]
-[ext_resource type="PackedScene" uid="uid://ctwjw43o46ull" path="res://entities/spells/lightning_beam/lightning_beam_spell.tscn" id="11_i8ebm"]
-[ext_resource type="PackedScene" uid="uid://qko6nfg0jk3x" path="res://entities/spells/windblast/windblast_spell.tscn" id="12_wqrg2"]
 [ext_resource type="AudioStream" uid="uid://ctxgj877nt7wd" path="res://entities/player/audio/Land Step Stone A.wav" id="13_2bxrp"]
 [ext_resource type="AudioStream" uid="uid://b7wj5uswteyr3" path="res://entities/player/audio/Jump Step Stone A.wav" id="13_5agqx"]
-[ext_resource type="PackedScene" uid="uid://di11tekkwb3jv" path="res://entities/spells/rockwall/rockwall_spell.tscn" id="13_hmf27"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_ebie1"]
 friction = 0.0
@@ -34,6 +30,9 @@ radial_segments = 16
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_w1r5e"]
 radius = 0.4
 height = 1.75
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_b1xif"]
+radius = 0.25
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_dr8i2"]
 animation = &"fireball_001"
@@ -80,12 +79,9 @@ nodes/wind_blast_oneshot/node = SubResource("AnimationNodeOneShot_2ywnk")
 nodes/wind_blast_oneshot/position = Vector2(-360, 20)
 node_connections = [&"fireball_oneshot", 0, &"rock_wall_oneshot", &"fireball_oneshot", 1, &"Fireball", &"output", 0, &"fireball_oneshot", &"reset_idle_blend", 0, &"RESET", &"reset_idle_blend", 1, &"Idle", &"rock_wall_oneshot", 0, &"wind_blast_oneshot", &"rock_wall_oneshot", 1, &"Rock_wall", &"wind_blast_oneshot", 0, &"reset_idle_blend", &"wind_blast_oneshot", 1, &"Wind_blast"]
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_b1xif"]
-radius = 0.25
-
 [sub_resource type="SphereShape3D" id="SphereShape3D_g6ee0"]
 
-[node name="RigidbodyPlayer" type="RigidBody3D" node_paths=PackedStringArray("footsteps_audio_player", "jump_audio_player", "land_audio_player", "orientation", "head", "camera", "ground_ray", "interact_ray", "spell_manager", "primary_spell", "secondary_spell", "tertiary_spell", "animation_tree") groups=["player"]]
+[node name="RigidbodyPlayer" type="RigidBody3D" node_paths=PackedStringArray("footsteps_audio_player", "jump_audio_player", "land_audio_player", "orientation", "head", "camera", "ground_ray", "interact_ray", "spell_manager", "animation_tree") groups=["player"]]
 collision_layer = 4
 collision_mask = 271
 physics_material_override = SubResource("PhysicsMaterial_ebie1")
@@ -105,9 +101,6 @@ camera = NodePath("Orientation/Head/ShakeableCamera/Camera")
 ground_ray = NodePath("GroundRay")
 interact_ray = NodePath("Orientation/Head/InteractRay")
 spell_manager = NodePath("Orientation/Head/SpellManager")
-primary_spell = NodePath("Orientation/Head/FireballSpell")
-secondary_spell = NodePath("Orientation/Head/RockwallSpell")
-tertiary_spell = NodePath("Orientation/Head/WindblastSpell")
 animation_tree = NodePath("Orientation/Head/viewmodel_01_sk/AnimationTree")
 
 [node name="StandingCollision" type="CollisionShape3D" parent="."]
@@ -132,17 +125,34 @@ shape = SubResource("CapsuleShape3D_w1r5e")
 [node name="Head" type="Node3D" parent="Orientation"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.475, 0)
 
+[node name="InteractRay" type="RayCast3D" parent="Orientation/Head"]
+target_position = Vector3(0, 0, -1.7)
+collision_mask = 275
+collide_with_areas = true
+debug_shape_custom_color = Color(1, 0, 0, 1)
+debug_shape_thickness = 1
+script = ExtResource("3_6mksv")
+
+[node name="SpellManager" type="Node3D" parent="Orientation/Head"]
+script = ExtResource("9_raijs")
+
+[node name="ShakeableCamera" parent="Orientation/Head" instance=ExtResource("5_c70jp")]
+unique_name_in_owner = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Orientation/Head/ShakeableCamera"]
+shape = SubResource("SphereShape3D_b1xif")
+
+[node name="Camera" type="Camera3D" parent="Orientation/Head/ShakeableCamera"]
+fov = 90.0
+script = ExtResource("2_kvlkg")
+max_tilt = 7.5
+
 [node name="viewmodel_01_sk" parent="Orientation/Head" instance=ExtResource("4_t6a4j")]
 
 [node name="Skeleton3D" parent="Orientation/Head/viewmodel_01_sk" index="0"]
 bones/2/scale = Vector3(1, 1, 1)
-bones/3/rotation = Quaternion(0.0137172, 0.00543725, 0.541168, 0.840785)
 bones/3/scale = Vector3(1, 1, 1)
-bones/4/rotation = Quaternion(-0.163251, -0.00404789, 0.0297453, 0.986128)
 bones/4/scale = Vector3(1, 1, 1)
-bones/5/rotation = Quaternion(0.00366625, 0.00452058, -0.00505356, 0.99997)
-bones/6/position = Vector3(-0.0464168, 0.0961994, -0.00627696)
-bones/6/rotation = Quaternion(0.0122853, 0.710641, -0.703086, -0.0225631)
 bones/7/rotation = Quaternion(-0.0888626, 0.0630803, 0.0659663, 0.991853)
 bones/7/scale = Vector3(1, 1, 1)
 bones/8/rotation = Quaternion(-0.0326673, -0.0517933, 0.0971333, 0.993386)
@@ -166,45 +176,23 @@ bones/21/rotation = Quaternion(0.0832799, 0.028126, -0.0514934, 0.994797)
 bones/21/scale = Vector3(1, 1, 1)
 bones/23/rotation = Quaternion(5.48352e-08, -1.0822e-07, -0.707107, 0.707107)
 bones/23/scale = Vector3(1, 1, 1)
-bones/24/rotation = Quaternion(0.0137172, -0.00543713, -0.541168, 0.840785)
-bones/25/rotation = Quaternion(-0.163251, 0.00404789, -0.0297453, 0.986128)
 bones/25/scale = Vector3(1, 1, 1)
-bones/26/rotation = Quaternion(0.00366602, -0.00452128, 0.00505367, 0.99997)
-bones/28/position = Vector3(-0.00825629, 0.105576, -0.0396304)
-bones/28/rotation = Quaternion(-0.0888626, -0.0630803, -0.0659663, 0.991853)
 bones/28/scale = Vector3(1, 1, 1)
-bones/29/rotation = Quaternion(-0.0326673, 0.0517932, -0.0971332, 0.993386)
 bones/29/scale = Vector3(1, 1, 1)
-bones/30/rotation = Quaternion(-0.0113522, 0.0446063, -0.0846953, 0.995343)
-bones/31/position = Vector3(-0.00491573, 0.107542, -0.0124622)
-bones/31/rotation = Quaternion(-0.0129027, 0.0234634, -0.0745078, 0.996861)
-bones/32/rotation = Quaternion(-0.00680769, 0.0336883, -0.100024, 0.994391)
-bones/33/rotation = Quaternion(0.00657299, 0.0358021, -0.106219, 0.993676)
-bones/34/position = Vector3(-0.00130426, 0.103648, 0.0128832)
-bones/34/rotation = Quaternion(0.0571616, 0.0222262, -0.0929627, 0.993779)
 bones/34/scale = Vector3(1, 1, 1)
-bones/35/rotation = Quaternion(-0.0294997, 0.035159, -0.167276, 0.984841)
-bones/36/rotation = Quaternion(-0.0247838, 0.0255403, -0.0952322, 0.994819)
-bones/37/position = Vector3(0.00319408, 0.0935359, 0.0396132)
-bones/37/rotation = Quaternion(0.13436, 0.179645, -0.144643, 0.963718)
-bones/38/rotation = Quaternion(0.03057, 0.0122365, -0.145533, 0.988805)
 bones/38/scale = Vector3(1, 1, 1)
-bones/39/rotation = Quaternion(0.00948843, 0.0133827, -0.111094, 0.993674)
 bones/39/scale = Vector3(1, 1, 1)
-bones/40/rotation = Quaternion(-0.283926, 0.1973, -0.288389, 0.892911)
-bones/41/rotation = Quaternion(0.160736, 0.0660508, -0.0715206, 0.982184)
-bones/42/rotation = Quaternion(0.08328, -0.0281259, 0.0514934, 0.994797)
 bones/42/scale = Vector3(1, 1, 1)
 
 [node name="EqL" type="BoneAttachment3D" parent="Orientation/Head/viewmodel_01_sk/Skeleton3D" index="1"]
-transform = Transform3D(-0.865852, 0.498946, 0.0367732, 0.47081, 0.787751, 0.397222, 0.169224, 0.361249, -0.916985, -0.411377, -0.35407, -0.418708)
+transform = Transform3D(0.908661, 0.115969, 0.401106, -0.417534, 0.252379, 0.872909, -2.48663e-07, -0.960654, 0.277749, -0.42337, -0.897886, -0.00812744)
 bone_name = "hand_eq_L.001"
 bone_idx = 6
 
 [node name="spellbook_01_sm" parent="Orientation/Head/viewmodel_01_sk/Skeleton3D/EqL" instance=ExtResource("5_afj3v")]
 
 [node name="EqR" type="BoneAttachment3D" parent="Orientation/Head/viewmodel_01_sk/Skeleton3D" index="2"]
-transform = Transform3D(0.209839, -0.977138, 0.0341829, 0.827769, 0.158939, -0.538087, 0.520352, 0.141207, 0.842196, 0.412684, -0.364055, -0.437651)
+transform = Transform3D(0.908661, -0.11597, -0.401106, 0.417535, 0.252379, 0.872909, -7.24569e-07, -0.960654, 0.277749, 0.423369, -0.897886, -0.00812744)
 bone_name = "hand_eq_R.001"
 bone_idx = 27
 
@@ -221,37 +209,6 @@ parameters/rock_wall_oneshot/request = 0
 parameters/wind_blast_oneshot/active = false
 parameters/wind_blast_oneshot/internal_active = false
 parameters/wind_blast_oneshot/request = 0
-
-[node name="ShakeableCamera" parent="Orientation/Head" instance=ExtResource("5_c70jp")]
-unique_name_in_owner = true
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Orientation/Head/ShakeableCamera"]
-shape = SubResource("SphereShape3D_b1xif")
-
-[node name="Camera" type="Camera3D" parent="Orientation/Head/ShakeableCamera"]
-fov = 90.0
-script = ExtResource("2_kvlkg")
-max_tilt = 7.5
-
-[node name="InteractRay" type="RayCast3D" parent="Orientation/Head"]
-target_position = Vector3(0, 0, -1.7)
-collision_mask = 275
-collide_with_areas = true
-debug_shape_custom_color = Color(1, 0, 0, 1)
-debug_shape_thickness = 1
-script = ExtResource("3_6mksv")
-
-[node name="SpellManager" parent="Orientation/Head" node_paths=PackedStringArray("orientation") instance=ExtResource("6_urw7v")]
-orientation = NodePath("../..")
-rock_wall_range = 7.5
-
-[node name="FireballSpell" parent="Orientation/Head" instance=ExtResource("10_g4lud")]
-
-[node name="LightningBeam" parent="Orientation/Head" instance=ExtResource("11_i8ebm")]
-
-[node name="WindblastSpell" parent="Orientation/Head" instance=ExtResource("12_wqrg2")]
-
-[node name="RockwallSpell" parent="Orientation/Head" instance=ExtResource("13_hmf27")]
 
 [node name="GroundRay" type="RayCast3D" parent="."]
 target_position = Vector3(0, -1.5, 0)

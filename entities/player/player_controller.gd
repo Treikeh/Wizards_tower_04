@@ -38,9 +38,6 @@ var check_for_ground: bool = true
 @export var ground_ray: RayCast3D
 @export var interact_ray: RayCast3D
 @export var spell_manager: Node3D
-@export var primary_spell: Spell
-@export var secondary_spell: Spell
-@export var tertiary_spell: Spell
 @export var animation_tree: AnimationTree
 
 var hud_scene: String = "uid://bsrvl85f7jxdv"
@@ -82,23 +79,17 @@ func _input(event: InputEvent) -> void:
 			interact_ray.interact_with_target()
 		
 		# Spell inputs
-		if event.is_action_pressed("primary_fire") and primary_spell.can_cast_spell:
-			primary_spell.start_casting()
-			animation_tree.set(primary_spell.casting_animation, AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE)
+		if event.is_action_pressed("primary_fire") and spell_manager.primary_spell.can_cast_spell:
+			spell_manager.primary_spell.start_casting()
+			animation_tree.set(spell_manager.primary_spell.casting_animation, AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE)
 		elif event.is_action_released("primary_fire"):
-			primary_spell.stop_casting()
+			spell_manager.primary_spell.stop_casting()
 		
-		if event.is_action_pressed("secondary_fire") and secondary_spell.can_cast_spell:
-			secondary_spell.start_casting()
-			animation_tree.set(secondary_spell.casting_animation, AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE)
+		if event.is_action_pressed("secondary_fire") and spell_manager.secondary_spell.can_cast_spell:
+			spell_manager.secondary_spell.start_casting()
+			animation_tree.set(spell_manager.secondary_spell.casting_animation, AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE)
 		elif event.is_action_released("secondary_fire"):
-			secondary_spell.stop_casting()
-		
-		if event.is_action_pressed("tertiary_fire") and tertiary_spell.can_cast_spell:
-			tertiary_spell.start_casting()
-			animation_tree.set(tertiary_spell.casting_animation, AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE)
-		elif event.is_action_released("tertiary_fire"):
-			tertiary_spell.stop_casting()
+			spell_manager.secondary_spell.stop_casting()
 		
 		# Get move_input
 		move_input = Input.get_vector("move_l", "move_r", "move_f", "move_b")

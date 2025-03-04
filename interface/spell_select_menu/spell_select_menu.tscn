@@ -10,7 +10,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_qvpro")
-spell_list = Array[String](["Fireball", "Rockwall", "Windblast", "Lightning Beam", "Gravity Well", "Oil spray", "Water bubble"])
+spell_list = Array[String](["Fireball", "Rockwall", "Windblast", "Lightning Beam"])
 
 [node name="Label" type="Label" parent="."]
 layout_mode = 0
