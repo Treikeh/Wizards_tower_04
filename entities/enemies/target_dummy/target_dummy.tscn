@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://cs53wyj8yt4s4" path="res://entities/enemies/floating_health_bar.tscn" id="6_xw767"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_7ua38"]
+radius = 0.4
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_slmbc"]
 resource_name = "living_armor_01_sk_living_armor_mesh_001"
@@ -78,6 +79,7 @@ bind/14/bone = -1
 bind/14/pose = Transform3D(0.83938, 0.0713843, 0.538837, 0.223223, 0.85861, -0.461476, -0.495593, 0.507635, 0.704765, -0.414885, -1.22696, -0.100397)
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_dim8n"]
+radius = 0.7
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_arqjo"]
 viewport_path = NodePath("SubViewport")
@@ -217,10 +219,10 @@ health_node = NodePath("../Health")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="HealthArea3D"]
 shape = SubResource("CapsuleShape3D_dim8n")
+debug_color = Color(0, 1, 0, 0.419608)
 
 [node name="Health" type="Node" parent="."]
 script = ExtResource("5_jxnsv")
-max_health = 50.0
 
 [node name="FloatingHealthBar" parent="." instance=ExtResource("6_xw767")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.2, 0)

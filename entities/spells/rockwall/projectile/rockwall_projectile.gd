@@ -8,12 +8,8 @@ extends Projectile
 @export var anim_player: AnimationPlayer
 
 
-func _ready() -> void:
-	pass
-
-
-func _on_reflected() -> void:
-	anim_player.play("reflected")
+func _on_force_hit() -> void:
+	queue_free()
 
 
 func _on_launch_area_body_entered(body: Node3D) -> void:

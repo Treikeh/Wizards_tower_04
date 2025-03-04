@@ -9,7 +9,6 @@ extends Spell
 @export var cannot_spawn_mat: StandardMaterial3D
 
 var rockwall_scene: String = "uid://d2tj1vsg1g6a7"
-#var rockwall_scene: String = "uid://b2n0kf0vd4u8n"
 
 
 func _ready() -> void:

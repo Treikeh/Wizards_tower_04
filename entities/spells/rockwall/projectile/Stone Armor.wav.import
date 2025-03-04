@@ -3,12 +3,12 @@
 importer="wav"
 type="AudioStreamWAV"
 uid="uid://bhpvfluclmid6"
-path="res://.godot/imported/Stone Armor.wav-e52190069dc0c16f2156824879f60d0a.sample"
+path="res://.godot/imported/Stone Armor.wav-16870e143300f3c5974ab373a0980efd.sample"
 
 [deps]
 
-source_file="res://entities/spells/rockwall/wall/Stone Armor.wav"
-dest_files=["res://.godot/imported/Stone Armor.wav-e52190069dc0c16f2156824879f60d0a.sample"]
+source_file="res://entities/spells/rockwall/projectile/Stone Armor.wav"
+dest_files=["res://.godot/imported/Stone Armor.wav-16870e143300f3c5974ab373a0980efd.sample"]
 
 [params]
 

@@ -1,8 +1,8 @@
 [gd_scene load_steps=5 format=3 uid="uid://di11tekkwb3jv"]
 
 [ext_resource type="Script" uid="uid://clmch6fdjosob" path="res://entities/spells/rockwall/rockwall_spell.gd" id="1_1gmdj"]
-[ext_resource type="Material" uid="uid://butaeuol8riqi" path="res://entities/spells/rockwall/wall/rockwall_wall_can_spawn_mat.tres.tres" id="2_tvw3u"]
-[ext_resource type="Material" uid="uid://dusegx7j0olth" path="res://entities/spells/rockwall/wall/rockwall_wall_cannot_spawn_mat.tres" id="3_3kcx6"]
+[ext_resource type="Material" uid="uid://butaeuol8riqi" path="res://entities/spells/rockwall/rockwall_can_spawn_mat.tres.tres" id="2_tvw3u"]
+[ext_resource type="Material" uid="uid://dusegx7j0olth" path="res://entities/spells/rockwall/rockwall_cannot_spawn_mat.tres" id="3_3kcx6"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_8a5ej"]
 size = Vector3(2, 2, 1)

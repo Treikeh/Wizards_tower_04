@@ -9,6 +9,7 @@ height = 4.0
 [node name="WindblastSpell" type="RayCast3D" node_paths=PackedStringArray("shape_cast")]
 enabled = false
 script = ExtResource("1_xjulx")
+push_force = 15.0
 shape_cast = NodePath("ShapeCast3D")
 casting_animation = "parameters/wind_blast_oneshot/request"
 

@@ -133,7 +133,6 @@ wind_blast={
 3d_navigation/layer_6="projectile"
 3d_physics/layer_7="player_hitbox"
 3d_physics/layer_8="enemy_hitbox"
-3d_physics/layer_9="rock_wall"
 3d_physics/layer_10="camera_shake"
 3d_physics/layer_13="projectile_hitbox"
 
