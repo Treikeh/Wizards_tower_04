@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="SpellInfo" load_steps=2 format=3 uid="uid://caklm24g711ah"]
+
+[ext_resource type="Script" uid="uid://cpjul4usq54v1" path="res://entities/spells/spell_info.gd" id="1_d71ye"]
+
+[resource]
+script = ExtResource("1_d71ye")
+spell_name = "Rockwall"
+spell_scene = "uid://di11tekkwb3jv"
+metadata/_custom_type_script = "uid://cpjul4usq54v1"

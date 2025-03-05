@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="SpellInfo" load_steps=2 format=3 uid="uid://bwcubkqem0pvw"]
+
+[ext_resource type="Script" uid="uid://cpjul4usq54v1" path="res://entities/spells/spell_info.gd" id="1_p5neb"]
+
+[resource]
+script = ExtResource("1_p5neb")
+spell_name = "Fireball"
+spell_scene = "uid://b67g7lxmkqiym"
+metadata/_custom_type_script = "uid://cpjul4usq54v1"

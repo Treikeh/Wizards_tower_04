@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="SpellInfo" load_steps=2 format=3 uid="uid://dxyg3wq0uorm8"]
+
+[ext_resource type="Script" uid="uid://cpjul4usq54v1" path="res://entities/spells/spell_info.gd" id="1_sreox"]
+
+[resource]
+script = ExtResource("1_sreox")
+spell_name = "Lightning beam"
+spell_scene = "uid://ctwjw43o46ull"
+metadata/_custom_type_script = "uid://cpjul4usq54v1"
