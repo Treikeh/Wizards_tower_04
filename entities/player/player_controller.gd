@@ -4,7 +4,6 @@ extends RigidBody3D
 @export_group("Input")
 var camera_sensitivity: float = 0.1
 var move_input: Vector2 = Vector2.ZERO
-var checkpoint_loaded: bool = false
 
 @export_group("Movement")
 @export var max_speed: float = 6.0
@@ -15,8 +14,10 @@ var checkpoint_loaded: bool = false
 @export var footsteps_audio_player: AudioStreamPlayer
 @export var jump_audio_player: AudioStreamPlayer
 @export var land_audio_player: AudioStreamPlayer
+
 const COYOTE_TIME_DURATION: float = 0.2
 const JUMP_BUFFER_DURATION: float = 0.15
+
 var is_grounded: bool = false
 var coyote_time: float = 0.0
 var jump_buffer: float = 0.0
@@ -53,6 +54,10 @@ func _ready() -> void:
 	
 	# Spawn hud
 	UiManager.change_ui_scene(hud_scene)
+	
+	# Hide fps arms when spawning player if no spells are choosen
+	if Globals.choosen_spells.is_empty():
+		animation_tree.set("parameters/reset_idle_blend/blend_amount", 0.0)
 
 
 func _input(event: InputEvent) -> void:
@@ -63,39 +68,32 @@ func _input(event: InputEvent) -> void:
 			head.rotate_object_local(Vector3.RIGHT, -deg_to_rad(event.relative.y * camera_sensitivity))
 			head.rotation.x = clampf(head.rotation.x, -deg_to_rad(89), deg_to_rad(89))
 		
-		#if event.is_action_pressed("ui_cancel"):
-		#	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
-		
 		# jump input
 		if event.is_action_pressed("jump"):
 			_jump()
 		
+		# Interact input
 		if event.is_action_pressed("interact"):
 			interact_ray.interact_with_target()
 		
 		# Spell inputs
-		if event.is_action_pressed("primary_fire") and spell_manager.primary_spell.can_cast_spell:
-			spell_manager.primary_spell.start_casting()
-			animation_tree.set(spell_manager.primary_spell.casting_animation, AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE)
+		if event.is_action_pressed("primary_fire"):
+			spell_manager.start_casting_primary_spell()
 		elif event.is_action_released("primary_fire"):
-			spell_manager.primary_spell.stop_casting()
+			spell_manager.stop_casting_primary_spell()
 		
-		if event.is_action_pressed("secondary_fire") and spell_manager.secondary_spell.can_cast_spell:
-			spell_manager.secondary_spell.start_casting()
-			animation_tree.set(spell_manager.secondary_spell.casting_animation, AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE)
+		if event.is_action_pressed("secondary_fire"):
+			spell_manager.start_casting_secondary_spell()
 		elif event.is_action_released("secondary_fire"):
-			spell_manager.secondary_spell.stop_casting()
+			spell_manager.stop_casting_secondary_spell()
 		
 		# Get move_input
 		move_input = Input.get_vector("move_l", "move_r", "move_f", "move_b")
 	
 	else:
 		move_input = Vector2.ZERO
-		#if event is InputEventMouseButton:
-		#	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
 
-#@warning_ignore("unused_parameter")
 func _process(delta: float) -> void:
 	camera.apply_camera_tilt(linear_velocity - ground_vel, move_direction, delta)
 	if is_grounded and check_for_ground:
@@ -105,7 +103,6 @@ func _process(delta: float) -> void:
 	move_direction = orientation.global_basis * Vector3(move_input.x, 0.0, move_input.y).normalized()
 
 
-#@warning_ignore("unused_parameter")
 func _physics_process(delta: float) -> void:
 	is_grounded = _is_on_walkable_slope()
 	if is_grounded:
@@ -151,14 +148,6 @@ func _physics_process(delta: float) -> void:
 		ground_vel = Vector3.ZERO
 
 
-
-func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
-	if checkpoint_loaded:
-		state.linear_velocity = Vector3.ZERO
-		state.transform = Globals.checkpoint_transform
-		checkpoint_loaded = false
-
-
 func _load_input_settings() -> void:
 	var input_settings: Dictionary = ConfigHandler.load_input_settings()
 	camera_sensitivity = input_settings.camera_sensitivity
@@ -190,7 +179,8 @@ func _snap_to_ground(_delta: float) -> void:
 
 
 func _is_on_walkable_slope() -> bool:
-	#TODO: Find the proper place for this
+	#TODO: Find the proper place for this. This is to allow the rock wall to launch the player ->
+	# <- Without having crazy spaghetti code
 	if linear_velocity.y >= jump_force:
 		return false
 	if ground_ray.is_colliding():

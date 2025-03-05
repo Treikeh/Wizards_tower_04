@@ -1,14 +1,16 @@
 extends Node
 
 
+func _process(delta: float) -> void:
+	if run_in_progress:
+		run_duration += delta
+
+
 ## Player
 @warning_ignore("unused_signal")
 signal player_died
 
-
-func _process(delta: float) -> void:
-	if run_in_progress:
-		run_duration += delta
+var choosen_spells: Dictionary[String, SpellInfo]
 
 
 #region Run Info
@@ -19,7 +21,6 @@ var run_in_progress: bool = false
 var run_duration: float = 0.0
 var rooms_cleared: int = 0
 
-var choosen_spells: Dictionary[String, SpellInfo]
 var level_list: Array[String] = [
 	"uid://bcqlh303l8l7r",
 	"uid://n1x6gqci2ata",
@@ -53,6 +54,7 @@ func reset_run_info() -> void:
 signal interact_prompt_updated(prompt: String)
 func update_interact_prompt(prompt: String) -> void:
 	interact_prompt_updated.emit(prompt)
+
 
 signal health_bar_updated(health: float)
 func update_health_bar(health: float) -> void:
