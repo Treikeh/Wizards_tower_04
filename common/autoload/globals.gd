@@ -19,7 +19,7 @@ var run_in_progress: bool = false
 var run_duration: float = 0.0
 var rooms_cleared: int = 0
 
-var selected_spells: Array[String] = ["Windblast", "Rockwall"]
+var choosen_spells: Dictionary[String, SpellInfo]
 var level_list: Array[String] = [
 	"uid://bcqlh303l8l7r",
 	"uid://n1x6gqci2ata",
@@ -43,7 +43,7 @@ func reset_run_info() -> void:
 	run_in_progress = false
 	run_duration = 0.0
 	rooms_cleared = 0
-	selected_spells = ["", ""]
+	choosen_spells.clear()
 
 #endregion
 

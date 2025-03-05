@@ -6,6 +6,7 @@ var current_ui_scene: Control
 
 func _ready() -> void:
 	set_anchors_preset(Control.PRESET_FULL_RECT, true)
+	mouse_filter = Control.MOUSE_FILTER_IGNORE
 	process_mode = ProcessMode.PROCESS_MODE_ALWAYS
 
 

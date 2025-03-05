@@ -6,51 +6,15 @@ var secondary_spell: Spell
 
 
 func _ready() -> void:
-	#TODO: Redo this entire function, but in a better way
-	for spell: String in Globals.selected_spells:
-		match spell:
-			"Fireball":
-				# Spawn spell
-				var fireball_spell: Spell = load("uid://b67g7lxmkqiym").instantiate()
-				add_child(fireball_spell)
-				# Assign spell
-				if not primary_spell:
-					primary_spell = fireball_spell
-				else:
-					secondary_spell = fireball_spell
-			"Windblast":
-				# Spawn spell
-				var windblast_spell: Spell = load("uid://qko6nfg0jk3x").instantiate()
-				add_child(windblast_spell)
-				# Assign spell
-				if not primary_spell:
-					primary_spell = windblast_spell
-				else:
-					secondary_spell = windblast_spell
-			"Rockwall":
-				# Spawn spell
-				var rockwall_spell: Spell = load("uid://di11tekkwb3jv").instantiate()
-				add_child(rockwall_spell)
-				# Assign spell
-				if not primary_spell:
-					primary_spell = rockwall_spell
-				else:
-					secondary_spell = rockwall_spell
-			"Lightning Beam":
-				# Spawn spell
-				var lightning_beam_spell: Spell = load("uid://ctwjw43o46ull").instantiate()
-				add_child(lightning_beam_spell)
-				# Assign spell
-				if not primary_spell:
-					primary_spell = lightning_beam_spell
-				else:
-					secondary_spell = lightning_beam_spell
-			_: # Any other spell
-				# Spawn spell
-				var empty_spell: Spell = Spell.new()
-				add_child(empty_spell)
-				# Assign spell
-				if not primary_spell:
-					primary_spell = empty_spell
-				else:
-					secondary_spell = empty_spell
+	spawn_spells()
+
+
+func spawn_spells() -> void:
+	for slot: String in Globals.choosen_spells:
+		var new_spell: Spell = load(Globals.choosen_spells[slot].spell_scene).instantiate()
+		add_child(new_spell)
+		match slot:
+			"primary":
+				primary_spell = new_spell
+			"secondary":
+				secondary_spell = new_spell

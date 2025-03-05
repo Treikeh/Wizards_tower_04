@@ -1,4 +1,4 @@
-extends Node
+extends Node3D
 
 
 var level_to_load: String = ""
@@ -57,8 +57,8 @@ func reload_level() -> void:
 	get_tree().reload_current_scene()
 
 
-func add_3d_scene(scene_path: String, position: Vector3 = Vector3.ZERO) -> Node3D:
+func add_3d_scene(scene_path: String, spawn_position: Vector3 = Vector3.ZERO) -> Node3D:
 	var scene: Node3D = load(scene_path).instantiate()
 	get_tree().current_scene.add_child(scene)
-	scene.global_position = position
+	scene.global_position = spawn_position
 	return scene

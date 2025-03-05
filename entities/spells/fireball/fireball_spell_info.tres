@@ -1,9 +1,11 @@
-[gd_resource type="Resource" script_class="SpellInfo" load_steps=2 format=3 uid="uid://bwcubkqem0pvw"]
+[gd_resource type="Resource" script_class="SpellInfo" load_steps=3 format=3 uid="uid://bwcubkqem0pvw"]
 
 [ext_resource type="Script" uid="uid://cpjul4usq54v1" path="res://entities/spells/spell_info.gd" id="1_p5neb"]
+[ext_resource type="Texture2D" uid="uid://dnr6qlhif6njq" path="res://entities/spells/fireball/fireball_icon.png" id="2_11j6e"]
 
 [resource]
 script = ExtResource("1_p5neb")
 spell_name = "Fireball"
 spell_scene = "uid://b67g7lxmkqiym"
+spell_icon = ExtResource("2_11j6e")
 metadata/_custom_type_script = "uid://cpjul4usq54v1"

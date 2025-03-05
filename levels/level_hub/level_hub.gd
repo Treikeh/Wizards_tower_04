@@ -2,7 +2,6 @@ extends Node3D
 
 
 @export_file("*.tscn") var spell_select_menu_scene: String
-@export var level_list: Array[String] = []
 
 
 func _ready() -> void:

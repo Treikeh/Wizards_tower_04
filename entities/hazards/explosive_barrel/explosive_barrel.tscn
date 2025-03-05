@@ -50,7 +50,6 @@ debug_color = Color(0, 1, 0, 0.419608)
 [node name="Health" type="Node" parent="HealthArea3D"]
 script = ExtResource("5_4nupu")
 max_health = 10.0
-physical_resistance = 100.0
 healing_resistance = 100.0
 
 [node name="CameraShakeSource" parent="." instance=ExtResource("4_hildl")]
