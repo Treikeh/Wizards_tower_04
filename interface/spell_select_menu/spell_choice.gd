@@ -3,10 +3,11 @@ extends Area2D
 
 
 @export var lerp_speed: float = 15.0
+var spell_info: SpellInfo
 
 var is_selected: bool = false
 var move_position: Vector2
-var spell_info: SpellInfo
+
 var info_pop_up: Control
 
 
@@ -37,8 +38,9 @@ func _on_texture_button_button_up() -> void:
 func _on_texture_button_mouse_entered() -> void:
 		scale = Vector2(1.1, 1.1)
 		if not is_selected:
-			info_pop_up = UiManager.add_ui_scene("uid://bwjxlsiucquc6")
-			info_pop_up.construct(spell_info.name, spell_info.description, get_global_mouse_position())
+			info_pop_up = load("uid://bwjxlsiucquc6").instantiate()
+			add_child(info_pop_up)
+			info_pop_up.construct(spell_info.name, spell_info.description, global_position)
 			info_pop_up.z_index = z_index + 1
 
 

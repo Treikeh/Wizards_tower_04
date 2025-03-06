@@ -6,7 +6,7 @@
 [resource]
 script = ExtResource("1_sreox")
 name = "Lightning beam"
-description = "A beam of electricity dealing damage to a target blocking it' path"
+description = "A beam of electricity dealing damage to a target blocking its path"
 scene = "uid://ctwjw43o46ull"
 icon = ExtResource("2_k2p8x")
 metadata/_custom_type_script = "uid://cpjul4usq54v1"
