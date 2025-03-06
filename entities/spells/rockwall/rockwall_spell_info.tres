@@ -5,7 +5,8 @@
 
 [resource]
 script = ExtResource("1_d71ye")
-spell_name = "Rockwall"
-spell_scene = "uid://di11tekkwb3jv"
-spell_icon = ExtResource("2_mpgb0")
+name = "Rockwall"
+description = "Spawn a wall of rock at the point you are looking"
+scene = "uid://di11tekkwb3jv"
+icon = ExtResource("2_mpgb0")
 metadata/_custom_type_script = "uid://cpjul4usq54v1"

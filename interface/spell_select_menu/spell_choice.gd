@@ -7,12 +7,13 @@ extends Area2D
 var is_selected: bool = false
 var move_position: Vector2
 var spell_info: SpellInfo
+var info_pop_up: Control
 
 
 func construct(spell: SpellInfo, start_pos: Vector2) -> void:
 	move_position = start_pos
 	spell_info = spell
-	$Sprite2D.texture = spell_info.spell_icon
+	$Sprite2D.texture = spell.icon
 
 
 func _process(delta: float) -> void:
@@ -25,6 +26,8 @@ func _process(delta: float) -> void:
 
 func _on_texture_button_button_down() -> void:
 	is_selected = true
+	if info_pop_up:
+		info_pop_up.queue_free()
 
 
 func _on_texture_button_button_up() -> void:
@@ -33,7 +36,13 @@ func _on_texture_button_button_up() -> void:
 
 func _on_texture_button_mouse_entered() -> void:
 		scale = Vector2(1.1, 1.1)
+		if not is_selected:
+			info_pop_up = UiManager.add_ui_scene("uid://bwjxlsiucquc6")
+			info_pop_up.construct(spell_info.name, spell_info.description, get_global_mouse_position())
+			info_pop_up.z_index = z_index + 1
 
 
 func _on_texture_button_mouse_exited() -> void:
 		scale = Vector2(1.0, 1.0)
+		if info_pop_up:
+			info_pop_up.queue_free()

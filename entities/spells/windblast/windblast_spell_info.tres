@@ -5,7 +5,8 @@
 
 [resource]
 script = ExtResource("1_4llao")
-spell_name = "Windblast"
-spell_scene = "uid://qko6nfg0jk3x"
-spell_icon = ExtResource("2_adet6")
+name = "Windblast"
+description = "A string gust of air that can push enemies and projectiles"
+scene = "uid://qko6nfg0jk3x"
+icon = ExtResource("2_adet6")
 metadata/_custom_type_script = "uid://cpjul4usq54v1"

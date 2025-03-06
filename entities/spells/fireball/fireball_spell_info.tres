@@ -5,7 +5,8 @@
 
 [resource]
 script = ExtResource("1_p5neb")
-spell_name = "Fireball"
-spell_scene = "uid://b67g7lxmkqiym"
-spell_icon = ExtResource("2_11j6e")
+name = "Fireball"
+description = "A burning projectile that deals damage to what it hits"
+scene = "uid://b67g7lxmkqiym"
+icon = ExtResource("2_11j6e")
 metadata/_custom_type_script = "uid://cpjul4usq54v1"

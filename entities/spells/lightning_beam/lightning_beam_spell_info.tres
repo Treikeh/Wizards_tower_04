@@ -5,7 +5,8 @@
 
 [resource]
 script = ExtResource("1_sreox")
-spell_name = "Lightning beam"
-spell_scene = "uid://ctwjw43o46ull"
-spell_icon = ExtResource("2_k2p8x")
+name = "Lightning beam"
+description = "A beam of electricity dealing damage to a target blocking it' path"
+scene = "uid://ctwjw43o46ull"
+icon = ExtResource("2_k2p8x")
 metadata/_custom_type_script = "uid://cpjul4usq54v1"

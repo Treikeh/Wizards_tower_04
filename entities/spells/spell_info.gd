@@ -1,6 +1,7 @@
 class_name SpellInfo
 extends Resource
 
-@export var spell_name: String
-@export var spell_scene: String
-@export var spell_icon: Texture
+@export var name: String
+@export_multiline var description: String
+@export var scene: String
+@export var icon: Texture

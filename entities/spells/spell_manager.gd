@@ -12,7 +12,7 @@ func _ready() -> void:
 
 func spawn_spells() -> void:
 	for slot: String in Globals.choosen_spells:
-		var new_spell: Spell = load(Globals.choosen_spells[slot].spell_scene).instantiate()
+		var new_spell: Spell = load(Globals.choosen_spells[slot].scene).instantiate()
 		add_child(new_spell)
 		match slot:
 			"primary":
