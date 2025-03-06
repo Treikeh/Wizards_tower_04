@@ -2,6 +2,9 @@
 
 [ext_resource type="Script" uid="uid://cfh3cmpchasc6" path="res://interface/spell_select_menu/spell_slot.gd" id="1_p7kl2"]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_t366f"]
+size = Vector2(74, 74)
+
 [sub_resource type="Gradient" id="Gradient_1fmqy"]
 interpolation_mode = 1
 offsets = PackedFloat32Array(0, 0.93254)
@@ -14,23 +17,18 @@ height = 80
 fill = 1
 fill_from = Vector2(0.5, 0.5)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_t366f"]
-size = Vector2(74, 74)
-
-[node name="SpellSlot" type="Node2D"]
+[node name="SpellSlot" type="Area2D"]
+collision_layer = 0
+input_pickable = false
+monitorable = false
 script = ExtResource("1_p7kl2")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_t366f")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 3
 texture = SubResource("GradientTexture2D_77q0h")
-
-[node name="Area2D" type="Area2D" parent="."]
-collision_layer = 0
-input_pickable = false
-monitorable = false
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-shape = SubResource("RectangleShape2D_t366f")
 
 [node name="SlotLabel" type="Label" parent="."]
 offset_left = -31.0
@@ -39,5 +37,5 @@ offset_right = 31.0
 offset_bottom = -44.6667
 text = "Primary"
 
-[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
-[connection signal="area_exited" from="Area2D" to="." method="_on_area_2d_area_exited"]
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="area_exited" from="." to="." method="_on_area_exited"]

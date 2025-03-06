@@ -55,6 +55,10 @@ func _ready() -> void:
 	# Spawn hud
 	UiManager.change_ui_scene(hud_scene)
 	
+	#NOTE: This is stupid
+	$Health.current_health = Globals.player_health
+	$Health.health_changed.emit($Health.current_health, $Health.max_health)
+	
 	# Hide fps arms when spawning player if no spells are choosen
 	if Globals.choosen_spells.is_empty():
 		animation_tree.set("parameters/reset_idle_blend/blend_amount", 0.0)
@@ -224,6 +228,7 @@ func _on_health_damage_taken(damage: Damage) -> void:
 
 func _on_health_changed(current_health: float, max_health: float) -> void:
 	Globals.health_bar_updated.emit(current_health / max_health)
+	Globals.player_health = current_health
 
 
 func _on_health_depleted() -> void:

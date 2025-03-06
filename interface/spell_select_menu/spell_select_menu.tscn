@@ -88,6 +88,8 @@ position = Vector2(552, 393)
 slot = "secondary"
 
 [connection signal="pressed" from="ActionButtons/RerollButton" to="." method="_on_reroll_button_pressed"]
-[connection signal="pressed" from="ActionButtons/StartRunButton" to="." method="_on_close_button_pressed"]
+[connection signal="pressed" from="ActionButtons/StartRunButton" to="." method="_on_start_run_button_pressed"]
 [connection signal="slot_assigned" from="SpellSlot" to="." method="_on_spell_slot_assigned"]
+[connection signal="slot_removed" from="SpellSlot" to="." method="_on_spell_slot_removed"]
 [connection signal="slot_assigned" from="SpellSlot2" to="." method="_on_spell_slot_assigned"]
+[connection signal="slot_removed" from="SpellSlot2" to="." method="_on_spell_slot_removed"]

@@ -17,9 +17,10 @@ radius = 0.2
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_pvvlp"]
 radius = 0.2
-height = 0.6
+height = 0.8
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_t6gup"]
+radius = 0.4
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_ievgh"]
 radius = 3.0
@@ -67,6 +68,7 @@ damage = ExtResource("3_trphl")
 [node name="DamageCollision" type="CollisionShape3D" parent="DamageArea3D"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
 shape = SubResource("CapsuleShape3D_pvvlp")
+debug_color = Color(1, 0, 0, 0.419608)
 
 [node name="HealthArea3D" parent="." node_paths=PackedStringArray("health_node") instance=ExtResource("8_qu6o3")]
 collision_layer = 4096
@@ -74,6 +76,7 @@ health_node = NodePath("Health")
 
 [node name="HealthCollision" type="CollisionShape3D" parent="HealthArea3D"]
 shape = SubResource("SphereShape3D_t6gup")
+debug_color = Color(0, 1, 0, 0.419608)
 
 [node name="Health" type="Node" parent="HealthArea3D"]
 script = ExtResource("9_vi3hs")

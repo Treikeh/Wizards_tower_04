@@ -10,7 +10,12 @@ func _process(delta: float) -> void:
 @warning_ignore("unused_signal")
 signal player_died
 
+var player_health: float = 100.0
 var choosen_spells: Dictionary[String, SpellInfo]
+
+
+func reset_player() -> void:
+	player_health = 100.0
 
 
 #region Run Info

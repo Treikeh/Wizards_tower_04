@@ -184,14 +184,14 @@ bones/39/scale = Vector3(1, 1, 1)
 bones/42/scale = Vector3(1, 1, 1)
 
 [node name="EqL" type="BoneAttachment3D" parent="Orientation/Head/viewmodel_01_sk/Skeleton3D" index="1"]
-transform = Transform3D(0.908661, 0.115969, 0.401106, -0.417534, 0.252379, 0.872909, -2.48663e-07, -0.960654, 0.277749, -0.42337, -0.897886, -0.00812744)
+transform = Transform3D(-0.86589, 0.498855, 0.0371287, 0.470971, 0.787972, 0.396593, 0.168586, 0.360893, -0.917243, -0.411956, -0.345078, -0.418761)
 bone_name = "hand_eq_L.001"
 bone_idx = 6
 
 [node name="spellbook_01_sm" parent="Orientation/Head/viewmodel_01_sk/Skeleton3D/EqL" instance=ExtResource("5_afj3v")]
 
 [node name="EqR" type="BoneAttachment3D" parent="Orientation/Head/viewmodel_01_sk/Skeleton3D" index="2"]
-transform = Transform3D(0.908661, -0.11597, -0.401106, 0.417535, 0.252379, 0.872909, -7.24569e-07, -0.960654, 0.277749, 0.423369, -0.897886, -0.00812744)
+transform = Transform3D(0.236379, -0.971106, 0.0328227, 0.823696, 0.18235, -0.536912, 0.515413, 0.153951, 0.843, 0.41205, -0.361227, -0.437392)
 bone_name = "hand_eq_R.001"
 bone_idx = 27
 

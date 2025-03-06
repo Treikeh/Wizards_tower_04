@@ -6,13 +6,14 @@ extends Node3D
 
 func _ready() -> void:
 	Globals.reset_run_info()
-	Globals.run_started.connect(_on_run_started)
 
 
 func _on_play_trigger_entered() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
-	UiManager.add_ui_scene(spell_select_menu_scene)
+	var menu: Control = UiManager.add_ui_scene(spell_select_menu_scene)
+	menu.tree_exited.connect(_on_run_started)
 
 
 func _on_run_started() -> void:
+	Globals.start_run()
 	Globals.load_random_level()
