@@ -161,8 +161,10 @@ func _load_input_settings() -> void:
 func _on_spells_changed() -> void:
 	animation_tree.set("parameters/reset_idle_blend/blend_amount", 1.0)
 
+
 func _on_spell_manager_casted_spell(anim: String) -> void:
 	animation_tree.set(anim, AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE)
+
 
 #region Movement
 
