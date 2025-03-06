@@ -184,14 +184,14 @@ bones/39/scale = Vector3(1, 1, 1)
 bones/42/scale = Vector3(1, 1, 1)
 
 [node name="EqL" type="BoneAttachment3D" parent="Orientation/Head/viewmodel_01_sk/Skeleton3D" index="1"]
-transform = Transform3D(-0.86589, 0.498855, 0.0371287, 0.470971, 0.787972, 0.396593, 0.168586, 0.360893, -0.917243, -0.411956, -0.345078, -0.418761)
+transform = Transform3D(-0.865849, 0.498952, 0.0367716, 0.470812, 0.787741, 0.39724, 0.169237, 0.361263, -0.916978, -0.41191, -0.347662, -0.418706)
 bone_name = "hand_eq_L.001"
 bone_idx = 6
 
 [node name="spellbook_01_sm" parent="Orientation/Head/viewmodel_01_sk/Skeleton3D/EqL" instance=ExtResource("5_afj3v")]
 
 [node name="EqR" type="BoneAttachment3D" parent="Orientation/Head/viewmodel_01_sk/Skeleton3D" index="2"]
-transform = Transform3D(0.236379, -0.971106, 0.0328227, 0.823696, 0.18235, -0.536912, 0.515413, 0.153951, 0.843, 0.41205, -0.361227, -0.437392)
+transform = Transform3D(0.228157, -0.97306, 0.0331389, 0.824924, 0.17512, -0.537433, 0.517151, 0.149956, 0.842655, 0.412269, -0.362046, -0.437475)
 bone_name = "hand_eq_R.001"
 bone_idx = 27
 
@@ -234,6 +234,7 @@ bus = &"SFX"
 stream = ExtResource("13_2bxrp")
 bus = &"SFX"
 
+[connection signal="casted_spell" from="Orientation/Head/SpellManager" to="." method="_on_spell_manager_casted_spell"]
 [connection signal="hb_trough_reached" from="Orientation/Head/ShakeableCamera/Camera" to="." method="_on_camera_hb_trough_reached"]
 [connection signal="damage_taken" from="Health" to="." method="_on_health_damage_taken"]
 [connection signal="health_changed" from="Health" to="." method="_on_health_changed"]

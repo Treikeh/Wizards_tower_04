@@ -59,11 +59,10 @@ func _ready() -> void:
 	$Health.current_health = Globals.player_health
 	$Health.health_changed.emit($Health.current_health, $Health.max_health)
 	
+	Globals.spells_changed.connect(_on_spells_changed)
 	# Hide fps arms when spawning player if no spells are choosen
 	if Globals.choosen_spells.is_empty():
 		animation_tree.set("parameters/reset_idle_blend/blend_amount", 0.0)
-	
-	Globals.spells_changed.connect(_on_spells_changed)
 
 
 func _input(event: InputEvent) -> void:
@@ -162,6 +161,8 @@ func _load_input_settings() -> void:
 func _on_spells_changed() -> void:
 	animation_tree.set("parameters/reset_idle_blend/blend_amount", 1.0)
 
+func _on_spell_manager_casted_spell(anim: String) -> void:
+	animation_tree.set(anim, AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE)
 
 #region Movement
 

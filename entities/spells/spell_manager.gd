@@ -1,6 +1,9 @@
 extends Node3D
 
 
+signal casted_spell(anim: String)
+
+
 var primary_spell: Spell
 var secondary_spell: Spell
 
@@ -25,6 +28,7 @@ func start_casting_primary_spell() -> void:
 	if not primary_spell:
 		return
 	primary_spell.start_casting()
+	casted_spell.emit(primary_spell.casting_animation)
 
 func stop_casting_primary_spell() -> void:
 	if not primary_spell:
@@ -36,6 +40,7 @@ func start_casting_secondary_spell() -> void:
 	if not secondary_spell:
 		return
 	secondary_spell.start_casting()
+	casted_spell.emit(secondary_spell.casting_animation)
 
 func stop_casting_secondary_spell() -> void:
 	if not secondary_spell:
