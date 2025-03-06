@@ -23,6 +23,7 @@
 [ext_resource type="Script" uid="uid://deh2dswietdai" path="res://common/scripts/beehave/call_method_action.gd" id="15_ckxsl"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_7ua38"]
+radius = 0.4
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_ivhn2"]
 top_radius = 0.025
@@ -40,6 +41,7 @@ radius = 0.4
 height = 1.2
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_dim8n"]
+radius = 0.6
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_arqjo"]
 viewport_path = NodePath("SubViewport")
@@ -66,24 +68,12 @@ target_node = NodePath("../TargetDirection")
 
 [node name="Skeleton3D" parent="living_armor_01_sk" index="0"]
 bones/2/rotation = Quaternion(-0.0191595, 6.33183e-08, -1.21337e-09, 0.999816)
-bones/3/rotation = Quaternion(0.0532459, -3.348e-08, 4.95891e-09, 0.998581)
-bones/4/rotation = Quaternion(-0.179722, -1.46585e-08, -8.0342e-09, 0.983717)
-bones/5/rotation = Quaternion(0.146069, 4.4224e-08, 1.0883e-08, 0.989275)
-bones/6/rotation = Quaternion(0.160268, 0.224967, 0.705081, 0.653119)
 bones/6/scale = Vector3(1, 1, 1)
-bones/7/rotation = Quaternion(-0.253622, 0.0913861, 0.321377, 0.907767)
-bones/8/rotation = Quaternion(-0.374567, -0.00294055, 0.00737646, 0.927166)
 bones/8/scale = Vector3(1, 1, 1)
-bones/9/rotation = Quaternion(-0.00333371, 0.318514, -0.0122419, 0.947833)
 bones/9/scale = Vector3(1, 1, 1)
-bones/10/rotation = Quaternion(-0.476932, -0.513155, 0.514589, -0.494374)
 bones/10/scale = Vector3(1, 1, 1)
-bones/11/rotation = Quaternion(0.160268, -0.224967, -0.705081, 0.653119)
 bones/11/scale = Vector3(1, 1, 1)
-bones/12/rotation = Quaternion(-0.253622, -0.0913861, -0.321378, 0.907767)
-bones/13/rotation = Quaternion(-0.374567, 0.00294052, -0.00737644, 0.927166)
 bones/13/scale = Vector3(1, 1, 1)
-bones/14/rotation = Quaternion(-0.00333372, -0.318514, 0.0122419, 0.947833)
 bones/14/scale = Vector3(1, 1, 1)
 bones/15/scale = Vector3(1, 1, 1)
 
@@ -112,6 +102,7 @@ health_node = NodePath("../../Health")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="living_armor_01_sk/HealthArea3D"]
 shape = SubResource("CapsuleShape3D_dim8n")
+debug_color = Color(0, 1, 0, 0.419608)
 
 [node name="Health" type="Node" parent="."]
 script = ExtResource("2_6r6ee")
@@ -124,7 +115,7 @@ texture = SubResource("ViewportTexture_arqjo")
 [node name="BeehaveTree" type="Node" parent="." node_paths=PackedStringArray("blackboard", "actor")]
 script = ExtResource("7_xq1dp")
 enabled = false
-blackboard = NodePath("@Node@17446")
+blackboard = NodePath("@Node@50576")
 actor = NodePath("..")
 
 [node name="SelectorComposite" type="Node" parent="BeehaveTree"]

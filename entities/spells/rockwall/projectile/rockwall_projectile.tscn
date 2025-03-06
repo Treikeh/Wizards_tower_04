@@ -144,12 +144,13 @@ _data = {
 
 [node name="RockwallProjectile" type="RigidBody3D" node_paths=PackedStringArray("explosion_cast", "anim_player")]
 collision_layer = 2
-collision_mask = 11
+collision_mask = 15
 axis_lock_angular_x = true
 axis_lock_angular_y = true
 axis_lock_angular_z = true
 mass = 100.0
 physics_material_override = SubResource("PhysicsMaterial_2mllo")
+continuous_cd = true
 script = ExtResource("1_xbvfo")
 launch_force = 12.5
 explosion_cast = NodePath("ExplosionCast3D")

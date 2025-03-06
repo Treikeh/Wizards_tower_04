@@ -52,5 +52,6 @@ one_shot = true
 autostart = true
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="reflected" from="." to="." method="_on_reflected"]
 [connection signal="hit_health_area" from="DamageArea3D" to="." method="_on_damage_area_hit_health_area"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
