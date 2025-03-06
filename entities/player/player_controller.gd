@@ -62,7 +62,11 @@ func _ready() -> void:
 	# Hide fps arms when spawning player if no spells are choosen
 	if Globals.choosen_spells.is_empty():
 		animation_tree.set("parameters/reset_idle_blend/blend_amount", 0.0)
+	
+	Globals.construct_spells.connect(_on_construct_spell)
 
+func _on_construct_spell() -> void:
+	animation_tree.set("parameters/reset_idle_blend/blend_amount", 1.0)
 
 func _input(event: InputEvent) -> void:
 	if Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:

@@ -56,7 +56,7 @@ transitions = ["Start", "spawn_001", SubResource("AnimationNodeStateMachineTrans
 graph_offset = Vector2(-173, 49)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_cf1hn"]
-size = Vector3(0.8, 0.906494, 0.8)
+size = Vector3(0.8, 0.906494, 0.9)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_xk6ae"]
 size = Vector3(0.5, 0.7, 0.5)
@@ -125,7 +125,7 @@ health_node = NodePath("../../Health")
 damage_multiplier = 0.5
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="book_gnome_01_sk/HealthArea3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.008789, 0.0285645)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.008789, -0.0214355)
 shape = SubResource("BoxShape3D_cf1hn")
 debug_color = Color(0, 1, 0, 0.419608)
 
@@ -148,7 +148,7 @@ texture = SubResource("ViewportTexture_cuy2h")
 
 [node name="BookGnomeTree" type="Node" parent="." node_paths=PackedStringArray("blackboard", "actor")]
 script = ExtResource("10_fgdmq")
-blackboard = NodePath("@Node@71208")
+blackboard = NodePath("@Node@86262")
 actor = NodePath("..")
 
 [node name="SelectorComposite" type="Node" parent="BookGnomeTree"]

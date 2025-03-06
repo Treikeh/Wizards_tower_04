@@ -12,8 +12,11 @@ var spell_choice: SpellChoice
 func _ready() -> void:
 		$SlotLabel.text = slot
 		if Globals.choosen_spells.has(slot):
-			# Spawn spell choice
-			pass
+			var new_choice: SpellChoice = load("uid://bdge64wpp6tfj").instantiate()
+			add_child(new_choice)
+			new_choice.spell_info = Globals.choosen_spells[slot]
+			new_choice.construct()
+			spell_choice = new_choice
 
 
 func _on_area_entered(area: Area2D) -> void:

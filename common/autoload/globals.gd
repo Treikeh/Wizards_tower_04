@@ -9,6 +9,8 @@ func _process(delta: float) -> void:
 ## Player
 @warning_ignore("unused_signal")
 signal player_died
+@warning_ignore("unused_signal")
+signal construct_spells
 
 var player_health: float = 100.0
 var choosen_spells: Dictionary[String, SpellInfo]
