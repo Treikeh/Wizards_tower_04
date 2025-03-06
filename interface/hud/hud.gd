@@ -25,7 +25,7 @@ func _process(_delta: float) -> void:
 	%FpsLabel.text = str(Engine.get_frames_per_second())
 	
 	# Pause game when pressing ESC
-	if Input.is_action_just_pressed("ui_cancel"):
+	if Input.is_action_just_pressed("ui_cancel") and Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
 		hide()
 		get_tree().paused = true
 		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)

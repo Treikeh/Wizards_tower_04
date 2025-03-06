@@ -2,9 +2,11 @@ extends Control
 
 
 @export var spell_list: Array[SpellInfo] = []
+var spells_selected: int = 0
 
 
 func _ready() -> void:
+	%StartRunButton.disabled = true
 	randomize_spell_choices()
 
 
@@ -28,3 +30,6 @@ func _on_reroll_button_pressed() -> void:
 
 func _on_spell_slot_assigned(slot: String, spell: SpellInfo) -> void:
 	Globals.choosen_spells[slot] = spell
+	spells_selected += 1
+	if spells_selected >= 2:
+		%StartRunButton.disabled = false
