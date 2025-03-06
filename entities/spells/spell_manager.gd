@@ -6,11 +6,11 @@ var secondary_spell: Spell
 
 
 func _ready() -> void:
-	construct_spells()
-	Globals.construct_spells.connect(construct_spells)
+	spawn_spells()
+	Globals.spells_changed.connect(spawn_spells)
 
 
-func construct_spells() -> void:
+func spawn_spells() -> void:
 	for slot: String in Globals.choosen_spells:
 		var new_spell: Spell = load(Globals.choosen_spells[slot].spell_scene).instantiate()
 		add_child(new_spell)

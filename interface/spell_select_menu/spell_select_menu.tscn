@@ -30,17 +30,14 @@ grow_vertical = 2
 
 [node name="Label" type="Label" parent="."]
 layout_mode = 1
-anchors_preset = 8
+anchors_preset = 5
 anchor_left = 0.5
-anchor_top = 0.5
 anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -47.0
-offset_top = -177.0
-offset_right = 24.0
-offset_bottom = -154.0
+offset_left = -35.5
+offset_top = 50.0
+offset_right = 35.5
+offset_bottom = 73.0
 grow_horizontal = 2
-grow_vertical = 2
 text = "Choose 2"
 
 [node name="Node2D" type="Node2D" parent="."]
@@ -61,10 +58,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -130.5
-offset_top = -21.0
-offset_right = 110.5
-offset_bottom = 19.0
+offset_left = -120.5
+offset_top = -5.0
+offset_right = 120.5
+offset_bottom = 35.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 110
@@ -80,15 +77,13 @@ layout_mode = 2
 text = "Start run"
 
 [node name="SpellSlot" parent="." instance=ExtResource("8_1fmqy")]
-position = Vector2(338, 396)
+position = Vector2(239, 390)
 
 [node name="SpellSlot2" parent="." instance=ExtResource("8_1fmqy")]
-position = Vector2(552, 393)
+position = Vector2(721, 390)
 slot = "secondary"
 
 [connection signal="pressed" from="ActionButtons/RerollButton" to="." method="_on_reroll_button_pressed"]
 [connection signal="pressed" from="ActionButtons/StartRunButton" to="." method="_on_start_run_button_pressed"]
 [connection signal="slot_assigned" from="SpellSlot" to="." method="_on_spell_slot_assigned"]
-[connection signal="slot_removed" from="SpellSlot" to="." method="_on_spell_slot_removed"]
 [connection signal="slot_assigned" from="SpellSlot2" to="." method="_on_spell_slot_assigned"]
-[connection signal="slot_removed" from="SpellSlot2" to="." method="_on_spell_slot_removed"]

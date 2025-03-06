@@ -63,10 +63,8 @@ func _ready() -> void:
 	if Globals.choosen_spells.is_empty():
 		animation_tree.set("parameters/reset_idle_blend/blend_amount", 0.0)
 	
-	Globals.construct_spells.connect(_on_construct_spell)
+	Globals.spells_changed.connect(_on_spells_changed)
 
-func _on_construct_spell() -> void:
-	animation_tree.set("parameters/reset_idle_blend/blend_amount", 1.0)
 
 func _input(event: InputEvent) -> void:
 	if Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
@@ -159,6 +157,10 @@ func _physics_process(delta: float) -> void:
 func _load_input_settings() -> void:
 	var input_settings: Dictionary = ConfigHandler.load_input_settings()
 	camera_sensitivity = input_settings.camera_sensitivity
+
+
+func _on_spells_changed() -> void:
+	animation_tree.set("parameters/reset_idle_blend/blend_amount", 1.0)
 
 
 #region Movement

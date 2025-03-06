@@ -2,31 +2,25 @@ class_name SpellChoice
 extends Area2D
 
 
-@export var spell_info: SpellInfo
 @export var lerp_speed: float = 15.0
 
 var is_selected: bool = false
-
-var spawn_position: Vector2
-var slot_positoin: Vector2
-var move_to_position: Vector2
+var move_position: Vector2
+var spell_info: SpellInfo
 
 
-func construct() -> void:
-	spawn_position = global_position
-	move_to_position = spawn_position
+func construct(spell: SpellInfo, start_pos: Vector2) -> void:
+	move_position = start_pos
+	spell_info = spell
 	$Sprite2D.texture = spell_info.spell_icon
 
 
 func _process(delta: float) -> void:
 	if is_selected:
-		move_to_position = get_window().get_mouse_position()
-	elif slot_positoin:
-		move_to_position = slot_positoin
+		var mouse_position: Vector2 = get_window().get_mouse_position()
+		global_position = lerp(global_position, mouse_position, lerp_speed * delta)
 	else:
-		move_to_position = spawn_position
-	
-	global_position = lerp(global_position, move_to_position, lerp_speed * delta)
+		global_position = lerp(global_position, move_position, lerp_speed * delta)
 
 
 func _on_texture_button_button_down() -> void:

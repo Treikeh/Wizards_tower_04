@@ -12,6 +12,6 @@ func _on_interact_area_3d_interacted() -> void:
 
 
 func _on_menu_tree_exited() -> void:
-	Globals.construct_spells.emit()
+	Globals.spells_changed.emit()
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	queue_free()

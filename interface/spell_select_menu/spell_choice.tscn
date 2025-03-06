@@ -13,12 +13,12 @@ input_pickable = false
 monitoring = false
 script = ExtResource("1_y7h4n")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CircleShape2D_46vgr")
-
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 3
 texture = ExtResource("3_vxnys")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_46vgr")
 
 [node name="TextureButton" type="TextureButton" parent="."]
 offset_left = -32.0

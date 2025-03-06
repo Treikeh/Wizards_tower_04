@@ -2,11 +2,10 @@ extends Node2D
 
 
 signal slot_assigned(slot: String, spell: SpellInfo)
-signal slot_removed(slot: String)
 
 
 @export_enum("primary", "secondary") var slot: String = "primary"
-var spell_choice: SpellChoice
+var current_choice: SpellChoice
 
 
 func _ready() -> void:
@@ -14,28 +13,21 @@ func _ready() -> void:
 		if Globals.choosen_spells.has(slot):
 			var new_choice: SpellChoice = load("uid://bdge64wpp6tfj").instantiate()
 			add_child(new_choice)
-			new_choice.spell_info = Globals.choosen_spells[slot]
-			new_choice.construct()
-			spell_choice = new_choice
+			new_choice.construct(Globals.choosen_spells[slot], global_position)
+			current_choice = new_choice
 
 
 func _on_area_entered(area: Area2D) -> void:
 	if area is SpellChoice:
 		# Remove old spell choice
-		if spell_choice != null:
-			spell_choice.slot_positoin = Vector2.ZERO
+		if current_choice != null:
+			current_choice.move_position = area.move_position
 		
-		spell_choice = area
-		spell_choice.slot_positoin = global_position
-		slot_assigned.emit(slot, spell_choice.spell_info)
-		#$SlotLabel.text = spell_choice.spell_info.spell_name
+		current_choice = area
+		current_choice.move_position = global_position
+		slot_assigned.emit(slot, current_choice.spell_info)
 
 
 func _on_area_exited(area: Area2D) -> void:
-	if area == spell_choice:
-		spell_choice.slot_positoin = Vector2.ZERO
-		# Clear spell choice
-		spell_choice = null
-		#$SlotLabel.text = slot
-		# This gets emitted when the scene (or parrent scen) gets removed and i don't want it to happen
-		slot_removed.emit(slot)
+	if area == current_choice:
+		current_choice = null

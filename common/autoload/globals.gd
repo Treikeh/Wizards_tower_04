@@ -9,13 +9,14 @@ func _process(delta: float) -> void:
 ## Player
 @warning_ignore("unused_signal")
 signal player_died
+#NOTE: I don't like doing this, so i need to find a better way at some point
 @warning_ignore("unused_signal")
-signal construct_spells
+signal spells_changed
 
 var player_health: float = 100.0
 var choosen_spells: Dictionary[String, SpellInfo]
 
-
+#NOTE: I also don't like this
 func reset_player() -> void:
 	player_health = 100.0
 
