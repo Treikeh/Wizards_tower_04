@@ -12,7 +12,7 @@ var slot_positoin: Vector2
 var move_to_position: Vector2
 
 
-func _ready() -> void:
+func construct() -> void:
 	spawn_position = global_position
 	move_to_position = spawn_position
 	$Sprite2D.texture = spell_info.spell_icon
