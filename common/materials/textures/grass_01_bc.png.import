@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://24em7m3cstm3"
-path.s3tc="res://.godot/imported/stone_wall_01_modified.png-9317dc3d61a76252e166b6907dbfcbc6.s3tc.ctex"
+uid="uid://64w45eqtf0ja"
+path.bptc="res://.godot/imported/grass_01_bc.png-e73d877e11c455ef99125c981852458a.bptc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,13 +11,13 @@ metadata={
 
 [deps]
 
-source_file="res://common/materials/textures/stone_wall_01_modified.png"
-dest_files=["res://.godot/imported/stone_wall_01_modified.png-9317dc3d61a76252e166b6907dbfcbc6.s3tc.ctex"]
+source_file="res://common/materials/textures/grass_01_bc.png"
+dest_files=["res://.godot/imported/grass_01_bc.png-e73d877e11c455ef99125c981852458a.bptc.ctex"]
 
 [params]
 
 compress/mode=2
-compress/high_quality=false
+compress/high_quality=true
 compress/lossy_quality=0.7
 compress/hdr_compression=1
 compress/normal_map=0

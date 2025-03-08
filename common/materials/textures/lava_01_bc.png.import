@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ce3svwwwi8xar"
-path.s3tc="res://.godot/imported/wood_floor_01_modified.png-7ffc1c3cec9937c6c19839717112e61f.s3tc.ctex"
+uid="uid://dq1fawm0tic7e"
+path.s3tc="res://.godot/imported/lava_01_bc.png-528cd1edfd20af5519c4b04c25d71bef.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://common/materials/textures/wood_floor_01_modified.png"
-dest_files=["res://.godot/imported/wood_floor_01_modified.png-7ffc1c3cec9937c6c19839717112e61f.s3tc.ctex"]
+source_file="res://common/materials/textures/lava_01_bc.png"
+dest_files=["res://.godot/imported/lava_01_bc.png-528cd1edfd20af5519c4b04c25d71bef.s3tc.ctex"]
 
 [params]
 
