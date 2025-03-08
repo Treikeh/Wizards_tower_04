@@ -33,5 +33,6 @@ prompt = "Open"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="AnimatableBody3D/InteractArea3D"]
 shape = SubResource("BoxShape3D_dgi6b")
+debug_color = Color(1, 1, 0, 1)
 
 [connection signal="interacted" from="AnimatableBody3D/InteractArea3D" to="." method="_on_interact_area_3d_interacted"]

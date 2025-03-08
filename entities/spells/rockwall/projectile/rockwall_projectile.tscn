@@ -180,6 +180,7 @@ health_node = NodePath("Health")
 
 [node name="HealthCollison" type="CollisionShape3D" parent="HealthArea3D"]
 shape = SubResource("BoxShape3D_7usky")
+debug_color = Color(0, 1, 0, 0.419608)
 
 [node name="Health" type="Node" parent="HealthArea3D"]
 script = ExtResource("3_hglti")
