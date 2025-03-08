@@ -8,6 +8,7 @@ func _attack() -> void:
 #region Health
 
 func _on_health_depleted() -> void:
+	Globals.enemies_killed += 1
 	# Disable AI tree and stop movement
 	beehave_tree.disable()
 	nav_agent.target_position = global_position

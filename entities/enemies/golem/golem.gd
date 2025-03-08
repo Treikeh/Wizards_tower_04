@@ -17,6 +17,7 @@ func _ranged_attack() -> void:
 
 
 func _on_health_depleted() -> void:
+	Globals.enemies_killed += 1
 	beehave_tree.disable()
 	movement_enabled = false
 	

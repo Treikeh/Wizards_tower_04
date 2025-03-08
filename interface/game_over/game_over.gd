@@ -8,6 +8,7 @@ extends Control
 func _ready() -> void:
 	%RunDurationLabel.text = "Run duration: " + str(floorf(Globals.run_duration))
 	%RoomsClearedLabel.text = "Rooms cleared: " + str(Globals.rooms_cleared)
+	%EnemiesKilledLabel.text = "Enemies killed: " + str(Globals.enemies_killed)
 
 
 func _on_continue_button_pressed() -> void:

@@ -63,6 +63,7 @@ layout_mode = 2
 text = "Rooms cleared: 0"
 
 [node name="EnemiesKilledLabel" type="Label" parent="RunInfoContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 text = "Enemies killed: 0"
 

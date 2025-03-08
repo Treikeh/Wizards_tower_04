@@ -23,6 +23,7 @@ func _attack() -> void:
 #region Health
 
 func _on_health_depleted() -> void:
+	Globals.enemies_killed += 1
 	# Disable AI and movement
 	beehave_tree.disable()
 	movement_enabled = false
