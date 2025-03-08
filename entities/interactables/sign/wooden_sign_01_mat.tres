@@ -1,0 +1,7 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://dfrt0pbvhu3kx"]
+
+[ext_resource type="Texture2D" uid="uid://bu3alp0hdergr" path="res://entities/interactables/sign/wooden_sign_01_bc.png" id="1_1ko3u"]
+
+[resource]
+albedo_texture = ExtResource("1_1ko3u")
+texture_filter = 2

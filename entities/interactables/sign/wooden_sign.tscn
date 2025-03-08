@@ -1,41 +1,30 @@
-[gd_scene load_steps=7 format=3 uid="uid://bdan64bohs08a"]
+[gd_scene load_steps=6 format=3 uid="uid://bdan64bohs08a"]
 
 [ext_resource type="Script" uid="uid://b3ubb5lvc7uiy" path="res://entities/interactables/sign/wooden_sign.gd" id="1_ownhk"]
 [ext_resource type="PackedScene" uid="uid://d0lld0115r5yv" path="res://utility/interact_area_3d.tscn" id="2_h41qo"]
+[ext_resource type="PackedScene" uid="uid://d32fmgna12ny4" path="res://entities/interactables/sign/wooden_sign_01_sm.glb" id="3_smnwh"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_b8ppi"]
-size = Vector3(0.6, 1.1, 0.2)
+size = Vector3(0.9, 1.41, 0.23)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_6dha7"]
-size = Vector3(0.6, 0.4, 0.2)
-
-[sub_resource type="BoxMesh" id="BoxMesh_1gd1f"]
-size = Vector3(0.1, 1, 0.1)
-
-[sub_resource type="BoxMesh" id="BoxMesh_qkgty"]
-size = Vector3(0.6, 0.4, 0.05)
+size = Vector3(0.9, 0.65, 0.14)
 
 [node name="WoodenSign" type="StaticBody3D"]
 script = ExtResource("1_ownhk")
-text_popup_scene = "res://interface/text_popup/text_popup.tscn"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.55, -0.025)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.705, -0.05)
 shape = SubResource("BoxShape3D_b8ppi")
 
 [node name="InteractArea3D" parent="." instance=ExtResource("2_h41qo")]
 prompt = "Read"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="InteractArea3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.902014, -0.05)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.09701, -0.12)
 shape = SubResource("BoxShape3D_6dha7")
+debug_color = Color(1, 1, 0, 0.419608)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
-mesh = SubResource("BoxMesh_1gd1f")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="MeshInstance3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4, -0.1)
-mesh = SubResource("BoxMesh_qkgty")
+[node name="wooden_sign_01_sm" parent="." instance=ExtResource("3_smnwh")]
 
 [connection signal="interacted" from="InteractArea3D" to="." method="_on_interact_area_3d_interacted"]
