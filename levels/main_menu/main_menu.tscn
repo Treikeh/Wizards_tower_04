@@ -3,8 +3,8 @@
 [ext_resource type="Script" uid="uid://gb6epubv5pd2" path="res://levels/main_menu/main_menu.gd" id="1_xi5eq"]
 [ext_resource type="Material" uid="uid://botmm8kkk1h67" path="res://common/materials/dev_grid_gray.tres" id="2_pnq4k"]
 [ext_resource type="PackedScene" uid="uid://0faiuoyx1auv" path="res://entities/player/art/spellbook/spellbook_01_sm.glb" id="3_6kwbp"]
-[ext_resource type="PackedScene" uid="uid://cxi6v661g084x" path="res://entities/interactables/spellbook/spellbook_pickup.tscn" id="3_dretu"]
 [ext_resource type="PackedScene" uid="uid://bdoipkh1hfkmm" path="res://entities/props/lights/candle/candle.tscn" id="4_ckygi"]
+[ext_resource type="PackedScene" uid="uid://bry0wxhx4cb1i" path="res://entities/interactables/scribe_table/book_01_sm.glb" id="5_h370v"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_2u3w3"]
 sky_top_color = Color(0.252901, 0.467097, 0.652159, 1)
@@ -60,9 +60,6 @@ height = 18.3627
 
 [node name="spellbook_01_sm" parent="." instance=ExtResource("3_6kwbp")]
 transform = Transform3D(-1.44504, -0.187662, 0.449749, 0.0327917, 1.36676, 0.675653, -0.486226, 0.649896, -1.29106, 0.517629, 0.143266, -0.0280098)
-
-[node name="SpellbookPickup" parent="." instance=ExtResource("3_dretu")]
-transform = Transform3D(-0.126481, 0.00447931, -0.991959, 0.0133735, 0.999906, 0.00281026, 0.991878, -0.0129105, -0.126529, 0.505437, 0.0519352, -0.219608)
 
 [node name="Candle" parent="." instance=ExtResource("4_ckygi")]
 transform = Transform3D(0.916741, -0.0305256, -0.398313, 0.0502601, 0.997967, 0.0391954, 0.396307, -0.0559513, 0.916412, 0.0416125, 0.0461669, -0.310715)
@@ -166,6 +163,9 @@ theme_override_font_sizes/font_size = 10
 text = "dev 0"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="book_01_sm" parent="." instance=ExtResource("5_h370v")]
+transform = Transform3D(0.258819, 0.965926, 0, 4.2222e-08, -1.13133e-08, -1, -0.965926, 0.258819, -4.37114e-08, 0.525882, 0.1, -0.196593)
 
 [connection signal="pressed" from="Ui/VBoxContainer/HBoxContainer/VBoxContainer/PlayButton" to="." method="_on_play_button_pressed"]
 [connection signal="pressed" from="Ui/VBoxContainer/HBoxContainer/VBoxContainer/SettingsButton" to="." method="_on_settings_button_pressed"]

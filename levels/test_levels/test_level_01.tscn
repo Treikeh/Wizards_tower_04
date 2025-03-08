@@ -12,7 +12,6 @@
 [ext_resource type="PackedScene" uid="uid://xxhxvfmbcxdw" path="res://entities/props/wooden_props/table/wooden_table.tscn" id="4_0jf04"]
 [ext_resource type="PackedScene" uid="uid://bdoipkh1hfkmm" path="res://entities/props/lights/candle/candle.tscn" id="5_qpv1q"]
 [ext_resource type="Material" uid="uid://uwtl3uvytx4g" path="res://common/materials/dev_grid_green.tres" id="6_sx1ik"]
-[ext_resource type="PackedScene" uid="uid://cxi6v661g084x" path="res://entities/interactables/spellbook/spellbook_pickup.tscn" id="6_tsqfk"]
 [ext_resource type="PackedScene" uid="uid://cj0ckw6b4kq8l" path="res://utility/triggers/level_transtion_trigger.tscn" id="12_5pukf"]
 [ext_resource type="Material" uid="uid://do2qv4y2sei0e" path="res://common/materials/dev_grid_black.tres" id="12_le4xk"]
 [ext_resource type="PackedScene" uid="uid://bdan64bohs08a" path="res://entities/interactables/sign/wooden_sign.tscn" id="14_u1ybs"]
@@ -26,6 +25,7 @@
 [ext_resource type="PackedScene" uid="uid://clqs24y75lbd5" path="res://entities/pickups/mana_potion/mana_potion.tscn" id="22_i3q2h"]
 [ext_resource type="PackedScene" uid="uid://i0u75nytwgqr" path="res://utility/spawners/player_spawner.tscn" id="24_ro6yv"]
 [ext_resource type="PackedScene" uid="uid://c8u24wonyvfic" path="res://entities/interactables/door/interactable_door.tscn" id="26_3l1n8"]
+[ext_resource type="PackedScene" uid="uid://bsb65mme4han8" path="res://entities/interactables/scribe_table/scribe_table.tscn" id="27_kk31u"]
 [ext_resource type="PackedScene" uid="uid://dksnuasja7g8f" path="res://entities/enemies/target_dummy/target_dummy.tscn" id="27_s12cb"]
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_ni132"]
@@ -187,21 +187,6 @@ prompt = "Spawn golem"
 
 [node name="Interactable" type="Node3D" parent="."]
 
-[node name="SpellBookTable" parent="Interactable" instance=ExtResource("4_0jf04")]
-transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 3.88722e-07, 0, -6.5)
-
-[node name="FireballPickup" parent="Interactable/SpellBookTable" instance=ExtResource("6_tsqfk")]
-transform = Transform3D(1, 0, 7.10543e-15, 0, 1, 0, -7.10543e-15, 0, 1, 0.740001, 0.9458, 0)
-
-[node name="RockWallPickup" parent="Interactable/SpellBookTable" instance=ExtResource("6_tsqfk")]
-transform = Transform3D(1, 0, 7.10543e-15, 0, 1, 0, -7.10543e-15, 0, 1, 0.24, 0.9458, 0)
-
-[node name="WindBlastPickup" parent="Interactable/SpellBookTable" instance=ExtResource("6_tsqfk")]
-transform = Transform3D(1, 0, 7.10543e-15, 0, 1, 0, -7.10543e-15, 0, 1, -0.26, 0.9458, 0)
-
-[node name="LightningRayPickup" parent="Interactable/SpellBookTable" instance=ExtResource("6_tsqfk")]
-transform = Transform3D(1, 0, 7.10543e-15, 0, 1, 0, -7.10543e-15, 0, 1, -0.76, 0.9458, 0)
-
 [node name="HealtHPoitionSpawner" parent="Interactable" instance=ExtResource("2_4xdsy")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -8, 0, -7.5)
 scene_to_spawn = "res://entities/pickups/health_potion/health_potion.tscn"
@@ -328,6 +313,10 @@ transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -7.450
 
 [node name="TargetDummy2" parent="." instance=ExtResource("27_s12cb")]
 transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -14, 0, -0.800001)
+
+[node name="ScribeTable" parent="." instance=ExtResource("27_kk31u")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -1.31134e-07, 0, -6.5)
+single_use = false
 
 [connection signal="interacted" from="Enemies/BookGnomeSpawnerButton" to="Enemies/BookGnomeSpawner" method="spawn_scene"]
 [connection signal="interacted" from="Enemies/LivingArmorSpawnerButton" to="Enemies/LivingArmorSpawner" method="spawn_scene"]

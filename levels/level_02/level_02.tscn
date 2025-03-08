@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://n1x6gqci2ata"]
+[gd_scene load_steps=23 format=3 uid="uid://n1x6gqci2ata"]
 
 [ext_resource type="Script" uid="uid://cu2peb35x88qt" path="res://levels/level_3d.gd" id="1_3v48a"]
 [ext_resource type="Material" uid="uid://pwjimh5imhjl" path="res://common/materials/stone_brick_wall_01_m.tres" id="3_8ftr8"]
@@ -9,12 +9,9 @@
 [ext_resource type="Script" uid="uid://crwvko40r6yto" path="res://common/scripts/damage.gd" id="5_posvb"]
 [ext_resource type="Material" uid="uid://bvhhob5sjttf" path="res://common/materials/lava_01_m.tres" id="7_0ftjm"]
 [ext_resource type="Material" uid="uid://8qm7nxt6hftu" path="res://common/materials/wood_floor_01_m.tres" id="11_yhu0m"]
-[ext_resource type="PackedScene" uid="uid://xxhxvfmbcxdw" path="res://entities/props/wooden_props/table/wooden_table.tscn" id="12_kfoqi"]
-[ext_resource type="PackedScene" uid="uid://cxi6v661g084x" path="res://entities/interactables/spellbook/spellbook_pickup.tscn" id="13_45f1d"]
-[ext_resource type="PackedScene" uid="uid://bdoipkh1hfkmm" path="res://entities/props/lights/candle/candle.tscn" id="13_er85v"]
+[ext_resource type="PackedScene" uid="uid://bsb65mme4han8" path="res://entities/interactables/scribe_table/scribe_table.tscn" id="13_7xn8u"]
 [ext_resource type="PackedScene" uid="uid://chw0vev703cjt" path="res://utility/spawners/scene_spawner.tscn" id="13_rs042"]
 [ext_resource type="PackedScene" uid="uid://bpkvnw0vkcjlr" path="res://utility/triggers/player_area_trigger.tscn" id="14_rw3ct"]
-[ext_resource type="PackedScene" uid="uid://bdan64bohs08a" path="res://entities/interactables/sign/wooden_sign.tscn" id="14_wxfeb"]
 [ext_resource type="PackedScene" uid="uid://i0u75nytwgqr" path="res://utility/spawners/player_spawner.tscn" id="17_7gy15"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ap1ce"]
@@ -299,22 +296,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.95, 2.8, -1.74999)
 size = Vector3(11.9, 5.6, 11.6)
 material = ExtResource("3_8ftr8")
 
-[node name="WoodenTable" parent="CSGCombiner3D/Rooms/02_5" instance=ExtResource("12_kfoqi")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.1, 0.2, -6)
-
-[node name="SpellbookPickup" parent="CSGCombiner3D/Rooms/02_5/WoodenTable" instance=ExtResource("13_45f1d")]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 1, 0)
-spell_to_unlock = 1
-
-[node name="Candle" parent="CSGCombiner3D/Rooms/02_5/WoodenTable" instance=ExtResource("13_er85v")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.8, 0.9, -0.3)
-
-[node name="WoodenSign" parent="CSGCombiner3D/Rooms/02_5/WoodenTable" instance=ExtResource("14_wxfeb")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.4, 0)
-text = "[Left CTRL]
-
-Cast Rock Wall"
-
 [node name="SceneSpawner" parent="CSGCombiner3D/Rooms/02_5" instance=ExtResource("13_rs042")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0.799994, 1.8, -14.7)
 scene_to_spawn = "res://entities/enemies/potion_thrower/projectile/potion_projectile.tscn"
@@ -514,8 +495,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 39.6, -38.6, -38.4)
 scene_to_spawn = "res://entities/enemies/flying_skull/flying_skull.tscn"
 spawn_on_ready = true
 
+[node name="ScribeTable" parent="." instance=ExtResource("13_7xn8u")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 29.5, -38.5, -19.2)
+
 [connection signal="player_entered" from="CSGCombiner3D/Rooms/02/PlayerTriggerArea3D" to="CSGCombiner3D/Rooms/02/SceneSpawner" method="spawn_scene"]
 [connection signal="player_entered" from="CSGCombiner3D/Rooms/02/PlayerTriggerArea3D" to="CSGCombiner3D/Rooms/02/SceneSpawner2" method="spawn_scene"]
 [connection signal="player_entered" from="CSGCombiner3D/Rooms/02/PlayerTriggerArea3D" to="CSGCombiner3D/Rooms/02/SceneSpawner3" method="spawn_scene"]
-[connection signal="picked_up" from="CSGCombiner3D/Rooms/02_5/WoodenTable/SpellbookPickup" to="CSGCombiner3D/Rooms/02_5/WoodenTable/WoodenSign" method="_on_interact_area_3d_interacted"]
-[connection signal="sign_closed" from="CSGCombiner3D/Rooms/02_5/WoodenTable/WoodenSign" to="CSGCombiner3D/Rooms/02_5/SceneSpawner" method="spawn_scene"]
