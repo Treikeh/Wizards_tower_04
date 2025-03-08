@@ -36,7 +36,7 @@ _subresources={
 "materials": {
 "health_potion_mat.001": {
 "use_external/enabled": true,
-"use_external/path": "res://entities/pickups/health_potion/mesh/health_potion_01_m.tres"
+"use_external/path": "uid://ckklc7hgjnqka"
 }
 }
 }

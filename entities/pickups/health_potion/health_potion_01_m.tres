@@ -1,4 +1,8 @@
-[gd_resource type="ORMMaterial3D" format=3 uid="uid://ckklc7hgjnqka"]
+[gd_resource type="ORMMaterial3D" load_steps=2 format=3 uid="uid://ckklc7hgjnqka"]
+
+[ext_resource type="Texture2D" uid="uid://5nvg35q7241v" path="res://entities/pickups/health_potion/health_potion_01_bc.png" id="1_xdvh8"]
 
 [resource]
-albedo_color = Color(1, 0, 0, 1)
+transparency = 1
+albedo_texture = ExtResource("1_xdvh8")
+texture_filter = 2
