@@ -232,7 +232,7 @@ func _on_camera_hb_trough_reached() -> void:
 func _on_health_damage_taken(damage: Damage) -> void:
 	if damage.type == Damage.Type.HEALING:
 		return
-	%ShakeableCamera.add_camera_shake(damage.amount / 50.0)
+	%ShakeableCamera.add_camera_shake(0.3)
 
 
 func _on_health_changed(current_health: float, max_health: float) -> void:
