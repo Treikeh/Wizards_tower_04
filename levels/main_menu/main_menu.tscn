@@ -1,13 +1,15 @@
-[gd_scene load_steps=11 format=3 uid="uid://df823edaivqws"]
+[gd_scene load_steps=18 format=3 uid="uid://df823edaivqws"]
 
 [ext_resource type="Script" uid="uid://gb6epubv5pd2" path="res://levels/main_menu/main_menu.gd" id="1_xi5eq"]
-[ext_resource type="Material" uid="uid://botmm8kkk1h67" path="res://common/materials/dev_grid_gray.tres" id="2_pnq4k"]
+[ext_resource type="PackedScene" uid="uid://xxhxvfmbcxdw" path="res://entities/props/wooden_props/table/wooden_table.tscn" id="2_qhxwq"]
 [ext_resource type="PackedScene" uid="uid://0faiuoyx1auv" path="res://entities/player/art/spellbook/spellbook_01_sm.glb" id="3_6kwbp"]
 [ext_resource type="PackedScene" uid="uid://bdoipkh1hfkmm" path="res://entities/props/lights/candle/candle.tscn" id="4_ckygi"]
 [ext_resource type="PackedScene" uid="uid://bry0wxhx4cb1i" path="res://entities/interactables/scribe_table/book_01_sm.glb" id="5_h370v"]
+[ext_resource type="Texture2D" uid="uid://cbhlun83fc81b" path="res://common/materials/textures/rock_wall_01_bc.png" id="7_dedsy"]
+[ext_resource type="PackedScene" uid="uid://dia702pnub3s5" path="res://levels/level_hub/level_hub.glb" id="7_vxpir"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_2u3w3"]
-sky_top_color = Color(0.252901, 0.467097, 0.652159, 1)
+sky_top_color = Color(0.407374, 0.392556, 0.762185, 1)
 sky_horizon_color = Color(0.716676, 0.637519, 0.590762, 1)
 sky_curve = 0.0955921
 ground_bottom_color = Color(0.200726, 0.17047, 0.115692, 1)
@@ -22,10 +24,29 @@ background_mode = 2
 sky = SubResource("Sky_34abv")
 tonemap_mode = 2
 glow_enabled = true
+fog_enabled = true
+fog_mode = 1
+fog_light_color = Color(0.490934, 0.517332, 0.825284, 1)
+fog_density = 1.0
+fog_sky_affect = 0.19
+fog_depth_end = 815.2
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_i7wbi"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_2wt25"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vxpir"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_dedsy"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_2nemu"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_yj85j"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2nemu"]
+albedo_texture = ExtResource("7_dedsy")
+uv1_triplanar = true
+texture_filter = 2
 
 [node name="MainMenuLevel" type="Node3D" node_paths=PackedStringArray("ui", "version_label")]
 script = ExtResource("1_xi5eq")
@@ -39,30 +60,37 @@ version_label = NodePath("Ui/VersionLabel")
 environment = SubResource("Environment_gmegy")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(-0.279272, 0.499848, -0.819853, -0.0189904, 0.850783, 0.525174, 0.960024, 0.162236, -0.228107, 0, 10, 0)
-light_color = Color(0.91651, 0.773399, 0.543871, 1)
+transform = Transform3D(0.221206, 0.515827, -0.827641, -0.0189904, 0.850783, 0.525174, 0.975042, -0.100455, 0.197994, 0, 10, 0)
+light_color = Color(0.649718, 0.571462, 0.815262, 1)
 shadow_enabled = true
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(0.979743, -0.00828473, -0.200086, -0.02326, 0.987673, -0.154791, 0.198902, 0.156309, 0.967474, -0.386951, 0.450734, 1.84441)
 fov = 45.0
 
-[node name="Table" type="CSGBox3D" parent="."]
-transform = Transform3D(0.998205, 0, 0.0598813, 0, 1, 0, -0.0598813, 0, 0.998205, 0, 0, 0)
-material_override = ExtResource("2_pnq4k")
-size = Vector3(2, 0.1, 1)
+[node name="RemoteTransform3D" type="RemoteTransform3D" parent="Camera3D"]
+remote_path = NodePath("../../Ui/SubViewportContainer/SubViewport/Camera3D")
 
-[node name="Tower" type="CSGCylinder3D" parent="."]
-transform = Transform3D(0.781052, 0.0364936, -0.623398, -0.0468452, 0.998902, -0.000216628, 0.622706, 0.0293724, 0.781904, 17.252, 1.20205, -27.1139)
-material_override = ExtResource("2_pnq4k")
-radius = 4.29373
-height = 18.3627
+[node name="WoodenTable" parent="." instance=ExtResource("2_qhxwq")]
+transform = Transform3D(0.998929, 0, -0.0462521, 0, 1, 0, 0.0462521, 0, 0.998929, 0.146629, -0.9, 0.00678915)
 
 [node name="spellbook_01_sm" parent="." instance=ExtResource("3_6kwbp")]
-transform = Transform3D(-1.44504, -0.187662, 0.449749, 0.0327917, 1.36676, 0.675653, -0.486226, 0.649896, -1.29106, 0.517629, 0.143266, -0.0280098)
+transform = Transform3D(-1.33751, -0.298618, 0.66898, 0.0327917, 1.36676, 0.675653, -0.73187, 0.606967, -1.1923, 0.73184, 0.143266, 0.13669)
 
 [node name="Candle" parent="." instance=ExtResource("4_ckygi")]
-transform = Transform3D(0.916741, -0.0305256, -0.398313, 0.0502601, 0.997967, 0.0391954, 0.396307, -0.0559513, 0.916412, 0.0416125, 0.0461669, -0.310715)
+transform = Transform3D(0.917317, 0.041679, -0.39597, -0.0201885, 0.998096, 0.0582882, 0.397645, -0.0454747, 0.916412, 0.43753, 0.0380743, -0.348817)
+
+[node name="book_01_sm" parent="." instance=ExtResource("5_h370v")]
+transform = Transform3D(0.424041, 0.905643, 7.65801e-09, 4.2222e-08, -1.13133e-08, -1, -0.905643, 0.424041, -4.30353e-08, 0.769501, 0.1, -0.0278396)
+
+[node name="level_hub" parent="." instance=ExtResource("7_vxpir")]
+transform = Transform3D(0.965926, 0, -0.258819, 0, 1, 0, 0.258819, 0, 0.965926, 49.488, 0, -68.954)
+
+[node name="tower_mesh_001" parent="level_hub" index="0"]
+transform = Transform3D(0.998806, 0.0488253, 0.00174516, -0.048845, 0.998709, 0.0139622, -0.0010612, -0.0140307, 0.999901, 22.679, -16.861, -82.597)
+
+[node name="playable_area_mesh_001" parent="level_hub" index="1"]
+visible = false
 
 [node name="Ui" type="Control" parent="."]
 layout_mode = 3
@@ -72,15 +100,36 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
+[node name="SubViewportContainer" type="SubViewportContainer" parent="Ui"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SubViewport" type="SubViewport" parent="Ui/SubViewportContainer"]
+handle_input_locally = false
+size = Vector2i(960, 540)
+render_target_update_mode = 0
+
+[node name="Camera3D" type="Camera3D" parent="Ui/SubViewportContainer/SubViewport"]
+transform = Transform3D(0.979743, -0.00828473, -0.200086, -0.02326, 0.987673, -0.154791, 0.198902, 0.156309, 0.967474, -0.386951, 0.450734, 1.84441)
+fov = 45.0
+
 [node name="VBoxContainer" type="VBoxContainer" parent="Ui"]
 layout_mode = 0
 offset_left = 67.0
-offset_top = 58.0
+offset_top = 45.0
 offset_right = 599.0
-offset_bottom = 449.0
+offset_bottom = 457.0
 
 [node name="TitleLabel" type="Label" parent="Ui/VBoxContainer"]
 layout_mode = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 3
+theme_override_constants/shadow_offset_y = 3
 theme_override_font_sizes/font_size = 75
 text = "Wizards Tower"
 horizontal_alignment = 1
@@ -88,7 +137,7 @@ vertical_alignment = 1
 
 [node name="HSeparator" type="HSeparator" parent="Ui/VBoxContainer"]
 layout_mode = 2
-theme_override_constants/separation = 25
+theme_override_constants/separation = 55
 theme_override_styles/separator = SubResource("StyleBoxEmpty_i7wbi")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Ui/VBoxContainer"]
@@ -108,32 +157,32 @@ custom_minimum_size = Vector2(150, 50)
 layout_mode = 2
 size_flags_horizontal = 0
 theme_override_font_sizes/font_size = 25
+theme_override_styles/normal = SubResource("StyleBoxEmpty_vxpir")
 text = "Play"
-alignment = 0
 
 [node name="SettingsButton" type="Button" parent="Ui/VBoxContainer/HBoxContainer/VBoxContainer"]
 custom_minimum_size = Vector2(150, 50)
 layout_mode = 2
 size_flags_horizontal = 0
 theme_override_font_sizes/font_size = 25
+theme_override_styles/normal = SubResource("StyleBoxEmpty_dedsy")
 text = "Settings"
-alignment = 0
 
 [node name="CreditsButton" type="Button" parent="Ui/VBoxContainer/HBoxContainer/VBoxContainer"]
 custom_minimum_size = Vector2(150, 50)
 layout_mode = 2
 size_flags_horizontal = 0
 theme_override_font_sizes/font_size = 25
+theme_override_styles/normal = SubResource("StyleBoxEmpty_2nemu")
 text = "Credits"
-alignment = 0
 
 [node name="QuitButton" type="Button" parent="Ui/VBoxContainer/HBoxContainer/VBoxContainer"]
 custom_minimum_size = Vector2(150, 50)
 layout_mode = 2
 size_flags_horizontal = 0
 theme_override_font_sizes/font_size = 25
+theme_override_styles/normal = SubResource("StyleBoxEmpty_yj85j")
 text = "Quit"
-alignment = 0
 
 [node name="TestLevelButton" type="Button" parent="Ui"]
 layout_mode = 1
@@ -164,11 +213,15 @@ text = "dev 0"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="book_01_sm" parent="." instance=ExtResource("5_h370v")]
-transform = Transform3D(0.258819, 0.965926, 0, 4.2222e-08, -1.13133e-08, -1, -0.965926, 0.258819, -4.37114e-08, 0.525882, 0.1, -0.196593)
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+transform = Transform3D(0.951102, -0.0537232, 0.304169, 0.00226311, 0.985943, 0.167064, -0.308869, -0.158206, 0.937854, -1.24641, 0.477788, -1.47727)
+size = Vector3(1.34394, 1.84, 0.551758)
+material = SubResource("StandardMaterial3D_2nemu")
 
 [connection signal="pressed" from="Ui/VBoxContainer/HBoxContainer/VBoxContainer/PlayButton" to="." method="_on_play_button_pressed"]
 [connection signal="pressed" from="Ui/VBoxContainer/HBoxContainer/VBoxContainer/SettingsButton" to="." method="_on_settings_button_pressed"]
 [connection signal="pressed" from="Ui/VBoxContainer/HBoxContainer/VBoxContainer/CreditsButton" to="." method="_on_credits_button_pressed"]
 [connection signal="pressed" from="Ui/VBoxContainer/HBoxContainer/VBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]
 [connection signal="pressed" from="Ui/TestLevelButton" to="." method="_on_test_level_button_pressed"]
+
+[editable path="level_hub"]
