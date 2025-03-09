@@ -1,9 +1,7 @@
 extends Node3D
 
 
-signal player_spawned
-
-
+@export var on_player_spawned: Dictionary[Node, StringName]
 @export var reset_player: bool = false
 var player_scene: String = "uid://dh8dcfqs8vv8p"
 
@@ -16,4 +14,5 @@ func _ready() -> void:
 	await get_tree().process_frame
 	var player_node: Node3D = LevelManager.add_3d_scene(player_scene)
 	player_node.global_transform = global_transform
-	player_spawned.emit()
+	for node: Node in on_player_spawned:
+		node.call(on_player_spawned[node])

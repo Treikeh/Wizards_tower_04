@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://cbhabq5j0vtnr" path="res://entities/props/wooden_props/barrel/wooden_barrel.tscn" id="2_bv8w7"]
 [ext_resource type="Material" uid="uid://botmm8kkk1h67" path="res://common/materials/dev_grid_gray.tres" id="2_m12yk"]
 [ext_resource type="Environment" uid="uid://ofo0k16f1wgv" path="res://levels/test_levels/test_levels_environments.tres" id="2_v1jd3"]
-[ext_resource type="PackedScene" uid="uid://c21l6816x4oka" path="res://entities/interactables/button/standing_button.tscn" id="3_5yhwb"]
+[ext_resource type="PackedScene" uid="uid://c21l6816x4oka" path="res://entities/interactables/button/interactable_button.tscn" id="3_5yhwb"]
 [ext_resource type="PackedScene" uid="uid://862q5145e3uy" path="res://entities/props/wooden_props/chair/wooden_chair.tscn" id="3_ofj0x"]
 [ext_resource type="Material" uid="uid://c4eykp21shtlp" path="res://common/materials/dev_grid_red.tres" id="3_wbdl3"]
 [ext_resource type="PackedScene" uid="uid://xxhxvfmbcxdw" path="res://entities/props/wooden_props/table/wooden_table.tscn" id="4_0jf04"]
@@ -133,57 +133,71 @@ size = Vector3(14, 1, 14)
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 17, 4, -7)
 scene_to_spawn = "res://entities/enemies/book_gnome/book_gnome.tscn"
 
-[node name="BookGnomeSpawnerButton" parent="Enemies" instance=ExtResource("3_5yhwb")]
+[node name="BookGnomeSpawnerButton" parent="Enemies" node_paths=PackedStringArray("on_pressed") instance=ExtResource("3_5yhwb")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 9.5, 0, -13)
-prompt = "Spawn book gnome"
+on_pressed = {
+NodePath("../BookGnomeSpawner"): &"spawn_scene"
+}
 
 [node name="LivingArmorSpawner" parent="Enemies" instance=ExtResource("2_4xdsy")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 17, 4, -7)
 scene_to_spawn = "res://entities/enemies/living_armor/living_armor.tscn"
 
-[node name="LivingArmorSpawnerButton" parent="Enemies" instance=ExtResource("3_5yhwb")]
+[node name="LivingArmorSpawnerButton" parent="Enemies" node_paths=PackedStringArray("on_pressed") instance=ExtResource("3_5yhwb")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 9.5, 0, -11)
-prompt = "Spawn living armor"
+on_pressed = {
+NodePath("../LivingArmorSpawner"): &"spawn_scene"
+}
 
 [node name="PotionThrowerSpawner" parent="Enemies" instance=ExtResource("2_4xdsy")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 17, 4, -7)
 scene_to_spawn = "res://entities/enemies/potion_thrower/potion_thrower.tscn"
 
-[node name="PotionThrowerSpawnerButton" parent="Enemies" instance=ExtResource("3_5yhwb")]
+[node name="PotionThrowerSpawnerButton" parent="Enemies" node_paths=PackedStringArray("on_pressed") instance=ExtResource("3_5yhwb")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 9.5, 0, -9)
-prompt = "Spawn potion thrower"
+on_pressed = {
+NodePath("../PotionThrowerSpawner"): &"spawn_scene"
+}
 
 [node name="LightningSummonerSpawner" parent="Enemies" instance=ExtResource("2_4xdsy")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 17, 4, -7)
 scene_to_spawn = "res://entities/enemies/lightning_summoner/lightning_summoner.tscn"
 
-[node name="LightningSpawnerButton" parent="Enemies" instance=ExtResource("3_5yhwb")]
+[node name="LightningSpawnerButton" parent="Enemies" node_paths=PackedStringArray("on_pressed") instance=ExtResource("3_5yhwb")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 9.5, 0, -7)
-prompt = "Spawn Lightning summoner"
+on_pressed = {
+NodePath("../LightningSummonerSpawner"): &"spawn_scene"
+}
 
 [node name="FlyingSkullSpawner" parent="Enemies" instance=ExtResource("2_4xdsy")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 17, 4, -7)
 scene_to_spawn = "res://entities/enemies/flying_skull/flying_skull.tscn"
 
-[node name="FlyingSkullSpawnerButton" parent="Enemies" instance=ExtResource("3_5yhwb")]
+[node name="FlyingSkullSpawnerButton" parent="Enemies" node_paths=PackedStringArray("on_pressed") instance=ExtResource("3_5yhwb")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 9.5, 0, -5)
-prompt = "Spawn flying skull"
+on_pressed = {
+NodePath("../FlyingSkullSpawner"): &"spawn_scene"
+}
 
 [node name="BookShelfSpawner" parent="Enemies" instance=ExtResource("2_4xdsy")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 17, 4, -7)
 scene_to_spawn = "res://entities/enemies/book_gnome_shelf/book_gnome_shelf.tscn"
 
-[node name="BookShelfSpawnerButton" parent="Enemies" instance=ExtResource("3_5yhwb")]
+[node name="BookShelfSpawnerButton" parent="Enemies" node_paths=PackedStringArray("on_pressed") instance=ExtResource("3_5yhwb")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 9.5, 0, -3)
-prompt = "Spawn Book gnome shelf"
+on_pressed = {
+NodePath("../BookShelfSpawner"): &"spawn_scene"
+}
 
 [node name="GolemSpawner" parent="Enemies" instance=ExtResource("2_4xdsy")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 17, 4, -7)
 scene_to_spawn = "res://entities/enemies/golem/golem.tscn"
 
-[node name="GolemSpawnerButton" parent="Enemies" instance=ExtResource("3_5yhwb")]
+[node name="GolemSpawnerButton" parent="Enemies" node_paths=PackedStringArray("on_pressed") instance=ExtResource("3_5yhwb")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 9.5, 0, -1)
-prompt = "Spawn golem"
+on_pressed = {
+NodePath("../GolemSpawner"): &"spawn_scene"
+}
 
 [node name="Interactable" type="Node3D" parent="."]
 
@@ -192,9 +206,11 @@ transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -8, 0,
 scene_to_spawn = "res://entities/pickups/health_potion/health_potion.tscn"
 spawn_on_ready = true
 
-[node name="HealthPotionSpawnButton" parent="Interactable" instance=ExtResource("3_5yhwb")]
+[node name="HealthPotionSpawnButton" parent="Interactable" node_paths=PackedStringArray("on_pressed") instance=ExtResource("3_5yhwb")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -7.5, 0, -6)
-prompt = "Spawn health potion"
+on_pressed = {
+NodePath("../HealtHPoitionSpawner"): &"spawn_scene"
+}
 
 [node name="Props" type="Node3D" parent="."]
 
@@ -317,12 +333,3 @@ transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -14, 0
 [node name="ScribeTable" parent="." instance=ExtResource("27_kk31u")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -1.31134e-07, 0, -6.5)
 single_use = false
-
-[connection signal="interacted" from="Enemies/BookGnomeSpawnerButton" to="Enemies/BookGnomeSpawner" method="spawn_scene"]
-[connection signal="interacted" from="Enemies/LivingArmorSpawnerButton" to="Enemies/LivingArmorSpawner" method="spawn_scene"]
-[connection signal="interacted" from="Enemies/PotionThrowerSpawnerButton" to="Enemies/PotionThrowerSpawner" method="spawn_scene"]
-[connection signal="interacted" from="Enemies/LightningSpawnerButton" to="Enemies/LightningSummonerSpawner" method="spawn_scene"]
-[connection signal="interacted" from="Enemies/FlyingSkullSpawnerButton" to="Enemies/FlyingSkullSpawner" method="spawn_scene"]
-[connection signal="interacted" from="Enemies/BookShelfSpawnerButton" to="Enemies/BookShelfSpawner" method="spawn_scene"]
-[connection signal="interacted" from="Enemies/GolemSpawnerButton" to="Enemies/GolemSpawner" method="spawn_scene"]
-[connection signal="interacted" from="Interactable/HealthPotionSpawnButton" to="Interactable/HealtHPoitionSpawner" method="spawn_scene"]

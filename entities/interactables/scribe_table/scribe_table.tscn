@@ -2,9 +2,9 @@
 
 [ext_resource type="Script" uid="uid://4yke42ofqd3j" path="res://entities/interactables/scribe_table/scribe_table.gd" id="1_0bo78"]
 [ext_resource type="PackedScene" uid="uid://bry0wxhx4cb1i" path="res://entities/interactables/scribe_table/book_01_sm.glb" id="1_3ltgs"]
-[ext_resource type="PackedScene" uid="uid://d0lld0115r5yv" path="res://utility/interact_area_3d.tscn" id="2_amlyi"]
 [ext_resource type="PackedScene" uid="uid://xxhxvfmbcxdw" path="res://entities/props/wooden_props/table/wooden_table.tscn" id="2_nbcha"]
 [ext_resource type="PackedScene" uid="uid://bdoipkh1hfkmm" path="res://entities/props/lights/candle/candle.tscn" id="3_aublu"]
+[ext_resource type="Script" uid="uid://y2e64joq2lh3" path="res://utility/interact_area_3d.gd" id="5_0bo78"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_k1x72"]
 size = Vector3(2.3, 1, 1.3)
@@ -12,8 +12,12 @@ size = Vector3(2.3, 1, 1.3)
 [node name="ScribeTable" type="Node3D"]
 script = ExtResource("1_0bo78")
 
-[node name="InteractArea3D" parent="." instance=ExtResource("2_amlyi")]
-prompt = "Change spells"
+[node name="InteractArea3D" type="Area3D" parent="."]
+collision_layer = 16
+collision_mask = 0
+monitoring = false
+script = ExtResource("5_0bo78")
+metadata/_custom_type_script = "uid://y2e64joq2lh3"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="InteractArea3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
@@ -28,6 +32,6 @@ transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.9
 [node name="Candle" parent="." instance=ExtResource("3_aublu")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.735811, 0.942847, 0.409313)
 
-[connection signal="interacted" from="InteractArea3D" to="." method="_on_interact_area_3d_interacted"]
+[connection signal="interacted" from="InteractArea3D" to="." method="_on_interacted"]
 
 [editable path="Candle"]

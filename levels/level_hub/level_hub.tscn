@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://duxdyc4s7a4ii"]
+[gd_scene load_steps=19 format=3 uid="uid://duxdyc4s7a4ii"]
 
 [ext_resource type="PackedScene" uid="uid://i0u75nytwgqr" path="res://utility/spawners/player_spawner.tscn" id="1_gnowi"]
 [ext_resource type="Script" uid="uid://slm8gfk05uub" path="res://levels/level_hub/level_hub.gd" id="1_ne6st"]
@@ -35,6 +35,22 @@ fog_height = -13.34
 fog_height_density = 0.0279
 fog_depth_curve = 0.517633
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_78q5s"]
+resource_local_to_scene = true
+size = Vector3(1.4, 2.2, 0.25)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_1wam8"]
+resource_local_to_scene = true
+size = Vector3(1.45, 2.25, 0.3)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_kjme3"]
+resource_local_to_scene = true
+size = Vector3(1.4, 2.2, 0.25)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_sstcx"]
+resource_local_to_scene = true
+size = Vector3(1.45, 2.25, 0.3)
+
 [sub_resource type="BoxShape3D" id="BoxShape3D_4k4lh"]
 size = Vector3(5, 4, 2)
 
@@ -66,37 +82,66 @@ transform = Transform3D(1, 0, 1.74846e-07, 0, 1, 0, -1.74846e-07, 0, 1, 0, 0, 0)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.250809, -3.3)
 reset_player = true
 
-[node name="ScribeTable" parent="." instance=ExtResource("7_mfhb0")]
+[node name="ScribeTable" parent="." node_paths=PackedStringArray("on_spell_choosen") instance=ExtResource("7_mfhb0")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -3.93402e-07, -0.6, -9.1)
+on_spell_choosen = {
+NodePath("../Gate/LeftGate"): &"open",
+NodePath("../Gate/RightGate"): &"open"
+}
 
 [node name="Gate" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.606873, -20.2)
 
-[node name="RightGate" parent="Gate" instance=ExtResource("8_78q5s")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.1, 0, 0)
-
-[node name="CollisionShape3D" parent="Gate/RightGate/AnimatableBody3D/InteractArea3D" index="0"]
-disabled = true
-
-[node name="CSGBox3D" type="CSGBox3D" parent="Gate/RightGate/AnimatableBody3D" index="3"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.05, 1.75, 0)
-use_collision = true
-size = Vector3(2.1, 3.5, 0.3)
-
-[node name="LeftGate" parent="Gate" instance=ExtResource("8_78q5s")]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -2.1, 0, 8.74228e-09)
+[node name="LeftGate" parent="Gate" node_paths=PackedStringArray("move_node") instance=ExtResource("8_78q5s")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -2.1, 0, 0)
+move_node = NodePath("Door")
 open_rotation = Vector3(0, 90, 0)
 
-[node name="CollisionShape3D" parent="Gate/LeftGate/AnimatableBody3D/InteractArea3D" index="0"]
+[node name="StaticBody3D" parent="Gate/LeftGate" index="0"]
+visible = false
+
+[node name="CollisionShape3D" parent="Gate/LeftGate/StaticBody3D" index="0"]
+shape = SubResource("BoxShape3D_78q5s")
 disabled = true
 
-[node name="CSGBox3D" type="CSGBox3D" parent="Gate/LeftGate/AnimatableBody3D" index="3"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.05, 1.75, 0)
-use_collision = true
-size = Vector3(2.1, 3.5, 0.3)
+[node name="CollisionShape3D" parent="Gate/LeftGate/StaticBody3D/InteractArea3D" index="0"]
+shape = SubResource("BoxShape3D_1wam8")
+disabled = true
 
-[node name="PlayTrigger" parent="." instance=ExtResource("5_tjv0e")]
+[node name="Door" type="Node3D" parent="Gate/LeftGate"]
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Gate/LeftGate/Door"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.05, 1.5, 0)
+use_collision = true
+size = Vector3(2.1, 3, 0.3)
+
+[node name="RightGate" parent="Gate" node_paths=PackedStringArray("move_node") instance=ExtResource("8_78q5s")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.1, 0, 0)
+move_node = NodePath("Door")
+
+[node name="StaticBody3D" parent="Gate/RightGate" index="0"]
+visible = false
+
+[node name="CollisionShape3D" parent="Gate/RightGate/StaticBody3D" index="0"]
+shape = SubResource("BoxShape3D_kjme3")
+disabled = true
+
+[node name="CollisionShape3D" parent="Gate/RightGate/StaticBody3D/InteractArea3D" index="0"]
+shape = SubResource("BoxShape3D_sstcx")
+disabled = true
+
+[node name="Door" type="Node3D" parent="Gate/RightGate"]
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Gate/RightGate/Door"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 1.5, 0)
+use_collision = true
+size = Vector3(2.2, 3, 0.3)
+
+[node name="PlayTrigger" parent="." node_paths=PackedStringArray("on_player_entered") instance=ExtResource("5_tjv0e")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.7, -50)
+on_player_entered = {
+NodePath(".."): &"start_run"
+}
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="PlayTrigger"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
@@ -111,9 +156,5 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20.65, -9.85, -93.25)
 shape = SubResource("BoxShape3D_4j44j")
 debug_color = Color(1, 0, 0, 0.419608)
 
-[connection signal="spells_choosen" from="ScribeTable" to="Gate/RightGate" method="_on_interact_area_3d_interacted"]
-[connection signal="spells_choosen" from="ScribeTable" to="Gate/LeftGate" method="_on_interact_area_3d_interacted"]
-[connection signal="player_entered" from="PlayTrigger" to="." method="_on_play_trigger_entered"]
-
-[editable path="Gate/RightGate"]
 [editable path="Gate/LeftGate"]
+[editable path="Gate/RightGate"]

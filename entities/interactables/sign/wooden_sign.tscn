@@ -27,4 +27,4 @@ debug_color = Color(1, 1, 0, 0.419608)
 
 [node name="wooden_sign_01_sm" parent="." instance=ExtResource("3_smnwh")]
 
-[connection signal="interacted" from="InteractArea3D" to="." method="_on_interact_area_3d_interacted"]
+[connection signal="interacted" from="InteractArea3D" to="." method="_on_interacted"]

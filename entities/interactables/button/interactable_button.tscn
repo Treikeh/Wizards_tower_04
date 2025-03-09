@@ -1,0 +1,52 @@
+[gd_scene load_steps=9 format=3 uid="uid://c21l6816x4oka"]
+
+[ext_resource type="Script" uid="uid://b7v41c4ypx57d" path="res://entities/interactables/button/interactable_button.gd" id="1_c1pic"]
+[ext_resource type="Material" uid="uid://botmm8kkk1h67" path="res://common/materials/dev_grid_gray.tres" id="2_guwf7"]
+[ext_resource type="Script" uid="uid://y2e64joq2lh3" path="res://utility/interact_area_3d.gd" id="2_u2urh"]
+[ext_resource type="Material" uid="uid://c4eykp21shtlp" path="res://common/materials/dev_grid_red.tres" id="3_b4oea"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ducb2"]
+size = Vector3(0.2, 0.1, 0.2)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_o6xh3"]
+size = Vector3(0.3, 1, 0.3)
+
+[sub_resource type="BoxMesh" id="BoxMesh_vb18l"]
+size = Vector3(0.3, 1, 0.3)
+
+[sub_resource type="BoxMesh" id="BoxMesh_e4syr"]
+size = Vector3(0.2, 0.1, 0.2)
+
+[node name="InteractableButton" type="Node3D"]
+script = ExtResource("1_c1pic")
+
+[node name="InteractArea3D" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.965926, 0.258819, 0, -0.258819, 0.965926, 0, 1, 0)
+collision_layer = 16
+collision_mask = 0
+monitoring = false
+script = ExtResource("2_u2urh")
+metadata/_custom_type_script = "uid://y2e64joq2lh3"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="InteractArea3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+shape = SubResource("BoxShape3D_ducb2")
+debug_color = Color(1, 1, 0, 0.419608)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+shape = SubResource("BoxShape3D_o6xh3")
+
+[node name="StandMesh" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+material_override = ExtResource("2_guwf7")
+mesh = SubResource("BoxMesh_vb18l")
+
+[node name="ButtonMesh" type="MeshInstance3D" parent="StandMesh"]
+transform = Transform3D(1, 0, 0, 0, 0.965926, 0.258819, 0, -0.258819, 0.965926, 0, 0.5, 0)
+material_override = ExtResource("3_b4oea")
+mesh = SubResource("BoxMesh_e4syr")
+
+[connection signal="interacted" from="InteractArea3D" to="." method="_on_interacted"]
