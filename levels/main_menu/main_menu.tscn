@@ -5,13 +5,12 @@
 [ext_resource type="PackedScene" uid="uid://0faiuoyx1auv" path="res://entities/player/art/spellbook/spellbook_01_sm.glb" id="3_6kwbp"]
 [ext_resource type="PackedScene" uid="uid://bdoipkh1hfkmm" path="res://entities/props/lights/candle/candle.tscn" id="4_ckygi"]
 [ext_resource type="PackedScene" uid="uid://bry0wxhx4cb1i" path="res://entities/interactables/scribe_table/book_01_sm.glb" id="5_h370v"]
-[ext_resource type="Texture2D" uid="uid://cbhlun83fc81b" path="res://common/materials/textures/rock_wall_01_bc.png" id="7_dedsy"]
 [ext_resource type="PackedScene" uid="uid://dia702pnub3s5" path="res://levels/level_hub/level_hub.glb" id="7_vxpir"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_2u3w3"]
-sky_top_color = Color(0.407374, 0.392556, 0.762185, 1)
-sky_horizon_color = Color(0.716676, 0.637519, 0.590762, 1)
-sky_curve = 0.0955921
+sky_top_color = Color(0.138011, 0.194168, 0.478069, 1)
+sky_horizon_color = Color(0.558862, 0.462199, 0.273354, 1)
+sky_curve = 0.109807
 ground_bottom_color = Color(0.200726, 0.17047, 0.115692, 1)
 ground_horizon_color = Color(0.743129, 0.6382, 0.478172, 1)
 ground_curve = 0.0303143
@@ -28,8 +27,15 @@ fog_enabled = true
 fog_mode = 1
 fog_light_color = Color(0.490934, 0.517332, 0.825284, 1)
 fog_density = 1.0
-fog_sky_affect = 0.19
+fog_sky_affect = 0.205
+fog_height = -5.22
+fog_height_density = 0.0145
+fog_depth_curve = 1.23114
 fog_depth_end = 815.2
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2nemu"]
+albedo_color = Color(0.265118, 0.265118, 0.265118, 1)
+texture_filter = 2
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_i7wbi"]
 
@@ -43,10 +49,7 @@ fog_depth_end = 815.2
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_yj85j"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2nemu"]
-albedo_texture = ExtResource("7_dedsy")
-uv1_triplanar = true
-texture_filter = 2
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qhxwq"]
 
 [node name="MainMenuLevel" type="Node3D" node_paths=PackedStringArray("ui", "version_label")]
 script = ExtResource("1_xi5eq")
@@ -83,6 +86,11 @@ transform = Transform3D(0.917317, 0.041679, -0.39597, -0.0201885, 0.998096, 0.05
 [node name="book_01_sm" parent="." instance=ExtResource("5_h370v")]
 transform = Transform3D(0.424041, 0.905643, 7.65801e-09, 4.2222e-08, -1.13133e-08, -1, -0.905643, 0.424041, -4.30353e-08, 0.769501, 0.1, -0.0278396)
 
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+transform = Transform3D(0.951102, -0.0537232, 0.304169, 0.00226311, 0.985943, 0.167064, -0.308869, -0.158206, 0.937854, -1.24641, 0.477788, -1.47727)
+size = Vector3(1.34394, 1.84, 0.551758)
+material = SubResource("StandardMaterial3D_2nemu")
+
 [node name="level_hub" parent="." instance=ExtResource("7_vxpir")]
 transform = Transform3D(0.965926, 0, -0.258819, 0, 1, 0, 0.258819, 0, 0.965926, 49.488, 0, -68.954)
 
@@ -101,7 +109,6 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="SubViewportContainer" type="SubViewportContainer" parent="Ui"]
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -112,7 +119,7 @@ grow_vertical = 2
 [node name="SubViewport" type="SubViewport" parent="Ui/SubViewportContainer"]
 handle_input_locally = false
 size = Vector2i(960, 540)
-render_target_update_mode = 0
+render_target_update_mode = 4
 
 [node name="Camera3D" type="Camera3D" parent="Ui/SubViewportContainer/SubViewport"]
 transform = Transform3D(0.979743, -0.00828473, -0.200086, -0.02326, 0.987673, -0.154791, 0.198902, 0.156309, 0.967474, -0.386951, 0.450734, 1.84441)
@@ -121,9 +128,9 @@ fov = 45.0
 [node name="VBoxContainer" type="VBoxContainer" parent="Ui"]
 layout_mode = 0
 offset_left = 67.0
-offset_top = 45.0
+offset_top = 39.0
 offset_right = 599.0
-offset_bottom = 457.0
+offset_bottom = 451.0
 
 [node name="TitleLabel" type="Label" parent="Ui/VBoxContainer"]
 layout_mode = 2
@@ -186,15 +193,16 @@ text = "Quit"
 
 [node name="TestLevelButton" type="Button" parent="Ui"]
 layout_mode = 1
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -58.0
-offset_top = 10.0
-offset_right = -12.0
-offset_bottom = 25.0
-grow_horizontal = 0
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 12.0
+offset_top = -30.0
+offset_right = 72.0
+offset_bottom = -12.0
+grow_vertical = 0
 theme_override_font_sizes/font_size = 7
+theme_override_styles/normal = SubResource("StyleBoxEmpty_qhxwq")
 text = "Open Test level"
 
 [node name="VersionLabel" type="Label" parent="Ui"]
@@ -212,11 +220,6 @@ theme_override_font_sizes/font_size = 10
 text = "dev 0"
 horizontal_alignment = 1
 vertical_alignment = 1
-
-[node name="CSGBox3D" type="CSGBox3D" parent="."]
-transform = Transform3D(0.951102, -0.0537232, 0.304169, 0.00226311, 0.985943, 0.167064, -0.308869, -0.158206, 0.937854, -1.24641, 0.477788, -1.47727)
-size = Vector3(1.34394, 1.84, 0.551758)
-material = SubResource("StandardMaterial3D_2nemu")
 
 [connection signal="pressed" from="Ui/VBoxContainer/HBoxContainer/VBoxContainer/PlayButton" to="." method="_on_play_button_pressed"]
 [connection signal="pressed" from="Ui/VBoxContainer/HBoxContainer/VBoxContainer/SettingsButton" to="." method="_on_settings_button_pressed"]
