@@ -9,6 +9,7 @@ size = Vector3(2, 2, 1)
 
 [node name="RockwallSpell" type="RayCast3D" node_paths=PackedStringArray("preview", "preview_ray", "preview_mesh")]
 target_position = Vector3(0, 0, -15)
+collision_mask = 3
 script = ExtResource("1_1gmdj")
 preview = NodePath("Preview")
 preview_ray = NodePath("Preview/PreviewRay")

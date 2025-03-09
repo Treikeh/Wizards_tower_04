@@ -40,6 +40,10 @@ _subresources={
 },
 "rock.001": {
 "use_external/enabled": true,
+"use_external/path": "uid://dkffnwwxfx8i2"
+},
+"rock_wall.001": {
+"use_external/enabled": true,
 "use_external/path": "uid://pwjimh5imhjl"
 },
 "windows": {
