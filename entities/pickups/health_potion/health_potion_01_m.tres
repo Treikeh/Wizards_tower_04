@@ -5,4 +5,7 @@
 [resource]
 transparency = 1
 albedo_texture = ExtResource("1_xdvh8")
+emission_enabled = true
+emission_energy_multiplier = 0.25
+emission_texture = ExtResource("1_xdvh8")
 texture_filter = 2

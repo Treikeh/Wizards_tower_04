@@ -8,10 +8,11 @@ extends Node3D
 
 func _ready() -> void:
 	Globals.spells_changed.connect(_update_sprites)
-	if not Globals.choosen_spells.is_empty():
-		_update_sprites()
+	_update_sprites()
 
 
 func _update_sprites() -> void:
-	primary_spell_sprite.texture = Globals.choosen_spells["primary"].icon
-	secondary_spell_sprite.texture = Globals.choosen_spells["secondary"].icon
+	if Globals.choosen_spells.has("primary"):
+		primary_spell_sprite.texture = Globals.choosen_spells["primary"].icon
+	if Globals.choosen_spells.has("secondary"):
+		secondary_spell_sprite.texture = Globals.choosen_spells["secondary"].icon

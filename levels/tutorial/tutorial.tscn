@@ -420,7 +420,6 @@ transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -142.7
 [connection signal="player_entered" from="tutorial_layout/Enemies/PlayerTriggerArea3D2" to="tutorial_layout/Enemies/EnemySpawner3" method="spawn_scene"]
 [connection signal="player_entered" from="tutorial_layout/Enemies/PlayerTriggerArea3D2" to="tutorial_layout/Enemies/EnemySpawner4" method="spawn_scene"]
 [connection signal="player_entered" from="tutorial_layout/Enemies/PlayerTriggerArea3D2" to="tutorial_layout/Enemies/EnemySpawner5" method="spawn_scene"]
-[connection signal="interacted" from="tutorial_layout_02/LockedDoorButton/StandingButton" to="tutorial_layout_02/LockedDoor/LockedDoor/AnimationPlayer" method="play" binds= ["open"]]
 [connection signal="hit" from="tutorial_layout_02/BridgeButton/HealthArea3D" to="tutorial_layout_02/Bridge/Bridge/AnimationPlayer" method="play" binds= ["lower"]]
 
 [editable path="tutorial_layout_02"]
