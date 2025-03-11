@@ -1,0 +1,56 @@
+[gd_scene load_steps=8 format=3 uid="uid://dwjv0xnilcomg"]
+
+[ext_resource type="Script" uid="uid://slm8gfk05uub" path="res://levels/level_hub/level_hub.gd" id="1_unaol"]
+[ext_resource type="PackedScene" uid="uid://i0u75nytwgqr" path="res://utility/spawners/player_spawner.tscn" id="3_gl1fl"]
+[ext_resource type="PackedScene" uid="uid://bdan64bohs08a" path="res://entities/interactables/sign/wooden_sign.tscn" id="3_rjjb4"]
+[ext_resource type="PackedScene" uid="uid://bg321jiqvlra1" path="res://levels/level_tutorial/tutorial.glb" id="3_suo32"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_lq28c"]
+sky_top_color = Color(0.292637, 0.325088, 0.499893, 1)
+sky_horizon_color = Color(0.81815, 0.596284, 0.504, 1)
+sky_curve = 0.109806
+ground_horizon_color = Color(0.819608, 0.596078, 0.505882, 1)
+ground_curve = 0.1442
+sun_angle_max = 12.66
+sun_curve = 0.689218
+
+[sub_resource type="Sky" id="Sky_57ygw"]
+sky_material = SubResource("ProceduralSkyMaterial_lq28c")
+
+[sub_resource type="Environment" id="Environment_47kxf"]
+background_mode = 2
+sky = SubResource("Sky_57ygw")
+tonemap_mode = 2
+glow_enabled = true
+fog_enabled = true
+fog_mode = 1
+fog_light_color = Color(0.388617, 0.392967, 0.703669, 1)
+fog_density = 0.11
+fog_sky_affect = 0.615
+fog_height = -13.34
+fog_height_density = 0.0279
+fog_depth_curve = 0.517633
+
+[node name="LevelTutorial" type="Node3D"]
+script = ExtResource("1_unaol")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_47kxf")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866025, -0.25, 0.433012, 1.02969e-08, 0.866025, 0.5, -0.5, 0.433013, -0.75, 0, 10, 0)
+light_color = Color(0.504238, 0.426277, 0.643238, 1)
+shadow_enabled = true
+shadow_reverse_cull_face = true
+
+[node name="PlayerSpawner" parent="." instance=ExtResource("3_gl1fl")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
+reset_player = true
+
+[node name="tutorial" parent="." instance=ExtResource("3_suo32")]
+
+[node name="WoodenSign" parent="." instance=ExtResource("3_rjjb4")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0.2, -1.8)
+text = "[WASD] = Move
+[MOUSE] = LOOK
+[SPACE] = Jump"
