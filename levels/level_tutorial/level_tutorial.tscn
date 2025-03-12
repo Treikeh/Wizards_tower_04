@@ -1,9 +1,20 @@
-[gd_scene load_steps=8 format=3 uid="uid://dwjv0xnilcomg"]
+[gd_scene load_steps=23 format=3 uid="uid://b76e5kfg66k06"]
 
-[ext_resource type="Script" uid="uid://slm8gfk05uub" path="res://levels/level_hub/level_hub.gd" id="1_unaol"]
-[ext_resource type="PackedScene" uid="uid://i0u75nytwgqr" path="res://utility/spawners/player_spawner.tscn" id="3_gl1fl"]
-[ext_resource type="PackedScene" uid="uid://bdan64bohs08a" path="res://entities/interactables/sign/wooden_sign.tscn" id="3_rjjb4"]
-[ext_resource type="PackedScene" uid="uid://bg321jiqvlra1" path="res://levels/level_tutorial/tutorial.glb" id="3_suo32"]
+[ext_resource type="Script" uid="uid://carysx054rh5x" path="res://levels/level_tutorial/level_tutorial.gd" id="1_kr1ct"]
+[ext_resource type="PackedScene" uid="uid://dia702pnub3s5" path="res://levels/level_hub/level_hub.glb" id="2_sp210"]
+[ext_resource type="Resource" uid="uid://bwcubkqem0pvw" path="res://entities/spells/fireball/fireball_spell_info.tres" id="2_tiryw"]
+[ext_resource type="Resource" uid="uid://caklm24g711ah" path="res://entities/spells/rockwall/rockwall_spell_info.tres" id="3_gq6ss"]
+[ext_resource type="PackedScene" uid="uid://i0u75nytwgqr" path="res://utility/spawners/player_spawner.tscn" id="3_korgu"]
+[ext_resource type="Material" uid="uid://pwjimh5imhjl" path="res://common/materials/stone_brick_wall_01_m.tres" id="7_hbgy6"]
+[ext_resource type="PackedScene" uid="uid://bpkvnw0vkcjlr" path="res://utility/triggers/player_area_trigger.tscn" id="8_r4pic"]
+[ext_resource type="PackedScene" uid="uid://di7vp8irr7xdl" path="res://utility/damage/damage_area_3d.tscn" id="9_0dtrf"]
+[ext_resource type="Script" uid="uid://crwvko40r6yto" path="res://common/scripts/damage.gd" id="10_0yuay"]
+[ext_resource type="PackedScene" uid="uid://bdan64bohs08a" path="res://entities/interactables/sign/wooden_sign.tscn" id="11_2hct0"]
+[ext_resource type="PackedScene" uid="uid://xxhxvfmbcxdw" path="res://entities/props/wooden_props/table/wooden_table.tscn" id="12_jw3jv"]
+[ext_resource type="PackedScene" uid="uid://bdoipkh1hfkmm" path="res://entities/props/lights/candle/candle.tscn" id="13_rhcc4"]
+[ext_resource type="PackedScene" uid="uid://bry0wxhx4cb1i" path="res://entities/interactables/scribe_table/book_01_sm.glb" id="14_7y2qk"]
+[ext_resource type="Script" uid="uid://y2e64joq2lh3" path="res://utility/interact_area_3d.gd" id="15_hesjw"]
+[ext_resource type="PackedScene" uid="uid://dksnuasja7g8f" path="res://entities/enemies/target_dummy/target_dummy.tscn" id="16_u2gng"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_lq28c"]
 sky_top_color = Color(0.292637, 0.325088, 0.499893, 1)
@@ -31,8 +42,25 @@ fog_height = -13.34
 fog_height_density = 0.0279
 fog_depth_curve = 0.517633
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_sqw5m"]
+size = Vector3(2.4, 1, 1.3)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_4k4lh"]
+size = Vector3(22.6, 19.3, 17.9)
+
+[sub_resource type="Resource" id="Resource_kjme3"]
+script = ExtResource("10_0yuay")
+amount = 1000.0
+type = 0
+metadata/_custom_type_script = "uid://crwvko40r6yto"
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_4j44j"]
+size = Vector3(511, 20.7, 486.3)
+
 [node name="LevelTutorial" type="Node3D"]
-script = ExtResource("1_unaol")
+script = ExtResource("1_kr1ct")
+primary_spell = ExtResource("2_tiryw")
+secondary_spell = ExtResource("3_gq6ss")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_47kxf")
@@ -43,14 +71,93 @@ light_color = Color(0.504238, 0.426277, 0.643238, 1)
 shadow_enabled = true
 shadow_reverse_cull_face = true
 
-[node name="PlayerSpawner" parent="." instance=ExtResource("3_gl1fl")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
+[node name="level_hub" parent="." instance=ExtResource("2_sp210")]
+transform = Transform3D(1, 0, 1.74846e-07, 0, 1, 0, -1.74846e-07, 0, 1, 0, 0, 0)
+
+[node name="PlayerSpawner" parent="." instance=ExtResource("3_korgu")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 227.2, 14.107, -80)
 reset_player = true
 
-[node name="tutorial" parent="." instance=ExtResource("3_suo32")]
+[node name="Gate" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.606873, -21.5)
 
-[node name="WoodenSign" parent="." instance=ExtResource("3_rjjb4")]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0.2, -1.8)
+[node name="CSGCombiner3D" type="CSGCombiner3D" parent="Gate"]
+use_collision = true
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Gate/CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.5, -0.550001, -0.450001)
+size = Vector3(3, 14.9, 4)
+material = ExtResource("7_hbgy6")
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="Gate/CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.5, -0.550001, -0.450001)
+size = Vector3(3, 14.9, 4)
+material = ExtResource("7_hbgy6")
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="Gate/CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.57628e-07, 4.3, -0.450001)
+size = Vector3(4, 2.6, 4)
+material = ExtResource("7_hbgy6")
+
+[node name="MovementSign" parent="." instance=ExtResource("11_2hct0")]
+transform = Transform3D(1.31134e-07, 0, -1, 0, 1, 0, 1, 0, 1.31134e-07, 225.4, 13.307, -80)
 text = "[WASD] = Move
 [MOUSE] = LOOK
 [SPACE] = Jump"
+
+[node name="SpellTable" parent="." instance=ExtResource("12_jw3jv")]
+transform = Transform3D(1.31134e-07, 0, -1, 0, 1, 0, 1, 0, 1.31134e-07, 203.5, 13.2069, -79.6)
+
+[node name="Candle" parent="SpellTable" instance=ExtResource("13_rhcc4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.8, 0.9, 0.3)
+
+[node name="book_01_sm" parent="SpellTable" instance=ExtResource("14_7y2qk")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.992175, 0)
+
+[node name="InteractArea3D" type="Area3D" parent="SpellTable"]
+collision_layer = 16
+collision_mask = 0
+monitorable = false
+script = ExtResource("15_hesjw")
+prompt = "Learn spells"
+metadata/_custom_type_script = "uid://y2e64joq2lh3"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SpellTable/InteractArea3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+shape = SubResource("BoxShape3D_sqw5m")
+debug_color = Color(1, 1, 0, 0.419608)
+
+[node name="CastSpellSign" parent="." instance=ExtResource("11_2hct0")]
+transform = Transform3D(1.31135e-07, 0, -1, 0, 1, 0, 1, 0, 1.31135e-07, 203.4, 13.2069, -81.3)
+text = "[LMB] = Cast primary spell
+[RMB] = Cast secondary spell"
+
+[node name="TargetDummy" parent="." instance=ExtResource("16_u2gng")]
+transform = Transform3D(1.31134e-07, 0, -1, 0, 1, 0, 1, 0, 1.31134e-07, 197.1, 13.2069, -79.5)
+
+[node name="SpellComboSign" parent="." instance=ExtResource("11_2hct0")]
+transform = Transform3D(1.31135e-07, 0, -1, 0, 1, 0, 1, 0, 1.31135e-07, 169.9, 19.7549, -81.7)
+text = "Spells interact with each other."
+
+[node name="PlayTrigger" parent="." node_paths=PackedStringArray("on_player_entered") instance=ExtResource("8_r4pic")]
+transform = Transform3D(2.98023e-08, 0, 1, 0, 1, 0, -1, 0, 2.98023e-08, 130.3, 19.7549, -82.6)
+on_player_entered = {
+NodePath(".."): &"start_run"
+}
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PlayTrigger"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.249998, 0)
+shape = SubResource("BoxShape3D_4k4lh")
+
+[node name="KillZone" parent="." instance=ExtResource("9_0dtrf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -28.3, 0)
+damage = SubResource("Resource_kjme3")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="KillZone"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20.65, -9.85, -93.25)
+shape = SubResource("BoxShape3D_4j44j")
+debug_color = Color(1, 0, 0, 0.419608)
+
+[connection signal="interacted" from="SpellTable/InteractArea3D" to="." method="_on_spell_table_interacted"]
+
+[editable path="SpellTable/Candle"]

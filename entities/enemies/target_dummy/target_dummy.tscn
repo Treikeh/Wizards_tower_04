@@ -1,5 +1,6 @@
-[gd_scene load_steps=11 format=4 uid="uid://dksnuasja7g8f"]
+[gd_scene load_steps=12 format=4 uid="uid://dksnuasja7g8f"]
 
+[ext_resource type="Script" uid="uid://ccli6eqejtk3o" path="res://entities/enemies/enemy.gd" id="1_yder3"]
 [ext_resource type="Material" uid="uid://b6fic2tk7542x" path="res://entities/enemies/living_armor/art/new_shader_material.tres" id="2_06pl7"]
 [ext_resource type="Material" uid="uid://dafw6yvwuk1bj" path="res://common/materials/dev_grid_brown.tres" id="2_o2rrs"]
 [ext_resource type="PackedScene" uid="uid://ddufakdkmxhwr" path="res://utility/damage/health_area_3d.tscn" id="4_ttlu7"]
@@ -84,9 +85,12 @@ radius = 0.7
 [sub_resource type="ViewportTexture" id="ViewportTexture_arqjo"]
 viewport_path = NodePath("SubViewport")
 
-[node name="TargetDummy" type="CharacterBody3D" groups=["enemy"]]
+[node name="TargetDummy" type="CharacterBody3D" node_paths=PackedStringArray("nav_agent") groups=["enemy"]]
 collision_layer = 8
 collision_mask = 271
+script = ExtResource("1_yder3")
+nav_agent = NodePath("NavigationAgent3D")
+metadata/_custom_type_script = "uid://ccli6eqejtk3o"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
@@ -228,5 +232,6 @@ script = ExtResource("5_jxnsv")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.2, 0)
 texture = SubResource("ViewportTexture_arqjo")
 
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+
 [connection signal="health_changed" from="Health" to="FloatingHealthBar" method="_on_health_changed"]
-[connection signal="health_depleted" from="Health" to="." method="_on_health_depleted"]

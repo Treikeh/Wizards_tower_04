@@ -84,7 +84,7 @@ shadow_reverse_cull_face = true
 transform = Transform3D(1, 0, 1.74846e-07, 0, 1, 0, -1.74846e-07, 0, 1, 0, 0, 0)
 
 [node name="PlayerSpawner" parent="." instance=ExtResource("1_gnowi")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.250809, -3.3)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, -3.2)
 reset_player = true
 
 [node name="ScribeTable" parent="." node_paths=PackedStringArray("on_spell_choosen") instance=ExtResource("7_mfhb0")]
