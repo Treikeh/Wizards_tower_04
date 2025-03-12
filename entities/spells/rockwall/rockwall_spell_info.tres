@@ -6,7 +6,7 @@
 [resource]
 script = ExtResource("1_d71ye")
 name = "Rockwall"
-description = "Spawn a wall of rock at the point you are looking"
+description = "Spawn a wall of rock at the point you are looking. Objects in its path will be launched upwards."
 scene = "uid://di11tekkwb3jv"
 icon = ExtResource("2_mpgb0")
 metadata/_custom_type_script = "uid://cpjul4usq54v1"

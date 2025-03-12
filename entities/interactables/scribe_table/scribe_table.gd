@@ -6,7 +6,6 @@ extends Node3D
 
 
 func _on_interacted() -> void:
-	print("This should not be seen")
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	var menu: Control = UiManager.add_ui_scene("uid://dh8msa1h40vqf")
 	menu.tree_exited.connect(_on_menu_tree_exited)
