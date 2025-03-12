@@ -521,3 +521,6 @@ scene_to_spawn = "uid://bmdxr06ji3ymb"
 [node name="SceneSpawner4" parent="03" instance=ExtResource("10_icm7e")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 13.4, 10.962, -116.2)
 scene_to_spawn = "uid://cyrn3f3g0y8en"
+
+[node name="HealthPotion" parent="." instance=ExtResource("11_mvhlt")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.2, 5.1, -96.4)
