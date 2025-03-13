@@ -14,6 +14,14 @@ func _ready() -> void:
 	hide()
 
 
+func _process(_delta: float) -> void:
+	if OS.is_debug_build():
+		if Input.is_action_just_pressed("tertiary_fire"):
+			get_tree().paused = true
+		elif Input.is_action_just_released("tertiary_fire"):
+			get_tree().paused = false
+
+
 func transition_inn() -> void:
 	# Reset progress bar
 	progress_bar.value = 0.0
