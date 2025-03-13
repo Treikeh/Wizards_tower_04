@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bcrxcnnd3qlly"]
+
+[ext_resource type="Script" uid="uid://b8d1odjp6bhvj" path="res://entities/enemies/enemy_footsteps.gd" id="1_c5808"]
+
+[node name="EnemyFootsteps" type="AudioStreamPlayer3D"]
+script = ExtResource("1_c5808")

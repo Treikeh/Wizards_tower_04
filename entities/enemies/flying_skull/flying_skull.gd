@@ -14,6 +14,7 @@ func _attack() -> void:
 	var projectile: RigidBody3D = projectile_scene.instantiate()
 	projectile_spawn_transform.add_child(projectile)
 	projectile.top_level = true
+	$AttackSound.play(0.0)
 
 
 #region Health

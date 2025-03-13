@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://dtoewhbmg012w"]
+[gd_scene load_steps=20 format=3 uid="uid://dtoewhbmg012w"]
 
 [ext_resource type="Script" uid="uid://d32qoagktcfto" path="res://entities/enemies/book_gnome_shelf/book_gnome_shelf.gd" id="1_xkhhr"]
 [ext_resource type="Script" uid="uid://d0vwvl4q3kf66" path="res://common/scripts/match_y_rotation.gd" id="3_7isb5"]
@@ -12,7 +12,10 @@
 [ext_resource type="Script" uid="uid://lnurwx55irrs" path="res://common/scripts/beehave/wait_action.gd" id="12_5x6cv"]
 [ext_resource type="PackedScene" uid="uid://bvvyi603sw4lq" path="res://entities/enemies/book_gnome_shelf/art/book_gnome_shelf_01_sk.glb" id="13_81ec4"]
 [ext_resource type="Script" uid="uid://dc2dt7wqsr7s4" path="res://common/scripts/beehave/get_random_position_in_range.gd" id="13_n3nhu"]
+[ext_resource type="PackedScene" uid="uid://bcrxcnnd3qlly" path="res://entities/enemies/enemy_footsteps.tscn" id="14_icnnc"]
 [ext_resource type="Script" uid="uid://qh7mow72bd0a" path="res://common/scripts/beehave/navigate_to_position_action.gd" id="14_s5txi"]
+[ext_resource type="AudioStream" uid="uid://c54cndvoglcyx" path="res://entities/enemies/book_gnome_shelf/art/Shoe Step Wood Hard A.wav" id="15_p1m4j"]
+[ext_resource type="AudioStream" uid="uid://cph3jsum4q6xd" path="res://entities/enemies/book_gnome_shelf/art/Shoe Step Wood Hard B.wav" id="16_5c6bl"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_wqowl"]
 radius = 0.6
@@ -84,7 +87,7 @@ max_health = 30.0
 
 [node name="BookGnomeShelf" type="Node" parent="." node_paths=PackedStringArray("blackboard", "actor")]
 script = ExtResource("6_iava8")
-blackboard = NodePath("@Node@32299")
+blackboard = NodePath("@Node@74179")
 actor = NodePath("..")
 
 [node name="Sequence" type="Node" parent="BookGnomeShelf"]
@@ -104,6 +107,14 @@ script = ExtResource("13_n3nhu")
 [node name="NavigateToPositionAction" type="Node" parent="BookGnomeShelf/Sequence"]
 script = ExtResource("14_s5txi")
 wait_until_reached = true
+
+[node name="EnemyFootsteps" parent="." instance=ExtResource("14_icnnc")]
+volume_db = -5.0
+max_distance = 20.0
+bus = &"SFX"
+frequency = 10.0
+sound_a = ExtResource("15_p1m4j")
+sound_b = ExtResource("16_5c6bl")
 
 [connection signal="health_changed" from="Health" to="FloatingHealthBar" method="_on_health_changed"]
 [connection signal="health_depleted" from="Health" to="." method="_on_health_depleted"]

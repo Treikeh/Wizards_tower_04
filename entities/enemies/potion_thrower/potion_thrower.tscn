@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://dirwqc7j3yvyf"]
+[gd_scene load_steps=32 format=3 uid="uid://dirwqc7j3yvyf"]
 
 [ext_resource type="Script" uid="uid://ccoht3afdeifr" path="res://entities/enemies/potion_thrower/potion_thrower.gd" id="1_awttq"]
 [ext_resource type="Script" uid="uid://d0vwvl4q3kf66" path="res://common/scripts/match_y_rotation.gd" id="2_dc5ws"]
@@ -6,6 +6,7 @@
 [ext_resource type="Material" uid="uid://botmm8kkk1h67" path="res://common/materials/dev_grid_gray.tres" id="4_ts3sr"]
 [ext_resource type="PackedScene" uid="uid://ddufakdkmxhwr" path="res://utility/damage/health_area_3d.tscn" id="5_k1vbv"]
 [ext_resource type="Script" uid="uid://qrcafxbvr5tg" path="res://common/scripts/health.gd" id="6_kn1ih"]
+[ext_resource type="AudioStream" uid="uid://cn1c1uqetghmn" path="res://entities/enemies/potion_thrower/Monster Fire Short B.wav" id="6_nan2t"]
 [ext_resource type="PackedScene" uid="uid://cs53wyj8yt4s4" path="res://entities/enemies/floating_health_bar.tscn" id="7_wccmv"]
 [ext_resource type="Script" uid="uid://bidgm07p5cbkv" path="res://addons/beehave/nodes/beehave_tree.gd" id="8_yln8x"]
 [ext_resource type="Script" uid="uid://8ceib6pry7j6" path="res://addons/beehave/nodes/composites/selector.gd" id="9_jylmy"]
@@ -189,9 +190,16 @@ shape = SubResource("CylinderShape3D_1e442")
 unique_name_in_owner = true
 root_node = NodePath("../../NavigationAgent3D")
 libraries = {
-"": SubResource("AnimationLibrary_847wy")
+&"": SubResource("AnimationLibrary_847wy")
 }
 autoplay = "spawn"
+
+[node name="AttackSound" type="AudioStreamPlayer3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+stream = ExtResource("6_nan2t")
+volume_db = -5.0
+max_distance = 60.0
+bus = &"SFX"
 
 [node name="Health" type="Node" parent="."]
 script = ExtResource("6_kn1ih")
@@ -203,7 +211,7 @@ texture = SubResource("ViewportTexture_arqjo")
 
 [node name="BeehaveTree" type="Node" parent="." node_paths=PackedStringArray("blackboard", "actor")]
 script = ExtResource("8_yln8x")
-blackboard = NodePath("@Node@92437")
+blackboard = NodePath("@Node@55149")
 actor = NodePath("..")
 
 [node name="SelectorComposite" type="Node" parent="BeehaveTree"]

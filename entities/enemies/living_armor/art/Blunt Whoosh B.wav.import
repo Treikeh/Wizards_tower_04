@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://bbyll8xc6bm6x"
+path="res://.godot/imported/Blunt Whoosh B.wav-7859037ef09c3bf05d3771d1bf308374.sample"
+
+[deps]
+
+source_file="res://entities/enemies/living_armor/art/Blunt Whoosh B.wav"
+dest_files=["res://.godot/imported/Blunt Whoosh B.wav-7859037ef09c3bf05d3771d1bf308374.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

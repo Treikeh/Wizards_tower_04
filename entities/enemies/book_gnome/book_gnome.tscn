@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://uvws4xru1kpl"]
+[gd_scene load_steps=37 format=3 uid="uid://uvws4xru1kpl"]
 
 [ext_resource type="Script" uid="uid://bqvnsk3mi6vnn" path="res://entities/enemies/book_gnome/book_gnome.gd" id="1_ucrke"]
 [ext_resource type="PackedScene" uid="uid://dyhhclqsyjeu3" path="res://entities/enemies/book_gnome/art/book_gnome_01_sk.glb" id="2_1d5g8"]
@@ -10,6 +10,7 @@
 [ext_resource type="AnimationLibrary" uid="uid://bxapqju53wqlg" path="res://entities/enemies/book_gnome/art/book_gnome_01_alib.glb" id="4_gyyhc"]
 [ext_resource type="PackedScene" uid="uid://di7vp8irr7xdl" path="res://utility/damage/damage_area_3d.tscn" id="4_pe1ou"]
 [ext_resource type="Resource" uid="uid://dc7hcuasftdvh" path="res://entities/enemies/book_gnome/book_gnome_damage.tres" id="5_rq5px"]
+[ext_resource type="AudioStream" uid="uid://c7pukwl52u26t" path="res://entities/enemies/book_gnome/art/Slap Medium B.wav" id="9_agejn"]
 [ext_resource type="Script" uid="uid://bidgm07p5cbkv" path="res://addons/beehave/nodes/beehave_tree.gd" id="10_fgdmq"]
 [ext_resource type="Script" uid="uid://8ceib6pry7j6" path="res://addons/beehave/nodes/composites/selector.gd" id="11_qb3q8"]
 [ext_resource type="Script" uid="uid://glf5bkmjbagi" path="res://common/scripts/beehave/get_first_node_in_group_action.gd" id="11_qu1or"]
@@ -22,6 +23,9 @@
 [ext_resource type="Script" uid="uid://c0121n4lqyq4g" path="res://common/scripts/beehave/node_in_range_condition.gd" id="16_vu0he"]
 [ext_resource type="Script" uid="uid://lnurwx55irrs" path="res://common/scripts/beehave/wait_action.gd" id="17_f62x3"]
 [ext_resource type="Script" uid="uid://cuvy4p2im1oa5" path="res://common/scripts/beehave/debug_print_action.gd" id="18_x15na"]
+[ext_resource type="PackedScene" uid="uid://bcrxcnnd3qlly" path="res://entities/enemies/enemy_footsteps.tscn" id="24_rieep"]
+[ext_resource type="AudioStream" uid="uid://b0a5mu6ufg35r" path="res://entities/enemies/book_gnome/art/Bare Step Wood Hard C.wav" id="25_faped"]
+[ext_resource type="AudioStream" uid="uid://dxewg3i0d4u81" path="res://entities/enemies/book_gnome/art/Bare Step Wood Hard D.wav" id="26_7fjmd"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_kgyn0"]
 radius = 0.3
@@ -138,6 +142,12 @@ shape = SubResource("BoxShape3D_xk6ae")
 disabled = true
 debug_color = Color(1, 0, 0, 0.419608)
 
+[node name="AttackSound" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("9_agejn")
+volume_db = -10.0
+max_distance = 15.0
+bus = &"SFX"
+
 [node name="Health" type="Node" parent="."]
 script = ExtResource("4_ejrbm")
 max_health = 10.0
@@ -148,7 +158,7 @@ texture = SubResource("ViewportTexture_cuy2h")
 
 [node name="BookGnomeTree" type="Node" parent="." node_paths=PackedStringArray("blackboard", "actor")]
 script = ExtResource("10_fgdmq")
-blackboard = NodePath("@Node@31841")
+blackboard = NodePath("@Node@73438")
 actor = NodePath("..")
 
 [node name="SelectorComposite" type="Node" parent="BookGnomeTree"]
@@ -212,6 +222,14 @@ save_key = &"player"
 [node name="DebugPrintAction" type="Node" parent="BookGnomeTree/SelectorComposite/TryToGetPlayerCooldown/SequenceComposite"]
 script = ExtResource("18_x15na")
 text = "TryingToGetPlayer"
+
+[node name="EnemyFootsteps" parent="." instance=ExtResource("24_rieep")]
+volume_db = -5.0
+max_distance = 15.0
+bus = &"SFX"
+frequency = 15.0
+sound_a = ExtResource("25_faped")
+sound_b = ExtResource("26_7fjmd")
 
 [connection signal="health_changed" from="Health" to="FloatingHealthBar" method="_on_health_changed"]
 [connection signal="health_depleted" from="Health" to="." method="_on_health_depleted"]

@@ -139,6 +139,9 @@ on_pressed = {
 NodePath("../BookGnomeSpawner"): &"spawn_scene"
 }
 
+[node name="InteractArea3D" parent="Enemies/BookGnomeSpawnerButton" index="0"]
+prompt = "Spawn Book gnome"
+
 [node name="LivingArmorSpawner" parent="Enemies" instance=ExtResource("2_4xdsy")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 17, 4, -7)
 scene_to_spawn = "res://entities/enemies/living_armor/living_armor.tscn"
@@ -148,6 +151,9 @@ transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 9.5, 0
 on_pressed = {
 NodePath("../LivingArmorSpawner"): &"spawn_scene"
 }
+
+[node name="InteractArea3D" parent="Enemies/LivingArmorSpawnerButton" index="0"]
+prompt = "Spawn Living armor"
 
 [node name="PotionThrowerSpawner" parent="Enemies" instance=ExtResource("2_4xdsy")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 17, 4, -7)
@@ -159,6 +165,9 @@ on_pressed = {
 NodePath("../PotionThrowerSpawner"): &"spawn_scene"
 }
 
+[node name="InteractArea3D" parent="Enemies/PotionThrowerSpawnerButton" index="0"]
+prompt = "Spawn Potion thrower"
+
 [node name="LightningSummonerSpawner" parent="Enemies" instance=ExtResource("2_4xdsy")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 17, 4, -7)
 scene_to_spawn = "res://entities/enemies/lightning_summoner/lightning_summoner.tscn"
@@ -168,6 +177,9 @@ transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 9.5, 0
 on_pressed = {
 NodePath("../LightningSummonerSpawner"): &"spawn_scene"
 }
+
+[node name="InteractArea3D" parent="Enemies/LightningSpawnerButton" index="0"]
+prompt = "Spawn Lightning summoner"
 
 [node name="FlyingSkullSpawner" parent="Enemies" instance=ExtResource("2_4xdsy")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 17, 4, -7)
@@ -179,6 +191,9 @@ on_pressed = {
 NodePath("../FlyingSkullSpawner"): &"spawn_scene"
 }
 
+[node name="InteractArea3D" parent="Enemies/FlyingSkullSpawnerButton" index="0"]
+prompt = "Spawn Flying skull"
+
 [node name="BookShelfSpawner" parent="Enemies" instance=ExtResource("2_4xdsy")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 17, 4, -7)
 scene_to_spawn = "res://entities/enemies/book_gnome_shelf/book_gnome_shelf.tscn"
@@ -188,6 +203,9 @@ transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 9.5, 0
 on_pressed = {
 NodePath("../BookShelfSpawner"): &"spawn_scene"
 }
+
+[node name="InteractArea3D" parent="Enemies/BookShelfSpawnerButton" index="0"]
+prompt = "Spawn Book gnome shelf"
 
 [node name="GolemSpawner" parent="Enemies" instance=ExtResource("2_4xdsy")]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 17, 4, -7)
@@ -199,10 +217,13 @@ on_pressed = {
 NodePath("../GolemSpawner"): &"spawn_scene"
 }
 
+[node name="InteractArea3D" parent="Enemies/GolemSpawnerButton" index="0"]
+prompt = "Spawn Golem"
+
 [node name="Interactable" type="Node3D" parent="."]
 
 [node name="HealtHPoitionSpawner" parent="Interactable" instance=ExtResource("2_4xdsy")]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -8, 0, -7.5)
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -7.5, 0, -7.5)
 scene_to_spawn = "res://entities/pickups/health_potion/health_potion.tscn"
 spawn_on_ready = true
 
@@ -211,6 +232,9 @@ transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -7.5, 
 on_pressed = {
 NodePath("../HealtHPoitionSpawner"): &"spawn_scene"
 }
+
+[node name="InteractArea3D" parent="Interactable/HealthPotionSpawnButton" index="0"]
+prompt = "Spawn Health potion"
 
 [node name="Props" type="Node3D" parent="."]
 
@@ -333,3 +357,12 @@ transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -14, 0
 [node name="ScribeTable" parent="." instance=ExtResource("27_kk31u")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -1.31134e-07, 0, -6.5)
 single_use = false
+
+[editable path="Enemies/BookGnomeSpawnerButton"]
+[editable path="Enemies/LivingArmorSpawnerButton"]
+[editable path="Enemies/PotionThrowerSpawnerButton"]
+[editable path="Enemies/LightningSpawnerButton"]
+[editable path="Enemies/FlyingSkullSpawnerButton"]
+[editable path="Enemies/BookShelfSpawnerButton"]
+[editable path="Enemies/GolemSpawnerButton"]
+[editable path="Interactable/HealthPotionSpawnButton"]

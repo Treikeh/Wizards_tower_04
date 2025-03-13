@@ -18,6 +18,8 @@ func _attack() -> void:
 	
 	# Launch enemy towards target
 	recive_knockback(-target_direction.global_basis.z)
+	await get_tree().create_timer(0.2).timeout
+	$AttackSound.play(0.0)
 
 
 #region Health

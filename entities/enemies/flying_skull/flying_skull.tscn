@@ -1,10 +1,11 @@
-[gd_scene load_steps=34 format=3 uid="uid://cyrn3f3g0y8en"]
+[gd_scene load_steps=35 format=3 uid="uid://cyrn3f3g0y8en"]
 
 [ext_resource type="Script" uid="uid://bbnka3o5ruweg" path="res://entities/enemies/flying_skull/flying_skull.gd" id="1_8jevj"]
 [ext_resource type="PackedScene" uid="uid://dm3htgnnsyvih" path="res://entities/enemies/flying_skull/art/flying_skull_01_sk.glb" id="3_rf2pp"]
 [ext_resource type="AnimationLibrary" uid="uid://41xq5t736kbr" path="res://entities/enemies/flying_skull/art/flying_skull_01_alib.glb" id="4_qj4ug"]
 [ext_resource type="QuadMesh" uid="uid://bs74iy86w3241" path="res://common/vfx/simple_particle_mesh.tres" id="5_ons45"]
 [ext_resource type="PackedScene" uid="uid://ddufakdkmxhwr" path="res://utility/damage/health_area_3d.tscn" id="5_xj77p"]
+[ext_resource type="AudioStream" uid="uid://cn1c1uqetghmn" path="res://entities/enemies/potion_thrower/Monster Fire Short B.wav" id="6_75wrp"]
 [ext_resource type="Script" uid="uid://qrcafxbvr5tg" path="res://common/scripts/health.gd" id="6_ajsho"]
 [ext_resource type="PackedScene" uid="uid://cs53wyj8yt4s4" path="res://entities/enemies/floating_health_bar.tscn" id="7_lnvey"]
 [ext_resource type="Script" uid="uid://bidgm07p5cbkv" path="res://addons/beehave/nodes/beehave_tree.gd" id="8_7d4xa"]
@@ -168,7 +169,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.2, 0)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Mesh/flying_skull_01_sk"]
 libraries = {
-"": ExtResource("4_qj4ug")
+&"": ExtResource("4_qj4ug")
 }
 
 [node name="HealthArea3D" parent="Mesh" node_paths=PackedStringArray("health_node") instance=ExtResource("5_xj77p")]
@@ -188,9 +189,15 @@ draw_pass_1 = ExtResource("5_ons45")
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Mesh"]
 root_node = NodePath("../../NavigationAgent3D")
 libraries = {
-"": SubResource("AnimationLibrary_847wy")
+&"": SubResource("AnimationLibrary_847wy")
 }
 autoplay = "spawn"
+
+[node name="AttackSound" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("6_75wrp")
+volume_db = -5.0
+max_distance = 60.0
+bus = &"SFX"
 
 [node name="Health" type="Node" parent="."]
 script = ExtResource("6_ajsho")
@@ -202,7 +209,7 @@ texture = SubResource("ViewportTexture_arqjo")
 
 [node name="BeehaveTree" type="Node" parent="." node_paths=PackedStringArray("blackboard", "actor")]
 script = ExtResource("8_7d4xa")
-blackboard = NodePath("@Node@97037")
+blackboard = NodePath("@Node@55152")
 actor = NodePath("..")
 
 [node name="SelectorComposite" type="Node" parent="BeehaveTree"]

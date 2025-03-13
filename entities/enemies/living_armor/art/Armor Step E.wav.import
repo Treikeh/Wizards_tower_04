@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://xekrkqoercee"
+path="res://.godot/imported/Armor Step E.wav-c305656eff82f30c5990899887d0c50b.sample"
+
+[deps]
+
+source_file="res://entities/enemies/living_armor/art/Armor Step E.wav"
+dest_files=["res://.godot/imported/Armor Step E.wav-c305656eff82f30c5990899887d0c50b.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

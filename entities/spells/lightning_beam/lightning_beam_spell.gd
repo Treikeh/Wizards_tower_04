@@ -28,8 +28,10 @@ func _process(delta: float) -> void:
 func start_casting() -> void:
 	enabled = true
 	visuals.show()
+	$AudioStreamPlayer.play(0.0)
 
 
 func stop_casting() -> void:
 	enabled = false
 	visuals.hide()
+	$AudioStreamPlayer.stop()
