@@ -1,3 +1,4 @@
+@icon("res://common/icons/enemy_3d.svg")
 class_name Enemy
 extends CharacterBody3D
 

@@ -1,3 +1,4 @@
+@icon("res://common/icons/health.svg")
 class_name Health
 extends Node
 
