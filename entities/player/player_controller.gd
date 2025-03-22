@@ -43,6 +43,8 @@ var check_for_ground: bool = true
 
 var hud_scene: String = "uid://bsrvl85f7jxdv"
 
+@onready var state_machine: StateMachine = $StateMachine
+
 
 func _ready() -> void:
 	# Load config settings
@@ -63,6 +65,12 @@ func _ready() -> void:
 	# Hide fps arms when spawning player if no spells are choosen
 	if Globals.choosen_spells.is_empty():
 		animation_tree.set("parameters/reset_idle_blend/blend_amount", 0.0)
+	
+	# Initialize state machine blackboard variables
+	state_machine.set_value("player", self)
+	state_machine.set_value("is_grounded", false)
+	state_machine.set_value("move_dir", Vector3.ZERO)
+	state_machine.set_value("ground_normal", Vector3.ZERO)
 
 
 func _input(event: InputEvent) -> void:
@@ -75,6 +83,8 @@ func _input(event: InputEvent) -> void:
 		
 		# jump input
 		if event.is_action_pressed("jump"):
+			#HACK: I should be able to change to a new state directly from the state machine
+			state_machine.current_state.transition_to("jumping")
 			_jump()
 		
 		# Interact input
@@ -106,17 +116,20 @@ func _process(delta: float) -> void:
 	
 	# Align move_input to orientation
 	move_direction = orientation.global_basis * Vector3(move_input.x, 0.0, move_input.y).normalized()
+	state_machine.set_value("move_dir", move_direction)
 
 
 func _physics_process(delta: float) -> void:
 	is_grounded = _is_on_walkable_slope()
+	state_machine.set_value("is_grounded", is_grounded)
+	state_machine.set_value("ground_normal", ground_normal)
 	if is_grounded:
 		gravity_scale = 0.1
 		ground_vel = get_ground_vel()
 		var slope_dir: Vector3 = move_direction.slide(ground_normal)
 		var target_vel: Vector3 = slope_dir * max_speed
 		var needed_vel: Vector3 = target_vel - (linear_velocity - ground_vel)
-		apply_central_force(needed_vel * ground_accel * delta * mass)
+		#apply_central_force(needed_vel * ground_accel * delta * mass)
 		if check_for_ground:
 			# Check if player just landed
 			if ground_ray.target_position.y > -(rest_height + ground_buffer):
@@ -127,7 +140,7 @@ func _physics_process(delta: float) -> void:
 					_jump()
 			# Give ground_ray a buffer while grounded to allow snapping when walking down ledges
 			ground_ray.target_position.y = -(rest_height + ground_buffer)
-			_snap_to_ground(delta)
+			#_snap_to_ground(delta)
 		else:
 			# Reduce ground_shape size while airborne to get more accurate landing collision
 			ground_ray.target_position.y = -rest_height
@@ -143,7 +156,7 @@ func _physics_process(delta: float) -> void:
 			target_vel = (move_direction + slope_normal) * max_speed
 		var gravity_vector: Vector3 = linear_velocity.dot(Vector3.DOWN) * Vector3.DOWN
 		var needed_vel: Vector3 = target_vel - (linear_velocity - gravity_vector)
-		apply_central_force(needed_vel * air_accel * delta * mass)
+		#apply_central_force(needed_vel * air_accel * delta * mass)
 		
 		coyote_time += delta
 		jump_buffer -= delta
