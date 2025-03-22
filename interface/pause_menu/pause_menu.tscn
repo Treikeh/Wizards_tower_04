@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://c0eqij5n6ljuo"]
 
-[ext_resource type="Script" path="res://interface/pause_menu/pause_menu.gd" id="1_87ra5"]
+[ext_resource type="Script" uid="uid://bxqn4yxaar1gp" path="res://interface/pause_menu/pause_menu.gd" id="1_87ra5"]
 
 [node name="PauseMenu" type="PanelContainer"]
 process_mode = 2
@@ -46,10 +46,10 @@ layout_mode = 2
 size_flags_vertical = 3
 text = "Resume"
 
-[node name="RestartLevelButton" type="Button" parent="MarginContainer/VBoxContainer"]
+[node name="ReturnToHubButton" type="Button" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
-text = "Restart Level"
+text = "Return To Hub"
 
 [node name="SettingsButton" type="Button" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -67,7 +67,7 @@ size_flags_vertical = 3
 text = "Quit"
 
 [connection signal="pressed" from="MarginContainer/VBoxContainer/ResumeButton" to="." method="_on_resume_button_pressed"]
-[connection signal="pressed" from="MarginContainer/VBoxContainer/RestartLevelButton" to="." method="_on_restart_level_button_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/ReturnToHubButton" to="." method="_on_return_to_hub_button_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/SettingsButton" to="." method="_on_settings_button_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/MainMenuButton" to="." method="_on_main_menu_button_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]

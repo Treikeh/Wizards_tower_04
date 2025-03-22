@@ -1,4 +1,4 @@
-extends Node
+extends Node3D
 
 
 var level_to_load: String = ""
@@ -42,9 +42,6 @@ func change_level(level_path: String) -> void:
 		print("ERROR!: Level not found. Invalid path")
 		return
 	
-	# Reset checkpoint
-	Globals.checkpoint_id = 0
-	
 	# Show loading screen
 	LoadingScreen.transition_inn()
 	await LoadingScreen.transition_finished
@@ -60,8 +57,8 @@ func reload_level() -> void:
 	get_tree().reload_current_scene()
 
 
-func add_3d_scene(scene_path: String, position: Vector3 = Vector3.ZERO) -> Node3D:
+func add_3d_scene(scene_path: String, spawn_position: Vector3 = Vector3.ZERO) -> Node3D:
 	var scene: Node3D = load(scene_path).instantiate()
 	get_tree().current_scene.add_child(scene)
-	scene.global_position = position
+	scene.global_position = spawn_position
 	return scene

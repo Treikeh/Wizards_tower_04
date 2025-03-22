@@ -1,28 +1,33 @@
-[gd_scene load_steps=28 format=3 uid="uid://bmdxr06ji3ymb"]
+[gd_scene load_steps=32 format=3 uid="uid://bmdxr06ji3ymb"]
 
 [ext_resource type="PackedScene" uid="uid://cs53wyj8yt4s4" path="res://entities/enemies/floating_health_bar.tscn" id="1_2e566"]
-[ext_resource type="Script" path="res://entities/enemies/living_armor/living_armor.gd" id="1_06wta"]
-[ext_resource type="Script" path="res://common/scripts/health.gd" id="2_6r6ee"]
-[ext_resource type="Script" path="res://common/scripts/match_y_rotation.gd" id="2_jgje8"]
+[ext_resource type="Script" uid="uid://c2lpwo72tvjsp" path="res://entities/enemies/living_armor/living_armor.gd" id="1_06wta"]
+[ext_resource type="Script" uid="uid://qrcafxbvr5tg" path="res://common/scripts/health.gd" id="2_6r6ee"]
+[ext_resource type="Script" uid="uid://d0vwvl4q3kf66" path="res://common/scripts/match_y_rotation.gd" id="2_jgje8"]
 [ext_resource type="PackedScene" uid="uid://hbbw4ewamxu8" path="res://entities/enemies/living_armor/art/living_armor_01_sk.glb" id="3_o1tl7"]
 [ext_resource type="PackedScene" uid="uid://ddufakdkmxhwr" path="res://utility/damage/health_area_3d.tscn" id="3_tgsqs"]
 [ext_resource type="PackedScene" uid="uid://di7vp8irr7xdl" path="res://utility/damage/damage_area_3d.tscn" id="4_bjx4o"]
-[ext_resource type="Script" path="res://common/scripts/damage.gd" id="5_sdnyl"]
-[ext_resource type="Script" path="res://addons/beehave/nodes/beehave_tree.gd" id="7_xq1dp"]
-[ext_resource type="Script" path="res://addons/beehave/nodes/composites/selector.gd" id="8_qqjc7"]
-[ext_resource type="Script" path="res://addons/beehave/nodes/composites/sequence.gd" id="9_0vmq6"]
-[ext_resource type="Script" path="res://common/scripts/beehave/is_value_valid_condition.gd" id="10_7b77a"]
-[ext_resource type="Script" path="res://common/scripts/beehave/debug_print_action.gd" id="11_2lye5"]
-[ext_resource type="Script" path="res://addons/beehave/nodes/decorators/cooldown.gd" id="12_f0udt"]
-[ext_resource type="Script" path="res://common/scripts/beehave/node_in_range_condition.gd" id="12_qo062"]
-[ext_resource type="Script" path="res://common/scripts/beehave/node_look_at_node_action.gd" id="12_uiwsr"]
-[ext_resource type="Script" path="res://common/scripts/beehave/navigate_to_node_action.gd" id="13_p4t58"]
-[ext_resource type="Script" path="res://common/scripts/beehave/get_first_node_in_group_action.gd" id="13_tbnnk"]
-[ext_resource type="Script" path="res://common/scripts/beehave/stop_movement_action.gd" id="14_r2yqp"]
-[ext_resource type="Script" path="res://common/scripts/beehave/wait_action.gd" id="15_c1ov7"]
-[ext_resource type="Script" path="res://common/scripts/beehave/call_method_action.gd" id="15_ckxsl"]
+[ext_resource type="Script" uid="uid://crwvko40r6yto" path="res://common/scripts/damage.gd" id="5_sdnyl"]
+[ext_resource type="Script" uid="uid://bidgm07p5cbkv" path="res://addons/beehave/nodes/beehave_tree.gd" id="7_xq1dp"]
+[ext_resource type="Script" uid="uid://8ceib6pry7j6" path="res://addons/beehave/nodes/composites/selector.gd" id="8_qqjc7"]
+[ext_resource type="Script" uid="uid://c4bcucm80qf6y" path="res://addons/beehave/nodes/composites/sequence.gd" id="9_0vmq6"]
+[ext_resource type="AudioStream" uid="uid://bbyll8xc6bm6x" path="res://entities/enemies/living_armor/art/Blunt Whoosh B.wav" id="9_2wthw"]
+[ext_resource type="Script" uid="uid://codt6vplffl3h" path="res://common/scripts/beehave/is_value_valid_condition.gd" id="10_7b77a"]
+[ext_resource type="PackedScene" uid="uid://bcrxcnnd3qlly" path="res://entities/enemies/enemy_footsteps.tscn" id="10_uxchm"]
+[ext_resource type="Script" uid="uid://cuvy4p2im1oa5" path="res://common/scripts/beehave/debug_print_action.gd" id="11_2lye5"]
+[ext_resource type="AudioStream" uid="uid://bd40cy8em8t4q" path="res://entities/enemies/living_armor/art/Armor Step D.wav" id="11_rm84s"]
+[ext_resource type="Script" uid="uid://dtar8n8ucastr" path="res://addons/beehave/nodes/decorators/cooldown.gd" id="12_f0udt"]
+[ext_resource type="AudioStream" uid="uid://xekrkqoercee" path="res://entities/enemies/living_armor/art/Armor Step E.wav" id="12_q3cb3"]
+[ext_resource type="Script" uid="uid://c0121n4lqyq4g" path="res://common/scripts/beehave/node_in_range_condition.gd" id="12_qo062"]
+[ext_resource type="Script" uid="uid://btjjclsx6y202" path="res://common/scripts/beehave/node_look_at_node_action.gd" id="12_uiwsr"]
+[ext_resource type="Script" uid="uid://ctm6tnit7iy3k" path="res://common/scripts/beehave/navigate_to_node_action.gd" id="13_p4t58"]
+[ext_resource type="Script" uid="uid://glf5bkmjbagi" path="res://common/scripts/beehave/get_first_node_in_group_action.gd" id="13_tbnnk"]
+[ext_resource type="Script" uid="uid://b3stvxbjaoiij" path="res://common/scripts/beehave/stop_movement_action.gd" id="14_r2yqp"]
+[ext_resource type="Script" uid="uid://lnurwx55irrs" path="res://common/scripts/beehave/wait_action.gd" id="15_c1ov7"]
+[ext_resource type="Script" uid="uid://deh2dswietdai" path="res://common/scripts/beehave/call_method_action.gd" id="15_ckxsl"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_7ua38"]
+radius = 0.4
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_ivhn2"]
 top_radius = 0.025
@@ -40,6 +45,7 @@ radius = 0.4
 height = 1.2
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_dim8n"]
+radius = 0.6
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_arqjo"]
 viewport_path = NodePath("SubViewport")
@@ -66,29 +72,17 @@ target_node = NodePath("../TargetDirection")
 
 [node name="Skeleton3D" parent="living_armor_01_sk" index="0"]
 bones/2/rotation = Quaternion(-0.0191595, 6.33183e-08, -1.21337e-09, 0.999816)
-bones/3/rotation = Quaternion(0.0532459, -3.348e-08, 4.95891e-09, 0.998581)
-bones/4/rotation = Quaternion(-0.179722, -1.46585e-08, -8.0342e-09, 0.983717)
-bones/5/rotation = Quaternion(0.146069, 4.4224e-08, 1.0883e-08, 0.989275)
-bones/6/rotation = Quaternion(0.160268, 0.224967, 0.705081, 0.653119)
 bones/6/scale = Vector3(1, 1, 1)
-bones/7/rotation = Quaternion(-0.253622, 0.0913861, 0.321377, 0.907767)
-bones/8/rotation = Quaternion(-0.374567, -0.00294055, 0.00737646, 0.927166)
 bones/8/scale = Vector3(1, 1, 1)
-bones/9/rotation = Quaternion(-0.00333371, 0.318514, -0.0122419, 0.947833)
 bones/9/scale = Vector3(1, 1, 1)
-bones/10/rotation = Quaternion(-0.476932, -0.513155, 0.514589, -0.494374)
 bones/10/scale = Vector3(1, 1, 1)
-bones/11/rotation = Quaternion(0.160268, -0.224967, -0.705081, 0.653119)
 bones/11/scale = Vector3(1, 1, 1)
-bones/12/rotation = Quaternion(-0.253622, -0.0913861, -0.321378, 0.907767)
-bones/13/rotation = Quaternion(-0.374567, 0.00294052, -0.00737644, 0.927166)
 bones/13/scale = Vector3(1, 1, 1)
-bones/14/rotation = Quaternion(-0.00333372, -0.318514, 0.0122419, 0.947833)
 bones/14/scale = Vector3(1, 1, 1)
 bones/15/scale = Vector3(1, 1, 1)
 
 [node name="HandEqR" type="BoneAttachment3D" parent="living_armor_01_sk/Skeleton3D" index="1"]
-transform = Transform3D(0.83938, 0.223226, -0.495592, 0.0713827, 0.85861, 0.507636, 0.538838, -0.461476, 0.704765, 0.572376, 1.13406, -0.271901)
+transform = Transform3D(0.469742, -0.040178, 0.881889, 0.877521, 0.130371, -0.461476, -0.096431, 0.990651, 0.0964978, 0.0957906, 2.00393, -0.00914688)
 bone_name = "hand_eq_R.002"
 bone_idx = 15
 
@@ -101,7 +95,6 @@ damage = SubResource("Resource_7mhl2")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="living_armor_01_sk/Skeleton3D/HandEqR/MeshInstance3D/DamageArea3D"]
 shape = SubResource("CapsuleShape3D_ec03n")
-disabled = true
 
 [node name="AnimationPlayer" parent="living_armor_01_sk" index="1"]
 autoplay = "spawn_001"
@@ -112,6 +105,7 @@ health_node = NodePath("../../Health")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="living_armor_01_sk/HealthArea3D"]
 shape = SubResource("CapsuleShape3D_dim8n")
+debug_color = Color(0, 1, 0, 0.419608)
 
 [node name="Health" type="Node" parent="."]
 script = ExtResource("2_6r6ee")
@@ -121,10 +115,26 @@ max_health = 50.0
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.2, 0)
 texture = SubResource("ViewportTexture_arqjo")
 
+[node name="AttackSound" type="AudioStreamPlayer3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.58273, 0)
+stream = ExtResource("9_2wthw")
+volume_db = -20.0
+max_db = 1.5
+max_distance = 20.0
+bus = &"SFX"
+
+[node name="EnemyFootsteps" parent="." instance=ExtResource("10_uxchm")]
+volume_db = -10.0
+max_distance = 15.0
+bus = &"SFX"
+frequency = 10.0
+sound_a = ExtResource("11_rm84s")
+sound_b = ExtResource("12_q3cb3")
+
 [node name="BeehaveTree" type="Node" parent="." node_paths=PackedStringArray("blackboard", "actor")]
 script = ExtResource("7_xq1dp")
 enabled = false
-blackboard = NodePath("@Node@17446")
+blackboard = NodePath("@Node@71020")
 actor = NodePath("..")
 
 [node name="SelectorComposite" type="Node" parent="BeehaveTree"]

@@ -18,11 +18,14 @@ func _attack() -> void:
 	
 	# Launch enemy towards target
 	recive_knockback(-target_direction.global_basis.z)
+	await get_tree().create_timer(0.2).timeout
+	$AttackSound.play(0.0)
 
 
 #region Health
 
 func _on_health_depleted() -> void:
+	Globals.enemies_killed += 1
 	# Disable AI and movement
 	beehave_tree.disable()
 	movement_enabled = false

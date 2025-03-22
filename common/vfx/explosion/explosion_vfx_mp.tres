@@ -1,7 +1,7 @@
 [gd_resource type="ParticleProcessMaterial" load_steps=3 format=3 uid="uid://blsagikhb12s0"]
 
 [sub_resource type="Curve" id="Curve_li8wt"]
-max_value = 3.0
+_limits = [0.0, 3.0, 0.0, 1.0]
 _data = [Vector2(0, 0), 0.0, 15.0301, 0, 0, Vector2(1, 2.37836), -1.50076, 0.0, 0, 0]
 point_count = 2
 

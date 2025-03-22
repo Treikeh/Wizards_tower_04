@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="SpellInfo" load_steps=3 format=3 uid="uid://dxyg3wq0uorm8"]
+
+[ext_resource type="Script" uid="uid://cpjul4usq54v1" path="res://entities/spells/spell_info.gd" id="1_sreox"]
+[ext_resource type="Texture2D" uid="uid://khthocgdopol" path="res://entities/spells/lightning_beam/lightning_beam_icon.png" id="2_k2p8x"]
+
+[resource]
+script = ExtResource("1_sreox")
+name = "Lightning beam"
+description = "A beam of electricity dealing damage to a target blocking its path"
+scene = "uid://ctwjw43o46ull"
+icon = ExtResource("2_k2p8x")
+metadata/_custom_type_script = "uid://cpjul4usq54v1"

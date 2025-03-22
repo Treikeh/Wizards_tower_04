@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://cs53wyj8yt4s4"]
 
 [ext_resource type="StyleBox" uid="uid://qtun7cbqouf7" path="res://common/style_boxes/health_background_flat.tres" id="1_lfi4s"]
-[ext_resource type="Script" path="res://entities/enemies/floating_health_bar.gd" id="1_wdss0"]
+[ext_resource type="Script" uid="uid://bm60dg74sxave" path="res://entities/enemies/floating_health_bar.gd" id="1_wdss0"]
 [ext_resource type="StyleBox" uid="uid://bsqtahxlwo7o6" path="res://common/style_boxes/health_fill_flat.tres" id="2_6pmgs"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_x6y30"]

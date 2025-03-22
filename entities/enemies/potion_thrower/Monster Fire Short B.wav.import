@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://cn1c1uqetghmn"
+path="res://.godot/imported/Monster Fire Short B.wav-8719278051a75b90bca60843f584a77c.sample"
+
+[deps]
+
+source_file="res://entities/enemies/potion_thrower/Monster Fire Short B.wav"
+dest_files=["res://.godot/imported/Monster Fire Short B.wav-8719278051a75b90bca60843f584a77c.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

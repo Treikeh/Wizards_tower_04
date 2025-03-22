@@ -1,3 +1,4 @@
+@icon("res://common/icons/health.svg")
 class_name Health
 extends Node
 
@@ -40,13 +41,13 @@ func take_damage(damage: Damage) -> void:
 	damage_taken.emit(damage)
 	var modified_damage: float = _apply_damage_resistance(damage)
 	current_health -= modified_damage
-	health_changed.emit(current_health, max_health)
-	if current_health <= 0.0:
+	# Stop current health from being greater thatn max_health
+	if current_health > max_health:
+		current_health = max_health
+	elif current_health <= 0.0:
 		is_dead = true
 		health_depleted.emit()
-	# Stop current health from being greater thatn max_health
-	elif current_health > max_health:
-		current_health = max_health
+	health_changed.emit(current_health, max_health)
 
 
 func _apply_damage_resistance(damage: Damage) -> float:

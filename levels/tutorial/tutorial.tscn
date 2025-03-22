@@ -1,22 +1,20 @@
-[gd_scene load_steps=45 format=3 uid="uid://0ojdxwerkcvd"]
+[gd_scene load_steps=43 format=3 uid="uid://0ojdxwerkcvd"]
 
-[ext_resource type="Script" path="res://levels/level_3d.gd" id="1_xrm32"]
+[ext_resource type="Script" uid="uid://cu2peb35x88qt" path="res://levels/level_3d.gd" id="1_xrm32"]
 [ext_resource type="PackedScene" uid="uid://dh8dcfqs8vv8p" path="res://entities/player/player_controller.tscn" id="2_8qj3e"]
-[ext_resource type="PackedScene" uid="uid://bdoipkh1hfkmm" path="res://entities/props/lights/candle/candle.tscn" id="3_xceou"]
-[ext_resource type="PackedScene" uid="uid://xxhxvfmbcxdw" path="res://entities/props/wooden_props/table/wooden_table.tscn" id="4_ifj4y"]
-[ext_resource type="PackedScene" uid="uid://cxi6v661g084x" path="res://entities/interactables/spellbook/spellbook_pickup.tscn" id="5_jls1s"]
 [ext_resource type="PackedScene" uid="uid://v74tcd2qhxgv" path="res://levels/tutorial/tutorial_layout.glb" id="6_wuqgg"]
 [ext_resource type="PackedScene" uid="uid://bdan64bohs08a" path="res://entities/interactables/sign/wooden_sign.tscn" id="7_d1mdp"]
 [ext_resource type="PackedScene" uid="uid://chw0vev703cjt" path="res://utility/spawners/scene_spawner.tscn" id="7_d1u0o"]
-[ext_resource type="PackedScene" uid="uid://bpkvnw0vkcjlr" path="res://utility/triggers/player_trigger_area_3d.tscn" id="7_h6gs5"]
+[ext_resource type="PackedScene" uid="uid://bpkvnw0vkcjlr" path="res://utility/triggers/player_area_trigger.tscn" id="7_h6gs5"]
 [ext_resource type="PackedScene" uid="uid://exjnmfqooik7" path="res://entities/hazards/explosive_barrel/explosive_barrel.tscn" id="9_7cf6j"]
 [ext_resource type="PackedScene" uid="uid://cmvpm1lh05hyd" path="res://levels/tutorial/tutorial_layout_02.glb" id="11_55vxo"]
-[ext_resource type="PackedScene" uid="uid://cj0ckw6b4kq8l" path="res://utility/triggers/level_transtion_area_3d.tscn" id="11_yiblw"]
+[ext_resource type="PackedScene" uid="uid://cj0ckw6b4kq8l" path="res://utility/triggers/level_transtion_trigger.tscn" id="11_yiblw"]
 [ext_resource type="PackedScene" uid="uid://uvws4xru1kpl" path="res://entities/enemies/book_gnome/book_gnome.tscn" id="14_5aiuc"]
 [ext_resource type="PackedScene" uid="uid://bmdxr06ji3ymb" path="res://entities/enemies/living_armor/living_armor.tscn" id="14_w6iar"]
-[ext_resource type="PackedScene" uid="uid://c21l6816x4oka" path="res://entities/interactables/button/standing_button.tscn" id="16_bhu0f"]
+[ext_resource type="PackedScene" uid="uid://c21l6816x4oka" path="res://entities/interactables/button/interactable_button.tscn" id="16_bhu0f"]
 [ext_resource type="PackedScene" uid="uid://ddufakdkmxhwr" path="res://utility/damage/health_area_3d.tscn" id="16_f1wdp"]
 [ext_resource type="Material" uid="uid://c4eykp21shtlp" path="res://common/materials/dev_grid_red.tres" id="17_gxls4"]
+[ext_resource type="PackedScene" uid="uid://bsb65mme4han8" path="res://entities/interactables/scribe_table/scribe_table.tscn" id="19_dkef5"]
 [ext_resource type="PackedScene" uid="uid://dksnuasja7g8f" path="res://entities/enemies/target_dummy/target_dummy.tscn" id="19_f1f6i"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_q6ljs"]
@@ -86,8 +84,8 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_uhs65"]
 _data = {
-"RESET": SubResource("Animation_t8306"),
-"fall": SubResource("Animation_61v47")
+&"RESET": SubResource("Animation_t8306"),
+&"fall": SubResource("Animation_61v47")
 }
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_6uaqt"]
@@ -165,8 +163,8 @@ tracks/1/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_bltht"]
 _data = {
-"RESET": SubResource("Animation_n43a0"),
-"lower": SubResource("Animation_k26o4")
+&"RESET": SubResource("Animation_n43a0"),
+&"lower": SubResource("Animation_k26o4")
 }
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_8dttj"]
@@ -213,8 +211,8 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_wcr6f"]
 _data = {
-"RESET": SubResource("Animation_11g11"),
-"open": SubResource("Animation_l2vi6")
+&"RESET": SubResource("Animation_11g11"),
+&"open": SubResource("Animation_l2vi6")
 }
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_2nvl6"]
@@ -228,9 +226,6 @@ geometry_source_geometry_mode = 1
 
 [node name="Tutorial" type="Node3D"]
 script = ExtResource("1_xrm32")
-fireball_unlocked = false
-rock_wall_unlocked = false
-wind_blast_unlocked = false
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_e88ck")
@@ -254,15 +249,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.25, 0)
 shape = SubResource("BoxShape3D_aag33")
 
 [node name="Props" type="Node3D" parent="tutorial_layout"]
-
-[node name="WoodenTable" parent="tutorial_layout/Props" instance=ExtResource("4_ifj4y")]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 55.6691, 8.53936, -72.24)
-
-[node name="Candle" parent="tutorial_layout/Props/WoodenTable" instance=ExtResource("3_xceou")]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0.777466, 0.948947, -0.230522)
-
-[node name="SpellbookPickup" parent="tutorial_layout/Props/WoodenTable" instance=ExtResource("5_jls1s")]
-transform = Transform3D(-0.999677, -0.00267591, 0.0252855, 0, 0.994447, 0.10524, -0.0254267, 0.105206, -0.994125, -0.166618, 0.988721, 0.166222)
 
 [node name="WoodenSign" parent="tutorial_layout/Props" instance=ExtResource("7_d1mdp")]
 transform = Transform3D(-0.976379, 0, -0.216065, 0, 1, 0, 0.216065, 0, -0.976379, 56.9539, 8.5, -73.568)
@@ -292,7 +278,7 @@ mesh = SubResource("BoxMesh_ut6h6")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="tutorial_layout/Props/DrawBridge"]
 libraries = {
-"": SubResource("AnimationLibrary_uhs65")
+&"": SubResource("AnimationLibrary_uhs65")
 }
 
 [node name="Enemies" type="Node3D" parent="tutorial_layout"]
@@ -338,11 +324,6 @@ navigation_mesh = SubResource("NavigationMesh_f6871")
 
 [node name="layout_mesh_001" parent="tutorial_layout_02" index="0" groups=["navigation_mesh_source_group"]]
 
-[node name="WoodenTable" parent="tutorial_layout_02/WoodenTable-nochild" index="0" instance=ExtResource("4_ifj4y")]
-
-[node name="SpellbookPickup" parent="tutorial_layout_02/WoodenTable-nochild/WoodenTable" instance=ExtResource("5_jls1s")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.977868, 0)
-
 [node name="StandingButton" parent="tutorial_layout_02/LockedDoorButton" index="0" instance=ExtResource("16_bhu0f")]
 
 [node name="BookGnome" parent="tutorial_layout_02/Enemies/BookGnome-nochild" index="0" instance=ExtResource("14_5aiuc")]
@@ -383,7 +364,7 @@ mesh = SubResource("BoxMesh_gbhln")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="tutorial_layout_02/Bridge/Bridge"]
 libraries = {
-"": SubResource("AnimationLibrary_bltht")
+&"": SubResource("AnimationLibrary_bltht")
 }
 
 [node name="HealthArea3D" parent="tutorial_layout_02/BridgeButton" index="0" instance=ExtResource("16_f1wdp")]
@@ -412,7 +393,7 @@ mesh = SubResource("BoxMesh_txqo4")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="tutorial_layout_02/LockedDoor/LockedDoor"]
 libraries = {
-"": SubResource("AnimationLibrary_wcr6f")
+&"": SubResource("AnimationLibrary_wcr6f")
 }
 
 [node name="LevelTranstionArea3D" parent="tutorial_layout_02/LevelEnd" index="0" instance=ExtResource("11_yiblw")]
@@ -427,13 +408,18 @@ navigation_mesh = SubResource("NavigationMesh_nmdue")
 [node name="RigidbodyPlayer" parent="." instance=ExtResource("2_8qj3e")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 
+[node name="ScribeTable" parent="." instance=ExtResource("19_dkef5")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 30.8991, 7.41797, -60.5172)
+
+[node name="ScribeTable2" parent="." instance=ExtResource("19_dkef5")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -142.7, 8.5, -203.2)
+
 [connection signal="tree_exiting" from="tutorial_layout/Props/ExplosiveBarrel2" to="tutorial_layout/Props/DrawBridge/AnimationPlayer" method="play" binds= ["fall"]]
 [connection signal="player_entered" from="tutorial_layout/Enemies/PlayerTriggerArea3D" to="tutorial_layout/Enemies/EnemySpawner" method="spawn_scene"]
 [connection signal="player_entered" from="tutorial_layout/Enemies/PlayerTriggerArea3D" to="tutorial_layout/Enemies/EnemySpawner2" method="spawn_scene"]
 [connection signal="player_entered" from="tutorial_layout/Enemies/PlayerTriggerArea3D2" to="tutorial_layout/Enemies/EnemySpawner3" method="spawn_scene"]
 [connection signal="player_entered" from="tutorial_layout/Enemies/PlayerTriggerArea3D2" to="tutorial_layout/Enemies/EnemySpawner4" method="spawn_scene"]
 [connection signal="player_entered" from="tutorial_layout/Enemies/PlayerTriggerArea3D2" to="tutorial_layout/Enemies/EnemySpawner5" method="spawn_scene"]
-[connection signal="interacted" from="tutorial_layout_02/LockedDoorButton/StandingButton" to="tutorial_layout_02/LockedDoor/LockedDoor/AnimationPlayer" method="play" binds= ["open"]]
 [connection signal="hit" from="tutorial_layout_02/BridgeButton/HealthArea3D" to="tutorial_layout_02/Bridge/Bridge/AnimationPlayer" method="play" binds= ["lower"]]
 
 [editable path="tutorial_layout_02"]

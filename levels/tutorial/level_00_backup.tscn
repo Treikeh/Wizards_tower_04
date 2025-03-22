@@ -1,15 +1,15 @@
 [gd_scene load_steps=24 format=3 uid="uid://nbk6p7jbk7oa"]
 
-[ext_resource type="Script" path="res://levels/level_3d.gd" id="1_gduw7"]
+[ext_resource type="Script" uid="uid://cu2peb35x88qt" path="res://levels/level_3d.gd" id="1_gduw7"]
 [ext_resource type="PackedScene" uid="uid://dh8dcfqs8vv8p" path="res://entities/player/player_controller.tscn" id="2_m8peb"]
 [ext_resource type="Material" uid="uid://botmm8kkk1h67" path="res://common/materials/dev_grid_gray.tres" id="3_6vq5p"]
 [ext_resource type="Material" uid="uid://pqlkm5aadfhn" path="res://common/materials/dev_grid_orange.tres" id="4_i7day"]
 [ext_resource type="PackedScene" uid="uid://ddufakdkmxhwr" path="res://utility/damage/health_area_3d.tscn" id="5_yjtof"]
 [ext_resource type="Material" uid="uid://c4eykp21shtlp" path="res://common/materials/dev_grid_red.tres" id="6_jdb2v"]
-[ext_resource type="PackedScene" uid="uid://cj0ckw6b4kq8l" path="res://utility/triggers/level_transtion_area_3d.tscn" id="7_6c6e0"]
+[ext_resource type="PackedScene" uid="uid://cj0ckw6b4kq8l" path="res://utility/triggers/level_transtion_trigger.tscn" id="7_6c6e0"]
 [ext_resource type="Material" uid="uid://do2qv4y2sei0e" path="res://common/materials/dev_grid_black.tres" id="8_7sug4"]
 [ext_resource type="PackedScene" uid="uid://di7vp8irr7xdl" path="res://utility/damage/damage_area_3d.tscn" id="9_hjgyw"]
-[ext_resource type="Script" path="res://common/scripts/damage.gd" id="10_qyosr"]
+[ext_resource type="Script" uid="uid://crwvko40r6yto" path="res://common/scripts/damage.gd" id="10_qyosr"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ap1ce"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -150,8 +150,8 @@ tracks/3/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_hmcq7"]
 _data = {
-"RESET": SubResource("Animation_22wcu"),
-"lower": SubResource("Animation_1gy73")
+&"RESET": SubResource("Animation_22wcu"),
+&"lower": SubResource("Animation_1gy73")
 }
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_0vilx"]

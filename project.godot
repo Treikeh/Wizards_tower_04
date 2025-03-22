@@ -11,12 +11,11 @@ config_version=5
 [application]
 
 config/name="Wizards tower 04"
-config/description="Wizards tower is a retro inspired first-person shooter where you play as a novice wizard trying to prove that you are worthy of being taken as a apprentice. On your journey you will learn different spells to solve puzzles and fight you way up a tower.
-SIKE. This is no longer true"
-config/version="dev 7"
+config/description="Wizards tower is a first-person rougelike where you play as a novice wizard trying to prove that you're worthy of being taken as an apprentice. On your journey you will learn and combine different spells to while fighting your way up a magical tower filled with monsters and creatures."
+config/version="dev 9"
 config/tags=PackedStringArray("proper_project")
 run/main_scene="res://levels/boot_scene/boot_scene.tscn"
-config/features=PackedStringArray("4.3")
+config/features=PackedStringArray("4.4")
 boot_splash/bg_color=Color(0, 0, 0, 1)
 boot_splash/show_image=false
 config/icon="res://icon.png"
@@ -101,24 +100,24 @@ interact={
 "events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":69,"key_label":0,"unicode":101,"location":0,"echo":false,"script":null)
 ]
 }
-fireball={
+primary_fire={
 "deadzone": 0.5,
 "events": [Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"button_mask":0,"position":Vector2(0, 0),"global_position":Vector2(0, 0),"factor":1.0,"button_index":1,"canceled":false,"pressed":false,"double_click":false,"script":null)
 ]
 }
-lightning_ray={
+secondary_fire={
 "deadzone": 0.5,
 "events": [Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"button_mask":0,"position":Vector2(0, 0),"global_position":Vector2(0, 0),"factor":1.0,"button_index":2,"canceled":false,"pressed":false,"double_click":false,"script":null)
 ]
 }
-rock_wall={
+tertiary_fire={
 "deadzone": 0.5,
-"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":4194326,"physical_keycode":0,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)
+"events": [Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"button_mask":0,"position":Vector2(0, 0),"global_position":Vector2(0, 0),"factor":1.0,"button_index":8,"canceled":false,"pressed":false,"double_click":false,"script":null)
 ]
 }
 wind_blast={
 "deadzone": 0.5,
-"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":4194325,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":4194326,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)
 ]
 }
 
@@ -133,8 +132,8 @@ wind_blast={
 3d_navigation/layer_6="projectile"
 3d_physics/layer_7="player_hitbox"
 3d_physics/layer_8="enemy_hitbox"
-3d_physics/layer_9="rock_wall"
 3d_physics/layer_10="camera_shake"
+3d_physics/layer_13="projectile_hitbox"
 
 [limbo_ai]
 
@@ -143,9 +142,10 @@ behavior_tree/user_task_dir_1="res://common/scripts/ai_tasks"
 
 [physics]
 
-3d/physics_engine="GodotPhysics3D"
+3d/physics_engine="Jolt Physics"
 3d/default_gravity=12.5
 
 [rendering]
 
+textures/canvas_textures/default_texture_filter=3
 anti_aliasing/screen_space_roughness_limiter/enabled=false

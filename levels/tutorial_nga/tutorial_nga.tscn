@@ -1,18 +1,16 @@
-[gd_scene load_steps=22 format=3 uid="uid://cqk1pqjyg3mer"]
+[gd_scene load_steps=20 format=3 uid="uid://cqk1pqjyg3mer"]
 
-[ext_resource type="Script" path="res://levels/level_3d.gd" id="1_waqgn"]
+[ext_resource type="Script" uid="uid://cu2peb35x88qt" path="res://levels/level_3d.gd" id="1_waqgn"]
 [ext_resource type="PackedScene" uid="uid://dh8dcfqs8vv8p" path="res://entities/player/player_controller.tscn" id="2_1540i"]
 [ext_resource type="Material" uid="uid://botmm8kkk1h67" path="res://common/materials/dev_grid_gray.tres" id="3_u0c0y"]
 [ext_resource type="Material" uid="uid://pqlkm5aadfhn" path="res://common/materials/dev_grid_orange.tres" id="4_ib65m"]
 [ext_resource type="PackedScene" uid="uid://c8u24wonyvfic" path="res://entities/interactables/door/interactable_door.tscn" id="5_0o1sj"]
-[ext_resource type="PackedScene" uid="uid://xxhxvfmbcxdw" path="res://entities/props/wooden_props/table/wooden_table.tscn" id="6_8biy8"]
-[ext_resource type="PackedScene" uid="uid://cxi6v661g084x" path="res://entities/interactables/spellbook/spellbook_pickup.tscn" id="7_t3520"]
 [ext_resource type="PackedScene" uid="uid://dksnuasja7g8f" path="res://entities/enemies/target_dummy/target_dummy.tscn" id="8_tbd0i"]
 [ext_resource type="PackedScene" uid="uid://bdan64bohs08a" path="res://entities/interactables/sign/wooden_sign.tscn" id="9_5u50k"]
 [ext_resource type="Material" uid="uid://dafw6yvwuk1bj" path="res://common/materials/dev_grid_brown.tres" id="9_hobcq"]
-[ext_resource type="PackedScene" uid="uid://bdoipkh1hfkmm" path="res://entities/props/lights/candle/candle.tscn" id="10_h85t2"]
 [ext_resource type="PackedScene" uid="uid://uvws4xru1kpl" path="res://entities/enemies/book_gnome/book_gnome.tscn" id="12_7852g"]
 [ext_resource type="PackedScene" uid="uid://dgqvbvg6txlno" path="res://entities/pickups/health_potion/health_potion.tscn" id="13_qpx7i"]
+[ext_resource type="PackedScene" uid="uid://bsb65mme4han8" path="res://entities/interactables/scribe_table/scribe_table.tscn" id="13_tnqql"]
 [ext_resource type="Material" uid="uid://c4eykp21shtlp" path="res://common/materials/dev_grid_red.tres" id="14_0c8wl"]
 [ext_resource type="Material" uid="uid://b4576fxo40ync" path="res://common/materials/dev_grid_pink.tres" id="14_c6m8l"]
 
@@ -48,7 +46,6 @@ geometry_source_geometry_mode = 1
 
 [node name="TutorialNGA" type="Node3D"]
 script = ExtResource("1_waqgn")
-rock_wall_unlocked = false
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_emkjg")
@@ -137,15 +134,6 @@ material = ExtResource("4_ib65m")
 
 [node name="InteractableDoor" parent="Interior/Rooms/03/Doorway" instance=ExtResource("5_0o1sj")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.699999, -1.1, -7.45058e-08)
-
-[node name="WoodenTable" parent="Interior/Rooms/03" instance=ExtResource("6_8biy8")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00504112, 0, 2.84118)
-
-[node name="Candle" parent="Interior/Rooms/03/WoodenTable" instance=ExtResource("10_h85t2")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.705042, 0.9, 0.258822)
-
-[node name="SpellbookPickup" parent="Interior/Rooms/03/WoodenTable" instance=ExtResource("7_t3520")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9458, 0.1)
 
 [node name="WoodenSign" parent="Interior/Rooms/03" instance=ExtResource("9_5u50k")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -1.7, 0.2, -2.8)
@@ -298,16 +286,6 @@ material = ExtResource("3_u0c0y")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.4, 5)
 size = Vector3(9, 3.8, 5)
 
-[node name="WoodenTable" parent="Interior/Rooms/06" instance=ExtResource("6_8biy8")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.8, -1.2, 5.5)
-
-[node name="Candle" parent="Interior/Rooms/06/WoodenTable" instance=ExtResource("10_h85t2")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.799999, 0.908839, 0.3)
-
-[node name="SpellbookPickup" parent="Interior/Rooms/06/WoodenTable" instance=ExtResource("7_t3520")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9458, -0.1)
-spell_to_unlock = 1
-
 [node name="WoodenSign" parent="Interior/Rooms/06" instance=ExtResource("9_5u50k")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.6, -1.2, 9.5)
 text = "[RIGHT MOUSE BUTTON]
@@ -362,3 +340,9 @@ mesh = SubResource("BoxMesh_i5o7c")
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
 visible = false
 navigation_mesh = SubResource("NavigationMesh_ijdec")
+
+[node name="ScribeTable" parent="." instance=ExtResource("13_tnqql")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -24.4, 6.6, 1.3)
+
+[node name="ScribeTable2" parent="." instance=ExtResource("13_tnqql")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21, 0.2, -8.3)

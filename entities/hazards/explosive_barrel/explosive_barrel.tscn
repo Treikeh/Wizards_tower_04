@@ -1,11 +1,11 @@
 [gd_scene load_steps=13 format=3 uid="uid://exjnmfqooik7"]
 
-[ext_resource type="Script" path="res://entities/hazards/explosive_barrel/explosive_barrel.gd" id="1_1mcf7"]
+[ext_resource type="Script" uid="uid://dk50qqvhh01wr" path="res://entities/hazards/explosive_barrel/explosive_barrel.gd" id="1_1mcf7"]
 [ext_resource type="Material" uid="uid://c4eykp21shtlp" path="res://common/materials/dev_grid_red.tres" id="2_kme22"]
 [ext_resource type="PackedScene" uid="uid://bx8bd014w1ar7" path="res://entities/props/wooden_props/barrel/mesh/wooden_barrel_01_sm.glb" id="2_xro8i"]
 [ext_resource type="PackedScene" uid="uid://ddufakdkmxhwr" path="res://utility/damage/health_area_3d.tscn" id="3_ljiqa"]
 [ext_resource type="PackedScene" uid="uid://0m38n8mm2vo1" path="res://utility/camera/camera_shake_source.tscn" id="4_hildl"]
-[ext_resource type="Script" path="res://common/scripts/health.gd" id="5_4nupu"]
+[ext_resource type="Script" uid="uid://qrcafxbvr5tg" path="res://common/scripts/health.gd" id="5_4nupu"]
 [ext_resource type="Resource" uid="uid://bjo5hgv6bn8ly" path="res://entities/hazards/explosive_barrel/explosive_barrel_damage.tres" id="5_i6ro4"]
 [ext_resource type="PackedScene" uid="uid://xl1x86mw45ri" path="res://utility/damage/explosion_cast_3d.tscn" id="6_q2a43"]
 
@@ -17,7 +17,6 @@ radius = 3.5
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_n8ylb"]
 height = 1.0
-radius = 0.444625
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_gmg3x"]
 radius = 3.5
@@ -46,11 +45,11 @@ health_node = NodePath("Health")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="HealthArea3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 shape = SubResource("CylinderShape3D_n8ylb")
+debug_color = Color(0, 1, 0, 0.419608)
 
 [node name="Health" type="Node" parent="HealthArea3D"]
 script = ExtResource("5_4nupu")
 max_health = 10.0
-physical_resistance = 100.0
 healing_resistance = 100.0
 
 [node name="CameraShakeSource" parent="." instance=ExtResource("4_hildl")]

@@ -1,37 +1,44 @@
 [gd_scene load_steps=6 format=3 uid="uid://c8u24wonyvfic"]
 
-[ext_resource type="PackedScene" uid="uid://d0lld0115r5yv" path="res://utility/interact_area_3d.tscn" id="1_16wup"]
-[ext_resource type="Script" path="res://entities/interactables/door/interactable_door.gd" id="1_if5o4"]
+[ext_resource type="Script" uid="uid://8foksf2c3mg7" path="res://entities/interactables/door/interactable_door.gd" id="1_if5o4"]
+[ext_resource type="Script" uid="uid://y2e64joq2lh3" path="res://utility/interact_area_3d.gd" id="2_mse1d"]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_nbtts"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_ex5pp"]
+resource_local_to_scene = true
 size = Vector3(1.4, 2.2, 0.25)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_mse1d"]
+resource_local_to_scene = true
+size = Vector3(1.45, 2.25, 0.3)
 
 [sub_resource type="BoxMesh" id="BoxMesh_nb0e5"]
 size = Vector3(1.4, 2.2, 0.25)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_dgi6b"]
-size = Vector3(1.5, 2.2, 0.3)
-
-[node name="InteractableDoor" type="Node3D" node_paths=PackedStringArray("door_body", "interact_area")]
+[node name="InteractableDoor" type="Node3D" node_paths=PackedStringArray("move_node", "interact_area")]
 script = ExtResource("1_if5o4")
-door_body = NodePath("AnimatableBody3D")
-interact_area = NodePath("AnimatableBody3D/InteractArea3D")
+move_node = NodePath("StaticBody3D")
+interact_area = NodePath("StaticBody3D/InteractArea3D")
 
-[node name="AnimatableBody3D" type="StaticBody3D" parent="."]
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="AnimatableBody3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.7, 1.1, 0)
-shape = SubResource("BoxShape3D_nbtts")
+shape = SubResource("BoxShape3D_ex5pp")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="AnimatableBody3D"]
+[node name="InteractArea3D" type="Area3D" parent="StaticBody3D"]
+collision_layer = 16
+collision_mask = 0
+monitoring = false
+script = ExtResource("2_mse1d")
+metadata/_custom_type_script = "uid://y2e64joq2lh3"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D/InteractArea3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.7, 1.1, 0)
+shape = SubResource("BoxShape3D_mse1d")
+debug_color = Color(1, 1, 0, 1)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.7, 1.1, 0)
 mesh = SubResource("BoxMesh_nb0e5")
 
-[node name="InteractArea3D" parent="AnimatableBody3D" instance=ExtResource("1_16wup")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.7, 1.1, 0)
-prompt = "Open"
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="AnimatableBody3D/InteractArea3D"]
-shape = SubResource("BoxShape3D_dgi6b")
-
-[connection signal="interacted" from="AnimatableBody3D/InteractArea3D" to="." method="_on_interact_area_3d_interacted"]
+[connection signal="interacted" from="StaticBody3D/InteractArea3D" to="." method="_on_interacted"]

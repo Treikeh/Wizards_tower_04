@@ -1,15 +1,11 @@
 extends Node3D
 
 
-signal sign_closed
-
-
 @export_multiline var text: String
-
 var text_popup_scene: String = "uid://qhdu2ae7fbx7"
 
 
-func _on_interact_area_3d_interacted() -> void:
+func _on_interacted() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	# Spawn ui text box
 	var text_popup: Control = UiManager.add_ui_scene(text_popup_scene)
@@ -19,4 +15,3 @@ func _on_interact_area_3d_interacted() -> void:
 
 func _on_text_box_menu_closed() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-	sign_closed.emit()

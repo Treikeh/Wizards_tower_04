@@ -4,7 +4,6 @@ extends RigidBody3D
 @export_group("Input")
 var camera_sensitivity: float = 0.1
 var move_input: Vector2 = Vector2.ZERO
-var checkpoint_loaded: bool = false
 
 @export_group("Movement")
 @export var max_speed: float = 6.0
@@ -15,8 +14,10 @@ var checkpoint_loaded: bool = false
 @export var footsteps_audio_player: AudioStreamPlayer
 @export var jump_audio_player: AudioStreamPlayer
 @export var land_audio_player: AudioStreamPlayer
+
 const COYOTE_TIME_DURATION: float = 0.2
 const JUMP_BUFFER_DURATION: float = 0.15
+
 var is_grounded: bool = false
 var coyote_time: float = 0.0
 var jump_buffer: float = 0.0
@@ -42,6 +43,8 @@ var check_for_ground: bool = true
 
 var hud_scene: String = "uid://bsrvl85f7jxdv"
 
+@onready var state_machine: StateMachine = $StateMachine
+
 
 func _ready() -> void:
 	# Load config settings
@@ -51,13 +54,23 @@ func _ready() -> void:
 	# Capture mouse when game begins
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	
-	# Connect signals
-	Globals.checkpoint_saved.connect(_on_checkpoint_saved)
-	Globals.checkpoint_loaded.connect(_on_checkpoint_loaded)
-	Globals.spell_unlocked.connect(_on_spell_unlocked)
-	
 	# Spawn hud
 	UiManager.change_ui_scene(hud_scene)
+	
+	#NOTE: This is stupid
+	$Health.current_health = Globals.player_health
+	$Health.health_changed.emit($Health.current_health, $Health.max_health)
+	
+	Globals.spells_changed.connect(_on_spells_changed)
+	# Hide fps arms when spawning player if no spells are choosen
+	if Globals.choosen_spells.is_empty():
+		animation_tree.set("parameters/reset_idle_blend/blend_amount", 0.0)
+	
+	# Initialize state machine blackboard variables
+	state_machine.set_value("player", self)
+	state_machine.set_value("is_grounded", false)
+	state_machine.set_value("move_dir", Vector3.ZERO)
+	state_machine.set_value("ground_normal", Vector3.ZERO)
 
 
 func _input(event: InputEvent) -> void:
@@ -68,48 +81,34 @@ func _input(event: InputEvent) -> void:
 			head.rotate_object_local(Vector3.RIGHT, -deg_to_rad(event.relative.y * camera_sensitivity))
 			head.rotation.x = clampf(head.rotation.x, -deg_to_rad(89), deg_to_rad(89))
 		
-		#if event.is_action_pressed("ui_cancel"):
-		#	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
-		
 		# jump input
 		if event.is_action_pressed("jump"):
+			#HACK: I should be able to change to a new state directly from the state machine
+			state_machine.current_state.transition_to("jumping")
 			_jump()
 		
+		# Interact input
 		if event.is_action_pressed("interact"):
 			interact_ray.interact_with_target()
 		
 		# Spell inputs
-		if event.is_action_pressed("fireball") and Globals.fireball_unlocked:
-			spell_manager.cast_fireball()
-			animation_tree.set("parameters/fireball_oneshot/request", AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE)
+		if event.is_action_pressed("primary_fire"):
+			spell_manager.start_casting_primary_spell()
+		elif event.is_action_released("primary_fire"):
+			spell_manager.stop_casting_primary_spell()
 		
-		if event.is_action_pressed("lightning_ray") and Globals.lightning_ray_unlocked:
-			spell_manager.cast_lightning_ray()
-		elif event.is_action_released("lightning_ray"):
-			spell_manager.release_lightning_ray()
-		
-		if event.is_action_pressed("rock_wall") and Globals.rock_wall_unlocked:
-			# Spawn rock wall preview
-			spell_manager.spawn_rock_wall_preview()
-		elif event.is_action_released("rock_wall") and Globals.rock_wall_unlocked:
-			# Spawn rock wall
-			spell_manager.spawn_rock_wall()
-			animation_tree.set("parameters/rock_wall_oneshot/request", AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE)
-		
-		if event.is_action_pressed("wind_blast") and Globals.wind_blast_unlocked:
-			spell_manager.cast_wind_blast()
-			animation_tree.set("parameters/wind_blast_oneshot/request", AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE)
+		if event.is_action_pressed("secondary_fire"):
+			spell_manager.start_casting_secondary_spell()
+		elif event.is_action_released("secondary_fire"):
+			spell_manager.stop_casting_secondary_spell()
 		
 		# Get move_input
 		move_input = Input.get_vector("move_l", "move_r", "move_f", "move_b")
 	
 	else:
 		move_input = Vector2.ZERO
-		#if event is InputEventMouseButton:
-		#	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
 
-#@warning_ignore("unused_parameter")
 func _process(delta: float) -> void:
 	camera.apply_camera_tilt(linear_velocity - ground_vel, move_direction, delta)
 	if is_grounded and check_for_ground:
@@ -117,18 +116,20 @@ func _process(delta: float) -> void:
 	
 	# Align move_input to orientation
 	move_direction = orientation.global_basis * Vector3(move_input.x, 0.0, move_input.y).normalized()
+	state_machine.set_value("move_dir", move_direction)
 
 
-#@warning_ignore("unused_parameter")
 func _physics_process(delta: float) -> void:
 	is_grounded = _is_on_walkable_slope()
+	state_machine.set_value("is_grounded", is_grounded)
+	state_machine.set_value("ground_normal", ground_normal)
 	if is_grounded:
 		gravity_scale = 0.1
 		ground_vel = get_ground_vel()
 		var slope_dir: Vector3 = move_direction.slide(ground_normal)
 		var target_vel: Vector3 = slope_dir * max_speed
 		var needed_vel: Vector3 = target_vel - (linear_velocity - ground_vel)
-		apply_central_force(needed_vel * ground_accel * delta * mass)
+		#apply_central_force(needed_vel * ground_accel * delta * mass)
 		if check_for_ground:
 			# Check if player just landed
 			if ground_ray.target_position.y > -(rest_height + ground_buffer):
@@ -139,7 +140,7 @@ func _physics_process(delta: float) -> void:
 					_jump()
 			# Give ground_ray a buffer while grounded to allow snapping when walking down ledges
 			ground_ray.target_position.y = -(rest_height + ground_buffer)
-			_snap_to_ground(delta)
+			#_snap_to_ground(delta)
 		else:
 			# Reduce ground_shape size while airborne to get more accurate landing collision
 			ground_ray.target_position.y = -rest_height
@@ -155,7 +156,7 @@ func _physics_process(delta: float) -> void:
 			target_vel = (move_direction + slope_normal) * max_speed
 		var gravity_vector: Vector3 = linear_velocity.dot(Vector3.DOWN) * Vector3.DOWN
 		var needed_vel: Vector3 = target_vel - (linear_velocity - gravity_vector)
-		apply_central_force(needed_vel * air_accel * delta * mass)
+		#apply_central_force(needed_vel * air_accel * delta * mass)
 		
 		coyote_time += delta
 		jump_buffer -= delta
@@ -165,35 +166,17 @@ func _physics_process(delta: float) -> void:
 		ground_vel = Vector3.ZERO
 
 
-
-func _integrate_forces(state: PhysicsDirectBodyState3D) -> void:
-	if checkpoint_loaded:
-		state.linear_velocity = Vector3.ZERO
-		state.transform = Globals.checkpoint_transform
-		checkpoint_loaded = false
-
-
 func _load_input_settings() -> void:
 	var input_settings: Dictionary = ConfigHandler.load_input_settings()
 	camera_sensitivity = input_settings.camera_sensitivity
 
 
-func _on_checkpoint_saved() -> void:
-	Globals.notification_message_sent.emit("Checkpoint saved")
-	print("Checkpoint saved")
-
-
-func _on_checkpoint_loaded() -> void:
-	orientation.rotation.y = 0.0
-	head.rotation.x = 0.0
-	$Health.current_health = $Health.max_health
-	$Health.is_dead = false
-	checkpoint_loaded = true
-
-
-func _on_spell_unlocked(_spell: int) -> void:
-	# Animations
+func _on_spells_changed() -> void:
 	animation_tree.set("parameters/reset_idle_blend/blend_amount", 1.0)
+
+
+func _on_spell_manager_casted_spell(anim: String) -> void:
+	animation_tree.set(anim, AnimationNodeOneShot.ONE_SHOT_REQUEST_FIRE)
 
 
 #region Movement
@@ -222,6 +205,10 @@ func _snap_to_ground(_delta: float) -> void:
 
 
 func _is_on_walkable_slope() -> bool:
+	#TODO: Find the proper place for this. This is to allow the rock wall to launch the player ->
+	# <- Without having crazy spaghetti code
+	if linear_velocity.y >= jump_force:
+		return false
 	if ground_ray.is_colliding():
 		ground_normal = ground_ray.get_collision_normal()
 		# Compare ground normal to upwards direction to get slope angle
@@ -258,11 +245,12 @@ func _on_camera_hb_trough_reached() -> void:
 func _on_health_damage_taken(damage: Damage) -> void:
 	if damage.type == Damage.Type.HEALING:
 		return
-	%ShakeableCamera.add_camera_shake(damage.amount / 50.0)
+	%ShakeableCamera.add_camera_shake(0.3)
 
 
 func _on_health_changed(current_health: float, max_health: float) -> void:
 	Globals.health_bar_updated.emit(current_health / max_health)
+	Globals.player_health = current_health
 
 
 func _on_health_depleted() -> void:

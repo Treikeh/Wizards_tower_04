@@ -1,0 +1,89 @@
+[gd_scene load_steps=9 format=3 uid="uid://dh8msa1h40vqf"]
+
+[ext_resource type="Script" uid="uid://bi2dquc4tfb4p" path="res://interface/spell_select_menu/spell_select_menu.gd" id="1_qvpro"]
+[ext_resource type="Script" uid="uid://cpjul4usq54v1" path="res://entities/spells/spell_info.gd" id="2_xmwvi"]
+[ext_resource type="Resource" uid="uid://bwcubkqem0pvw" path="res://entities/spells/fireball/fireball_spell_info.tres" id="3_bonxe"]
+[ext_resource type="Resource" uid="uid://dxyg3wq0uorm8" path="res://entities/spells/lightning_beam/lightning_beam_spell_info.tres" id="4_1fmqy"]
+[ext_resource type="Resource" uid="uid://caklm24g711ah" path="res://entities/spells/rockwall/rockwall_spell_info.tres" id="5_77q0h"]
+[ext_resource type="Resource" uid="uid://csj1ynxtaaine" path="res://entities/spells/windblast/windblast_spell_info.tres" id="6_t366f"]
+[ext_resource type="PackedScene" uid="uid://bdge64wpp6tfj" path="res://interface/spell_select_menu/spell_choice.tscn" id="7_3km8m"]
+[ext_resource type="PackedScene" uid="uid://5pq71al3r778" path="res://interface/spell_select_menu/spell_slot.tscn" id="8_1fmqy"]
+
+[node name="SpellSelectMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_qvpro")
+spell_list = Array[ExtResource("2_xmwvi")]([ExtResource("3_bonxe"), ExtResource("4_1fmqy"), ExtResource("5_77q0h"), ExtResource("6_t366f")])
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -35.5
+offset_top = 50.0
+offset_right = 35.5
+offset_bottom = 73.0
+grow_horizontal = 2
+text = "Choose 2"
+
+[node name="ActionButtons" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -120.5
+offset_top = -5.0
+offset_right = 120.5
+offset_bottom = 35.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 110
+
+[node name="RerollButton" type="Button" parent="ActionButtons"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Reroll"
+
+[node name="StartRunButton" type="Button" parent="ActionButtons"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Confirm"
+
+[node name="Node2D" type="Node2D" parent="."]
+
+[node name="SpellChoice" parent="Node2D" instance=ExtResource("7_3km8m")]
+position = Vector2(158, 180)
+
+[node name="SpellChoice2" parent="Node2D" instance=ExtResource("7_3km8m")]
+position = Vector2(479, 180)
+
+[node name="SpellChoice3" parent="Node2D" instance=ExtResource("7_3km8m")]
+position = Vector2(801, 180)
+
+[node name="SpellSlot" parent="." instance=ExtResource("8_1fmqy")]
+position = Vector2(239, 390)
+
+[node name="SpellSlot2" parent="." instance=ExtResource("8_1fmqy")]
+position = Vector2(721, 390)
+slot = "secondary"
+
+[connection signal="pressed" from="ActionButtons/RerollButton" to="." method="_on_reroll_button_pressed"]
+[connection signal="pressed" from="ActionButtons/StartRunButton" to="." method="_on_start_run_button_pressed"]
+[connection signal="slot_assigned" from="SpellSlot" to="." method="_on_spell_slot_assigned"]
+[connection signal="slot_assigned" from="SpellSlot2" to="." method="_on_spell_slot_assigned"]

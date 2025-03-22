@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://0m38n8mm2vo1"]
 
-[ext_resource type="Script" path="res://utility/camera/camera_shake_source.gd" id="1_s0nyy"]
+[ext_resource type="Script" uid="uid://v52q8b8t12a4" path="res://utility/camera/camera_shake_source.gd" id="1_s0nyy"]
 
 [node name="CameraShakeSource" type="Area3D"]
 collision_layer = 0

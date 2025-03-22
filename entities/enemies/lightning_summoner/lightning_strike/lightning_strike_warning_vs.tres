@@ -38,7 +38,7 @@ code = "shader_type spatial;
 render_mode blend_mix, depth_draw_opaque, cull_disabled, diffuse_lambert, specular_schlick_ggx, unshaded;
 
 uniform vec4 base_color : source_color = vec4(0.000000, 0.658484, 0.954579, 1.000000);
-uniform float fade_distance = 1;
+uniform float fade_distance = 1.0;
 uniform sampler2D depth_tex_frg_7 : hint_depth_texture;
 
 

@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="SpellInfo" load_steps=3 format=3 uid="uid://caklm24g711ah"]
+
+[ext_resource type="Script" uid="uid://cpjul4usq54v1" path="res://entities/spells/spell_info.gd" id="1_d71ye"]
+[ext_resource type="Texture2D" uid="uid://driwbsnrme42n" path="res://entities/spells/rockwall/rockwall_icon.png" id="2_mpgb0"]
+
+[resource]
+script = ExtResource("1_d71ye")
+name = "Rockwall"
+description = "Spawn a wall of rock at the point you are looking. Objects in its path will be launched upwards."
+scene = "uid://di11tekkwb3jv"
+icon = ExtResource("2_mpgb0")
+metadata/_custom_type_script = "uid://cpjul4usq54v1"

@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://c3h1xadci48by"]
 
-[ext_resource type="Script" path="res://interface/settings_menu/settings_menu.gd" id="1_smsaw"]
+[ext_resource type="Script" uid="uid://cty2hh1v08ehg" path="res://interface/settings_menu/settings_menu.gd" id="1_smsaw"]
 [ext_resource type="StyleBox" uid="uid://b6384he3uakmw" path="res://common/style_boxes/style_box_empty.tres" id="3_iieoi"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_pyy7o"]

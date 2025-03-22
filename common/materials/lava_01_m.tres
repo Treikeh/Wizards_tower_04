@@ -1,11 +1,11 @@
 [gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://bvhhob5sjttf"]
 
-[ext_resource type="Texture2D" uid="uid://cj7e84qmpnm22" path="res://common/materials/textures/lava_01_modified.png" id="1_tpbk2"]
+[ext_resource type="Texture2D" uid="uid://dq1fawm0tic7e" path="res://common/materials/textures/lava_01_bc.png" id="1_odxy7"]
 
 [resource]
-albedo_texture = ExtResource("1_tpbk2")
+albedo_texture = ExtResource("1_odxy7")
 emission_enabled = true
-emission_texture = ExtResource("1_tpbk2")
-uv1_scale = Vector3(0.05, 0.05, 0.05)
+emission_texture = ExtResource("1_odxy7")
+uv1_scale = Vector3(0.25, 0.25, 0.25)
 uv1_triplanar = true
 texture_filter = 2

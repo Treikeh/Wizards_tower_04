@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://canvbdx7r3hfb"]
 
-[ext_resource type="Script" path="res://interface/credits/credits.gd" id="1_e0hdu"]
+[ext_resource type="Script" uid="uid://bytran1ikk77m" path="res://interface/credits/credits.gd" id="1_e0hdu"]
 
 [node name="Credits" type="Control"]
 layout_mode = 3
@@ -47,30 +47,31 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 bbcode_enabled = true
-text = "Hi
+text = "HI
 Thank you for playing my game :)
 
-
-This was made in the Godot game engine.
-[url]https://godotengine.org[/url]
 
 
 All sound effects were made by \"Ovani Sound\"
 Website: [url]https://ovanisound.com[/url]
 
 
-[b]Addons used during development[/b]
-Godot git plugin
-Github: [url]https://github.com/godotengine/godot-git-plugin[/url]
 
-Godot Jolt physics engine addon
-Github: [url]https://github.com/godot-jolt/godot-jolt[/url]
+This was made with the Godot game engine.
+[url]https://godotengine.org[/url]
+
+
+----Addons used during development----
+
+Godot git plugin
+[url]https://github.com/godotengine/godot-git-plugin[/url]
 
 Beehave addon by \"BitBrain\"
-Github: [url]https://github.com/bitbrain/beehave[/url]
+[url]https://github.com/bitbrain/beehave[/url]
 
 Script-IDE by \"Maran23\"
-Github: [url]https://github.com/Maran23/script-ide[/url]"
+[url]https://github.com/Maran23/script-ide[/url]"
+horizontal_alignment = 1
 
 [node name="HSeparator" type="HSeparator" parent="PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2

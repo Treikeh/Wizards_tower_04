@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://bwwaepikf83yi"]
 
-[ext_resource type="Script" path="res://entities/pickups/godot_plushie/godot_plushine_pickup.gd" id="1_xgteb"]
-[ext_resource type="Script" path="res://entities/pickups/pickup_hover.gd" id="2_2ryo7"]
+[ext_resource type="Script" uid="uid://u2tlibvuhr8c" path="res://entities/pickups/godot_plushie/godot_plushine_pickup.gd" id="1_xgteb"]
+[ext_resource type="Script" uid="uid://dsyg8twkfv5q7" path="res://entities/pickups/pickup_hover.gd" id="2_2ryo7"]
 [ext_resource type="PackedScene" uid="uid://rifpuji04xkg" path="res://entities/pickups/godot_plushie/art/godot_plush_V2_FR3NKD_sm.glb" id="3_adb1a"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_5fmfn"]

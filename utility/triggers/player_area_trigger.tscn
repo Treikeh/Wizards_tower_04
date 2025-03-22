@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://bpkvnw0vkcjlr"]
+
+[ext_resource type="Script" uid="uid://bc4lp6i61f8oq" path="res://utility/triggers/player_area_trigger.gd" id="1_rk8nk"]
+
+[node name="PlayerAreaTrigger" type="Area3D"]
+collision_layer = 0
+collision_mask = 4
+monitorable = false
+script = ExtResource("1_rk8nk")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

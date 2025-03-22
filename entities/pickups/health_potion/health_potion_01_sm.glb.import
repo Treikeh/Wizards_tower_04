@@ -18,6 +18,7 @@ nodes/root_name=""
 nodes/apply_root_scale=true
 nodes/root_scale=1.0
 nodes/import_as_skeleton_bones=false
+nodes/use_node_type_suffixes=true
 meshes/ensure_tangents=true
 meshes/generate_lods=true
 meshes/create_shadow_meshes=true
@@ -35,7 +36,7 @@ _subresources={
 "materials": {
 "health_potion_mat.001": {
 "use_external/enabled": true,
-"use_external/path": "res://entities/pickups/health_potion/mesh/health_potion_01_m.tres"
+"use_external/path": "uid://ckklc7hgjnqka"
 }
 }
 }

@@ -1,3 +1,4 @@
+@tool
 class_name CallMethodAction
 extends ActionLeaf
 ## Calls a method on the actor and returns SUCCESS. Will return FAILURE if the actor doesn't have the method

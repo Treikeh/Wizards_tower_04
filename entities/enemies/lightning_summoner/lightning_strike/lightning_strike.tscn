@@ -1,11 +1,12 @@
-[gd_scene load_steps=25 format=3 uid="uid://xo3qqq1d6oq8"]
+[gd_scene load_steps=26 format=3 uid="uid://xo3qqq1d6oq8"]
 
-[ext_resource type="Script" path="res://entities/enemies/lightning_summoner/lightning_strike/lightning_strike.gd" id="1_u0c2i"]
+[ext_resource type="Script" uid="uid://b6w4iq28tlyyg" path="res://entities/enemies/lightning_summoner/lightning_strike/lightning_strike.gd" id="1_u0c2i"]
 [ext_resource type="Shader" uid="uid://br4aigmfqn33m" path="res://entities/enemies/lightning_summoner/lightning_strike/lightning_strike_warning_vs.tres" id="2_1oxgd"]
-[ext_resource type="Shader" uid="uid://b5spjy835fc4b" path="res://entities/player/spells/wind_blast/wind_blast_effect_vs.tres" id="2_82nw3"]
+[ext_resource type="Shader" uid="uid://b5spjy835fc4b" path="res://entities/spells/windblast/effect/windblast_effect_vs.tres" id="2_82nw3"]
 [ext_resource type="PackedScene" uid="uid://di7vp8irr7xdl" path="res://utility/damage/damage_area_3d.tscn" id="3_4sm3s"]
-[ext_resource type="Script" path="res://common/scripts/damage.gd" id="4_52mbw"]
+[ext_resource type="Script" uid="uid://crwvko40r6yto" path="res://common/scripts/damage.gd" id="4_52mbw"]
 [ext_resource type="PackedScene" uid="uid://0m38n8mm2vo1" path="res://utility/camera/camera_shake_source.tscn" id="6_8peit"]
+[ext_resource type="AudioStream" uid="uid://c3pr7jd88qyja" path="res://entities/enemies/lightning_summoner/lightning_strike/Thunderbolt Impact A.wav" id="7_wff6q"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_43tux"]
 render_priority = 0
@@ -15,8 +16,8 @@ shader_parameter/fade_distance = 0.75
 
 [sub_resource type="SphereMesh" id="SphereMesh_rqbie"]
 flip_faces = true
-radius = 2.5
-height = 5.0
+radius = 3.5
+height = 7.0
 radial_segments = 32
 rings = 16
 
@@ -44,13 +45,13 @@ amount = 15.0
 type = 0
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_dh5kf"]
-radius = 2.5
+radius = 3.5
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_pm4tw"]
-radius = 2.5
+radius = 3.5
 
 [sub_resource type="Curve" id="Curve_ctbvw"]
-max_value = 3.0
+_limits = [0.0, 3.0, 0.0, 1.0]
 _data = [Vector2(0, 3), 0.0, -0.163368, 0, 0, Vector2(1, 0), -7.05758, 0.0, 0, 0]
 point_count = 2
 
@@ -133,6 +134,18 @@ tracks/3/keys = {
 "update": 1,
 "values": [false]
 }
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("AudioStreamPlayer3D:playing")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
 
 [sub_resource type="Animation" id="Animation_14cvj"]
 resource_name = "spawn"
@@ -166,6 +179,7 @@ tracks/1/keys = {
 
 [sub_resource type="Animation" id="Animation_exof8"]
 resource_name = "strike"
+length = 3.0
 tracks/0/type = "method"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -173,7 +187,7 @@ tracks/0/path = NodePath(".")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(1),
+"times": PackedFloat32Array(3),
 "transitions": PackedFloat32Array(1),
 "values": [{
 "args": [],
@@ -199,10 +213,10 @@ tracks/2/path = NodePath("LightningMesh:visible")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
 "update": 1,
-"values": [true]
+"values": [true, false]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
@@ -228,12 +242,24 @@ tracks/4/keys = {
 "update": 1,
 "values": [true]
 }
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("AudioStreamPlayer3D:playing")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_42rba"]
 _data = {
-"RESET": SubResource("Animation_s3sn5"),
-"spawn": SubResource("Animation_14cvj"),
-"strike": SubResource("Animation_exof8")
+&"RESET": SubResource("Animation_s3sn5"),
+&"spawn": SubResource("Animation_14cvj"),
+&"strike": SubResource("Animation_exof8")
 }
 
 [node name="LightningStrike" type="Node3D" node_paths=PackedStringArray("ground_snap_ray", "camera_shake_source", "anim_player")]
@@ -256,6 +282,7 @@ target_position = Vector3(0, -10, 0)
 collision_mask = 3
 
 [node name="DamageArea3D" parent="." instance=ExtResource("3_4sm3s")]
+collision_mask = 192
 damage = SubResource("Resource_vkflb")
 
 [node name="DamageCollision" type="CollisionShape3D" parent="DamageArea3D"]
@@ -271,10 +298,15 @@ shape = SubResource("SphereShape3D_pm4tw")
 [node name="Sparks" type="GPUParticles3D" parent="."]
 emitting = false
 amount = 16
+one_shot = true
 explosiveness = 0.9
 transform_align = 3
 process_material = SubResource("ParticleProcessMaterial_acnse")
 draw_pass_1 = SubResource("QuadMesh_dnifu")
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("7_wff6q")
+max_distance = 20.0
 
 [node name="StrikeDelay" type="Timer" parent="."]
 wait_time = 1.5
@@ -282,7 +314,7 @@ autostart = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_42rba")
+&"": SubResource("AnimationLibrary_42rba")
 }
 autoplay = "spawn"
 

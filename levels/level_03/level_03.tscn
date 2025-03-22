@@ -1,14 +1,15 @@
-[gd_scene load_steps=15 format=3 uid="uid://bbc3cusxgyev0"]
+[gd_scene load_steps=20 format=3 uid="uid://bbc3cusxgyev0"]
 
-[ext_resource type="Script" path="res://levels/level_3d.gd" id="1_k5ipd"]
-[ext_resource type="PackedScene" uid="uid://dh8dcfqs8vv8p" path="res://entities/player/player_controller.tscn" id="2_3mkup"]
+[ext_resource type="Script" uid="uid://cu2peb35x88qt" path="res://levels/level_3d.gd" id="1_k5ipd"]
 [ext_resource type="Material" uid="uid://pwjimh5imhjl" path="res://common/materials/stone_brick_wall_01_m.tres" id="3_g3o7y"]
 [ext_resource type="Material" uid="uid://uwtl3uvytx4g" path="res://common/materials/dev_grid_green.tres" id="4_ymyty"]
-[ext_resource type="PackedScene" uid="uid://cj0ckw6b4kq8l" path="res://utility/triggers/level_transtion_area_3d.tscn" id="5_yqvtf"]
+[ext_resource type="PackedScene" uid="uid://cj0ckw6b4kq8l" path="res://utility/triggers/level_transtion_trigger.tscn" id="5_yqvtf"]
+[ext_resource type="PackedScene" uid="uid://bpkvnw0vkcjlr" path="res://utility/triggers/player_area_trigger.tscn" id="6_a1syf"]
 [ext_resource type="Material" uid="uid://8qm7nxt6hftu" path="res://common/materials/wood_floor_01_m.tres" id="6_ghjbs"]
-[ext_resource type="PackedScene" uid="uid://xxhxvfmbcxdw" path="res://entities/props/wooden_props/table/wooden_table.tscn" id="7_od2qm"]
-[ext_resource type="PackedScene" uid="uid://bdoipkh1hfkmm" path="res://entities/props/lights/candle/candle.tscn" id="8_73fqc"]
-[ext_resource type="PackedScene" uid="uid://cxi6v661g084x" path="res://entities/interactables/spellbook/spellbook_pickup.tscn" id="9_4mwfx"]
+[ext_resource type="PackedScene" uid="uid://chw0vev703cjt" path="res://utility/spawners/scene_spawner.tscn" id="8_4krl6"]
+[ext_resource type="Script" uid="uid://dtkseu0lj1o35" path="res://common/scripts/projectile.gd" id="9_3k080"]
+[ext_resource type="PackedScene" uid="uid://i0u75nytwgqr" path="res://utility/spawners/player_spawner.tscn" id="9_j7va4"]
+[ext_resource type="Texture2D" uid="uid://b565kagfallvn" path="res://common/materials/textures/wood_floor_01_bc.png" id="10_xs6mv"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ap1ce"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -25,20 +26,35 @@ glow_enabled = true
 fog_depth_curve = 0.812252
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_2l26b"]
+vertices = PackedVector3Array(-11.3, -1.8, -21.2, -11.3, -1.8, -15.95, -6.8, -1.8, -15.95, -6.8, -1.8, -21.2, -6.55, 1.2, -21.2, -11.3, 1.2, -21.2, -11.55, 1.2, -20.45, -11.55, 1.2, -17.7, -11.3, 1.2, -15.7, -6.55, 1.2, -15.7, -16.55, 1.2, -20.45, -16.55, 1.2, -17.7, 6.7, -1.8, 2.55, 6.7, -1.55, -1.95, 6.2, -1.8, -1.95, 2.7, -1.8, 2.55, -2.3, -1.8, 4.55, 2.45, -1.8, 4.55, -2.55, -1.8, 2.55, -0.0499992, -1.8, -14.7, -5.55, -1.8, -14.95, -11.3, -1.8, -14.7, -11.3, -1.8, 2.55, -0.299999, -1.8, -21.2, -5.55, -1.8, -21.2, 6.2, -1.8, -14.7, 6.95, 1.2, -15.7, 7.2, 1.2, -13.95, 11.45, 1.2, -14.2, 11.45, 1.2, -21.2, 0.700001, 1.2, -21.2, 0.700001, 1.2, -15.7, 0.950001, -1.8, -21.2, 0.950001, -1.8, -15.95, 6.2, -1.8, -15.95, 6.2, -1.8, -21.2, 7.45, -1.8, -21.2, 7.45, -1.8, -7.7, 11.45, -1.8, -7.7, 11.45, -1.8, -21.2, 7.2, -0.8, -3.45, 11.45, -0.8, -3.2, 7.2, 1.2, -7.3875, 11.45, 1.2, -7.325, 7.45, -1.8, -6.45, 7.45, -1.8, -5.45, 11.45, -1.8, -5.45, 11.45, -1.8, -6.45, 7.2, -1.55, -1.95, 11.45, -1.8, 2.55, 11.45, -1.8, -0.325001, 9.675, -1.8, -1.725, -2.3, -1.8, 10.8, 2.45, -1.8, 10.8, 10.95, -1.8, 18.3, 10.95, -1.8, 20.05, 13.7, -1.8, 20.05, 13.7, -1.8, 18.3)
+polygons = [PackedInt32Array(3, 2, 0), PackedInt32Array(0, 2, 1), PackedInt32Array(6, 5, 7), PackedInt32Array(7, 5, 8), PackedInt32Array(8, 5, 4), PackedInt32Array(8, 4, 9), PackedInt32Array(6, 7, 10), PackedInt32Array(10, 7, 11), PackedInt32Array(13, 12, 14), PackedInt32Array(14, 12, 15), PackedInt32Array(16, 18, 17), PackedInt32Array(17, 18, 15), PackedInt32Array(20, 19, 21), PackedInt32Array(21, 19, 14), PackedInt32Array(21, 14, 18), PackedInt32Array(21, 18, 22), PackedInt32Array(14, 15, 18), PackedInt32Array(24, 23, 20), PackedInt32Array(20, 23, 19), PackedInt32Array(19, 25, 14), PackedInt32Array(27, 26, 28), PackedInt32Array(28, 26, 29), PackedInt32Array(31, 30, 26), PackedInt32Array(26, 30, 29), PackedInt32Array(35, 34, 32), PackedInt32Array(32, 34, 33), PackedInt32Array(39, 38, 36), PackedInt32Array(36, 38, 37), PackedInt32Array(41, 40, 43), PackedInt32Array(43, 40, 42), PackedInt32Array(43, 42, 27), PackedInt32Array(43, 27, 28), PackedInt32Array(47, 46, 44), PackedInt32Array(44, 46, 45), PackedInt32Array(48, 40, 41), PackedInt32Array(12, 13, 48), PackedInt32Array(48, 51, 12), PackedInt32Array(12, 50, 49), PackedInt32Array(50, 51, 41), PackedInt32Array(41, 51, 48), PackedInt32Array(51, 50, 12), PackedInt32Array(53, 52, 17), PackedInt32Array(17, 52, 16), PackedInt32Array(57, 56, 54), PackedInt32Array(54, 56, 55)]
+geometry_parsed_geometry_type = 1
 geometry_source_geometry_mode = 1
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_clcag"]
 size = Vector3(4, 5, 1)
 
-[node name="Level_03_WindBlast" type="Node3D"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_rfe46"]
+size = Vector3(1.5, 1.5, 1.5)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_l6hoh"]
+albedo_texture = ExtResource("10_xs6mv")
+texture_filter = 0
+
+[sub_resource type="BoxMesh" id="BoxMesh_pq4p1"]
+size = Vector3(1.5, 1.5, 1.5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_i3dki"]
+size = Vector3(6.1, 6.1, 1)
+
+[node name="Level_03" type="Node3D"]
 script = ExtResource("1_k5ipd")
-wind_blast_unlocked = false
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_dtso7")
 
-[node name="RigidbodyPlayer" parent="." instance=ExtResource("2_3mkup")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.15, 10.618)
+[node name="PlayerSpawner" parent="." instance=ExtResource("9_j7va4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 8.4)
 
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
 navigation_mesh = SubResource("NavigationMesh_2l26b")
@@ -46,48 +62,125 @@ navigation_mesh = SubResource("NavigationMesh_2l26b")
 [node name="CSGCombiner3D" type="CSGCombiner3D" parent="." groups=["navigation_mesh_source_group"]]
 use_collision = true
 
-[node name="InteriorBounds" type="CSGBox3D" parent="CSGCombiner3D"]
+[node name="ExitDoorway" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, -18.8, 3.3, -19.1)
 flip_faces = true
-size = Vector3(50, 50, 50)
-
-[node name="Rooms" type="CSGCombiner3D" parent="CSGCombiner3D"]
-operation = 2
-
-[node name="01" type="CSGCombiner3D" parent="CSGCombiner3D/Rooms"]
-
-[node name="CSGBox3D" type="CSGBox3D" parent="CSGCombiner3D/Rooms/01"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.85, 0)
-size = Vector3(6, 6, 22.8)
-material = ExtResource("3_g3o7y")
-
-[node name="ExitDoorway" type="CSGBox3D" parent="CSGCombiner3D/Rooms/01"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4, -12.9)
 size = Vector3(4, 5, 3)
 material = ExtResource("4_ymyty")
 
-[node name="OmniLight3D" type="OmniLight3D" parent="CSGCombiner3D/Rooms/01/ExitDoorway"]
+[node name="OmniLight3D" type="OmniLight3D" parent="CSGCombiner3D/ExitDoorway"]
 
-[node name="LevelTranstionArea3D" parent="CSGCombiner3D/Rooms/01/ExitDoorway" instance=ExtResource("5_yqvtf")]
+[node name="LevelTranstionArea3D" parent="CSGCombiner3D/ExitDoorway" instance=ExtResource("5_yqvtf")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)
 level_path = "res://levels/level_04/level_04.tscn"
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="CSGCombiner3D/Rooms/01/ExitDoorway/LevelTranstionArea3D"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CSGCombiner3D/ExitDoorway/LevelTranstionArea3D"]
 shape = SubResource("BoxShape3D_clcag")
 
-[node name="Node3D" type="Node3D" parent="CSGCombiner3D/Rooms/01"]
+[node name="CSGBox3D" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.85, 7.2)
+flip_faces = true
+size = Vector3(6, 6, 8.4)
+material = ExtResource("3_g3o7y")
 
-[node name="WoodFloor" type="CSGBox3D" parent="CSGCombiner3D/Rooms/01/Node3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.15, 0)
+[node name="CSGBox3D2" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.2, -9.35)
+flip_faces = true
+size = Vector3(24, 10.7, 25.1)
+material = ExtResource("3_g3o7y")
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.45, 3.25, -19.05)
+flip_faces = true
+size = Vector3(5.7, 5, 3.9)
+material = ExtResource("3_g3o7y")
+
+[node name="Crate" type="RigidBody3D" parent="CSGCombiner3D"]
+transform = Transform3D(0.965926, 0, 0.258819, 0, 1, 0, -0.258819, 0, 0.965926, -5.82228, 0, -8.00968)
+collision_layer = 2
+collision_mask = 15
+script = ExtResource("9_3k080")
+apply_force_when_ready = false
+initial_velocity = 15.0
+metadata/_custom_type_script = "uid://dtkseu0lj1o35"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CSGCombiner3D/Crate"]
+shape = SubResource("BoxShape3D_rfe46")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="CSGCombiner3D/Crate"]
+material_override = SubResource("StandardMaterial3D_l6hoh")
+mesh = SubResource("BoxMesh_pq4p1")
+
+[node name="Crate2" type="RigidBody3D" parent="CSGCombiner3D"]
+transform = Transform3D(0.965926, 0, 0.258819, 0, 1, 0, -0.258819, 0, 0.965926, -2.51919, 0, -9.20532)
+collision_layer = 2
+collision_mask = 15
+script = ExtResource("9_3k080")
+apply_force_when_ready = false
+initial_velocity = 15.0
+metadata/_custom_type_script = "uid://dtkseu0lj1o35"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CSGCombiner3D/Crate2"]
+shape = SubResource("BoxShape3D_rfe46")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="CSGCombiner3D/Crate2"]
+material_override = SubResource("StandardMaterial3D_l6hoh")
+mesh = SubResource("BoxMesh_pq4p1")
+
+[node name="PlayerAreaTrigger" parent="CSGCombiner3D" node_paths=PackedStringArray("on_player_entered") instance=ExtResource("6_a1syf")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.85, 3.2)
+on_player_entered = {
+NodePath("../Spawners/SceneSpawner"): &"spawn_scene",
+NodePath("../Spawners/SceneSpawner2"): &"spawn_scene",
+NodePath("../Spawners/SceneSpawner3"): &"spawn_scene"
+}
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CSGCombiner3D/PlayerAreaTrigger"]
+shape = SubResource("BoxShape3D_i3dki")
+
+[node name="Add" type="Node3D" parent="CSGCombiner3D"]
+
+[node name="CSGBox3D" type="CSGBox3D" parent="CSGCombiner3D/Add"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.6, -0.8, -14.9)
 use_collision = true
-size = Vector3(6, 0.1, 22.8)
+size = Vector3(5.8, 3, 15.6)
 material = ExtResource("6_ghjbs")
 
-[node name="WoodenTable" parent="CSGCombiner3D/Rooms/01" instance=ExtResource("7_od2qm")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.1, 0)
+[node name="CSGBox3D2" type="CSGBox3D" parent="CSGCombiner3D/Add"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.5, -0.8, -19)
+use_collision = true
+size = Vector3(6.4, 3, 7.4)
+material = ExtResource("6_ghjbs")
 
-[node name="Candle" parent="CSGCombiner3D/Rooms/01/WoodenTable" instance=ExtResource("8_73fqc")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.8, 0.9, -0.3)
+[node name="CSGBox3D4" type="CSGBox3D" parent="CSGCombiner3D/Add"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.75, -6.4)
+use_collision = true
+size = Vector3(2.9, 12.1, 3)
+material = ExtResource("3_g3o7y")
 
-[node name="SpellbookPickup" parent="CSGCombiner3D/Rooms/01/WoodenTable" instance=ExtResource("9_4mwfx")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9458, 0)
-spell_to_unlock = 2
+[node name="CSGBox3D3" type="CSGBox3D" parent="CSGCombiner3D/Add"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.1, -0.8, -19)
+use_collision = true
+size = Vector3(6, 3, 7.4)
+material = ExtResource("6_ghjbs")
+
+[node name="CSGPolygon3D" type="CSGPolygon3D" parent="CSGCombiner3D/Add"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 6.7, -2.1, -7.1)
+use_collision = true
+polygon = PackedVector2Array(0, 0, 0, 2.8, 5.3, 0)
+depth = 5.95
+material = ExtResource("6_ghjbs")
+
+[node name="Spawners" type="Node3D" parent="CSGCombiner3D"]
+
+[node name="SceneSpawner" parent="CSGCombiner3D/Spawners" instance=ExtResource("8_4krl6")]
+transform = Transform3D(-0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, -0.707107, -9.20503, 0.7, -19.195)
+scene_to_spawn = "uid://bir8q5f287gno"
+
+[node name="SceneSpawner2" parent="CSGCombiner3D/Spawners" instance=ExtResource("8_4krl6")]
+transform = Transform3D(-0.866025, 0, -0.5, 0, 1, 0, 0.5, 0, -0.866025, -10.3811, -2.1, -12.9189)
+scene_to_spawn = "uid://uvws4xru1kpl"
+
+[node name="SceneSpawner3" parent="CSGCombiner3D/Spawners" instance=ExtResource("8_4krl6")]
+transform = Transform3D(-0.866025, 0, 0.5, 0, 1, 0, -0.5, 0, -0.866025, 8.77339, 0.699998, -18.3601)
+scene_to_spawn = "uid://dirwqc7j3yvyf"

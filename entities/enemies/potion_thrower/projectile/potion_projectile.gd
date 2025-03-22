@@ -4,7 +4,7 @@ extends Projectile
 @export_flags_3d_physics var reflected_collision_mask: int
 
 
-func _on_projectile_reflected() -> void:
+func _on_reflected() -> void:
 	%DamageArea3D.collision_mask = reflected_collision_mask
 
 

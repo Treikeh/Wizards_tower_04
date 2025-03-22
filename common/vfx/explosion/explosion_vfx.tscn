@@ -14,11 +14,11 @@ resource_local_to_scene = true
 render_priority = 0
 shader = ExtResource("2_lhdk2")
 shader_parameter/displacement_speed = Vector2(0, 0.5)
+shader_parameter/displacement_texture = SubResource("NoiseTexture2D_decg3")
 shader_parameter/displacement_scale = 0.3
 shader_parameter/base_color = Color(0.901961, 0.396078, 0, 1)
 shader_parameter/alpha = 0.75
 shader_parameter/emission_strength = 1.0
-shader_parameter/displacement_texture = SubResource("NoiseTexture2D_decg3")
 
 [sub_resource type="SphereMesh" id="SphereMesh_cdyea"]
 radial_segments = 16
@@ -81,8 +81,8 @@ tracks/1/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_da6qg"]
 _data = {
-"RESET": SubResource("Animation_cpc7m"),
-"spawn": SubResource("Animation_anpev")
+&"RESET": SubResource("Animation_cpc7m"),
+&"spawn": SubResource("Animation_anpev")
 }
 
 [node name="ExplosionVFX" type="GPUParticles3D"]
