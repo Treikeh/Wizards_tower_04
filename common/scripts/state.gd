@@ -1,6 +1,7 @@
 class_name State
 extends Node
 @warning_ignore_start("unused_parameter")
+@warning_ignore_start("unused_signal")
 
 signal completed
 

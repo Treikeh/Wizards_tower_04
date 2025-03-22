@@ -11,7 +11,7 @@
 [ext_resource type="Script" uid="uid://qrcafxbvr5tg" path="res://common/scripts/health.gd" id="7_s4lvk"]
 [ext_resource type="Script" uid="uid://8i6ail62l8pi" path="res://entities/spells/spell_manager.gd" id="9_raijs"]
 [ext_resource type="Script" uid="uid://dqar7hfd1ktaj" path="res://entities/player/art/spellbook/player_spell_book.gd" id="10_6vcwi"]
-[ext_resource type="Texture2D" uid="uid://b6ph48y4kxbc0" path="res://Icon.png" id="10_eh1tp"]
+[ext_resource type="Texture2D" uid="uid://b6ph48y4kxbc0" path="res://icon.png" id="10_eh1tp"]
 [ext_resource type="AudioStream" uid="uid://biiiimggl568l" path="res://entities/player/audio/Shoe Step Stone Hard A.wav" id="11_g0yi8"]
 [ext_resource type="AudioStream" uid="uid://ctxgj877nt7wd" path="res://entities/player/audio/Land Step Stone A.wav" id="13_2bxrp"]
 [ext_resource type="AudioStream" uid="uid://b7wj5uswteyr3" path="res://entities/player/audio/Jump Step Stone A.wav" id="13_5agqx"]
@@ -192,7 +192,7 @@ bones/39/scale = Vector3(1, 1, 1)
 bones/42/scale = Vector3(1, 1, 1)
 
 [node name="EqL" type="BoneAttachment3D" parent="Orientation/Head/viewmodel_01_sk/Skeleton3D" index="1"]
-transform = Transform3D(0.908661, 0.115969, 0.401106, -0.417534, 0.252379, 0.872909, -2.48663e-07, -0.960654, 0.277749, -0.42337, -0.897886, -0.00812744)
+transform = Transform3D(-0.865853, 0.498945, 0.0367737, 0.470811, 0.787752, 0.397219, 0.169222, 0.361247, -0.916987, -0.411362, -0.354253, -0.418709)
 bone_name = "hand_eq_L.001"
 bone_idx = 6
 
@@ -214,7 +214,7 @@ texture_filter = 2
 texture = ExtResource("10_eh1tp")
 
 [node name="EqR" type="BoneAttachment3D" parent="Orientation/Head/viewmodel_01_sk/Skeleton3D" index="2"]
-transform = Transform3D(0.908661, -0.11597, -0.401106, 0.417535, 0.252379, 0.872909, -7.24569e-07, -0.960654, 0.277749, 0.423369, -0.897886, -0.00812744)
+transform = Transform3D(0.209319, -0.977248, 0.0342309, 0.827839, 0.158468, -0.538117, 0.520449, 0.140976, 0.842175, 0.412689, -0.364106, -0.437655)
 bone_name = "hand_eq_R.001"
 bone_idx = 27
 

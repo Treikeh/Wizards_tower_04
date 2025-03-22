@@ -86,7 +86,7 @@ max_health = 30.0
 
 [node name="BookGnomeShelf" type="Node" parent="." node_paths=PackedStringArray("blackboard", "actor")]
 script = ExtResource("6_iava8")
-blackboard = NodePath("@Node@30809")
+blackboard = NodePath("@Node@29907")
 actor = NodePath("..")
 
 [node name="Sequence" type="Node" parent="BookGnomeShelf"]
