@@ -1,5 +1,5 @@
 extends Node
-
+@warning_ignore_start("unused_signal")
 
 func _process(delta: float) -> void:
 	if run_in_progress:
@@ -7,10 +7,8 @@ func _process(delta: float) -> void:
 
 
 ## Player
-@warning_ignore("unused_signal")
 signal player_died
 #NOTE: I don't like doing this, so i need to find a better way at some point
-@warning_ignore("unused_signal")
 signal spells_changed
 
 var player_health: float = 100.0
