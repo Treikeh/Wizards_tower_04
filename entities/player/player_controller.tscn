@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=3 uid="uid://dh8dcfqs8vv8p"]
+[gd_scene load_steps=32 format=3 uid="uid://dh8dcfqs8vv8p"]
 
 [ext_resource type="Script" uid="uid://1mmt43auxwkw" path="res://entities/player/player_controller.gd" id="1_ck1rn"]
 [ext_resource type="Material" uid="uid://uwtl3uvytx4g" path="res://common/materials/dev_grid_green.tres" id="2_7yv5a"]
@@ -15,10 +15,6 @@
 [ext_resource type="AudioStream" uid="uid://biiiimggl568l" path="res://entities/player/audio/Shoe Step Stone Hard A.wav" id="11_g0yi8"]
 [ext_resource type="AudioStream" uid="uid://ctxgj877nt7wd" path="res://entities/player/audio/Land Step Stone A.wav" id="13_2bxrp"]
 [ext_resource type="AudioStream" uid="uid://b7wj5uswteyr3" path="res://entities/player/audio/Jump Step Stone A.wav" id="13_5agqx"]
-[ext_resource type="Script" uid="uid://bmu8u6rhxb3if" path="res://common/scripts/state_machine.gd" id="16_pi0qx"]
-[ext_resource type="Script" uid="uid://lw27wguwckqc" path="res://entities/player/player_walking_state.gd" id="18_eph57"]
-[ext_resource type="Script" uid="uid://c8lnl61ao2nu7" path="res://entities/player/player_falling_state.gd" id="18_n2nkh"]
-[ext_resource type="Script" uid="uid://cln1mc7ds163s" path="res://entities/player/player_jumping_state.gd" id="19_n2nkh"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_ebie1"]
 friction = 0.0
@@ -192,7 +188,7 @@ bones/39/scale = Vector3(1, 1, 1)
 bones/42/scale = Vector3(1, 1, 1)
 
 [node name="EqL" type="BoneAttachment3D" parent="Orientation/Head/viewmodel_01_sk/Skeleton3D" index="1"]
-transform = Transform3D(-0.865853, 0.498945, 0.0367737, 0.470811, 0.787752, 0.397219, 0.169222, 0.361247, -0.916987, -0.411362, -0.354253, -0.418709)
+transform = Transform3D(0.908661, 0.115969, 0.401106, -0.417534, 0.252379, 0.872909, -2.48663e-07, -0.960654, 0.277749, -0.42337, -0.897886, -0.00812744)
 bone_name = "hand_eq_L.001"
 bone_idx = 6
 
@@ -214,7 +210,7 @@ texture_filter = 2
 texture = ExtResource("10_eh1tp")
 
 [node name="EqR" type="BoneAttachment3D" parent="Orientation/Head/viewmodel_01_sk/Skeleton3D" index="2"]
-transform = Transform3D(0.209319, -0.977248, 0.0342309, 0.827839, 0.158468, -0.538117, 0.520449, 0.140976, 0.842175, 0.412689, -0.364106, -0.437655)
+transform = Transform3D(0.908661, -0.11597, -0.401106, 0.417535, 0.252379, 0.872909, -7.24569e-07, -0.960654, 0.277749, 0.423369, -0.897886, -0.00812744)
 bone_name = "hand_eq_R.001"
 bone_idx = 27
 
@@ -258,24 +254,6 @@ bus = &"SFX"
 [node name="LandAudio" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("13_2bxrp")
 bus = &"SFX"
-
-[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("init_state")]
-script = ExtResource("16_pi0qx")
-init_state = NodePath("Walking")
-metadata/_custom_type_script = "uid://bmu8u6rhxb3if"
-
-[node name="Walking" type="Node" parent="StateMachine"]
-script = ExtResource("18_eph57")
-accel = 500.0
-metadata/_custom_type_script = "uid://csakkjff2fjjn"
-
-[node name="Falling" type="Node" parent="StateMachine"]
-script = ExtResource("18_n2nkh")
-metadata/_custom_type_script = "uid://csakkjff2fjjn"
-
-[node name="Jumping" type="Node" parent="StateMachine"]
-script = ExtResource("19_n2nkh")
-metadata/_custom_type_script = "uid://csakkjff2fjjn"
 
 [connection signal="casted_spell" from="Orientation/Head/SpellManager" to="." method="_on_spell_manager_casted_spell"]
 [connection signal="hb_trough_reached" from="Orientation/Head/ShakeableCamera/Camera" to="." method="_on_camera_hb_trough_reached"]

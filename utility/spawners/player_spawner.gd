@@ -3,7 +3,8 @@ extends Node3D
 
 @export var on_player_spawned: Dictionary[Node, StringName]
 @export var reset_player: bool = false
-var player_scene: String = "uid://dh8dcfqs8vv8p"
+var player_scene: String = "uid://dh8dcfqs8vv8p" # RigidBody
+#var player_scene: String = "uid://b5cdlkoijvdum" # CharacterBody
 
 
 func _ready() -> void:

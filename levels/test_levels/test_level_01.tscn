@@ -244,6 +244,12 @@ material_override = ExtResource("6_sx1ik")
 use_collision = true
 size = Vector3(10, 1, 10)
 
+[node name="PropsFloor2" type="CSGBox3D" parent="Props"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.5, -0.2, 11)
+material_override = ExtResource("6_sx1ik")
+use_collision = true
+size = Vector3(1, 1, 10)
+
 [node name="WoodenBarrel" parent="Props" instance=ExtResource("2_bv8w7")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.1, 0.1, 11.3)
 
