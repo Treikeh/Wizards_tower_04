@@ -3,6 +3,10 @@ class_name Health
 extends Node
 
 
+enum DamageType {PHYSCIAL, FIRE, ELECTRICAL, HEALING}
+
+
+
 ## Emitted when damage has been registered but before damage resistance is applied.
 ## Will not emit after health has dropped below
 signal damage_taken(damage: Damage)
@@ -10,6 +14,7 @@ signal damage_taken(damage: Damage)
 signal health_changed(current_health: float, max_health: float)
 ## Emitted when current_health drops below 0.0
 signal health_depleted
+signal depleted
 
 
 @export var max_health: float = 100.0
@@ -47,6 +52,7 @@ func take_damage(damage: Damage) -> void:
 	elif current_health <= 0.0:
 		is_dead = true
 		health_depleted.emit()
+		depleted.emit()
 	health_changed.emit(current_health, max_health)
 
 
