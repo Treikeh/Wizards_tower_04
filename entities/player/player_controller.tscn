@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://dh8dcfqs8vv8p"]
+[gd_scene load_steps=34 format=3 uid="uid://dh8dcfqs8vv8p"]
 
 [ext_resource type="Script" uid="uid://1mmt43auxwkw" path="res://entities/player/player_controller.gd" id="1_ck1rn"]
 [ext_resource type="Material" uid="uid://uwtl3uvytx4g" path="res://common/materials/dev_grid_green.tres" id="2_7yv5a"]
@@ -13,8 +13,10 @@
 [ext_resource type="Script" uid="uid://dqar7hfd1ktaj" path="res://entities/player/art/spellbook/player_spell_book.gd" id="10_6vcwi"]
 [ext_resource type="Texture2D" uid="uid://b6ph48y4kxbc0" path="res://icon.png" id="10_eh1tp"]
 [ext_resource type="AudioStream" uid="uid://biiiimggl568l" path="res://entities/player/audio/Shoe Step Stone Hard A.wav" id="11_g0yi8"]
+[ext_resource type="Script" uid="uid://udbr1bsjiil4" path="res://entities/player/player_ground_check.gd" id="12_pi0qx"]
 [ext_resource type="AudioStream" uid="uid://ctxgj877nt7wd" path="res://entities/player/audio/Land Step Stone A.wav" id="13_2bxrp"]
 [ext_resource type="AudioStream" uid="uid://b7wj5uswteyr3" path="res://entities/player/audio/Jump Step Stone A.wav" id="13_5agqx"]
+[ext_resource type="Script" uid="uid://vgp3mejajxi4" path="res://entities/player/player_input.gd" id="17_bsc8g"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_ebie1"]
 friction = 0.0
@@ -81,9 +83,11 @@ nodes/wind_blast_oneshot/node = SubResource("AnimationNodeOneShot_2ywnk")
 nodes/wind_blast_oneshot/position = Vector2(-360, 20)
 node_connections = [&"fireball_oneshot", 0, &"rock_wall_oneshot", &"fireball_oneshot", 1, &"Fireball", &"output", 0, &"fireball_oneshot", &"reset_idle_blend", 0, &"RESET", &"reset_idle_blend", 1, &"Idle", &"rock_wall_oneshot", 0, &"wind_blast_oneshot", &"rock_wall_oneshot", 1, &"Rock_wall", &"wind_blast_oneshot", 0, &"reset_idle_blend", &"wind_blast_oneshot", 1, &"Wind_blast"]
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_g6ee0"]
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_pi0qx"]
+height = 1.0
+radius = 0.3
 
-[node name="RigidbodyPlayer" type="RigidBody3D" node_paths=PackedStringArray("footsteps_audio_player", "jump_audio_player", "land_audio_player", "orientation", "head", "camera", "ground_ray", "interact_ray", "spell_manager", "animation_tree") groups=["player"]]
+[node name="RigidbodyPlayer" type="RigidBody3D" node_paths=PackedStringArray("camera", "animation_tree", "orientation", "head", "interact_ray", "spell_manager", "ground_check", "footsteps_audio_player", "jump_audio_player", "land_audio_player") groups=["player"]]
 collision_layer = 4
 collision_mask = 271
 physics_material_override = SubResource("PhysicsMaterial_ebie1")
@@ -92,18 +96,21 @@ continuous_cd = true
 contact_monitor = true
 max_contacts_reported = 1
 script = ExtResource("1_ck1rn")
+camera = NodePath("Orientation/Head/ShakeableCamera/Camera")
+animation_tree = NodePath("Orientation/Head/viewmodel_01_sk/AnimationTree")
+orientation = NodePath("Orientation")
+head = NodePath("Orientation/Head")
+interact_ray = NodePath("Orientation/Head/InteractRay")
+spell_manager = NodePath("Orientation/Head/SpellManager")
 max_speed = 9.0
 air_accel = 175.0
+ground_check = NodePath("GroundCheck")
 footsteps_audio_player = NodePath("FootstepsAudio")
 jump_audio_player = NodePath("JumpAudio")
 land_audio_player = NodePath("LandAudio")
-orientation = NodePath("Orientation")
-head = NodePath("Orientation/Head")
-camera = NodePath("Orientation/Head/ShakeableCamera/Camera")
-ground_ray = NodePath("GroundRay")
-interact_ray = NodePath("Orientation/Head/InteractRay")
-spell_manager = NodePath("Orientation/Head/SpellManager")
-animation_tree = NodePath("Orientation/Head/viewmodel_01_sk/AnimationTree")
+
+[node name="PlayerInput" type="Node" parent="."]
+script = ExtResource("17_bsc8g")
 
 [node name="StandingCollision" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_kcqpx")
@@ -188,7 +195,7 @@ bones/39/scale = Vector3(1, 1, 1)
 bones/42/scale = Vector3(1, 1, 1)
 
 [node name="EqL" type="BoneAttachment3D" parent="Orientation/Head/viewmodel_01_sk/Skeleton3D" index="1"]
-transform = Transform3D(0.908661, 0.115969, 0.401106, -0.417534, 0.252379, 0.872909, -2.48663e-07, -0.960654, 0.277749, -0.42337, -0.897886, -0.00812744)
+transform = Transform3D(-0.86585, 0.498951, 0.0367712, 0.470811, 0.787742, 0.397241, 0.169237, 0.361263, -0.916977, -0.411553, -0.351957, -0.418707)
 bone_name = "hand_eq_L.001"
 bone_idx = 6
 
@@ -210,7 +217,7 @@ texture_filter = 2
 texture = ExtResource("10_eh1tp")
 
 [node name="EqR" type="BoneAttachment3D" parent="Orientation/Head/viewmodel_01_sk/Skeleton3D" index="2"]
-transform = Transform3D(0.908661, -0.11597, -0.401106, 0.417535, 0.252379, 0.872909, -7.24569e-07, -0.960654, 0.277749, 0.423369, -0.897886, -0.00812744)
+transform = Transform3D(0.215875, -0.975838, 0.0337275, 0.826885, 0.164335, -0.537824, 0.519287, 0.143991, 0.842382, 0.412585, -0.363415, -0.437602)
 bone_name = "hand_eq_R.001"
 bone_idx = 27
 
@@ -228,17 +235,12 @@ parameters/wind_blast_oneshot/active = false
 parameters/wind_blast_oneshot/internal_active = false
 parameters/wind_blast_oneshot/request = 0
 
-[node name="GroundRay" type="RayCast3D" parent="."]
-target_position = Vector3(0, -1.5, 0)
-collision_mask = 259
-debug_shape_custom_color = Color(1, 0, 0, 1)
-
-[node name="ShapeCast3D" type="ShapeCast3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.6, 0)
-shape = SubResource("SphereShape3D_g6ee0")
-target_position = Vector3(0, 0, 0)
+[node name="GroundCheck" type="ShapeCast3D" parent="."]
+shape = SubResource("CylinderShape3D_pi0qx")
 max_results = 1
+collision_mask = 3
 debug_shape_custom_color = Color(1, 0, 0, 1)
+script = ExtResource("12_pi0qx")
 
 [node name="Health" type="Node" parent="."]
 script = ExtResource("7_s4lvk")
@@ -255,6 +257,12 @@ bus = &"SFX"
 stream = ExtResource("13_2bxrp")
 bus = &"SFX"
 
+[connection signal="interacted" from="PlayerInput" to="." method="_on_input_interacted"]
+[connection signal="jumped_toggled" from="PlayerInput" to="." method="_on_input_jumped_toggled"]
+[connection signal="looked" from="PlayerInput" to="." method="_on_input_looked"]
+[connection signal="moved" from="PlayerInput" to="." method="_on_input_moved"]
+[connection signal="primary_toggled" from="PlayerInput" to="." method="_on_input_primary_toggled"]
+[connection signal="secondary_toggled" from="PlayerInput" to="." method="_on_input_secondary_toggled"]
 [connection signal="casted_spell" from="Orientation/Head/SpellManager" to="." method="_on_spell_manager_casted_spell"]
 [connection signal="hb_trough_reached" from="Orientation/Head/ShakeableCamera/Camera" to="." method="_on_camera_hb_trough_reached"]
 [connection signal="damage_taken" from="Health" to="." method="_on_health_damage_taken"]
