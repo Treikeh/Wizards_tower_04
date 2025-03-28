@@ -14,7 +14,7 @@ func _on_force_hit() -> void:
 
 func _on_launch_area_body_entered(body: Node3D) -> void:
 	if body is RigidBody3D:
-		body.linear_velocity.y = launch_force
+		body.set_axis_velocity(Vector3.UP * launch_force)
 	elif body is Enemy:
 		body.recive_knockback(Vector3.UP, launch_force)
 
