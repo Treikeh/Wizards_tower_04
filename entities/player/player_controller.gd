@@ -20,9 +20,9 @@ func _ready() -> void:
 
 
 func _process(delta: float) -> void:
-	camera.apply_camera_tilt(linear_velocity - ground_vel, move_direction, delta)
+	camera.apply_camera_tilt(linear_velocity, move_direction, delta)
 	if ground_check.is_grounded:
-		camera.head_bobbing(linear_velocity - ground_vel, delta)
+		camera.head_bobbing(linear_velocity, delta)
 
 
 func _physics_process(delta: float) -> void:
@@ -98,7 +98,6 @@ var coyote_time_passed: float = 0
 
 #NOTE: Could also be placed in the input section, but i use it more in movement so it stays here.
 var is_jumping: bool = false
-var ground_vel: Vector3 = Vector3.ZERO
 var move_direction: Vector3 = Vector3.ZERO
 
 
@@ -128,10 +127,9 @@ func _walking_physics(delta: float) -> void:
 		state_machine.switch(JUMPING)
 		return
 	
-	#ground_vel = ground_check.ground_vel
 	var slope_dir: Vector3 = move_direction.slide(ground_check.ground_normal)
 	var target_vel: Vector3 = slope_dir * max_speed
-	var needed_vel: Vector3 = target_vel - (linear_velocity - ground_vel)
+	var needed_vel: Vector3 = target_vel - linear_velocity
 	apply_central_force(needed_vel * ground_accel * delta * mass)
 
 

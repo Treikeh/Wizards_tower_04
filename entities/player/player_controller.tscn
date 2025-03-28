@@ -195,7 +195,7 @@ bones/39/scale = Vector3(1, 1, 1)
 bones/42/scale = Vector3(1, 1, 1)
 
 [node name="EqL" type="BoneAttachment3D" parent="Orientation/Head/viewmodel_01_sk/Skeleton3D" index="1"]
-transform = Transform3D(-0.86585, 0.498951, 0.0367712, 0.470811, 0.787742, 0.397241, 0.169237, 0.361263, -0.916977, -0.411553, -0.351957, -0.418707)
+transform = Transform3D(-0.86584, 0.498979, 0.0365997, 0.47081, 0.787838, 0.39705, 0.169285, 0.361014, -0.917067, -0.412268, -0.344209, -0.418729)
 bone_name = "hand_eq_L.001"
 bone_idx = 6
 
@@ -217,7 +217,7 @@ texture_filter = 2
 texture = ExtResource("10_eh1tp")
 
 [node name="EqR" type="BoneAttachment3D" parent="Orientation/Head/viewmodel_01_sk/Skeleton3D" index="2"]
-transform = Transform3D(0.215875, -0.975838, 0.0337275, 0.826885, 0.164335, -0.537824, 0.519287, 0.143991, 0.842382, 0.412585, -0.363415, -0.437602)
+transform = Transform3D(0.238315, -0.970637, 0.0326951, 0.822999, 0.183963, -0.537429, 0.515634, 0.154986, 0.842675, 0.411975, -0.360775, -0.437355)
 bone_name = "hand_eq_R.001"
 bone_idx = 27
 
