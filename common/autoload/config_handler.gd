@@ -7,15 +7,19 @@ signal video_settings_changed
 
 
 #TODO: Change to proper path when shipping
-# user://settings.ini
-# res://configs/.settings.ini
-const CONFIG_PATH: String = "res://configs/settings.ini"
+const USER_PATH: String = "user://settings.ini"
+const DEBUG_PATH: String = "res://configs/settings.ini"
+
+var config_path
 
 var config_file: ConfigFile = ConfigFile.new()
 
 
 func _ready() -> void:
-	if not FileAccess.file_exists(CONFIG_PATH):
+	# Set config path
+	config_path = DEBUG_PATH if OS.is_debug_build() else USER_PATH
+	
+	if not FileAccess.file_exists(config_path):
 		# Create new config file with all the settings.
 		# Remember to delete settings.ini file when adding new elements
 		config_file.set_value("INPUT", "camera_sensitivity", 0.1)
@@ -33,10 +37,10 @@ func _ready() -> void:
 		
 		config_file.set_value("AUDIO", "master_volume", 1.0)
 		
-		config_file.save(CONFIG_PATH)
+		config_file.save(config_path)
 	else:
 		# Load config file
-		config_file.load(CONFIG_PATH)
+		config_file.load(config_path)
 	
 	apply_video_settings()
 	apply_audio_settings()
@@ -46,7 +50,7 @@ func _ready() -> void:
 
 func save_video_settings(key: String, value) -> void:
 	config_file.set_value("VIDEO", key, value)
-	config_file.save(CONFIG_PATH)
+	config_file.save(config_path)
 	video_settings_changed.emit()
 
 
@@ -97,7 +101,7 @@ func apply_video_settings() -> void:
 
 func save_audio_settings(key: String, value) -> void:
 	config_file.set_value("AUDIO", key, value)
-	config_file.save(CONFIG_PATH)
+	config_file.save(config_path)
 	video_settings_changed.emit()
 
 
@@ -122,7 +126,7 @@ func apply_audio_settings() -> void:
 
 func save_input_setting(key: String, value) -> void:
 	config_file.set_value("INPUT", key, value)
-	config_file.save(CONFIG_PATH)
+	config_file.save(config_path)
 	input_settings_changed.emit()
 
 
@@ -139,7 +143,7 @@ func load_input_settings() -> Dictionary:
 
 func save_keybindings(key: String, value) -> void:
 	config_file.set_value("KEYBINDINGS", key, value)
-	config_file.save(CONFIG_PATH)
+	config_file.save(config_path)
 	keybindings_changed.emit()
 
 
