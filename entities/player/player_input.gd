@@ -2,10 +2,10 @@ extends Node
 
 signal looked(vector: Vector2)
 signal moved(vector: Vector2)
-signal jumped_toggled(pressed: bool)
+signal jumped(pressed: bool)
 signal interacted
-signal primary_toggled(pressed: bool)
-signal secondary_toggled(pressed: bool)
+signal primary_fired(pressed: bool)
+signal secondary_fired(pressed: bool)
 
 
 var _camera_sensitivity: float = 0.1
@@ -29,9 +29,9 @@ func _unhandled_input(event: InputEvent) -> void:
 		
 		# jump input
 		if event.is_action_pressed("jump"):
-			jumped_toggled.emit(true)
+			jumped.emit(true)
 		if event.is_action_released("jump"):
-			jumped_toggled.emit(false)
+			jumped.emit(false)
 		
 		# Interact input
 		if event.is_action_pressed("interact"):
@@ -39,14 +39,14 @@ func _unhandled_input(event: InputEvent) -> void:
 		
 		# Spell inputs
 		if event.is_action_pressed("primary_fire"):
-			primary_toggled.emit(true)
+			primary_fired.emit(true)
 		elif event.is_action_released("primary_fire"):
-			primary_toggled.emit(false)
+			primary_fired.emit(false)
 		
 		if event.is_action_pressed("secondary_fire"):
-			secondary_toggled.emit(true)
+			secondary_fired.emit(true)
 		elif event.is_action_released("secondary_fire"):
-			secondary_toggled.emit(false)
+			secondary_fired.emit(false)
 		
 		# Get move_input
 		moved.emit(Input.get_vector("move_l", "move_r", "move_f", "move_b"))

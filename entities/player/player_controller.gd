@@ -52,27 +52,27 @@ func _on_camera_hb_trough_reached() -> void:
 @export var spell_manager: Node3D
 
 # Camera input
-func _on_input_looked(vector: Vector2) -> void:
+func _on_looked(vector: Vector2) -> void:
 	orientation.rotate_object_local(Vector3.UP, vector.x)
 	head.rotate_object_local(Vector3.RIGHT, vector.y)
 	head.rotation.x = clampf(head.rotation.x, -deg_to_rad(89), deg_to_rad(89))
 
-func _on_input_moved(vector: Vector2) -> void:
+func _on_moved(vector: Vector2) -> void:
 	move_direction = orientation.global_basis * Vector3(vector.x, 0.0, vector.y).normalized()
 
-func _on_input_jumped_toggled(pressed: bool) -> void:
+func _on_jumped(pressed: bool) -> void:
 	is_jumping = pressed
 
-func _on_input_interacted() -> void:
+func _on_interacted() -> void:
 	interact_ray.interact_with_target()
 
-func _on_input_primary_toggled(pressed: bool) -> void:
+func _on_primary_fired(pressed: bool) -> void:
 	if pressed:
 		spell_manager.start_casting_primary_spell()
 	else:
 		spell_manager.stop_casting_primary_spell()
 
-func _on_input_secondary_toggled(pressed: bool) -> void:
+func _on_secondary_fired(pressed: bool) -> void:
 	if pressed:
 		spell_manager.start_casting_secondary_spell()
 	else:
