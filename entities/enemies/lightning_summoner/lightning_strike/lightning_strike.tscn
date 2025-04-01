@@ -1,10 +1,10 @@
-[gd_scene load_steps=26 format=3 uid="uid://xo3qqq1d6oq8"]
+[gd_scene load_steps=25 format=3 uid="uid://xo3qqq1d6oq8"]
 
 [ext_resource type="Script" uid="uid://b6w4iq28tlyyg" path="res://entities/enemies/lightning_summoner/lightning_strike/lightning_strike.gd" id="1_u0c2i"]
 [ext_resource type="Shader" uid="uid://br4aigmfqn33m" path="res://entities/enemies/lightning_summoner/lightning_strike/lightning_strike_warning_vs.tres" id="2_1oxgd"]
 [ext_resource type="Shader" uid="uid://b5spjy835fc4b" path="res://entities/spells/windblast/effect/windblast_effect_vs.tres" id="2_82nw3"]
 [ext_resource type="PackedScene" uid="uid://di7vp8irr7xdl" path="res://utility/damage/damage_area_3d.tscn" id="3_4sm3s"]
-[ext_resource type="Script" uid="uid://crwvko40r6yto" path="res://common/scripts/damage.gd" id="4_52mbw"]
+[ext_resource type="Resource" uid="uid://cog7r5wq08iy1" path="res://entities/enemies/lightning_summoner/lightning_strike/lightning_strike_damage.tres" id="5_wff6q"]
 [ext_resource type="PackedScene" uid="uid://0m38n8mm2vo1" path="res://utility/camera/camera_shake_source.tscn" id="6_8peit"]
 [ext_resource type="AudioStream" uid="uid://c3pr7jd88qyja" path="res://entities/enemies/lightning_summoner/lightning_strike/Thunderbolt Impact A.wav" id="7_wff6q"]
 
@@ -38,11 +38,6 @@ bottom_radius = 0.1
 height = 4.0
 cap_top = false
 cap_bottom = false
-
-[sub_resource type="Resource" id="Resource_vkflb"]
-script = ExtResource("4_52mbw")
-amount = 15.0
-type = 0
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_dh5kf"]
 radius = 3.5
@@ -283,7 +278,7 @@ collision_mask = 3
 
 [node name="DamageArea3D" parent="." instance=ExtResource("3_4sm3s")]
 collision_mask = 192
-damage = SubResource("Resource_vkflb")
+damage = ExtResource("5_wff6q")
 
 [node name="DamageCollision" type="CollisionShape3D" parent="DamageArea3D"]
 shape = SubResource("SphereShape3D_dh5kf")

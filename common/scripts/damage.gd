@@ -6,8 +6,9 @@ enum Type {
 	PHYSICAL,
 	FIRE,
 	EXPLOSIVE,
+	ELECTRICAL,
 	HEALING,
 }
 
-@export var amount: float = 10
-@export var type: Type = Type.PHYSICAL
+@export var amount: float
+@export var type: Type

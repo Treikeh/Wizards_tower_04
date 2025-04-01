@@ -1,17 +1,16 @@
 extends ShapeCast3D
 
+
 @export var damage: Damage
 @export var damage_falloff: Curve
 
-@export_group(" ")
-@export var line_of_sight: RayCast3D
-
 var vfx_scene: String = "uid://dwtlgghlk0gtn"
+
+@onready var line_of_sight: RayCast3D = $LineOfSight
 
 
 func trigger() -> void:
 	# Deal damage
-	#var overlapping_areas: Array[Area3D] = get_overlapping_areas()
 	var damaged_health_nodes: Array[Health] = []
 	force_shapecast_update()
 	for i: int in get_collision_count():
@@ -34,16 +33,8 @@ func trigger() -> void:
 			distance = remap(distance, 0.5, shape.radius, 0.0, 1.0)
 			var damage_scale: float = damage_falloff.sample(distance)
 			
-			var scaled_damage: Damage = damage.duplicate()
-			scaled_damage.amount *= damage_scale
-			
-			collider.recive_damage(scaled_damage, false)
+			collider.recive_damage(damage.amount * damage_scale, damage.type)
 			damaged_health_nodes.append(collider.health_node)
-	
-		# Add force to rigidbodies hit with by the explosion
-		#if collider is RigidBody3D:
-			#var dir: Vector3 = global_position.direction_to(collider.global_position)
-			#collider.apply_central_impulse(dir * 10.0)
 	
 	# Spawn vfx
 	var vfx: GPUParticles3D = LevelManager.add_3d_scene(vfx_scene, global_position)

@@ -11,7 +11,7 @@ func _ready() -> void:
 	#NOTE: This is stupid.
 	#TODO: Find a better solution.
 	$Health.current_health = Globals.player_health
-	$Health.health_changed.emit($Health.current_health, $Health.max_health)
+	$Health.changed.emit($Health.current_health, $Health.max_health)
 	
 	Globals.spells_changed.connect(_on_spells_changed)
 	# Hide fps arms when spawning player if no spells are choosen
@@ -173,8 +173,8 @@ func _jumping_enter() -> void:
 
 #region Health
 
-func _on_health_damage_taken(damage: Damage) -> void:
-	if damage.type == Damage.Type.HEALING:
+func _on_health_damage_taken(_amount: float, type: Damage.Type) -> void:
+	if type == Damage.Type.HEALING:
 		return
 	%ShakeableCamera.add_camera_shake(0.3)
 

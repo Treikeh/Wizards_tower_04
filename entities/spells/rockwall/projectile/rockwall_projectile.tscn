@@ -2,9 +2,9 @@
 
 [ext_resource type="Script" uid="uid://dev4l38iccsju" path="res://entities/spells/rockwall/projectile/rockwall_projectile.gd" id="1_xbvfo"]
 [ext_resource type="PackedScene" uid="uid://ddufakdkmxhwr" path="res://utility/damage/health_area_3d.tscn" id="2_r1a5r"]
+[ext_resource type="PackedScene" uid="uid://di7vp8irr7xdl" path="res://utility/damage/damage_area_3d.tscn" id="2_xbvfo"]
 [ext_resource type="Script" uid="uid://qrcafxbvr5tg" path="res://common/scripts/health.gd" id="3_hglti"]
 [ext_resource type="PackedScene" uid="uid://xl1x86mw45ri" path="res://utility/damage/explosion_cast_3d.tscn" id="4_3wxka"]
-[ext_resource type="Script" uid="uid://crwvko40r6yto" path="res://common/scripts/damage.gd" id="5_pagmy"]
 [ext_resource type="AudioStream" uid="uid://bhpvfluclmid6" path="res://entities/spells/rockwall/projectile/Stone Armor.wav" id="6_tyqbi"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_2mllo"]
@@ -17,16 +17,14 @@ size = Vector3(2, 2, 1)
 [sub_resource type="BoxShape3D" id="BoxShape3D_p3y56"]
 size = Vector3(1.9, 1.5, 0.8)
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_r1a5r"]
+size = Vector3(2.3, 2, 1.2)
+
 [sub_resource type="BoxShape3D" id="BoxShape3D_7usky"]
-size = Vector3(2.2, 2.1, 1.2)
+size = Vector3(2.3, 2, 1.2)
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_ambsq"]
 radius = 3.0
-
-[sub_resource type="Resource" id="Resource_h2cpc"]
-script = ExtResource("5_pagmy")
-amount = 50.0
-type = 2
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jpb6w"]
 albedo_color = Color(0.709804, 0.592157, 0.32549, 1)
@@ -142,7 +140,7 @@ _data = {
 &"spawn": SubResource("Animation_6qbxy")
 }
 
-[node name="RockwallProjectile" type="RigidBody3D" node_paths=PackedStringArray("explosion_cast", "anim_player")]
+[node name="RockwallProjectile" type="RigidBody3D"]
 collision_layer = 2
 collision_mask = 15
 axis_lock_angular_x = true
@@ -153,8 +151,6 @@ physics_material_override = SubResource("PhysicsMaterial_2mllo")
 continuous_cd = true
 script = ExtResource("1_xbvfo")
 launch_force = 12.5
-explosion_cast = NodePath("ExplosionCast3D")
-anim_player = NodePath("AnimationPlayer")
 apply_force_when_ready = false
 initial_velocity = 15.0
 
@@ -173,26 +169,28 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0)
 shape = SubResource("BoxShape3D_p3y56")
 disabled = true
 
+[node name="DamageArea3D" parent="." instance=ExtResource("2_xbvfo")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+collision_mask = 128
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DamageArea3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+shape = SubResource("BoxShape3D_r1a5r")
+disabled = true
+debug_color = Color(1, 0, 0, 0.419608)
+
 [node name="HealthArea3D" parent="." node_paths=PackedStringArray("health_node") instance=ExtResource("2_r1a5r")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 collision_mask = 0
-health_node = NodePath("Health")
+health_node = NodePath("../Health")
 
 [node name="HealthCollison" type="CollisionShape3D" parent="HealthArea3D"]
 shape = SubResource("BoxShape3D_7usky")
 debug_color = Color(0, 1, 0, 0.419608)
 
-[node name="Health" type="Node" parent="HealthArea3D"]
-script = ExtResource("3_hglti")
-max_health = 10.0
-physical_resistance = 100.0
-explosive_resistance = 100.0
-healing_resistance = 100.0
-
 [node name="ExplosionCast3D" parent="." instance=ExtResource("4_3wxka")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("SphereShape3D_ambsq")
-damage = SubResource("Resource_h2cpc")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
@@ -205,17 +203,26 @@ volume_db = -10.0
 autoplay = true
 bus = &"SFX"
 
+[node name="Health" type="Node" parent="."]
+script = ExtResource("3_hglti")
+max_health = 10.0
+physical_resistance = 0.0
+fire_resistance = 0.0
+electrical_resistance = 0.0
+healing_resistance = 0.0
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 10.0
+autostart = true
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 &"": SubResource("AnimationLibrary_k8pmq")
 }
 autoplay = "spawn"
 
-[node name="Timer" type="Timer" parent="."]
-wait_time = 10.0
-autostart = true
-
-[connection signal="force_hit" from="." to="." method="_on_force_hit"]
+[connection signal="reflected" from="." to="." method="_on_reflected"]
 [connection signal="body_entered" from="LaunchArea" to="." method="_on_launch_area_body_entered"]
-[connection signal="health_depleted" from="HealthArea3D/Health" to="." method="_on_health_depleted"]
+[connection signal="hit_health_area" from="DamageArea3D" to="." method="_on_damage_area_3d_hit_health_area"]
+[connection signal="depleted" from="Health" to="." method="_on_health_depleted"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

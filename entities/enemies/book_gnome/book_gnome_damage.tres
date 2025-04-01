@@ -1,8 +1,9 @@
-[gd_resource type="Resource" script_class="Damage" load_steps=2 format=3 uid="uid://dc7hcuasftdvh"]
+[gd_resource type="Resource" script_class="Damage" load_steps=2 format=3 uid="uid://c1vqwhnhyd00e"]
 
-[ext_resource type="Script" uid="uid://crwvko40r6yto" path="res://common/scripts/damage.gd" id="1_24m4s"]
+[ext_resource type="Script" uid="uid://crwvko40r6yto" path="res://common/scripts/damage.gd" id="1_h8ekm"]
 
 [resource]
-script = ExtResource("1_24m4s")
+script = ExtResource("1_h8ekm")
 amount = 15.0
 type = 0
+metadata/_custom_type_script = "uid://crwvko40r6yto"

@@ -16,9 +16,7 @@ func _process(delta: float) -> void:
 		# Deal damage
 		var collider: Object = get_collider()
 		if collider is HealthArea3D:
-			var scaled_damage: Damage = damage.duplicate()
-			scaled_damage.amount *= delta
-			collider.recive_damage(scaled_damage)
+			collider.recive_damage(damage.amount * delta, damage.type)
 		
 		visuals.look_at(get_collision_point())
 	else:

@@ -86,7 +86,7 @@ max_health = 30.0
 
 [node name="BookGnomeShelf" type="Node" parent="." node_paths=PackedStringArray("blackboard", "actor")]
 script = ExtResource("6_iava8")
-blackboard = NodePath("@Node@29907")
+blackboard = NodePath("@Node@79632")
 actor = NodePath("..")
 
 [node name="Sequence" type="Node" parent="BookGnomeShelf"]
@@ -115,7 +115,7 @@ frequency = 10.0
 sound_a = ExtResource("15_p1m4j")
 sound_b = ExtResource("16_5c6bl")
 
-[connection signal="health_changed" from="Health" to="FloatingHealthBar" method="_on_health_changed"]
-[connection signal="health_depleted" from="Health" to="." method="_on_health_depleted"]
+[connection signal="changed" from="Health" to="FloatingHealthBar" method="_on_health_changed"]
+[connection signal="depleted" from="Health" to="." method="_on_health_depleted"]
 
 [editable path="book_gnome_shelf_01_sk"]

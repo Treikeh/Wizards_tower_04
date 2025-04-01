@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://ddufakdkmxhwr" path="res://utility/damage/health_area_3d.tscn" id="3_ljiqa"]
 [ext_resource type="PackedScene" uid="uid://0m38n8mm2vo1" path="res://utility/camera/camera_shake_source.tscn" id="4_hildl"]
 [ext_resource type="Script" uid="uid://qrcafxbvr5tg" path="res://common/scripts/health.gd" id="5_4nupu"]
-[ext_resource type="Resource" uid="uid://bjo5hgv6bn8ly" path="res://entities/hazards/explosive_barrel/explosive_barrel_damage.tres" id="5_i6ro4"]
+[ext_resource type="Resource" uid="uid://c6slbxagq2liy" path="res://entities/hazards/explosive_barrel/explosive_barrel_damage.tres" id="5_mfdf1"]
 [ext_resource type="PackedScene" uid="uid://xl1x86mw45ri" path="res://utility/damage/explosion_cast_3d.tscn" id="6_q2a43"]
 
 [sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_2pqm0"]
@@ -21,10 +21,8 @@ height = 1.0
 [sub_resource type="SphereShape3D" id="SphereShape3D_gmg3x"]
 radius = 3.5
 
-[node name="ExplosiveBarrel" type="StaticBody3D" node_paths=PackedStringArray("explosion_cast", "camera_shake_source")]
+[node name="ExplosiveBarrel" type="StaticBody3D"]
 script = ExtResource("1_1mcf7")
-explosion_cast = NodePath("ExplosionArea3D")
-camera_shake_source = NodePath("CameraShakeSource")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("ConcavePolygonShape3D_2pqm0")
@@ -34,23 +32,18 @@ shape = SubResource("ConcavePolygonShape3D_2pqm0")
 [node name="wooden_barrel_mesh_001" parent="wooden_barrel_01_sm" index="0"]
 material_override = ExtResource("2_kme22")
 
-[node name="ExplosionArea3D" parent="." instance=ExtResource("6_q2a43")]
+[node name="ExplosionCast3D" parent="." instance=ExtResource("6_q2a43")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 shape = SubResource("SphereShape3D_pei0p")
-damage = ExtResource("5_i6ro4")
+damage = ExtResource("5_mfdf1")
 
 [node name="HealthArea3D" parent="." node_paths=PackedStringArray("health_node") instance=ExtResource("3_ljiqa")]
-health_node = NodePath("Health")
+health_node = NodePath("../Health")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="HealthArea3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 shape = SubResource("CylinderShape3D_n8ylb")
 debug_color = Color(0, 1, 0, 0.419608)
-
-[node name="Health" type="Node" parent="HealthArea3D"]
-script = ExtResource("5_4nupu")
-max_health = 10.0
-healing_resistance = 100.0
 
 [node name="CameraShakeSource" parent="." instance=ExtResource("4_hildl")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
@@ -59,6 +52,10 @@ shake_amount = 0.75
 [node name="CollisionShape3D" type="CollisionShape3D" parent="CameraShakeSource"]
 shape = SubResource("SphereShape3D_gmg3x")
 
-[connection signal="health_depleted" from="HealthArea3D/Health" to="." method="_on_health_depleted"]
+[node name="Health" type="Node" parent="."]
+script = ExtResource("5_4nupu")
+max_health = 10.0
+
+[connection signal="depleted" from="Health" to="." method="_on_health_depleted"]
 
 [editable path="wooden_barrel_01_sm"]

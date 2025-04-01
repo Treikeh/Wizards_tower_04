@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://ctwjw43o46ull"]
 
 [ext_resource type="Script" uid="uid://i1ofo0wesnp6" path="res://entities/spells/lightning_beam/lightning_beam_spell.gd" id="1_hgacv"]
-[ext_resource type="Resource" uid="uid://6ut21drcluar" path="res://entities/spells/lightning_beam/lightning_beam_spell_damage.tres" id="2_pb85q"]
+[ext_resource type="Resource" uid="uid://rweptjgltemy" path="res://entities/spells/lightning_beam/lightning_beam_damage.tres" id="2_pd660"]
 [ext_resource type="AudioStream" uid="uid://bq8ry8n4xak87" path="res://entities/spells/lightning_beam/Lightning Bolt Trail Loop.wav" id="4_pd660"]
 [ext_resource type="Shader" uid="uid://b5spjy835fc4b" path="res://entities/spells/windblast/effect/windblast_effect_vs.tres" id="4_qvylk"]
 
@@ -25,7 +25,7 @@ target_position = Vector3(0, 0, -100)
 collision_mask = 4227
 collide_with_areas = true
 script = ExtResource("1_hgacv")
-damage = ExtResource("2_pb85q")
+damage = ExtResource("2_pd660")
 visuals = NodePath("Visuals")
 casting_animation = "parameters/fireball_oneshot/request"
 

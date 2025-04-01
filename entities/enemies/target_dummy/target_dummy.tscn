@@ -1,11 +1,13 @@
-[gd_scene load_steps=12 format=4 uid="uid://dksnuasja7g8f"]
+[gd_scene load_steps=14 format=4 uid="uid://dksnuasja7g8f"]
 
-[ext_resource type="Script" uid="uid://ccli6eqejtk3o" path="res://entities/enemies/enemy.gd" id="1_yder3"]
+[ext_resource type="Script" uid="uid://b7drnjjmc8fru" path="res://entities/enemies/target_dummy/target_dummy.gd" id="1_yder3"]
 [ext_resource type="Material" uid="uid://b6fic2tk7542x" path="res://entities/enemies/living_armor/art/new_shader_material.tres" id="2_06pl7"]
 [ext_resource type="Material" uid="uid://dafw6yvwuk1bj" path="res://common/materials/dev_grid_brown.tres" id="2_o2rrs"]
 [ext_resource type="PackedScene" uid="uid://ddufakdkmxhwr" path="res://utility/damage/health_area_3d.tscn" id="4_ttlu7"]
 [ext_resource type="Script" uid="uid://qrcafxbvr5tg" path="res://common/scripts/health.gd" id="5_jxnsv"]
 [ext_resource type="PackedScene" uid="uid://cs53wyj8yt4s4" path="res://entities/enemies/floating_health_bar.tscn" id="6_xw767"]
+[ext_resource type="Script" uid="uid://bidgm07p5cbkv" path="res://addons/beehave/nodes/beehave_tree.gd" id="7_ag2uc"]
+[ext_resource type="Script" uid="uid://cpyb2sp11jkc" path="res://addons/beehave/nodes/leaves/action.gd" id="8_bxay5"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_7ua38"]
 radius = 0.4
@@ -80,16 +82,17 @@ bind/14/bone = -1
 bind/14/pose = Transform3D(0.83938, 0.0713843, 0.538837, 0.223223, 0.85861, -0.461476, -0.495593, 0.507635, 0.704765, -0.414885, -1.22696, -0.100397)
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_dim8n"]
-radius = 0.7
+radius = 0.6
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_arqjo"]
 viewport_path = NodePath("SubViewport")
 
-[node name="TargetDummy" type="CharacterBody3D" node_paths=PackedStringArray("nav_agent") groups=["enemy"]]
+[node name="TargetDummy" type="CharacterBody3D" node_paths=PackedStringArray("nav_agent", "beehave_tree") groups=["enemy"]]
 collision_layer = 8
 collision_mask = 271
 script = ExtResource("1_yder3")
 nav_agent = NodePath("NavigationAgent3D")
+beehave_tree = NodePath("BeehaveTree")
 metadata/_custom_type_script = "uid://ccli6eqejtk3o"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
@@ -234,4 +237,15 @@ texture = SubResource("ViewportTexture_arqjo")
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
 
-[connection signal="health_changed" from="Health" to="FloatingHealthBar" method="_on_health_changed"]
+[node name="BeehaveTree" type="Node" parent="." node_paths=PackedStringArray("blackboard", "actor")]
+script = ExtResource("7_ag2uc")
+blackboard = NodePath("@Node@30748")
+actor = NodePath("..")
+metadata/_custom_type_script = "uid://bidgm07p5cbkv"
+
+[node name="ActionLeaf" type="Node" parent="BeehaveTree"]
+script = ExtResource("8_bxay5")
+metadata/_custom_type_script = "uid://cpyb2sp11jkc"
+
+[connection signal="changed" from="Health" to="FloatingHealthBar" method="_on_health_changed"]
+[connection signal="depleted" from="Health" to="." method="_on_health_depleted"]

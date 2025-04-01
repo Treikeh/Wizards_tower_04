@@ -1,36 +1,30 @@
 extends Sprite3D
 
+
 @export var fade_duration: float = 1.0
 
 var fade_tween: Tween
 
-@export_group("Nodes")
-@export var progress_bar: ProgressBar
-@export var fade_delay: Timer
+@onready var fade_delay: Timer = $FadeDelay
+@onready var progress_bar: ProgressBar = $SubViewport/MarginContainer/ProgressBar
 
 
 func _ready() -> void:
 	progress_bar.value = progress_bar.max_value
-	fade_delay.start(0.0)
 	modulate = Color.TRANSPARENT
 
 
 func _on_health_changed(current_health: float, max_health: float) -> void:
 	progress_bar.value = current_health / max_health
-	show_health_bar()
+	# Stop fading
+	if fade_tween:
+		fade_tween.stop()
+	# Show health bar
+	modulate = Color.WHITE
 	fade_delay.start(0.0)
 
 
-func show_health_bar() -> void:
-	if fade_tween:
-		fade_tween.stop()
-	modulate = Color.WHITE
-
-
-func hide_health_bar() -> void:
+func _on_fade_delay_timeout() -> void:
+	# Hide health bar
 	fade_tween = create_tween()
 	fade_tween.tween_property(self, "modulate", Color.TRANSPARENT, fade_duration)
-
-
-func _on_fade_delay_timeout() -> void:
-	hide_health_bar()
