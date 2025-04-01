@@ -1,20 +1,27 @@
-[gd_scene load_steps=3 format=3 uid="uid://xl1x86mw45ri"]
+[gd_scene load_steps=5 format=3 uid="uid://xl1x86mw45ri"]
 
 [ext_resource type="Script" uid="uid://4uy0eibrpqpv" path="res://utility/damage/explosion_cast_3d.gd" id="1_iai06"]
+[ext_resource type="Script" uid="uid://crwvko40r6yto" path="res://common/scripts/damage.gd" id="2_6a6e2"]
+
+[sub_resource type="Resource" id="Resource_jxww1"]
+script = ExtResource("2_6a6e2")
+amount = 50.0
+type = 2
+metadata/_custom_type_script = "uid://crwvko40r6yto"
 
 [sub_resource type="Curve" id="Curve_xb3ic"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.3), 0.0, 0.0, 0, 0]
 point_count = 2
 
-[node name="ExplosionCast3D" type="ShapeCast3D" node_paths=PackedStringArray("line_of_sight")]
+[node name="ExplosionCast3D" type="ShapeCast3D"]
 enabled = false
 target_position = Vector3(0, 0, 0)
 collision_mask = 192
 collide_with_areas = true
 collide_with_bodies = false
 script = ExtResource("1_iai06")
+damage = SubResource("Resource_jxww1")
 damage_falloff = SubResource("Curve_xb3ic")
-line_of_sight = NodePath("LineOfSight")
 
 [node name="LineOfSight" type="RayCast3D" parent="."]
 collision_mask = 259

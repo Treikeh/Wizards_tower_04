@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://bmdxr06ji3ymb"]
+[gd_scene load_steps=31 format=3 uid="uid://bmdxr06ji3ymb"]
 
 [ext_resource type="PackedScene" uid="uid://cs53wyj8yt4s4" path="res://entities/enemies/floating_health_bar.tscn" id="1_2e566"]
 [ext_resource type="Script" uid="uid://c2lpwo72tvjsp" path="res://entities/enemies/living_armor/living_armor.gd" id="1_06wta"]
@@ -7,7 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://hbbw4ewamxu8" path="res://entities/enemies/living_armor/art/living_armor_01_sk.glb" id="3_o1tl7"]
 [ext_resource type="PackedScene" uid="uid://ddufakdkmxhwr" path="res://utility/damage/health_area_3d.tscn" id="3_tgsqs"]
 [ext_resource type="PackedScene" uid="uid://di7vp8irr7xdl" path="res://utility/damage/damage_area_3d.tscn" id="4_bjx4o"]
-[ext_resource type="Script" uid="uid://crwvko40r6yto" path="res://common/scripts/damage.gd" id="5_sdnyl"]
+[ext_resource type="Resource" uid="uid://bpyrx444ndeyw" path="res://entities/enemies/living_armor/living_armor_damage.tres" id="5_uxchm"]
 [ext_resource type="Script" uid="uid://bidgm07p5cbkv" path="res://addons/beehave/nodes/beehave_tree.gd" id="7_xq1dp"]
 [ext_resource type="Script" uid="uid://8ceib6pry7j6" path="res://addons/beehave/nodes/composites/selector.gd" id="8_qqjc7"]
 [ext_resource type="Script" uid="uid://c4bcucm80qf6y" path="res://addons/beehave/nodes/composites/sequence.gd" id="9_0vmq6"]
@@ -34,11 +34,6 @@ top_radius = 0.025
 bottom_radius = 0.025
 radial_segments = 4
 rings = 0
-
-[sub_resource type="Resource" id="Resource_7mhl2"]
-script = ExtResource("5_sdnyl")
-amount = 25.0
-type = 0
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ec03n"]
 radius = 0.4
@@ -82,7 +77,7 @@ bones/14/scale = Vector3(1, 1, 1)
 bones/15/scale = Vector3(1, 1, 1)
 
 [node name="HandEqR" type="BoneAttachment3D" parent="living_armor_01_sk/Skeleton3D" index="1"]
-transform = Transform3D(0.469742, -0.040178, 0.881889, 0.877521, 0.130371, -0.461476, -0.096431, 0.990651, 0.0964978, 0.0957906, 2.00393, -0.00914688)
+transform = Transform3D(0.83938, 0.223223, -0.495593, 0.0713843, 0.85861, 0.507635, 0.538837, -0.461477, 0.704766, 0.572377, 1.13406, -0.271902)
 bone_name = "hand_eq_R.002"
 bone_idx = 15
 
@@ -91,7 +86,7 @@ mesh = SubResource("CylinderMesh_ivhn2")
 
 [node name="DamageArea3D" parent="living_armor_01_sk/Skeleton3D/HandEqR/MeshInstance3D" instance=ExtResource("4_bjx4o")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4, 0)
-damage = SubResource("Resource_7mhl2")
+damage = ExtResource("5_uxchm")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="living_armor_01_sk/Skeleton3D/HandEqR/MeshInstance3D/DamageArea3D"]
 shape = SubResource("CapsuleShape3D_ec03n")
@@ -134,7 +129,7 @@ sound_b = ExtResource("12_q3cb3")
 [node name="BeehaveTree" type="Node" parent="." node_paths=PackedStringArray("blackboard", "actor")]
 script = ExtResource("7_xq1dp")
 enabled = false
-blackboard = NodePath("@Node@71020")
+blackboard = NodePath("@Node@76297")
 actor = NodePath("..")
 
 [node name="SelectorComposite" type="Node" parent="BeehaveTree"]
@@ -199,7 +194,7 @@ script = ExtResource("13_tbnnk")
 group = "player"
 save_key = &"player"
 
-[connection signal="health_changed" from="Health" to="FloatingHealthBar" method="_on_health_changed"]
-[connection signal="health_depleted" from="Health" to="." method="_on_health_depleted"]
+[connection signal="changed" from="Health" to="FloatingHealthBar" method="_on_health_changed"]
+[connection signal="depleted" from="Health" to="." method="_on_health_depleted"]
 
 [editable path="living_armor_01_sk"]

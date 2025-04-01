@@ -20,7 +20,6 @@
 [ext_resource type="Shader" uid="uid://18h33qoa5xhi" path="res://common/vfx/explosion/explosion_vfx_vs.tres" id="18_1hpn1"]
 [ext_resource type="Material" uid="uid://dusegx7j0olth" path="res://entities/spells/rockwall/rockwall_cannot_spawn_mat.tres" id="18_3tha2"]
 [ext_resource type="PackedScene" uid="uid://exjnmfqooik7" path="res://entities/hazards/explosive_barrel/explosive_barrel.tscn" id="19_imr74"]
-[ext_resource type="Script" uid="uid://crwvko40r6yto" path="res://common/scripts/damage.gd" id="20_kk31u"]
 [ext_resource type="Material" uid="uid://b4576fxo40ync" path="res://common/materials/dev_grid_pink.tres" id="21_3nqud"]
 [ext_resource type="PackedScene" uid="uid://clqs24y75lbd5" path="res://entities/pickups/mana_potion/mana_potion.tscn" id="22_i3q2h"]
 [ext_resource type="PackedScene" uid="uid://i0u75nytwgqr" path="res://utility/spawners/player_spawner.tscn" id="24_ro6yv"]
@@ -56,8 +55,25 @@ shader_parameter/base_color = Color(0.901961, 0.396078, 0, 1)
 shader_parameter/alpha = 0.75
 shader_parameter/emission_strength = 1.0
 
+[sub_resource type="GDScript" id="GDScript_l0xm2"]
+script/source = "
+extends Resource
+
+
+enum Type {
+	PHYSICAL,
+	FIRE,
+	EXPLOSIVE,
+	ELECTRICAL,
+	HEALING,
+}
+
+@export var amount: float
+@export var type: Type
+"
+
 [sub_resource type="Resource" id="Resource_5cnm0"]
-script = ExtResource("20_kk31u")
+script = SubResource("GDScript_l0xm2")
 amount = 10.0
 type = 0
 metadata/_custom_type_script = "uid://crwvko40r6yto"

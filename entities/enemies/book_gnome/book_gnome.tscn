@@ -9,7 +9,7 @@
 [ext_resource type="Script" uid="uid://qrcafxbvr5tg" path="res://common/scripts/health.gd" id="4_ejrbm"]
 [ext_resource type="AnimationLibrary" uid="uid://bxapqju53wqlg" path="res://entities/enemies/book_gnome/art/book_gnome_01_alib.glb" id="4_gyyhc"]
 [ext_resource type="PackedScene" uid="uid://di7vp8irr7xdl" path="res://utility/damage/damage_area_3d.tscn" id="4_pe1ou"]
-[ext_resource type="Resource" uid="uid://dc7hcuasftdvh" path="res://entities/enemies/book_gnome/book_gnome_damage.tres" id="5_rq5px"]
+[ext_resource type="Resource" uid="uid://c1vqwhnhyd00e" path="res://entities/enemies/book_gnome/book_gnome_damage.tres" id="8_faped"]
 [ext_resource type="AudioStream" uid="uid://c7pukwl52u26t" path="res://entities/enemies/book_gnome/art/Slap Medium B.wav" id="9_agejn"]
 [ext_resource type="Script" uid="uid://bidgm07p5cbkv" path="res://addons/beehave/nodes/beehave_tree.gd" id="10_fgdmq"]
 [ext_resource type="Script" uid="uid://8ceib6pry7j6" path="res://addons/beehave/nodes/composites/selector.gd" id="11_qb3q8"]
@@ -126,7 +126,6 @@ parameters/BlendTree/walk_blend/blend_amount = 0.0
 [node name="HealthArea3D" parent="book_gnome_01_sk" node_paths=PackedStringArray("health_node") instance=ExtResource("3_ap0dj")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -0.030045)
 health_node = NodePath("../../Health")
-damage_multiplier = 0.5
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="book_gnome_01_sk/HealthArea3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.008789, -0.0214355)
@@ -134,7 +133,7 @@ shape = SubResource("BoxShape3D_cf1hn")
 debug_color = Color(0, 1, 0, 0.419608)
 
 [node name="DamageArea3D" parent="book_gnome_01_sk" instance=ExtResource("4_pe1ou")]
-damage = ExtResource("5_rq5px")
+damage = ExtResource("8_faped")
 
 [node name="DamageCollision" type="CollisionShape3D" parent="book_gnome_01_sk/DamageArea3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.55, -0.5)
@@ -148,6 +147,14 @@ volume_db = -10.0
 max_distance = 15.0
 bus = &"SFX"
 
+[node name="EnemyFootsteps" parent="." instance=ExtResource("24_rieep")]
+volume_db = -5.0
+max_distance = 15.0
+bus = &"SFX"
+frequency = 15.0
+sound_a = ExtResource("25_faped")
+sound_b = ExtResource("26_7fjmd")
+
 [node name="Health" type="Node" parent="."]
 script = ExtResource("4_ejrbm")
 max_health = 10.0
@@ -158,7 +165,7 @@ texture = SubResource("ViewportTexture_cuy2h")
 
 [node name="BookGnomeTree" type="Node" parent="." node_paths=PackedStringArray("blackboard", "actor")]
 script = ExtResource("10_fgdmq")
-blackboard = NodePath("@Node@73438")
+blackboard = NodePath("@Node@71966")
 actor = NodePath("..")
 
 [node name="SelectorComposite" type="Node" parent="BookGnomeTree"]
@@ -223,15 +230,7 @@ save_key = &"player"
 script = ExtResource("18_x15na")
 text = "TryingToGetPlayer"
 
-[node name="EnemyFootsteps" parent="." instance=ExtResource("24_rieep")]
-volume_db = -5.0
-max_distance = 15.0
-bus = &"SFX"
-frequency = 15.0
-sound_a = ExtResource("25_faped")
-sound_b = ExtResource("26_7fjmd")
-
-[connection signal="health_changed" from="Health" to="FloatingHealthBar" method="_on_health_changed"]
-[connection signal="health_depleted" from="Health" to="." method="_on_health_depleted"]
+[connection signal="changed" from="Health" to="FloatingHealthBar" method="_on_health_changed"]
+[connection signal="depleted" from="Health" to="." method="_on_health_depleted"]
 
 [editable path="book_gnome_01_sk"]

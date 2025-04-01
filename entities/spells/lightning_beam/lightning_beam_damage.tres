@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="Damage" load_steps=2 format=3 uid="uid://rweptjgltemy"]
+
+[ext_resource type="Script" uid="uid://crwvko40r6yto" path="res://common/scripts/damage.gd" id="1_nvcfp"]
+
+[resource]
+script = ExtResource("1_nvcfp")
+amount = 20.0
+type = 3
+metadata/_custom_type_script = "uid://crwvko40r6yto"

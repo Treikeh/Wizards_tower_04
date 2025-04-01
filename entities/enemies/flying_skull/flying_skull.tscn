@@ -209,7 +209,7 @@ texture = SubResource("ViewportTexture_arqjo")
 
 [node name="BeehaveTree" type="Node" parent="." node_paths=PackedStringArray("blackboard", "actor")]
 script = ExtResource("8_7d4xa")
-blackboard = NodePath("@Node@55152")
+blackboard = NodePath("@Node@79001")
 actor = NodePath("..")
 
 [node name="SelectorComposite" type="Node" parent="BeehaveTree"]
@@ -283,5 +283,5 @@ script = ExtResource("21_yvnng")
 group = "player"
 save_key = &"player"
 
-[connection signal="health_changed" from="Health" to="FloatingHealthBar" method="_on_health_changed"]
-[connection signal="health_depleted" from="Health" to="." method="_on_health_depleted"]
+[connection signal="changed" from="Health" to="FloatingHealthBar" method="_on_health_changed"]
+[connection signal="depleted" from="Health" to="." method="_on_health_depleted"]

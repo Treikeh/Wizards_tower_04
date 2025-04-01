@@ -75,7 +75,7 @@ script = ExtResource("4_hsrnx")
 
 [node name="BeehaveTree" type="Node" parent="." node_paths=PackedStringArray("blackboard", "actor")]
 script = ExtResource("2_hgr05")
-blackboard = NodePath("@Node@17315")
+blackboard = NodePath("@Node@78373")
 actor = NodePath("..")
 
 [node name="SelectorComposite" type="Node" parent="BeehaveTree"]
@@ -146,5 +146,5 @@ script = ExtResource("12_pnqaa")
 group = "player"
 save_key = &"player"
 
-[connection signal="health_changed" from="Health" to="FloatingHealthBar" method="_on_health_changed"]
-[connection signal="health_depleted" from="Health" to="." method="_on_health_depleted"]
+[connection signal="changed" from="Health" to="FloatingHealthBar" method="_on_health_changed"]
+[connection signal="depleted" from="Health" to="." method="_on_health_depleted"]

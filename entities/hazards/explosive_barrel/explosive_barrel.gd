@@ -1,12 +1,10 @@
 extends Node3D
 
-
-@export_group(" ")
-@export var explosion_cast: ShapeCast3D
-@export var camera_shake_source: Area3D
+@onready var camera_shake_source: CameraShakeSource = $CameraShakeSource
+@onready var explosion_cast_3d: ShapeCast3D = $ExplosionCast3D
 
 
 func _on_health_depleted() -> void:
-	explosion_cast.trigger()
+	explosion_cast_3d.trigger()
 	camera_shake_source.shake_camera()
 	queue_free()

@@ -5,9 +5,6 @@ extends RigidBody3D
 ## Emitted when reflceted by a spell (windblast, etc...)
 @warning_ignore("unused_signal")
 signal reflected
-## Emitted whe it deals force damage to a health area
-@warning_ignore("unused_signal")
-signal force_hit
 
 
 @export var apply_force_when_ready: bool = true

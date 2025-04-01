@@ -5,4 +5,4 @@
 [resource]
 script = ExtResource("1_tkakf")
 amount = 25.0
-type = 3
+type = 4
