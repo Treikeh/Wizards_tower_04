@@ -12,27 +12,32 @@ var _current: Dictionary#[int, Callable] The int is a callback on the state mach
 
 
 ## Create a new state machine. The int in the dict should be an enum.
-## The nested dict should be [int (SM.enum), Callable (on the owner)]
+## The nested dict should be [int (SM.enum), Callable (on the owner)].
+## The callable can also be on a child, but then the state machine has to be created in _ready/@onready
 func _init(new_states: Dictionary[int, Dictionary]) -> void:
 	_states = new_states
 
 
 func switch(new: int) -> void:
 	var old: Dictionary = _current
-	_current = _states[new] if _states.has(new) else {}
+	# Check if state exists before entering the new state
+	if not _states.has(new):
+		return
+	
+	_current = _states[new]# if _states.has(new) else {}
+	
 	if _current != old:
-		if old and old.has(EXIT):
+		if old.has(EXIT):
 			old[EXIT].call()
-		
-		if _current and _current.has(ENTER):
+		if _current.has(ENTER):
 			_current[ENTER].call()
 
 
 func process(delta: float) -> void:
-	if _current and _current.has(PROCESS):
+	if _current.has(PROCESS):
 		_current[PROCESS].call(delta)
 
 
 func physics(delta: float) -> void:
-	if _current and _current.has(PHYSICS):
+	if _current.has(PHYSICS):
 		_current[PHYSICS].call(delta)

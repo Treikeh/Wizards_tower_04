@@ -103,7 +103,7 @@ var move_direction: Vector3 = Vector3.ZERO
 
 enum {WALKING, FALLING, JUMPING}
 
-var state_machine := SM.new({
+@onready var state_machine := SM.new({
 	WALKING: {SM.ENTER: _walking_enter, SM.PHYSICS: _walking_physics},
 	FALLING: {SM.ENTER: _falling_enter, SM.PHYSICS: _falling_physics},
 	JUMPING: {SM.ENTER: _jumping_enter},
