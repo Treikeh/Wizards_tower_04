@@ -1,0 +1,38 @@
+[gd_scene load_steps=7 format=3 uid="uid://bghof87ud2kxr"]
+
+[ext_resource type="Script" uid="uid://cu2peb35x88qt" path="res://levels/level_3d.gd" id="1_3jvkj"]
+[ext_resource type="PackedScene" uid="uid://i0u75nytwgqr" path="res://utility/spawners/player_spawner.tscn" id="2_ckysk"]
+[ext_resource type="Material" uid="uid://c4eykp21shtlp" path="res://common/materials/dev_grid_red.tres" id="3_ojt1p"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ckysk"]
+sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+ground_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+
+[sub_resource type="Sky" id="Sky_ojt1p"]
+sky_material = SubResource("ProceduralSkyMaterial_ckysk")
+
+[sub_resource type="Environment" id="Environment_3kvqf"]
+background_mode = 2
+sky = SubResource("Sky_ojt1p")
+tonemap_mode = 2
+glow_enabled = true
+
+[node name="LevelBoss" type="Node3D"]
+script = ExtResource("1_3jvkj")
+metadata/_custom_type_script = "uid://cu2peb35x88qt"
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_3kvqf")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 10, 0)
+shadow_enabled = true
+
+[node name="PlayerSpawner" parent="." instance=ExtResource("2_ckysk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 3)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+use_collision = true
+size = Vector3(10, 1, 10)
+material = ExtResource("3_ojt1p")

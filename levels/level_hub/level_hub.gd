@@ -9,5 +9,5 @@ func start_run() -> void:
 	_on_play_trigger_entered()
 
 func _on_play_trigger_entered() -> void:
-	Globals.load_random_level()
+	Globals.load_next_level()
 	Globals.start_run()

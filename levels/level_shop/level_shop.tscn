@@ -1,0 +1,52 @@
+[gd_scene load_steps=10 format=3 uid="uid://d0wdststpnqjf"]
+
+[ext_resource type="Script" uid="uid://cu2peb35x88qt" path="res://levels/level_3d.gd" id="1_75ngf"]
+[ext_resource type="PackedScene" uid="uid://i0u75nytwgqr" path="res://utility/spawners/player_spawner.tscn" id="2_f8ijg"]
+[ext_resource type="Material" uid="uid://botmm8kkk1h67" path="res://common/materials/dev_grid_gray.tres" id="3_yr1pu"]
+[ext_resource type="PackedScene" uid="uid://cj0ckw6b4kq8l" path="res://utility/triggers/level_transtion_trigger.tscn" id="4_yr1pu"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_truyj"]
+sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+ground_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+
+[sub_resource type="Sky" id="Sky_ojt1p"]
+sky_material = SubResource("ProceduralSkyMaterial_truyj")
+
+[sub_resource type="Environment" id="Environment_8q344"]
+background_mode = 2
+sky = SubResource("Sky_ojt1p")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_truyj"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_8q344"]
+
+[node name="LevelShop" type="Node3D"]
+script = ExtResource("1_75ngf")
+metadata/_custom_type_script = "uid://cu2peb35x88qt"
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_8q344")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 10, 0)
+shadow_enabled = true
+
+[node name="PlayerSpawner" parent="." instance=ExtResource("2_f8ijg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 3)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+use_collision = true
+size = Vector3(10, 1, 10)
+material = ExtResource("3_yr1pu")
+
+[node name="LevelTranstionTrigger" parent="." instance=ExtResource("4_yr1pu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -4)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="LevelTranstionTrigger"]
+shape = SubResource("BoxShape3D_truyj")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="LevelTranstionTrigger"]
+mesh = SubResource("BoxMesh_8q344")

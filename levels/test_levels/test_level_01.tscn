@@ -267,7 +267,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.79695, 0.9453, 0.242626)
 
 [node name="LevelTranstionArea3D" parent="LevelTransition" instance=ExtResource("12_5pukf")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9, 0.5, 3)
-level_path = "uid://cu062dawunb5i"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="LevelTransition/LevelTranstionArea3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
