@@ -6,7 +6,6 @@ signal keybindings_changed
 signal video_settings_changed
 
 
-#TODO: Change to proper path when shipping
 const USER_PATH: String = "user://settings.ini"
 const DEBUG_PATH: String = "res://configs/settings.ini"
 
@@ -36,6 +35,11 @@ func _ready() -> void:
 		config_file.set_value("VIDEO", "field_of_view", 90.0)
 		
 		config_file.set_value("AUDIO", "master_volume", 1.0)
+		
+		#NOTE: 0: Unplayed, 1: Tutorial finished, 2: Game finished
+		# Use this value to check if the tutorial should spawned when pressing play
+		# Also change main menu based on the current game stage
+		config_file.set_value("PROGRESS", "game_stage", 0)
 		
 		config_file.save(config_path)
 	else:
@@ -154,3 +158,10 @@ func load_keybindings() -> Dictionary:
 	return keybindings
 
 #endregion
+
+
+func load_progress() -> Dictionary:
+	var progress: Dictionary = {}
+	for key in config_file.get_section_keys("PROGRESS"):
+		progress[key] = config_file.get_value("PROGRESS", key)
+	return progress

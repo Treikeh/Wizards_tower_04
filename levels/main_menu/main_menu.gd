@@ -14,6 +14,8 @@ func _ready() -> void:
 	UiManager.remove_ui_scenes()
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	version_label.text = ProjectSettings.get_setting("application/config/version")
+	
+	var progress: Dictionary = ConfigHandler.load_progress()
 
 
 func _on_play_button_pressed() -> void:
