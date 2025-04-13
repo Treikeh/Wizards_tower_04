@@ -1,9 +1,10 @@
-[gd_scene load_steps=18 format=3 uid="uid://d2tj1vsg1g6a7"]
+[gd_scene load_steps=19 format=3 uid="uid://d2tj1vsg1g6a7"]
 
 [ext_resource type="Script" uid="uid://dev4l38iccsju" path="res://entities/spells/rockwall/projectile/rockwall_projectile.gd" id="1_xbvfo"]
 [ext_resource type="PackedScene" uid="uid://ddufakdkmxhwr" path="res://utility/damage/health_area_3d.tscn" id="2_r1a5r"]
 [ext_resource type="PackedScene" uid="uid://di7vp8irr7xdl" path="res://utility/damage/damage_area_3d.tscn" id="2_xbvfo"]
 [ext_resource type="Script" uid="uid://qrcafxbvr5tg" path="res://common/scripts/health.gd" id="3_hglti"]
+[ext_resource type="Resource" uid="uid://jfk4dvwvdkpa" path="res://entities/spells/rockwall/projectile/rockwall_push_damage.tres" id="3_r1a5r"]
 [ext_resource type="PackedScene" uid="uid://xl1x86mw45ri" path="res://utility/damage/explosion_cast_3d.tscn" id="4_3wxka"]
 [ext_resource type="AudioStream" uid="uid://bhpvfluclmid6" path="res://entities/spells/rockwall/projectile/Stone Armor.wav" id="6_tyqbi"]
 
@@ -172,6 +173,7 @@ disabled = true
 [node name="DamageArea3D" parent="." instance=ExtResource("2_xbvfo")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 collision_mask = 128
+damage = ExtResource("3_r1a5r")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="DamageArea3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
@@ -207,7 +209,6 @@ bus = &"SFX"
 script = ExtResource("3_hglti")
 max_health = 10.0
 physical_resistance = 0.0
-fire_resistance = 0.0
 electrical_resistance = 0.0
 healing_resistance = 0.0
 
