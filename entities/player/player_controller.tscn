@@ -83,9 +83,9 @@ nodes/wind_blast_oneshot/node = SubResource("AnimationNodeOneShot_2ywnk")
 nodes/wind_blast_oneshot/position = Vector2(-360, 20)
 node_connections = [&"fireball_oneshot", 0, &"rock_wall_oneshot", &"fireball_oneshot", 1, &"Fireball", &"output", 0, &"fireball_oneshot", &"reset_idle_blend", 0, &"RESET", &"reset_idle_blend", 1, &"Idle", &"rock_wall_oneshot", 0, &"wind_blast_oneshot", &"rock_wall_oneshot", 1, &"Rock_wall", &"wind_blast_oneshot", 0, &"reset_idle_blend", &"wind_blast_oneshot", 1, &"Wind_blast"]
 
-[sub_resource type="CylinderShape3D" id="CylinderShape3D_pi0qx"]
-height = 1.0
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_bsc8g"]
 radius = 0.3
+height = 1.0
 
 [node name="RigidbodyPlayer" type="RigidBody3D" node_paths=PackedStringArray("camera", "animation_tree", "orientation", "head", "interact_ray", "spell_manager", "ground_check", "footsteps_audio_player", "jump_audio_player", "land_audio_player") groups=["player"]]
 collision_layer = 4
@@ -195,7 +195,7 @@ bones/39/scale = Vector3(1, 1, 1)
 bones/42/scale = Vector3(1, 1, 1)
 
 [node name="EqL" type="BoneAttachment3D" parent="Orientation/Head/viewmodel_01_sk/Skeleton3D" index="1"]
-transform = Transform3D(-0.865849, 0.498952, 0.0367715, 0.470812, 0.787741, 0.39724, 0.169237, 0.361263, -0.916978, -0.410744, -0.361692, -0.418705)
+transform = Transform3D(-0.865849, 0.498951, 0.0367762, 0.470812, 0.787739, 0.397245, 0.169236, 0.361269, -0.916975, -0.411285, -0.355165, -0.418705)
 bone_name = "hand_eq_L.001"
 bone_idx = 6
 
@@ -217,7 +217,7 @@ texture_filter = 2
 texture = ExtResource("10_eh1tp")
 
 [node name="EqR" type="BoneAttachment3D" parent="Orientation/Head/viewmodel_01_sk/Skeleton3D" index="2"]
-transform = Transform3D(0.188093, -0.981486, 0.036138, 0.830496, 0.139299, -0.539325, 0.524306, 0.131456, 0.841322, 0.412926, -0.366215, -0.437796)
+transform = Transform3D(0.206656, -0.977816, 0.0342093, 0.828306, 0.156234, -0.538052, 0.520771, 0.139528, 0.842217, 0.412815, -0.364461, -0.437695)
 bone_name = "hand_eq_R.001"
 bone_idx = 27
 
@@ -236,11 +236,17 @@ parameters/wind_blast_oneshot/internal_active = false
 parameters/wind_blast_oneshot/request = 0
 
 [node name="GroundCheck" type="ShapeCast3D" parent="."]
-shape = SubResource("CylinderShape3D_pi0qx")
+shape = SubResource("CapsuleShape3D_bsc8g")
+margin = 0.1
 max_results = 1
 collision_mask = 3
 debug_shape_custom_color = Color(1, 0, 0, 1)
 script = ExtResource("12_pi0qx")
+
+[node name="RayCast3D" type="RayCast3D" parent="GroundCheck"]
+target_position = Vector3(0, -1.6, 0)
+collision_mask = 3
+debug_shape_custom_color = Color(1, 0, 0, 1)
 
 [node name="Health" type="Node" parent="."]
 script = ExtResource("7_s4lvk")
