@@ -22,7 +22,8 @@ extends ShapeCast3D
 var is_grounded: bool = false
 var ground_normal: Vector3 = Vector3.UP
 
-@onready var player: RigidBody3D = owner
+var player: RigidBody3D
+
 @onready var ray_cast_3d: RayCast3D = $RayCast3D
 
 

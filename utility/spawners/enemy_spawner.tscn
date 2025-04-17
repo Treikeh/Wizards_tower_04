@@ -1,0 +1,55 @@
+[gd_scene load_steps=13 format=3 uid="uid://dps470duoh3mj"]
+
+[ext_resource type="Script" uid="uid://cijwi6mdl201e" path="res://utility/spawners/enemy_spawner.gd" id="1_jtfmh"]
+[ext_resource type="Material" uid="uid://c4eykp21shtlp" path="res://common/materials/dev_grid_red.tres" id="2_8bgv2"]
+[ext_resource type="PackedScene" uid="uid://uvws4xru1kpl" path="res://entities/enemies/book_gnome/book_gnome.tscn" id="2_lu714"]
+[ext_resource type="PackedScene" uid="uid://bmdxr06ji3ymb" path="res://entities/enemies/living_armor/living_armor.tscn" id="3_sl554"]
+[ext_resource type="PackedScene" uid="uid://dirwqc7j3yvyf" path="res://entities/enemies/potion_thrower/potion_thrower.tscn" id="4_f0owo"]
+[ext_resource type="PackedScene" uid="uid://dtoewhbmg012w" path="res://entities/enemies/book_gnome_shelf/book_gnome_shelf.tscn" id="5_5avph"]
+[ext_resource type="PackedScene" uid="uid://cyrn3f3g0y8en" path="res://entities/enemies/flying_skull/flying_skull.tscn" id="6_p532n"]
+[ext_resource type="PackedScene" uid="uid://bir8q5f287gno" path="res://entities/enemies/lightning_summoner/lightning_summoner.tscn" id="7_jsdlg"]
+[ext_resource type="PackedScene" uid="uid://cif0unabf4u0h" path="res://entities/enemies/golem/golem.tscn" id="8_3r1p7"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_fwbjh"]
+height = 1.5
+radial_segments = 16
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_3t0rj"]
+top_radius = 0.1
+bottom_radius = 0.1
+height = 0.3
+radial_segments = 16
+rings = 0
+cap_top = false
+cap_bottom = false
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_5pgil"]
+top_radius = 0.0
+bottom_radius = 0.2
+height = 0.3
+radial_segments = 16
+rings = 0
+cap_top = false
+
+[node name="EnemySpawner" type="Node3D"]
+script = ExtResource("1_jtfmh")
+enemies = Array[PackedScene]([ExtResource("2_lu714"), ExtResource("3_sl554"), ExtResource("4_f0owo"), ExtResource("5_5avph"), ExtResource("6_p532n"), ExtResource("7_jsdlg"), ExtResource("8_3r1p7")])
+
+[node name="Mesh" type="MeshInstance3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 0)
+material_override = ExtResource("2_8bgv2")
+mesh = SubResource("CapsuleMesh_fwbjh")
+
+[node name="ArrowBody" type="MeshInstance3D" parent="Mesh"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, -0.6)
+material_override = ExtResource("2_8bgv2")
+mesh = SubResource("CylinderMesh_3t0rj")
+
+[node name="ArrowHead" type="MeshInstance3D" parent="Mesh/ArrowBody"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.96046e-08, 0.3, 0)
+material_override = ExtResource("2_8bgv2")
+mesh = SubResource("CylinderMesh_5pgil")
+
+[node name="SpawnTimer" type="Timer" parent="."]
+autostart = true

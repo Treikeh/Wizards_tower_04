@@ -8,6 +8,8 @@ extends RigidBody3D
 func _ready() -> void:
 	state_machine.switch(FALLING)
 	
+	ground_check.player = self
+	
 	#NOTE: This is stupid.
 	#TODO: Find a better solution.
 	$Health.current_health = Globals.player_health

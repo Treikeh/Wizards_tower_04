@@ -1,0 +1,89 @@
+[gd_scene load_steps=11 format=3 uid="uid://bxxfdo51niyll"]
+
+[ext_resource type="Script" uid="uid://cswqe7jibkemh" path="res://levels/level_arena_test/level_arena_test.gd" id="1_1p7l7"]
+[ext_resource type="Material" uid="uid://botmm8kkk1h67" path="res://common/materials/dev_grid_gray.tres" id="2_1p7l7"]
+[ext_resource type="PackedScene" uid="uid://i0u75nytwgqr" path="res://utility/spawners/player_spawner.tscn" id="3_1p7l7"]
+[ext_resource type="PackedScene" uid="uid://dps470duoh3mj" path="res://utility/spawners/enemy_spawner.tscn" id="4_kl7qb"]
+[ext_resource type="Script" uid="uid://c4vcmo4tqhcnh" path="res://utility/damage/damage_area_3d.gd" id="5_kel0c"]
+[ext_resource type="Resource" uid="uid://dwjunb6snuhfa" path="res://common/data/lava_damage.tres" id="6_jdj54"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_kl7qb"]
+sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+ground_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+
+[sub_resource type="Sky" id="Sky_616dd"]
+sky_material = SubResource("ProceduralSkyMaterial_kl7qb")
+
+[sub_resource type="Environment" id="Environment_kel0c"]
+background_mode = 2
+sky = SubResource("Sky_616dd")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_68ub5"]
+size = Vector3(8.7, 10.8, 7.2)
+
+[node name="Level3D" type="Node3D"]
+script = ExtResource("1_1p7l7")
+difficulty_growth = 0.1
+metadata/_custom_type_script = "uid://cu2peb35x88qt"
+
+[node name="UI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="DifficultyLabel" type="Label" parent="UI"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 5.0
+offset_top = 47.0
+offset_right = 152.0
+offset_bottom = 69.3333
+text = "Difficulty score: 1.0"
+
+[node name="DurationLabel" type="Label" parent="UI"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 8.0
+offset_top = 75.0
+offset_right = 155.0
+offset_bottom = 97.3333
+text = "Level duration: 1.0"
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_kel0c")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 10, 0)
+shadow_enabled = true
+
+[node name="Ground" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+use_collision = true
+size = Vector3(30, 1, 30)
+material = ExtResource("2_1p7l7")
+
+[node name="PlayerSpawner" parent="." instance=ExtResource("3_1p7l7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
+
+[node name="EnemySpawner" parent="." instance=ExtResource("4_kl7qb")]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 7.8, -9)
+
+[node name="DamageArea3D" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -8.9)
+collision_layer = 0
+collision_mask = 128
+script = ExtResource("5_kel0c")
+damage = ExtResource("6_jdj54")
+apply_over_time = true
+metadata/_custom_type_script = "uid://c4vcmo4tqhcnh"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DamageArea3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.9, 0)
+shape = SubResource("BoxShape3D_68ub5")
+debug_color = Color(1, 0, 0, 0.419608)
