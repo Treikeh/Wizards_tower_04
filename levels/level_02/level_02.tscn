@@ -102,7 +102,6 @@ material = ExtResource("4_bv1r0")
 
 [node name="LevelTranstionArea3D" parent="CSGCombiner3D/ExitDoorway" instance=ExtResource("5_gsl75")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)
-level_path = "res://levels/level_03/level_03.tscn"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="CSGCombiner3D/ExitDoorway/LevelTranstionArea3D"]
 shape = SubResource("BoxShape3D_biprn")

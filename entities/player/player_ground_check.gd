@@ -42,8 +42,8 @@ func _is_on_walkable_slope() -> bool:
 	if is_colliding():
 		# Move RayCast to ShapeCast collision point on the XZ plane (don't change height)
 		var col_pos: Vector3 = get_collision_point(0)
-		ray_cast_3d.global_position.x = col_pos.x
-		ray_cast_3d.global_position.z = col_pos.z
+		#ray_cast_3d.global_position.x = col_pos.x
+		#ray_cast_3d.global_position.z = col_pos.z
 		ground_normal = ray_cast_3d.get_collision_normal()
 		# Compare ground normal to upwards direction to get the slope angle
 		if ground_normal.angle_to(Vector3.UP) < deg_to_rad(max_slope_angle):

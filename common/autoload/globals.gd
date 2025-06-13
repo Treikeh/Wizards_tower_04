@@ -48,8 +48,8 @@ var previous_level: String = ""
 
 func load_next_level() -> void:
 	match rooms_cleared:
-		2: # Spawn "shop" room when 2 rooms are cleared
-			LevelManager.change_level("uid://d0wdststpnqjf")
+		#2: # Spawn "shop" room when 2 rooms are cleared
+		#	LevelManager.change_level("uid://d0wdststpnqjf")
 		5: # Spawn boss room when 2 rooms after the shop room are cleared.
 			# It's 5 since the shop room counts as a level which gets counted as a cleared level
 			LevelManager.change_level("uid://bghof87ud2kxr")

@@ -1,8 +1,13 @@
-[gd_scene load_steps=7 format=3 uid="uid://bghof87ud2kxr"]
+[gd_scene load_steps=13 format=3 uid="uid://bghof87ud2kxr"]
 
 [ext_resource type="Script" uid="uid://cu2peb35x88qt" path="res://levels/level_3d.gd" id="1_3jvkj"]
 [ext_resource type="PackedScene" uid="uid://i0u75nytwgqr" path="res://utility/spawners/player_spawner.tscn" id="2_ckysk"]
-[ext_resource type="Material" uid="uid://c4eykp21shtlp" path="res://common/materials/dev_grid_red.tres" id="3_ojt1p"]
+[ext_resource type="PackedScene" uid="uid://bdan64bohs08a" path="res://entities/interactables/sign/wooden_sign.tscn" id="3_lutmq"]
+[ext_resource type="Material" uid="uid://pwjimh5imhjl" path="res://common/materials/stone_brick_wall_01_m.tres" id="4_kmi7x"]
+[ext_resource type="Material" uid="uid://8qm7nxt6hftu" path="res://common/materials/wood_floor_01_m.tres" id="5_cn5p4"]
+[ext_resource type="PackedScene" uid="uid://di7vp8irr7xdl" path="res://utility/damage/damage_area_3d.tscn" id="6_ayspq"]
+[ext_resource type="Material" uid="uid://bvhhob5sjttf" path="res://common/materials/lava_01_m.tres" id="6_oy5bu"]
+[ext_resource type="Resource" uid="uid://dwjunb6snuhfa" path="res://common/data/lava_damage.tres" id="7_oy5bu"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ckysk"]
 sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
@@ -17,6 +22,9 @@ sky = SubResource("Sky_ojt1p")
 tonemap_mode = 2
 glow_enabled = true
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_vspnw"]
+size = Vector3(10, 2, 10)
+
 [node name="LevelBoss" type="Node3D"]
 script = ExtResource("1_3jvkj")
 metadata/_custom_type_script = "uid://cu2peb35x88qt"
@@ -24,15 +32,60 @@ metadata/_custom_type_script = "uid://cu2peb35x88qt"
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_3kvqf")
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 10, 0)
-shadow_enabled = true
-
 [node name="PlayerSpawner" parent="." instance=ExtResource("2_ckysk")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 3)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 23.3)
 
-[node name="CSGBox3D" type="CSGBox3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
-use_collision = true
+[node name="WoodenSign" parent="." instance=ExtResource("3_lutmq")]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -4.37114e-07, 0, 5)
+text = "Wow! You've finished the game"
+
+[node name="Floor" type="CSGCylinder3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0499993, 0)
+radius = 25.0
+height = 0.1
+sides = 64
+material = ExtResource("5_cn5p4")
+
+[node name="Hole" type="CSGBox3D" parent="Floor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.3, -3.9)
+operation = 2
 size = Vector3(10, 1, 10)
-material = ExtResource("3_ojt1p")
+material = ExtResource("4_kmi7x")
+
+[node name="CSGCombiner3D" type="CSGCombiner3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -8.7, -3.8)
+use_collision = true
+
+[node name="Room" type="CSGCylinder3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 16.65, 3.8)
+flip_faces = true
+radius = 20.0
+height = 16.1
+sides = 64
+material = ExtResource("4_kmi7x")
+
+[node name="Hole" type="CSGBox3D" parent="CSGCombiner3D"]
+flip_faces = true
+size = Vector3(10, 18.2, 10)
+material = ExtResource("4_kmi7x")
+
+[node name="Add" type="Node3D" parent="CSGCombiner3D"]
+
+[node name="Floor" type="CSGBox3D" parent="CSGCombiner3D/Add"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -8.6, 0)
+size = Vector3(10, 1, 10)
+material = ExtResource("6_oy5bu")
+
+[node name="DamageArea3D" parent="CSGCombiner3D/Add/Floor" instance=ExtResource("6_ayspq")]
+damage = ExtResource("7_oy5bu")
+apply_over_time = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CSGCombiner3D/Add/Floor/DamageArea3D"]
+shape = SubResource("BoxShape3D_vspnw")
+debug_color = Color(1, 0, 0, 0.419608)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10.65, 26.05)
+flip_faces = true
+size = Vector3(4, 4.1, 5.1)
+material = ExtResource("4_kmi7x")

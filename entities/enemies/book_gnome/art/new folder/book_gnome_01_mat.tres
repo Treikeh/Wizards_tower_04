@@ -1,0 +1,10 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://ygijv6u4pvo2"]
+
+[ext_resource type="Texture2D" uid="uid://dhulse6jutd0w" path="res://entities/enemies/book_gnome/art/new folder/book_gnome_01_bc.png" id="1_mnort"]
+
+[resource]
+transparency = 2
+alpha_scissor_threshold = 0.5
+alpha_antialiasing_mode = 0
+albedo_texture = ExtResource("1_mnort")
+texture_filter = 2

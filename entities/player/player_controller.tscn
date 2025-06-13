@@ -84,7 +84,7 @@ nodes/wind_blast_oneshot/position = Vector2(-360, 20)
 node_connections = [&"fireball_oneshot", 0, &"rock_wall_oneshot", &"fireball_oneshot", 1, &"Fireball", &"output", 0, &"fireball_oneshot", &"reset_idle_blend", 0, &"RESET", &"reset_idle_blend", 1, &"Idle", &"rock_wall_oneshot", 0, &"wind_blast_oneshot", &"rock_wall_oneshot", 1, &"Rock_wall", &"wind_blast_oneshot", 0, &"reset_idle_blend", &"wind_blast_oneshot", 1, &"Wind_blast"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_bsc8g"]
-radius = 0.3
+radius = 0.1
 height = 1.0
 
 [node name="RigidbodyPlayer" type="RigidBody3D" node_paths=PackedStringArray("camera", "animation_tree", "orientation", "head", "interact_ray", "spell_manager", "ground_check", "footsteps_audio_player", "jump_audio_player", "land_audio_player") groups=["player"]]
@@ -195,7 +195,7 @@ bones/39/scale = Vector3(1, 1, 1)
 bones/42/scale = Vector3(1, 1, 1)
 
 [node name="EqL" type="BoneAttachment3D" parent="Orientation/Head/viewmodel_01_sk/Skeleton3D" index="1"]
-transform = Transform3D(-0.865853, 0.498945, 0.0367739, 0.470811, 0.787753, 0.397218, 0.169221, 0.361246, -0.916987, -0.411356, -0.354322, -0.418709)
+transform = Transform3D(-0.865854, 0.498944, 0.0367749, 0.470812, 0.787756, 0.397211, 0.169217, 0.361241, -0.91699, -0.411322, -0.354724, -0.418709)
 bone_name = "hand_eq_L.001"
 bone_idx = 6
 
@@ -217,7 +217,7 @@ texture_filter = 2
 texture = ExtResource("10_eh1tp")
 
 [node name="EqR" type="BoneAttachment3D" parent="Orientation/Head/viewmodel_01_sk/Skeleton3D" index="2"]
-transform = Transform3D(0.209123, -0.977289, 0.034249, 0.827866, 0.15829, -0.538128, 0.520486, 0.140888, 0.842167, 0.412691, -0.364126, -0.437656)
+transform = Transform3D(0.207978, -0.97753, 0.034355, 0.82802, 0.157254, -0.538195, 0.520699, 0.14038, 0.84212, 0.412703, -0.36424, -0.437663)
 bone_name = "hand_eq_R.001"
 bone_idx = 27
 
